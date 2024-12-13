@@ -3,8 +3,7 @@ class WorkoutsController < ApplicationController
     weight      = params[:weight]
     kcal_intake = params[:kcal_intake]
 
-    workouts  = WorkOut.order("RAND()").limit(10)
-    data_list = workouts.workouts_data(weight: weight, kcal_intake: kcal_intake)
+    data_list = WorkOut.random10.workouts_data(weight: weight, kcal_intake: kcal_intake)
 
     render json: data_list
   end
