@@ -1,8 +1,11 @@
+import './builds/build.css'
+
 function App() {
   return (
     <>
       <div>
-        <p>こんにちは</p>
+        <p className="">こんにちは</p>
+        <p className=''>react app</p>
       </div>
     </>
   )

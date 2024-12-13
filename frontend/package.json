@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "css:watch": "tailwindcss -i ./src/index.css -o ./src/builds/build.css --watch --minify",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
