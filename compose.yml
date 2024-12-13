@@ -1,0 +1,40 @@
+volumes:
+  db_data:
+services:
+  db:
+    image: arm64v8/mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: $mysql_root_pass
+    volumes:
+      - db_data:/var/lib/mysql
+  back:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/rails_app
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    depends_on:
+      - db
+    environment:
+      MYSQL_ROOT_PASS: $mysql_root_pass
+      DB_HOST: db
+    tty: true
+    stdin_open: true
+  front:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/react_app
+    depends_on:
+      - back
+      - db
+    stdin_open: true
+    command: yarn dev --host
