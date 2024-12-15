@@ -1,6 +1,8 @@
+import WorkoutModal from "./WorkoutModal";
+
 /* eslint-disable react/prop-types */
 function WorkOutCard(props) {
-  const {workout} = props;
+  const {workout, unburnedCalorie, setUnburnedCalorie} = props;
 
   return (
     <>
@@ -14,7 +16,11 @@ function WorkOutCard(props) {
             </p>
 
             <div className="card-actions justify-end">
-              <button className="btn btn-primary">WorkOut!!</button>
+              <WorkoutModal
+                workout={workout}
+                unburnedCalorie={unburnedCalorie}
+                setUnburnedCalorie={setUnburnedCalorie}
+              />
             </div>
           </div>
         </div>

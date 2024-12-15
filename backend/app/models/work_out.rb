@@ -2,7 +2,7 @@ class WorkOut < ApplicationRecord
   validates :name, presence: true
   validates :mets, presence: true
 
-  scope :random10, -> {order("RAND()").limit(10)}
+  scope :random, -> {order("RAND()")}
 
   # [{id, name, 1時間あたりの消費カロリー, 必要な運動量}, {...} }形式の配列を返す
   # 運動からランダムに10件選択して返す
