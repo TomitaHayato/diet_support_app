@@ -6,8 +6,8 @@
 import { useEffect, useState } from 'react'
 import '../builds/build.css'
 import axiosCunstom from '../utils/axiosCustoms';
-import WorkOutCard from '../components/WorkOutCard';
-import CalorieForm from '../components/CalorieForm';
+import WorkOutCard from '../components/top/WorkOutCard';
+import CalorieForm from '../components/top/CalorieForm';
 import { useLocation } from 'react-router-dom';
 
 function App() {

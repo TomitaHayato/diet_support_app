@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom"
 function WorkOutCard(props) {
   const {weight, workout, intakedCalorie} = props;
 
-  // Workoutページにデータを渡す
   const navi = useNavigate();
 
+  // Workoutページに遷移
   function moveWorkoutPage() {
     navi(`/workout/${workout.id}`, {state: {
       workout: workout,
-      intakedCalorie: intakedCalorie,
       weight: weight,
+      intakedCalorie: intakedCalorie,
     } })
   }
 
@@ -26,16 +26,6 @@ function WorkOutCard(props) {
               <span className="text-info font-semibold text-lg">{workout.required_exercise_time}</span>
               分
             </p>
-
-            {/* <div className="card-actions justify-end">
-              <WorkoutModal
-                workout={workout}
-                unburnedCalorie={unburnedCalorie}
-                setUnburnedCalorie={setUnburnedCalorie}
-                passedTime={passedTime}
-                setPassedTime={setPassedTime}
-              />
-            </div> */}
 
             <div className="card-actions justify-end">
               <button className="btn" onClick={moveWorkoutPage}>workout</button>
