@@ -9,6 +9,7 @@ import axiosCunstom from '../utils/axiosCustoms';
 import WorkOutCard from '../components/top/WorkOutCard';
 import CalorieForm from '../components/top/CalorieForm';
 import { useLocation } from 'react-router-dom';
+import SideMenu from '../components/general/SideMenu';
 
 function App() {
   // ページ遷移時の処理
@@ -23,7 +24,7 @@ function App() {
     const res = await axiosCunstom.get("/work_outs", {
       params: {
         weight:      weight,
-        kcal_intake: intakedCalorie
+        kcal_intake: intakedCalorie,
       }
     });
     setWorkoutsObj(res.data);
@@ -38,32 +39,40 @@ function App() {
 
   return (
     <>
-      <div className='p-16'>
-        <div className='mb-8'>
-          <CalorieForm
-            weight={weight}
-            setWeight={setWeight}
-            intakedCalorie={intakedCalorie}
-            setIntakedCalorie={setIntakedCalorie}
-            fetchWorkoutsData={fetchWorkoutsData}
-          />
-        </div>
+      <div className='p-16 flex min-h-screen'>
+        {/* フォーム/運動情報 */}
+        <div className='basis-9/12'>
+          <div className='mb-8'>
+            <CalorieForm
+              weight={weight}
+              setWeight={setWeight}
+              intakedCalorie={intakedCalorie}
+              setIntakedCalorie={setIntakedCalorie}
+              fetchWorkoutsData={fetchWorkoutsData}
+            />
+          </div>
 
-        <div className=''>
-          <div className='grid grid-cols-3 gap-8'>
-            {workoutsObj?.map((workout) => {
-              return (
-                <div key={workout.id}>
-                  <WorkOutCard
-                    weight={weight}
-                    workout={workout}
-                    intakedCalorie={intakedCalorie}
-                  />
-                </div>
-              )
-            })}
+          <div>
+            <div className='grid grid-cols-3 gap-8'>
+              {workoutsObj?.map((workout) => {
+                return (
+                  <div key={workout.id}>
+                    <WorkOutCard
+                      weight={weight}
+                      workout={workout}
+                      intakedCalorie={intakedCalorie}
+                    />
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
+
+        <div className="divider divider-horizontal"></div>
+
+        {/* メニュー */}
+        <SideMenu />
       </div>
     </>
   )
