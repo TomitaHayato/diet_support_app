@@ -6,7 +6,7 @@ function SideMenu() {
       <div className=''>
         {/* ログインフォーム */}
         <div>
-          <p>ログイン</p>
+          <p className="text-xl text-center font-semibold mb-3">ログイン</p>
           <LoginForm />
         </div>
       </div>

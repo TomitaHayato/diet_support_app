@@ -3,5 +3,5 @@ class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
 
   #[TODO] 別途CSRF対策を実装する必要あり
-  skip_before_action :verify_authenticity_token
+  #skip_before_action :verify_authenticity_token
 end
