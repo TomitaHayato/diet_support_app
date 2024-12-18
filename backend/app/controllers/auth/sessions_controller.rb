@@ -1,8 +1,4 @@
-# ログインユーザーの管理
-class Auth::SessionsController < ApplicationController
-  def index
-    login_data = current_user ? { is_login: true, data: current_user } : { is_login: false, message: "ユーザーは存在しません" }
-    
-    render json: login_data
-  end
+class Auth::SessionsController < DeviseTokenAuth::SessionsController
+  # パラメータの自動ラップを無効
+  wrap_parameters format: []
 end

@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   # devise_token_authによる認証用のルーティング
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
-    registrations: 'auth/registrations'
+    registrations: 'auth/registrations',
+    sessions: 'auth/sessions'
   }
-  
+
   namespace :auth do
-    resources :sessions, only: %i[index]
+    resources :get_sessions, only: %i[index]
   end
 
   resources :work_outs, only: %i[index]

@@ -1,15 +1,20 @@
 /* eslint-disable react/prop-types */
+import { isEmptyObj } from "../../utils/objectControl";
 import AuthForms from "./AuthForms";
 import LogoutForm from "./LogoutForm";
 
 function SideMenu(props) {
   const {userInfo, setUserInfo} = props;
 
-  const renderingContent = userInfo.isLogin ? <LogoutForm /> : <AuthForms setUserInfo={setUserInfo}/>
+  let renderingContent = ""
+
+  if (!isEmptyObj(userInfo)) {
+    renderingContent = userInfo.isLogin ? <LogoutForm setUserInfo={setUserInfo}/> : <AuthForms setUserInfo={setUserInfo}/>
+  }
 
   return (
     <>
-      <div className=''>
+      <div className="basis-3/12">
         {renderingContent}
       </div>
     </>

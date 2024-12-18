@@ -11,6 +11,7 @@ import CalorieForm from '../components/top/CalorieForm';
 import { useLocation } from 'react-router-dom';
 import SideMenu from '../components/general/SideMenu';
 import { getUser } from '../utils/auth';
+import { isEmptyObj } from '../utils/objectControl';
 
 function App() {
   // ページ遷移時の処理
@@ -30,10 +31,6 @@ function App() {
       }
     });
     setWorkoutsObj(res.data);
-  }
-
-  function isEmptyObj(obj) {
-    return Object.keys(obj).length === 0
   }
 
   const firstSetUserInfo = async () => {
