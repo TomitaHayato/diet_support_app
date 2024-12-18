@@ -3,7 +3,7 @@
 // - 各運動と必要な運動時間をRails apiから取得して表示
 // - 各運動データのボタンから、運動管理画面に遷移(state: {体重, 摂取カロリー, 運動データ})
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import '../builds/build.css'
 import axiosCunstom from '../utils/axiosCustoms';
 import WorkOutCard from '../components/top/WorkOutCard';
@@ -23,15 +23,17 @@ function App() {
   const [userInfo      , setUserInfo      ] = useState({});
 
   //クリック時に、apiから運動データを取得する処理
-  const fetchWorkoutsData = async () => {
-    const res = await axiosCunstom.get("/work_outs", {
-      params: {
-        weight:      weight,
-        kcal_intake: intakedCalorie,
-      }
-    });
-    setWorkoutsObj(res.data);
-  }
+  const fetchWorkoutsData = useCallback(
+    async () => {
+      const res = await axiosCunstom.get("/work_outs", {
+        params: {
+          weight:      weight,
+          kcal_intake: intakedCalorie,
+        }
+      });
+      setWorkoutsObj(res.data);
+    }, [intakedCalorie, weight]
+  )
 
   const firstSetUserInfo = async () => {
     const res = await getUser();
@@ -46,12 +48,12 @@ function App() {
     }
   }, [userInfo])
 
-  // ページ遷移した時、体重データと摂取カロリーデータを受け取っているならfetchWorkoutsData
+  // ページ遷移した時、遷移元から体重・カロリーを受け取っているならfetchWorkoutsData
   useEffect(() => {
     if (location.state?.weight && location.state?.intakedCalorie) {
       fetchWorkoutsData();
     }
-  }, [location])
+  }, [fetchWorkoutsData, location])
 
   return (
     <>
