@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { signIn } from "../../utils/auth";
-import SignupModal from "./SignupModal";
+import { getUser, signIn } from "../../utils/auth";
 import Cookies from "js-cookie";
 
-function LoginForm() {
+function LoginForm(props) {
+  // eslint-disable-next-line react/prop-types
+  const {setUserInfo} = props;
+
   const [email   , setEmail   ] = useState("");
   const [password, setPassword] = useState(""); 
 
@@ -14,6 +16,10 @@ function LoginForm() {
       Cookies.set("_access_token", res.headers["access-token"]);
       Cookies.set("_client"      , res.headers["client"]);
       Cookies.set("_uid"         , res.headers["uid"]);
+      console.log(res.data)
+      // ユーザー情報を取得
+      const resUser = await getUser();
+      setUserInfo(resUser.data);
     } catch(error) {
       console.log(error);
     }
@@ -29,7 +35,8 @@ function LoginForm() {
       >
         <label className="input input-bordered flex items-center gap-2 mb-3">
           <i className="i-lucide-mail" />
-          <input type="email" className="grow" placeholder="Email" value={email}
+          <input type="email" className="grow" placeholder="Email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
@@ -43,10 +50,6 @@ function LoginForm() {
 
         <input type="submit" className="btn btn-outline btn-primary w-full" />
       </form>
-
-      <div className="divider text-xs text-gray-500 font-medium my-3">OR</div>
-      
-      <SignupModal />
     </>
   )
 }

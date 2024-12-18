@@ -10,14 +10,16 @@ import WorkOutCard from '../components/top/WorkOutCard';
 import CalorieForm from '../components/top/CalorieForm';
 import { useLocation } from 'react-router-dom';
 import SideMenu from '../components/general/SideMenu';
+import { getUser } from '../utils/auth';
 
 function App() {
   // ページ遷移時の処理
   const location = useLocation();
 
-  const [weight         , setWeight         ] = useState(location.state?.weight || 50);
-  const [intakedCalorie , setIntakedCalorie ] = useState(location.state?.intakedCalorie || 0);
-  const [workoutsObj    , setWorkoutsObj    ] = useState([]);
+  const [weight        , setWeight        ] = useState(location.state?.weight || 50);
+  const [intakedCalorie, setIntakedCalorie] = useState(location.state?.intakedCalorie || 0);
+  const [workoutsObj   , setWorkoutsObj   ] = useState([]);
+  const [userInfo      , setUserInfo      ] = useState({});
 
   //クリック時に、apiから運動データを取得する処理
   const fetchWorkoutsData = async () => {
@@ -29,6 +31,23 @@ function App() {
     });
     setWorkoutsObj(res.data);
   }
+
+  function isEmptyObj(obj) {
+    return Object.keys(obj).length === 0
+  }
+
+  const firstSetUserInfo = async () => {
+    const res = await getUser();
+    console.log("ユーザーの認証情報を取得");
+    setUserInfo(res.data)
+  }
+
+  // ユーザーの認証情報を取得
+  useEffect(() => {
+    if(isEmptyObj(userInfo)) {
+      firstSetUserInfo();
+    }
+  }, [userInfo])
 
   // ページ遷移した時、体重データと摂取カロリーデータを受け取っているならfetchWorkoutsData
   useEffect(() => {
@@ -72,7 +91,10 @@ function App() {
         <div className="divider divider-horizontal"></div>
 
         {/* メニュー */}
-        <SideMenu />
+        <SideMenu
+          userInfo={userInfo}
+          setUserInfo={setUserInfo}
+        />
       </div>
     </>
   )

@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { signUp } from "../../utils/auth";
+import { getUser, signUp } from "../../utils/auth";
 import Cookies from "js-cookie";
 
-function SignupModal() {
+function SignupModal(props) {
+  // eslint-disable-next-line react/prop-types
+  const {setUserInfo} = props;
+
   const [name                , setName                ] = useState("");
   const [email               , setEmail               ] = useState("");
   const [password            , setPassword            ] = useState("");
@@ -15,7 +18,11 @@ function SignupModal() {
       Cookies.set("_access_token", res.headers["access-token"]);
       Cookies.set("_client"      , res.headers["client"]);
       Cookies.set("_uid"         , res.headers["uid"]);
-      
+      console.log('登録完了')
+      console.log(res.data);
+      //ユーザー情報を取得
+      const resUser = await getUser();
+      setUserInfo(resUser.data);
     } catch(error) {
       alert(error);
     }
