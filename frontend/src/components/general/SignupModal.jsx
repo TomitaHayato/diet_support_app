@@ -1,8 +1,33 @@
+import { useState } from "react";
+import { signUp } from "../../utils/auth";
+import Cookies from "js-cookie";
+
 function SignupModal() {
+  const [name                , setName                ] = useState("");
+  const [email               , setEmail               ] = useState("");
+  const [password            , setPassword            ] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+
+  const register = async () => {
+    try {
+      const params = {name, email, password, passwordConfirmation}
+      const res = await signUp(params);
+      Cookies.set("_access_token", res.headers["access-token"]);
+      Cookies.set("_client"      , res.headers["client"]);
+      Cookies.set("_uid"         , res.headers["uid"]);
+      
+    } catch(error) {
+      alert(error);
+    }
+  }
+
   return (
     <>
       <div>
-        <button className="btn btn-outline btn-accent w-full" onClick={()=>document.getElementById('signup-form').showModal()}>sign up</button>
+        <p className="text-sm text-center mb-2">アカウント未登録の方はこちら</p>
+        <button className="btn btn-outline btn-accent w-full" onClick={()=>document.getElementById('signup-form').showModal()}>
+          アカウント新規作成
+        </button>
 
         <dialog id="signup-form" className="modal">
           <div className="modal-box">
@@ -13,33 +38,51 @@ function SignupModal() {
 
             {/* フォーム */}
             <h2 className="text-center text-xl mb-3">アカウント新規作成</h2>
-            <form action="">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                register();
+              }}
+            >
               <label className="input input-bordered flex items-center gap-2 mb-8">
                 <i className="i-uiw-user"/>
-                <input type="text" className="grow" placeholder="もちもち太郎" />
+                <input type="text" className="grow" placeholder="もちもち太郎"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
               </label>
 
-              <label className="input input-bordered flex items-center gap-2 mb-8">
+              {/* <label className="input input-bordered flex items-center gap-2 mb-8">
                 <p className="text-gray-500">kg</p>
                 <input type="number" className="grow" placeholder="50" />
-              </label>
+              </label> */}
 
               <label className="input input-bordered flex items-center gap-2 mb-8">
                 <i className="i-lucide-mail"/>
-                <input type="email" className="grow" placeholder="user@example.com" />
+                <input type="email" className="grow" placeholder="user@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </label>
 
               <label className="input input-bordered flex items-center gap-2 mb-8">
                 <i className="i-lucide-key-round"/>
-                <input type="password" className="grow" placeholder="Password" />
+                <input type="password" className="grow" placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </label>
 
               <label className="input input-bordered flex items-center gap-2 mb-8">
+
                 <i className="i-lucide-key-round"/>
-                <input type="password" className="grow" placeholder="Password Confirmation" />
+                <input type="password" className="grow" placeholder="Password Confirmation"
+                  value={passwordConfirmation}
+                  onChange={(e) => setPasswordConfirmation(e.target.value)}
+                />
               </label>
 
-              <input type="submit" className="btn btn-accent btn-outline w-full" />
+              <input type="submit" className="btn btn-accent btn-outline w-full"/>
             </form>
           </div>
 
