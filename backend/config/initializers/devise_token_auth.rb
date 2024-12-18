@@ -1,66 +1,62 @@
 # frozen_string_literal: true
 
 DeviseTokenAuth.setup do |config|
-  # By default the authorization headers will change after each request. The
-  # client is responsible for keeping track of the changing tokens. Change
-  # this to false to prevent the Authorization header from changing after
-  # each request.
-  # config.change_headers_on_each_request = true
+  # デフォルトでは、認証ヘッダーはリクエストごとに変更されます。
+  # クライアントはトークンの変更を追跡する責任があります。
+  # 各リクエスト後にAuthorizationヘッダーが変更されないようにするには、falseに設定します。
+  config.change_headers_on_each_request = false
 
-  # By default, users will need to re-authenticate after 2 weeks. This setting
-  # determines how long tokens will remain valid after they are issued.
+  # デフォルトでは、ユーザーは2週間後に再認証が必要になります。
+  # この設定は、トークンが発行された後の有効期間を決定します。
   # config.token_lifespan = 2.weeks
 
-  # Limiting the token_cost to just 4 in testing will increase the performance of
-  # your test suite dramatically. The possible cost value is within range from 4
-  # to 31. It is recommended to not use a value more than 10 in other environments.
+  # テスト環境ではtoken_costを4に制限することで、テストスイートのパフォーマンスが大幅に向上します。
+  # 使用可能な値は4から31の範囲内です。他の環境では10を超えない値を使用することが推奨されます。
   config.token_cost = Rails.env.test? ? 4 : 10
 
-  # Sets the max number of concurrent devices per user, which is 10 by default.
-  # After this limit is reached, the oldest tokens will be removed.
+  # ユーザーごとの同時デバイス数の上限を設定します。デフォルトは10です。
+  # この制限を超えると、最も古いトークンが削除されます。
   # config.max_number_of_devices = 10
 
-  # Sometimes it's necessary to make several requests to the API at the same
-  # time. In this case, each request in the batch will need to share the same
-  # auth token. This setting determines how far apart the requests can be while
-  # still using the same auth token.
+  # APIに対して同時に複数のリクエストを行う必要がある場合があります。
+  # この場合、バッチ内の各リクエストは同じ認証トークンを共有する必要があります。
+  # この設定は、同じ認証トークンを使用できるリクエストの間隔を決定します。
   # config.batch_request_buffer_throttle = 5.seconds
 
-  # This route will be the prefix for all oauth2 redirect callbacks. For
-  # example, using the default '/omniauth', the github oauth2 provider will
-  # redirect successful authentications to '/omniauth/github/callback'
+  # このルートはすべてのoauth2リダイレクトコールバックのプレフィックスになります。
+  # 例えば、デフォルトの"/omniauth"を使用すると、GitHubのoauth2プロバイダーは
+  # 認証成功後に"/omniauth/github/callback"にリダイレクトします。
   # config.omniauth_prefix = "/omniauth"
 
-  # By default sending current password is not needed for the password update.
-  # Uncomment to enforce current_password param to be checked before all
-  # attribute updates. Set it to :password if you want it to be checked only if
-  # password is updated.
+  # デフォルトでは、パスワード更新時に現在のパスワードを送信する必要はありません。
+  # current_passwordパラメータを確認するように強制するには、コメントを外してください。
+  # パスワードが更新される場合のみ確認する場合は、:passwordに設定します。
   # config.check_current_password_before_update = :attributes
 
-  # By default we will use callbacks for single omniauth.
-  # It depends on fields like email, provider and uid.
+  # デフォルトでは、単一のomniauthにコールバックを使用します。
+  # これは、email、provider、uidといったフィールドに依存します。
   # config.default_callbacks = true
 
-  # Makes it possible to change the headers names
-  # config.headers_names = {
-  #   :'authorization' => 'Authorization',
-  #   :'access-token' => 'access-token',
-  #   :'client' => 'client',
-  #   :'expiry' => 'expiry',
-  #   :'uid' => 'uid',
-  #   :'token-type' => 'token-type'
-  # }
+  # ヘッダー名を変更可能にします。
+  config.headers_names = {
+    :'authorization' => 'Authorization',
+    :'access-token' => 'access-token',
+    :'client' => 'client',
+    :'expiry' => 'expiry',
+    :'uid' => 'uid',
+    :'token-type' => 'token-type'
+  }
 
-  # Makes it possible to use custom uid column
+  # カスタムuidカラムを使用可能にします。
   # config.other_uid = "foo"
 
-  # By default, only Bearer Token authentication is implemented out of the box.
-  # If, however, you wish to integrate with legacy Devise authentication, you can
-  # do so by enabling this flag. NOTE: This feature is highly experimental!
+  # デフォルトでは、Bearerトークン認証のみが標準で実装されています。
+  # ただし、古いDevise認証と統合したい場合は、このフラグを有効にすることができます。
+  # 注意: この機能は非常に実験的です！
   # config.enable_standard_devise_support = false
 
-  # By default DeviseTokenAuth will not send confirmation email, even when including
-  # devise confirmable module. If you want to use devise confirmable module and
-  # send email, set it to true. (This is a setting for compatibility)
+  # デフォルトでは、devise confirmableモジュールを含めた場合でも確認メールは送信されません。
+  # devise confirmableモジュールを使用してメールを送信したい場合は、trueに設定してください。
+  # (互換性のための設定です)
   # config.send_confirmation_email = true
 end
