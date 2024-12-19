@@ -37,7 +37,6 @@ function App() {
 
   const firstSetUserInfo = async () => {
     const res = await getUser();
-    console.log("ユーザーの認証情報を取得");
     setUserInfo(res.data)
   }
 
@@ -46,6 +45,7 @@ function App() {
     if(isEmptyObj(userInfo)) {
       firstSetUserInfo();
     }
+    console.log('GETリクエスト！！')
   }, [userInfo])
 
   // ページ遷移した時、遷移元から体重・カロリーを受け取っているならfetchWorkoutsData
@@ -79,8 +79,6 @@ function App() {
                       weight={weight}
                       workout={workout}
                       intakedCalorie={intakedCalorie}
-                      userInfo={userInfo}
-                      setUserInfo={setUserInfo}
                     />
                   </div>
                 )

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 
 /* eslint-disable react/prop-types */
 function WorkOutCard(props) {
-  const {weight, workout, intakedCalorie, userInfo} = props;
+  const {weight, workout, intakedCalorie} = props;
 
   const navi = useNavigate();
 
@@ -13,7 +13,6 @@ function WorkOutCard(props) {
         workout:        workout,
         weight:         weight,
         intakedCalorie: intakedCalorie,
-        userInfoObj:    userInfo,
       }
     });
   }

@@ -7,13 +7,28 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import WorkoutCount from "../components/workout/WorkoutCount";
 import SideMenu from "../components/general/SideMenu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getUser } from "../utils/auth";
+import { isEmptyObj } from "../utils/objectControl";
 
 function Workout() {
   const location = useLocation();
-  const {workout, intakedCalorie, weight, userInfoObj}  = location.state;
+  const {workout, intakedCalorie, weight}  = location.state;
 
-  const [userInfo, setUserInfo] = useState(userInfoObj);
+  const [userInfo, setUserInfo] = useState({});
+
+  // ユーザーの認証情報を取得
+  const firstSetUserInfo = async () => {
+    const res = await getUser();
+    console.log("ユーザーの認証情報を取得");
+    setUserInfo(res.data)
+  }
+  
+  useEffect(() => {
+    if(isEmptyObj(userInfo)) {
+      firstSetUserInfo();
+    }
+  }, [userInfo])
 
   //1秒あたりに消費するカロリー
   const burn_cal_per_second = workout.burned_kcal / 3600;

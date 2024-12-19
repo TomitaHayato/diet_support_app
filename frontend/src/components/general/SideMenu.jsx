@@ -6,7 +6,7 @@ import LogoutForm from "./LogoutForm";
 function SideMenu(props) {
   const {userInfo, setUserInfo} = props;
 
-  let renderingContent = ""
+  let renderingContent = "";
 
   if (!isEmptyObj(userInfo)) {
     renderingContent = userInfo.isLogin ? <LogoutForm setUserInfo={setUserInfo}/> : <AuthForms setUserInfo={setUserInfo}/>
