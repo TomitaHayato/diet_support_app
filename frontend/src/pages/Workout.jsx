@@ -7,29 +7,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import WorkoutCount from "../components/workout/WorkoutCount";
 import SideMenu from "../components/general/SideMenu";
-import { useCallback, useContext, useEffect } from "react";
-import { getUser } from "../utils/auth";
-import { isEmptyObj } from "../utils/objectControl";
-import AuthContext from "../Contexts/AuthContext";
 
 function Workout() {
   const location = useLocation();
   const {workout, intakedCalorie, weight}  = location.state;
-  const {authInfo, setAuthInfo} = useContext(AuthContext);
-
-  // ユーザーの認証情報を取得
-  const firstSetUserInfo = useCallback(
-    async () => {
-      const res = await getUser();
-      setAuthInfo(res.data)
-    }, [setAuthInfo]
-  )
-
-  useEffect(() => {
-    if(isEmptyObj(authInfo)) {
-      firstSetUserInfo();
-    }
-  }, [authInfo, firstSetUserInfo])
 
   //1秒あたりに消費するカロリー
   const burn_cal_per_second = workout.burned_kcal / 3600;

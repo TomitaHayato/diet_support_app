@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useContext } from "react";
 import { isEmptyObj } from "../../utils/objectControl";
 import AuthForms from "./AuthForms";

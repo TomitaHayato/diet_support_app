@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useContext } from "react";
 import { logout } from "../../utils/auth";
 import AuthContext from "../../Contexts/AuthContext";

@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 import AuthContext from "../../Contexts/AuthContext";
 
 function SignupModal() {
-  // eslint-disable-next-line react/prop-types
   const {setAuthInfo} = useContext(AuthContext);
 
   const [name                , setName                ] = useState("");
