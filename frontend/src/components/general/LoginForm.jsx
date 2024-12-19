@@ -1,25 +1,25 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { getUser, signIn } from "../../utils/auth";
 import Cookies from "js-cookie";
+import AuthContext from "../../Contexts/AuthContext";
 
-function LoginForm(props) {
-  // eslint-disable-next-line react/prop-types
-  const {setUserInfo} = props;
+function LoginForm() {
+  const {setAuthInfo} = useContext(AuthContext);
 
   const [email   , setEmail   ] = useState("");
   const [password, setPassword] = useState(""); 
 
   const login = async() => {
     try {
+      //ログイン処理
       const params = { email, password }
       const res = await signIn(params);
       Cookies.set("_access_token", res.headers["access-token"]);
       Cookies.set("_client"      , res.headers["client"]);
       Cookies.set("_uid"         , res.headers["uid"]);
-      console.log(res.data)
       // ユーザー情報を取得
       const resUser = await getUser();
-      setUserInfo(resUser.data);
+      setAuthInfo(resUser.data);
     } catch(error) {
       console.log(error);
     }

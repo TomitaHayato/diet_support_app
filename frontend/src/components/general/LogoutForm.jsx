@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
+import { useContext } from "react";
 import { logout } from "../../utils/auth";
+import AuthContext from "../../Contexts/AuthContext";
 
-function LogoutForm(props) {
-  const {setUserInfo} = props;
+function LogoutForm() {
+  const {setAuthInfo} = useContext(AuthContext);
 
   const signOut = async () => {
     try {
-      const res = await logout();
-      console.log(res.data);
-      setUserInfo({});
+      await logout();
+      console.log('ログアウトしました')
+      setAuthInfo({});
     } catch(e) {
       alert(e);
     }

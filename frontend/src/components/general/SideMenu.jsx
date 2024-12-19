@@ -1,15 +1,17 @@
 /* eslint-disable react/prop-types */
+import { useContext } from "react";
 import { isEmptyObj } from "../../utils/objectControl";
 import AuthForms from "./AuthForms";
 import LogoutForm from "./LogoutForm";
+import AuthContext from "../../Contexts/AuthContext";
 
-function SideMenu(props) {
-  const {userInfo, setUserInfo} = props;
+function SideMenu() {
+  const {authInfo} = useContext(AuthContext);
 
   let renderingContent = "";
 
-  if (!isEmptyObj(userInfo)) {
-    renderingContent = userInfo.isLogin ? <LogoutForm setUserInfo={setUserInfo}/> : <AuthForms setUserInfo={setUserInfo}/>
+  if (!isEmptyObj(authInfo)) {
+    renderingContent = authInfo.isLogin ? <LogoutForm/> : <AuthForms/>
   }
 
   return (

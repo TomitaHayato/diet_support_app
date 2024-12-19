@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { getUser, signUp } from "../../utils/auth";
 import Cookies from "js-cookie";
+import AuthContext from "../../Contexts/AuthContext";
 
-function SignupModal(props) {
+function SignupModal() {
   // eslint-disable-next-line react/prop-types
-  const {setUserInfo} = props;
+  const {setAuthInfo} = useContext(AuthContext);
 
   const [name                , setName                ] = useState("");
   const [email               , setEmail               ] = useState("");
@@ -22,7 +23,7 @@ function SignupModal(props) {
       console.log(res.data);
       //ユーザー情報を取得
       const resUser = await getUser();
-      setUserInfo(resUser.data);
+      setAuthInfo(resUser.data);
     } catch(error) {
       alert(error);
     }

@@ -7,28 +7,29 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import WorkoutCount from "../components/workout/WorkoutCount";
 import SideMenu from "../components/general/SideMenu";
-import { useEffect, useState } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { getUser } from "../utils/auth";
 import { isEmptyObj } from "../utils/objectControl";
+import AuthContext from "../Contexts/AuthContext";
 
 function Workout() {
   const location = useLocation();
   const {workout, intakedCalorie, weight}  = location.state;
-
-  const [userInfo, setUserInfo] = useState({});
+  const {authInfo, setAuthInfo} = useContext(AuthContext);
 
   // ユーザーの認証情報を取得
-  const firstSetUserInfo = async () => {
-    const res = await getUser();
-    console.log("ユーザーの認証情報を取得");
-    setUserInfo(res.data)
-  }
-  
+  const firstSetUserInfo = useCallback(
+    async () => {
+      const res = await getUser();
+      setAuthInfo(res.data)
+    }, [setAuthInfo]
+  )
+
   useEffect(() => {
-    if(isEmptyObj(userInfo)) {
+    if(isEmptyObj(authInfo)) {
       firstSetUserInfo();
     }
-  }, [userInfo])
+  }, [authInfo, firstSetUserInfo])
 
   //1秒あたりに消費するカロリー
   const burn_cal_per_second = workout.burned_kcal / 3600;
@@ -71,10 +72,7 @@ function Workout() {
 
         {/* メニュー */}
         <div className="basis-3/12">
-          <SideMenu
-            userInfo={userInfo}
-            setUserInfo={setUserInfo}
-          />
+          <SideMenu />
         </div>
       </div>
     </>
