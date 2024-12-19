@@ -14,7 +14,7 @@ function SideMenu(props) {
 
   return (
     <>
-      <div className="basis-3/12">
+      <div>
         {renderingContent}
       </div>
     </>

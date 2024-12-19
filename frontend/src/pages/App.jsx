@@ -79,6 +79,8 @@ function App() {
                       weight={weight}
                       workout={workout}
                       intakedCalorie={intakedCalorie}
+                      userInfo={userInfo}
+                      setUserInfo={setUserInfo}
                     />
                   </div>
                 )
@@ -90,10 +92,12 @@ function App() {
         <div className="divider divider-horizontal"></div>
 
         {/* メニュー */}
-        <SideMenu
-          userInfo={userInfo}
-          setUserInfo={setUserInfo}
-        />
+        <div className="basis-3/12">
+          <SideMenu
+            userInfo={userInfo}
+            setUserInfo={setUserInfo}
+          />
+        </div>
       </div>
     </>
   )

@@ -2,17 +2,20 @@ import { useNavigate } from "react-router-dom"
 
 /* eslint-disable react/prop-types */
 function WorkOutCard(props) {
-  const {weight, workout, intakedCalorie} = props;
+  const {weight, workout, intakedCalorie, userInfo} = props;
 
   const navi = useNavigate();
 
   // Workoutページに遷移
   function moveWorkoutPage() {
-    navi(`/workout/${workout.id}`, {state: {
-      workout: workout,
-      weight: weight,
-      intakedCalorie: intakedCalorie,
-    } })
+    navi(`/workout/${workout.id}`, {
+      state: {
+        workout:        workout,
+        weight:         weight,
+        intakedCalorie: intakedCalorie,
+        userInfoObj:    userInfo,
+      }
+    });
   }
 
   return (
