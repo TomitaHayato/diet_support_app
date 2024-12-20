@@ -7,10 +7,13 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import WorkoutCount from "../components/workout/WorkoutCount";
 import SideMenu from "../components/general/SideMenu";
+import { useContext } from "react";
+import AuthContext from "../Contexts/AuthContext";
 
 function Workout() {
   const location = useLocation();
-  const {workout, intakedCalorie, weight}  = location.state;
+  const {workout, intakedCalorie}  = location.state;
+  const {weight} = useContext(AuthContext);
 
   //1秒あたりに消費するカロリー
   const burn_cal_per_second = workout.burned_kcal / 3600;
@@ -19,7 +22,7 @@ function Workout() {
   const naviToTop = useNavigate();
   //トップページに遷移 state: {体重, 未消費カロリー}
   function transTop() {
-    naviToTop("/", {state: { weight: weight, intakedCalorie: intakedCalorie}})
+    naviToTop("/", {state: {intakedCalorie: intakedCalorie}})
   }
   //トップページに遷移
   function transTopReset() {

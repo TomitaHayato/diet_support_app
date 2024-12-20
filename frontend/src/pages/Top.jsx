@@ -3,19 +3,21 @@
 // - 各運動と必要な運動時間をRails apiから取得して表示
 // - 各運動データのボタンから、運動管理画面に遷移(state: {体重, 摂取カロリー, 運動データ})
 
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import '../builds/build.css'
 import axiosCunstom from '../utils/axiosCustoms';
 import WorkOutCard from '../components/top/WorkOutCard';
 import CalorieForm from '../components/top/CalorieForm';
 import { useLocation } from 'react-router-dom';
 import SideMenu from '../components/general/SideMenu';
+import AuthContext from '../Contexts/AuthContext';
 
 function Top() {
   // ページ遷移時の処理
   const location = useLocation();
-
-  const [weight        , setWeight        ] = useState(location.state?.weight || 50);
+  
+  const {weight} = useContext(AuthContext)
+  
   const [intakedCalorie, setIntakedCalorie] = useState(location.state?.intakedCalorie || 0);
   const [workoutsObj   , setWorkoutsObj   ] = useState([]);
 
@@ -32,7 +34,7 @@ function Top() {
 
   // ページ遷移した時、遷移元から体重・カロリーを受け取っているならfetchWorkoutsData
   useEffect(() => {
-    if (location.state?.weight && location.state?.intakedCalorie) {
+    if (location.state?.intakedCalorie) {
       fetchWorkoutsData();
     }
   }, [location]) //fetchWorkoutsData()の更新に反応すると、フォーム入力値が変更される(setWeight)たびにGETリクエストが発行される
@@ -44,8 +46,6 @@ function Top() {
         <div className='basis-9/12'>
           <div className='mb-8'>
             <CalorieForm
-              weight={weight}
-              setWeight={setWeight}
               intakedCalorie={intakedCalorie}
               setIntakedCalorie={setIntakedCalorie}
               fetchWorkoutsData={fetchWorkoutsData}
@@ -58,7 +58,6 @@ function Top() {
                 return (
                   <div key={workout.id}>
                     <WorkOutCard
-                      weight={weight}
                       workout={workout}
                       intakedCalorie={intakedCalorie}
                     />

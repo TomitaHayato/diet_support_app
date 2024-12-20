@@ -6,7 +6,10 @@ import Cookies from "js-cookie";
 // params = {:name, :email, :weight}
 export function updateUser(params, userId) {
   //tokenがない場合は何もしない
-  if(!Cookies.get("_access_token") || !Cookies.get("_client") || !Cookies.get("_uid")) return;
+  if(!Cookies.get("_access_token") || !Cookies.get("_client") || !Cookies.get("_uid")) {
+    console.log("ログインし直してください");
+    return;
+  };
 
   return client.patch(
     `/users/${userId}`,
