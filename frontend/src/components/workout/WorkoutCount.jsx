@@ -38,19 +38,19 @@ function WorkoutCount(props) {
       <div className="mb-5 text-lg flex justify-center gap-8 items-end">
         <h3 className="">
           残り:
-          <span className="text-red-400 text-4xl font-semibold">{` ${Math.ceil(unburnedCalorie)} `}</span>
+          <span className="text-red-500 text-4xl font-semibold">{` ${Math.ceil(unburnedCalorie)} `}</span>
           kcal
         </h3>
 
         <h3 className="">
           消費カロリー:
-          <span className="text-blue-500 text-3xl font-semibold">{` ${Math.floor(burnedCalorie)} `}</span>
+          <span className="text-blue-500 text-4xl font-semibold">{` ${Math.floor(burnedCalorie)} `}</span>
           kcal
         </h3>
       </div>
 
       <div className="mb-8">
-        <p className="mb-2 font-light text-gray-600">目標: {required_exercise_time}分</p>
+        <p className="mb-2 text-gray-500 text-lg">目標: {required_exercise_time}分</p>
         <h3 className="text-5xl mb-2">{secondsToMMSS(workoutSeconds)}</h3>
       </div>
 

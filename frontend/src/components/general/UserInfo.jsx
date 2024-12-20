@@ -10,7 +10,7 @@ function UserInfo(props) {
     <>
       <div className="text-center">
         <div className="flex justify-center gap-3 mb-2">
-          <p className="text-lg">ユーザー情報</p>
+          <p className="text-lg">プロフィール</p>
           <button onClick={() => setEditMode(true)}>
             <i className="i-uiw-edit hover:scale-110 hover:bg-white active:scale-95" />
           </button>

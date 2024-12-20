@@ -9,6 +9,7 @@ import { isEmptyObj } from "../utils/objectControl";
 function App() {
   const [authInfo, setAuthInfo] = useState({})
   const [weight  , setWeight  ] = useState(50)
+  const [theme   , setTheme   ] = useState("retro")
 
   let currentUser = authInfo?.isLogin ? authInfo.data : false;
 
@@ -36,14 +37,16 @@ function App() {
 
   return (
     <>
-      <AuthContext.Provider value={{authInfo, setAuthInfo, currentUser, weight, setWeight}}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/"            element={<Top />} />
-            <Route path="/workout/:id" element={<Workout />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthContext.Provider>
+      <div data-theme={theme}>
+        <AuthContext.Provider value={{authInfo, setAuthInfo, currentUser, weight, setWeight, theme, setTheme}}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/"            element={<Top />} />
+              <Route path="/workout/:id" element={<Workout />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthContext.Provider>
+      </div>
     </>
   )
 }
