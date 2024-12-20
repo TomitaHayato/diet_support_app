@@ -4,15 +4,15 @@ class UsersController < ApplicationController
   def update
     if current_user.update(user_params)
       login_data = { is_login: true, data: current_user }      
-      render json: login_data, status: :200
+      render json: login_data, status: 200
     else
-      render json: { errors: current_user.errors }, status: :422
+      render json: { errors: current_user.errors }, status: 422
     end
   end
 
   private
 
   def user_params
-    params.require(:users).permit(:name, :email, :weight)
+    params.require(:user).permit(:name, :email, :weight)
   end
 end

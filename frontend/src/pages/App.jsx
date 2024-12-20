@@ -8,18 +8,22 @@ import { isEmptyObj } from "../utils/objectControl";
 
 function App() {
   const [authInfo, setAuthInfo] = useState({})
+  let currentUser = false;
+
+  if(!isEmptyObj(authInfo) && authInfo.isLogin) {
+    currentUser = authInfo.data;
+  }
 
   // ユーザーの認証情報を取得
   const firstSetUserInfo = useCallback(
     async () => {
       const res = await getUser();
       setAuthInfo(res.data)
+      console.log("サーバからデータを取得しました")
     }, [setAuthInfo]
   )
 
   useEffect(() => {
-    console.log(authInfo);
-    
     if(isEmptyObj(authInfo)) {
       firstSetUserInfo();
     }
@@ -27,7 +31,7 @@ function App() {
 
   return (
     <>
-      <AuthContext.Provider value={{authInfo, setAuthInfo}}>
+      <AuthContext.Provider value={{authInfo, setAuthInfo, currentUser}}>
         <BrowserRouter>
           <Routes>
             <Route path="/"            element={<Top />} />

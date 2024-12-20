@@ -32,7 +32,7 @@ function SignupModal() {
     <>
       <div>
         <p className="text-sm text-center mb-2">アカウント未登録の方はこちら</p>
-        <button className="btn btn-outline btn-accent w-full" onClick={()=>document.getElementById('signup-form').showModal()}>
+        <button className="btn btn-sm btn-outline btn-accent w-full" onClick={()=>document.getElementById('signup-form').showModal()}>
           アカウント新規作成
         </button>
 

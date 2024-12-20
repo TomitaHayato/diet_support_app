@@ -17,8 +17,8 @@ function LogoutForm() {
 
   return (
     <>
-      <p className="text-lg text-center mb-3">ログアウト</p>
-      <button className="btn btn-outline w-full" onClick={signOut}>ログアウト</button>
+      <p className="text-lg text-center mb-2">ログアウト</p>
+      <button className="btn btn-sm btn-outline w-full" onClick={signOut}>ログアウト</button>
     </>
   )
 }

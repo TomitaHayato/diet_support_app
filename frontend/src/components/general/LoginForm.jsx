@@ -33,7 +33,7 @@ function LoginForm() {
           login();
         }}
       >
-        <label className="input input-bordered flex items-center gap-2 mb-3">
+        <label className="input input-sm input-bordered flex items-center gap-2 mb-3">
           <i className="i-lucide-mail" />
           <input type="email" className="grow" placeholder="Email"
             value={email}
@@ -41,14 +41,14 @@ function LoginForm() {
           />
         </label>
 
-        <label className="input input-bordered flex items-center gap-2 mb-3">
+        <label className="input input-sm input-bordered flex items-center gap-2 mb-3">
           <i className="i-lucide-key-round" />
           <input type="password" className="grow" placeholder="Password" value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
 
-        <input type="submit" className="btn btn-outline btn-primary w-full" />
+        <input type="submit" className="btn btn-sm btn-outline btn-primary w-full" value="ログイン" />
       </form>
     </>
   )
