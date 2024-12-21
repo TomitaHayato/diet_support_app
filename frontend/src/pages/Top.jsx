@@ -41,9 +41,9 @@ function Top() {
 
   return (
     <>
-      <div className='p-12 flex min-h-screen'>
+      <div className='py-12 px-8 flex min-h-screen'>
         {/* フォーム/運動情報 */}
-        <div className='basis-9/12'>
+        <div className='basis-8/12 mx-auto'>
           <div className='mb-8'>
             <CalorieForm
               intakedCalorie={intakedCalorie}
@@ -53,7 +53,7 @@ function Top() {
           </div>
 
           <div>
-            <div className='grid grid-cols-3 gap-8'>
+            <div className='grid grid-cols-3 gap-5'>
               {workoutsObj?.map((workout) => {
                 return (
                   <div key={workout.id}>
@@ -68,7 +68,7 @@ function Top() {
           </div>
         </div>
 
-        <div className="divider divider-horizontal"></div>
+        <div className="divider divider-horizontal "></div>
 
         {/* メニュー */}
         <div className="basis-3/12">

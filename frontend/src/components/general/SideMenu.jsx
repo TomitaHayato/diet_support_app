@@ -4,7 +4,7 @@ import AuthForms from "./AuthForms";
 import LogoutForm from "./LogoutForm";
 import AuthContext from "../../Contexts/AuthContext";
 import UserZone from "./UserZone";
-import UserData from "./UserData";
+import DataCharts from "./DataCharts";
 
 function SideMenu() {
   const {authInfo, theme, setTheme} = useContext(AuthContext);
@@ -27,7 +27,7 @@ function SideMenu() {
   if (!isEmptyObj(authInfo)) {
     authFormContent = authInfo.isLogin ? <LogoutForm/> : <AuthForms/>
     userZoneContent = authInfo.isLogin ? <UserZone />  : ""
-    userDataContent = authInfo.isLogin ? <UserData />  : ""
+    userDataContent = authInfo.isLogin ? <DataCharts />  : ""
   }
 
   return (

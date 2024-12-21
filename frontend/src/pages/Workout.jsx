@@ -31,8 +31,8 @@ function Workout() {
 
   return (
     <>
-      <div className="p-12 flex min-h-screen">
-        <div className="basis-9/12">
+      <div className="py-12 px-8 flex min-h-screen">
+        <div className="basis-8/12 mx-auto">
           <div className="flex justify-center gap-4 mb-5">
             <button onClick={transTop}      className="btn btn-wide btn-outline">運動一覧へ</button>
             <button onClick={transTopReset} className="btn btn-wide btn-outline">カロリーを入力し直す</button>

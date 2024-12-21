@@ -62,7 +62,7 @@ function WorkoutCount(props) {
       </div>
 
       <div>
-        <button className="btn btn-success rounded-full">運動を記録</button>
+        <button className="btn btn-success rounded-full">この記録を保存</button>
       </div>
     </>
   )
