@@ -35,34 +35,38 @@ function WorkoutCount(props) {
 
   return (
     <>
-      <div className="mb-5 text-lg flex justify-center gap-8 items-end">
-        <h3 className="">
-          残り:
-          <span className="text-error text-4xl font-semibold">{` ${Math.ceil(unburnedCalorie)} `}</span>
-          kcal
-        </h3>
+      <div className="mb-8 p-5 border border-primary rounded-xl">
+        <div className="mb-5 text-lg flex justify-center gap-8 items-end">
+          <h3 className="">
+            残り:
+            <span className="text-error text-4xl font-semibold">{` ${Math.ceil(unburnedCalorie)} `}</span>
+            kcal
+          </h3>
 
-        <h3 className="">
-          消費カロリー:
-          <span className="text-info text-4xl font-semibold">{` ${Math.floor(burnedCalorie)} `}</span>
-          kcal
-        </h3>
-      </div>
+          <h3 className="">
+            消費カロリー:
+            <span className="text-info text-4xl font-semibold">{` ${Math.floor(burnedCalorie)} `}</span>
+            kcal
+          </h3>
+        </div>
 
-      <div className="mb-8">
-        <p className="mb-2 text-gray-500 text-lg">目標: {required_exercise_time}分</p>
-        <h3 className="text-5xl mb-2">{secondsToMMSS(workoutSeconds)}</h3>
-      </div>
+        <div className="mb-8">
+          <p className="mb-2 text-gray-500 text-lg">目標: {required_exercise_time}分</p>
+          <h3 className="text-5xl mb-2">{secondsToMMSS(workoutSeconds)}</h3>
+        </div>
 
-      <div className="mb-5">
-        <button
-          className="btn btn-lg rounded-full shadow-xl btn-primary"
-          onClick={countBtn}
-        >スタート / ストップ</button>
-      </div>
+        <div className="mb-5">
+          <button
+            className="btn btn-lg rounded-full shadow-xl btn-primary"
+            onClick={countBtn}
+          >スタート / ストップ</button>
+        </div>
 
-      <div>
-        <button className="btn btn-success rounded-full">この記録を保存</button>
+        <div className="mb-5">
+          <button className="btn btn-success rounded-full">
+            上記の記録を保存
+          </button>
+        </div>
       </div>
     </>
   )

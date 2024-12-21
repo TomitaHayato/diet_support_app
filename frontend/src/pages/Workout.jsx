@@ -9,6 +9,7 @@ import WorkoutCount from "../components/workout/WorkoutCount";
 import SideMenu from "../components/general/SideMenu";
 import { useContext } from "react";
 import AuthContext from "../Contexts/AuthContext";
+import WorkoutForm from "../components/workout/WorkoutForm";
 
 function Workout() {
   const location = useLocation();
@@ -49,6 +50,10 @@ function Workout() {
               burn_cal_per_second={burn_cal_per_second}
               required_exercise_time={workout.required_exercise_time}
             />
+          </div>
+
+          <div className="text-center">
+            <WorkoutForm />
           </div>
         </div>
 
