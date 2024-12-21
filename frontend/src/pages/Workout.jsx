@@ -31,7 +31,7 @@ function Workout() {
 
   return (
     <>
-      <div className="p-16 flex min-h-screen">
+      <div className="p-12 flex min-h-screen">
         <div className="basis-9/12">
           <div className="flex justify-center gap-4 mb-5">
             <button onClick={transTop}      className="btn btn-wide btn-outline">運動一覧へ</button>

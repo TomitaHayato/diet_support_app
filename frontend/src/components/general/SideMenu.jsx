@@ -4,6 +4,7 @@ import AuthForms from "./AuthForms";
 import LogoutForm from "./LogoutForm";
 import AuthContext from "../../Contexts/AuthContext";
 import UserZone from "./UserZone";
+import UserData from "./UserData";
 
 function SideMenu() {
   const {authInfo, theme, setTheme} = useContext(AuthContext);
@@ -21,14 +22,28 @@ function SideMenu() {
 
   let authFormContent = "";
   let userZoneContent = "";
+  let userDataContent = "";
   // ログイン前後で表示を変更
   if (!isEmptyObj(authInfo)) {
     authFormContent = authInfo.isLogin ? <LogoutForm/> : <AuthForms/>
     userZoneContent = authInfo.isLogin ? <UserZone />  : ""
+    userDataContent = authInfo.isLogin ? <UserData />  : ""
   }
 
   return (
     <>
+      <div className="mb-5">
+        {userDataContent}
+      </div>
+      
+      <hr className="mb-3 border-gray-400"/>
+
+      <div className="mb-5">
+        {userZoneContent}
+      </div>
+      
+      <hr className="mb-3 border-gray-400" />
+
       <div className="flex justify-center gap-4 mb-5">
         <p>テーマ変更</p>
         <label className="swap swap-rotate">
@@ -43,14 +58,6 @@ function SideMenu() {
       <div className="mb-5">
         {authFormContent}
       </div>
-      
-      <hr className="mb-3 border-gray-400" />
-
-      <div className="mb-5">
-        {userZoneContent}
-      </div>
-
-      <hr className="mb-3 border-gray-400"/>
     </>
   )
 }

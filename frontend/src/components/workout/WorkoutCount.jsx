@@ -38,13 +38,13 @@ function WorkoutCount(props) {
       <div className="mb-5 text-lg flex justify-center gap-8 items-end">
         <h3 className="">
           残り:
-          <span className="text-red-500 text-4xl font-semibold">{` ${Math.ceil(unburnedCalorie)} `}</span>
+          <span className="text-error text-4xl font-semibold">{` ${Math.ceil(unburnedCalorie)} `}</span>
           kcal
         </h3>
 
         <h3 className="">
           消費カロリー:
-          <span className="text-blue-500 text-4xl font-semibold">{` ${Math.floor(burnedCalorie)} `}</span>
+          <span className="text-info text-4xl font-semibold">{` ${Math.floor(burnedCalorie)} `}</span>
           kcal
         </h3>
       </div>
@@ -54,11 +54,15 @@ function WorkoutCount(props) {
         <h3 className="text-5xl mb-2">{secondsToMMSS(workoutSeconds)}</h3>
       </div>
 
-      <div>
+      <div className="mb-5">
         <button
           className="btn btn-lg rounded-full shadow-xl btn-primary"
           onClick={countBtn}
         >スタート / ストップ</button>
+      </div>
+
+      <div>
+        <button className="btn btn-success rounded-full">運動を記録</button>
       </div>
     </>
   )

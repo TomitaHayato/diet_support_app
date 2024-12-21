@@ -41,7 +41,7 @@ function Top() {
 
   return (
     <>
-      <div className='p-16 flex min-h-screen'>
+      <div className='p-12 flex min-h-screen'>
         {/* フォーム/運動情報 */}
         <div className='basis-9/12'>
           <div className='mb-8'>
