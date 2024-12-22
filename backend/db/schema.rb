@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_20_080137) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_22_073252) do
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -43,4 +43,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_20_080137) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "workout_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "workout_time", default: 0
+    t.integer "burned_calories", default: 0
+    t.integer "unburned_calories", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_workout_records_on_user_id"
+  end
+
+  add_foreign_key "workout_records", "users"
 end
