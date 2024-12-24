@@ -12,6 +12,13 @@ Rails.application.routes.draw do
   resources :work_outs, only: %i[index]
   resources :users    , only: %i[update]
 
+  post "workout_records"         => "workout_records#create"
+  get  "workout_records"         => "workout_records#index"
+  get  "workout_records_yearly"  => "workout_records#index_yearly_data"
+  get  "workout_records_monthly" => "workout_records#index_monthly_data"
+  get  "workout_records_weekly"  => "workout_records#index_weekly_data"
+
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

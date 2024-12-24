@@ -6,7 +6,7 @@ function TodayData() {
       <div className="text-center">
         <h3 className="text-gray-500 font-semibold mb-3">今日のデータ</h3>
 
-        <div className="stats shadow mb-2">
+        <div className="stats border border-primary shadow mb-2">
           <div className="stat">
             <div className="stat-figure text-primary">
               <i className="i-lucide-bike size-5"/>
@@ -17,7 +17,7 @@ function TodayData() {
           </div>
         </div>
 
-        <div className="stats shadow">
+        <div className="stats border border-primary shadow">
           <div className="stat">
             <div className="stat-title text-sm">消費カロリー</div>
             <div className="stat-value text-lg text-primary">{"100"} kcal</div>
