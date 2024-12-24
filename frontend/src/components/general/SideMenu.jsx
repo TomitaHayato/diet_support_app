@@ -1,5 +1,4 @@
-import { useContext, useState} from "react";
-import { isEmptyObj } from "../../utils/objectControl";
+import { useContext, useEffect, useState} from "react";
 import AuthForms from "./AuthForms";
 import LogoutForm from "./LogoutForm";
 import AuthContext from "../../Contexts/AuthContext";
@@ -9,6 +8,10 @@ import DataCharts from "./DataCharts";
 function SideMenu() {
   const {authInfo, theme, setTheme} = useContext(AuthContext);
   const [themeCheck, setThemeCheck] = useState(theme === "retro" ? false : true)
+
+  const [authFormContent, setAuthFormContent] = useState("");
+  const [userZoneContent, setUserZoneContent] = useState("");
+  const [userDataContent, setUserDataContent] = useState("");
 
   function changeTheme(isChecked) {
     if(isChecked) {
@@ -20,15 +23,12 @@ function SideMenu() {
     }
   }
 
-  let authFormContent = "";
-  let userZoneContent = "";
-  let userDataContent = "";
   // ログイン前後で表示を変更
-  if (!isEmptyObj(authInfo)) {
-    authFormContent = authInfo.isLogin ? <LogoutForm/> : <AuthForms/>
-    userZoneContent = authInfo.isLogin ? <UserZone />  : ""
-    userDataContent = authInfo.isLogin ? <DataCharts />  : ""
-  }
+  useEffect(() => {
+    setAuthFormContent(authInfo.isLogin ? <LogoutForm /> : <AuthForms />);
+    setUserZoneContent(authInfo.isLogin ? <UserZone />   : "");
+    setUserDataContent(authInfo.isLogin ? <DataCharts /> : "");
+  }, [authInfo])
 
   return (
     <>

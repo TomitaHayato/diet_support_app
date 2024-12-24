@@ -46,6 +46,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_22_073252) do
 
   create_table "workout_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.string "dow", null: false
+    t.integer "month", null: false
+    t.integer "date", null: false
     t.integer "workout_time", default: 0
     t.integer "burned_calories", default: 0
     t.integer "unburned_calories", default: 0

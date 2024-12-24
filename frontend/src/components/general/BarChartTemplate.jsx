@@ -3,51 +3,147 @@ import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, T
 function BarChartTemplate() {
   const userDataSet = [
     {
-      name: "月",
+      name: "1",
       data: 400,
     },
     {
-      name: "火",
+      name: "2",
       data: 0,
     },
     {
-      name: "水",
+      name: "3",
       data: 700,
     },
     {
-      name: "木",
+      name: "4",
       data: 50,
     },
     {
-      name: "金",
+      name: "5",
       data: 90,
     },
     {
-      name: "土",
+      name: "6",
       data: 200,
     },
     {
-      name: "日",
+      name: "7",
       data: 100,
     },
     {
-      name: "日",
+      name: "8",
       data: 100,
     },
     {
-      name: "日",
+      name: "9",
       data: 100,
     },
     {
-      name: "日",
+      name: "10",
       data: 100,
     },
     {
-      name: "日",
+      name: "11",
       data: 100,
     },
     {
-      name: "日",
+      name: "12",
+      data: 100,
+    },
+    {
+      name: "1",
+      data: 400,
+    },
+    {
+      name: "2",
+      data: 0,
+    },
+    {
+      name: "3",
+      data: 700,
+    },
+    {
+      name: "4",
+      data: 50,
+    },
+    {
+      name: "5",
+      data: 90,
+    },
+    {
+      name: "6",
+      data: 200,
+    },
+    {
+      name: "7",
+      data: 100,
+    },
+    {
+      name: "8",
+      data: 100,
+    },
+    {
+      name: "9",
+      data: 100,
+    },
+    {
+      name: "10",
+      data: 100,
+    },
+    {
+      name: "11",
+      data: 100,
+    },
+    {
+      name: "12",
+      data: 100,
+    },
+    {
+      name: "1",
+      data: 400,
+    },
+    {
+      name: "2",
+      data: 0,
+    },
+    {
+      name: "3",
+      data: 700,
+    },
+    {
+      name: "4",
+      data: 50,
+    },
+    {
+      name: "5",
+      data: 90,
+    },
+    {
+      name: "6",
+      data: 200,
+    },
+    {
+      name: "7",
+      data: 100,
+    },
+    {
+      name: "8",
+      data: 100,
+    },
+    {
+      name: "9",
+      data: 100,
+    },
+    {
+      name: "10",
+      data: 100,
+    },
+    {
+      name: "11",
+      data: 100,
+    },
+    {
+      name: "12",
       data: 100,
     },
   ]
