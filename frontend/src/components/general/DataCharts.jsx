@@ -3,6 +3,8 @@ import BarChartTemplate from "./BarChartTemplate";
 function DataCharts() {
   return (
     <>
+      <hr className="mb-3 border-gray-400"/>
+
       <div className="text-center">
         <div className="collapse collapse-arrow">
           <input type="checkbox" />

@@ -4,6 +4,7 @@ import LogoutForm from "./LogoutForm";
 import AuthContext from "../../Contexts/AuthContext";
 import UserZone from "./UserZone";
 import DataCharts from "./DataCharts";
+import TodayData from "./TodayData";
 
 function SideMenu() {
   const {authInfo, theme, setTheme} = useContext(AuthContext);
@@ -12,6 +13,7 @@ function SideMenu() {
   const [authFormContent, setAuthFormContent] = useState("");
   const [userZoneContent, setUserZoneContent] = useState("");
   const [userDataContent, setUserDataContent] = useState("");
+  const [todayDataContent, setTodayDataContent] = useState("");
 
   function changeTheme(isChecked) {
     if(isChecked) {
@@ -25,24 +27,27 @@ function SideMenu() {
 
   // ログイン前後で表示を変更
   useEffect(() => {
-    setAuthFormContent(authInfo.isLogin ? <LogoutForm /> : <AuthForms />);
-    setUserZoneContent(authInfo.isLogin ? <UserZone />   : "");
-    setUserDataContent(authInfo.isLogin ? <DataCharts /> : "");
+    setAuthFormContent(authInfo.isLogin  ? <LogoutForm /> : <AuthForms />);
+    setUserZoneContent(authInfo.isLogin  ? <UserZone />   : "");
+    setUserDataContent(authInfo.isLogin  ? <DataCharts /> : "");
+    setTodayDataContent(authInfo.isLogin ? <TodayData /> : "")
   }, [authInfo])
 
   return (
     <>
       <div className="mb-5">
+        {todayDataContent}
+      </div>
+
+      <div className="mb-5">
         {userDataContent}
       </div>
-      
-      <hr className="mb-3 border-gray-400"/>
 
       <div className="mb-5">
         {userZoneContent}
       </div>
-      
-      <hr className="mb-3 border-gray-400" />
+
+      <hr className="mb-3 border-gray-400"/>
 
       <div className="flex justify-center gap-4 mb-5">
         <p>テーマ変更</p>
@@ -52,8 +57,6 @@ function SideMenu() {
           <i className="i-lucide-moon swap-on h-6 w-6 fill-current"/>
         </label>
       </div>
-
-      <hr className="mb-3 border-gray-400"/>
 
       <div className="mb-5">
         {authFormContent}

@@ -11,6 +11,8 @@ function UserZone() {
 
   return (
     <>
+      <hr className="mb-3 border-gray-400" />
+      
       {content}
     </>
   )
