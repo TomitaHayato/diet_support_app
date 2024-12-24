@@ -5,6 +5,7 @@
 
 import { useRef, useState } from "react";
 import { secondsToMMSS } from "../../utils/integerStyle";
+import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
 
 function WorkoutCount(props) {
   // eslint-disable-next-line react/prop-types
@@ -31,6 +32,17 @@ function WorkoutCount(props) {
         setUnburnedCalorie(prevCalorie => prevCalorie - burn_cal_per_second);
       }, 1000)
     }
+  }
+
+  //記録保存処理
+  const createWorkoutRecord = async() => {
+    const params = {
+      workoutTime: workoutSeconds,
+      burnedCalories:   Math.ceil(burnedCalorie),
+      unburnedCalories: Math.ceil(unburnedCalorie),
+    }
+    const res = await postWorkoutRecord(params)
+    console.log(res);
   }
 
   return (
@@ -63,7 +75,7 @@ function WorkoutCount(props) {
         </div>
 
         <div className="mb-5">
-          <button className="btn btn-success rounded-full">
+          <button className="btn btn-success rounded-full" onClick={createWorkoutRecord}>
             上記の記録を保存
           </button>
         </div>

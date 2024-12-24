@@ -4,9 +4,9 @@ class WorkoutRecordsController < ApplicationController
   # 今日、今週、今月、全期間のデータを返す
   def index
     now          = Time.current
-    yearly_data  = current_user.workout_records.yearly_data(now.beginning_of_year..now.end_of_year)
-    monthly_data = current_user.workout_records.monthly_data(now.beginning_of_month..now.end_of_month)
-    weekly_data  = current_user.workout_records.weekly_data(now.beginning_of_week..now.end_of_week)
+    yearly_data  = current_user.workout_records.yearly_data(now.beginning_of_year  , now.end_of_year)
+    monthly_data = current_user.workout_records.monthly_data(now.beginning_of_month, now.end_of_month)
+    weekly_data  = current_user.workout_records.weekly_data(now.beginning_of_week  , now.end_of_week)
     today_data   = current_user.workout_records.today_data
     all_data     = { yearly_data:, monthly_data:, weekly_data:, today_data:}
 
@@ -38,16 +38,28 @@ class WorkoutRecordsController < ApplicationController
   end
 
   def create
-    if current_user.workout_records.create(new_record_params)
-      render json: index
+    if current_user.workout_records.create(add_today_info_to_params(new_record_params))
+      redirect_to action: :index
     else
       render status: 422
+      return
     end
   end
 
   private
 
   def new_record_params
-    params.require(:workout_record).permit(:workout_time, burned_calories, unburned_calories)
+    params.require(:workout_record).permit(:workout_time, :burned_calories, :unburned_calories)
+  end
+
+  def add_today_info_to_params(params_strong)
+    today = Time.current
+    # 今日の曜日, 月, 日
+    week  = ["日", "月", "火", "水", "木", "金", "土"]
+    params_strong[:dow]   = week[today.wday]
+    params_strong[:month] = today.strftime("%m")
+    params_strong[:date]  = today.strftime("%d")
+
+    params_strong
   end
 end

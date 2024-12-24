@@ -4,7 +4,7 @@ function BarChartTemplate() {
   const userDataSet = [
     {
       name: "1",
-      data: 400,
+      data: 0.2,
     },
     {
       name: "2",
@@ -12,47 +12,47 @@ function BarChartTemplate() {
     },
     {
       name: "3",
-      data: 700,
+      data: 7,
     },
     {
       name: "4",
-      data: 50,
+      data: 5,
     },
     {
       name: "5",
-      data: 90,
+      data: 9,
     },
     {
       name: "6",
-      data: 200,
+      data: 2,
     },
     {
       name: "7",
-      data: 100,
+      data: 1,
     },
     {
       name: "8",
-      data: 100,
+      data: 1,
     },
     {
       name: "9",
-      data: 100,
+      data: 1,
     },
     {
       name: "10",
-      data: 100,
+      data: 0,
     },
     {
       name: "11",
-      data: 100,
+      data: 0,
     },
     {
       name: "12",
-      data: 100,
+      data: 0,
     },
     {
       name: "1",
-      data: 400,
+      data: 4,
     },
     {
       name: "2",
@@ -60,47 +60,47 @@ function BarChartTemplate() {
     },
     {
       name: "3",
-      data: 700,
+      data: 0.88,
     },
     {
       name: "4",
-      data: 50,
+      data: 5,
     },
     {
       name: "5",
-      data: 90,
+      data: 9,
     },
     {
       name: "6",
-      data: 200,
+      data: 0,
     },
     {
       name: "7",
-      data: 100,
+      data: 0,
     },
     {
       name: "8",
-      data: 100,
+      data: 1,
     },
     {
       name: "9",
-      data: 100,
+      data: 1,
     },
     {
       name: "10",
-      data: 100,
+      data: 1,
     },
     {
       name: "11",
-      data: 100,
+      data: 1,
     },
     {
       name: "12",
-      data: 100,
+      data: 1,
     },
     {
       name: "1",
-      data: 400,
+      data: 4,
     },
     {
       name: "2",
@@ -108,43 +108,31 @@ function BarChartTemplate() {
     },
     {
       name: "3",
-      data: 700,
+      data: 0,
     },
     {
       name: "4",
-      data: 50,
+      data: 5,
     },
     {
       name: "5",
-      data: 90,
+      data: 0,
     },
     {
       name: "6",
-      data: 200,
+      data: 2,
     },
     {
       name: "7",
-      data: 100,
+      data: 1,
     },
     {
       name: "8",
-      data: 100,
+      data: 1,
     },
     {
       name: "9",
-      data: 100,
-    },
-    {
-      name: "10",
-      data: 100,
-    },
-    {
-      name: "11",
-      data: 100,
-    },
-    {
-      name: "12",
-      data: 100,
+      data: 1,
     },
   ]
 
