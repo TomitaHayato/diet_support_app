@@ -64,7 +64,7 @@ function App() {
   return (
     <>
       <div data-theme={theme}>
-        <AuthContext.Provider value={{authInfo, setAuthInfo, currentUser, weight, setWeight, theme, setTheme, yearlyData, monthlyData, weeklyData, todayData}}>
+        <AuthContext.Provider value={{authInfo, setAuthInfo, currentUser, weight, setWeight, theme, setTheme, yearlyData, monthlyData, weeklyData, todayData, setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
           <BrowserRouter>
             <Routes>
               <Route path="/"            element={<Top />} />

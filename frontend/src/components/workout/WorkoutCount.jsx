@@ -3,16 +3,18 @@
 // - 未消費のカロリーを表示(摂取カロリーが必要)
 // - 運動に取り組んだ秒数を「MM分SS秒」形式で表示
 
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { secondsToMMSS } from "../../utils/integerStyle";
 import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
+import AuthContext from "../../Contexts/AuthContext";
 
 function WorkoutCount(props) {
   // eslint-disable-next-line react/prop-types
   const {intakedCalorie, burn_cal_per_second, required_exercise_time} = props;
+  const {setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
 
   const [unburnedCalorie, setUnburnedCalorie] = useState(intakedCalorie);
-  const [burnedCalorie  , setBurnedCalorie  ] = useState(0)
+  const [burnedCalorie  , setBurnedCalorie  ] = useState(0);
   const [workoutSeconds , setWorkoutSeconds ] = useState(0);
 
   // カウント処理(setInterval)のIDを管理(countId={current: 値})
@@ -30,22 +32,23 @@ function WorkoutCount(props) {
         setWorkoutSeconds(prevSeconds  => prevSeconds + 1);
         setBurnedCalorie(prevCalorie   => prevCalorie + burn_cal_per_second);
         setUnburnedCalorie(prevCalorie => prevCalorie - burn_cal_per_second);
-      }, 1000)
+      }, 1000);
     }
   }
 
-  //記録保存処理
+  //記録を保存処理
   const createWorkoutRecord = async() => {
     const params = {
       workoutTime: workoutSeconds,
       burnedCalories:   Math.ceil(burnedCalorie),
       unburnedCalories: Math.ceil(unburnedCalorie),
-    }
-    const res = await postWorkoutRecord(params)
-    console.log(res.data);
-    // console.log(res.data.yearlyData[0]);
-    //TODO: yearlyData, monthlyData, weeklyData, todayDataをステート管理
-  }
+    };
+    const res = await postWorkoutRecord(params);
+    setYearlyData(res.data.yearlyData);
+    setMonthlyData(res.data.monthlyData);
+    setWeeklyData(res.data.weeklyData);
+    setTodayData(res.data.todayData);
+  };
 
   return (
     <>
@@ -78,7 +81,7 @@ function WorkoutCount(props) {
 
         <div className="mb-5">
           <button className="btn btn-success rounded-full" onClick={createWorkoutRecord}>
-            上記の記録を保存
+            運動記録を保存
           </button>
         </div>
       </div>

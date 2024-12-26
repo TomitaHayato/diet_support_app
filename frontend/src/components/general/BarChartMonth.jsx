@@ -5,7 +5,7 @@ import { defaultMonthlyData } from "../../utils/defaultRecordData";
 
 function BarChartMonth(props) {
   // eslint-disable-next-line react/prop-types
-  const {dataKey}       = props;
+  const {dataKey}     = props;
   const {monthlyData} = useContext(AuthContext);
 
   const [userDataSet, setUserDataSet] = useState([...defaultMonthlyData]);

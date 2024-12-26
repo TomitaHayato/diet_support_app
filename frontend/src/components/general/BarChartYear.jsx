@@ -5,7 +5,7 @@ import { defaultYearlyData } from "../../utils/defaultRecordData";
 
 function BarChartYear(props) {
   // eslint-disable-next-line react/prop-types
-  const {dataKey}       = props;
+  const {dataKey}    = props;
   const {yearlyData} = useContext(AuthContext);
 
   const [userDataSet, setUserDataSet] = useState([...defaultYearlyData]);
@@ -47,7 +47,7 @@ function BarChartYear(props) {
             iconSize={12}
             height={28}
           />
-          <Bar dataKey={dataKey} fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
+          <Bar dataKey={dataKey} fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />}/>
         </BarChart>
       </ResponsiveContainer>
     </div>
