@@ -2,6 +2,7 @@ import { useContext } from "react";
 import BarChartYear from "./BarChartYear";
 import AuthContext from "../../Contexts/AuthContext";
 import BarChartWeek from "./BarChartWeek";
+import BarChartMonth from "./BarChartMonth";
 
 function DataCharts() {
   const {yearlyData, monthlyData, weeklyData, todayData} = useContext(AuthContext);
@@ -25,12 +26,12 @@ function DataCharts() {
               <div role="tabpanel" className="tab-content pt-5">
                 <div className="mb-5">
                   <h3 className="text-center">消費カロリー</h3>
-                  <BarChartWeek dataKey={"totalBurnedCalories"} />
+                  <BarChartWeek dataKey={"totalBurnedCalories"}/>
                 </div>
 
                 <div className="mb-5">
                   <h3>運動時間</h3>
-                  <BarChartWeek  dataKey={"totalTime"}/>
+                  <BarChartWeek dataKey={"totalTime"}/>
                 </div>
 
               </div>
@@ -39,12 +40,12 @@ function DataCharts() {
               <div role="tabpanel" className="tab-content pt-5">
                 <div className="mb-5">
                   <h3 className="text-center">消費カロリー</h3>
-                  <BarChartYear />
+                  <BarChartMonth dataKey={"totalBurnedCalories"}/>
                 </div>
 
                 <div className="mb-5">
                   <h3>運動時間</h3>
-                  <BarChartYear />
+                  <BarChartMonth dataKey={"totalTime"}/>
                 </div>
               </div>
               {/* 年ごとのチャート */}
