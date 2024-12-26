@@ -16,6 +16,8 @@ function WorkoutCount(props) {
   const [unburnedCalorie, setUnburnedCalorie] = useState(intakedCalorie);
   const [burnedCalorie  , setBurnedCalorie  ] = useState(0);
   const [workoutSeconds , setWorkoutSeconds ] = useState(0);
+  const [btnText        , setBtnText        ] = useState("スタート");
+  const [saveDisabled   , setSaveDisabled   ] = useState(true);
 
   // カウント処理(setInterval)のIDを管理(countId={current: 値})
   const countId = useRef(false);
@@ -26,28 +28,49 @@ function WorkoutCount(props) {
       //停止
       clearInterval(countId.current);
       countId.current = false;
+      setBtnText("スタート");
+      setSaveDisabled(false);
     } else {
+      setSaveDisabled(true);
       //開始
       countId.current = setInterval(() => {
         setWorkoutSeconds(prevSeconds  => prevSeconds + 1);
         setBurnedCalorie(prevCalorie   => prevCalorie + burn_cal_per_second);
         setUnburnedCalorie(prevCalorie => prevCalorie - burn_cal_per_second);
       }, 1000);
+      setBtnText("ストップ");
     }
   }
 
   //記録を保存処理
   const createWorkoutRecord = async() => {
-    const params = {
-      workoutTime: workoutSeconds,
-      burnedCalories:   Math.ceil(burnedCalorie),
-      unburnedCalories: Math.ceil(unburnedCalorie),
-    };
-    const res = await postWorkoutRecord(params);
-    setYearlyData(res.data.yearlyData);
-    setMonthlyData(res.data.monthlyData);
-    setWeeklyData(res.data.weeklyData);
-    setTodayData(res.data.todayData);
+    // カウント中は保存できない
+    if (countId.current) {
+      console.log('ストップしてから保存してください');
+      return;
+    }
+
+    try {
+      setSaveDisabled(true);
+      // 記録をサーバに送信
+      const params = {
+        workoutTime: workoutSeconds,
+        burnedCalories:   Math.ceil(burnedCalorie),
+        unburnedCalories: Math.ceil(unburnedCalorie),
+      };
+      const res = await postWorkoutRecord(params);
+      setYearlyData(res.data.yearlyData);
+      setMonthlyData(res.data.monthlyData);
+      setWeeklyData(res.data.weeklyData);
+      setTodayData(res.data.todayData);
+      // 消費/未消費カロリーと運動時間を0にする
+      setWorkoutSeconds(0);
+      setBurnedCalorie(0);
+      setUnburnedCalorie(0);
+      setSaveDisabled(false);
+    } catch(error) {
+      alert(error);
+    }
   };
 
   return (
@@ -76,13 +99,22 @@ function WorkoutCount(props) {
           <button
             className="btn btn-lg rounded-full shadow-xl btn-primary"
             onClick={countBtn}
-          >スタート / ストップ</button>
+          >{btnText}</button>
         </div>
 
-        <div className="mb-5">
-          <button className="btn btn-success rounded-full" onClick={createWorkoutRecord}>
+        <div className=" text-center mb-5">
+          <button className="btn btn-success rounded-full mb-2" onClick={createWorkoutRecord} disabled={saveDisabled}>
             運動記録を保存
           </button>
+          
+          <div className="text-gray-500">
+            <p className="text-sm">以下のデータを保存します</p>
+            <ul className="text-xs">
+              <li>・消費カロリー</li>
+              <li>・未消費カロリー</li>
+              <li>・運動時間</li>
+            </ul>
+          </div>
         </div>
       </div>
     </>
