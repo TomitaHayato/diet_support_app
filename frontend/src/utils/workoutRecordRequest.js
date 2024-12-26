@@ -13,3 +13,17 @@ export function postWorkoutRecord(params) {
     }
   })
 }
+
+// indexアクションへのGET
+export function getWorkoutRecords() {
+  //tokenがない場合は何もしない
+  if(!Cookies.get("_access_token") || !Cookies.get("_client") || !Cookies.get("_uid")) return;
+
+  return client.get("/workout_records", {
+    headers: {
+      "access-token": Cookies.get("_access_token"),
+      "client": Cookies.get("_client"),
+      "uid": Cookies.get("_uid"),
+    }
+  })
+}

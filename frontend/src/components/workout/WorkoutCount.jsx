@@ -42,7 +42,9 @@ function WorkoutCount(props) {
       unburnedCalories: Math.ceil(unburnedCalorie),
     }
     const res = await postWorkoutRecord(params)
-    console.log(res);
+    console.log(res.data);
+    // console.log(res.data.yearlyData[0]);
+    //TODO: yearlyData, monthlyData, weeklyData, todayDataをステート管理
   }
 
   return (

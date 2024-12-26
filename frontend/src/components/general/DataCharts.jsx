@@ -1,6 +1,14 @@
-import BarChartTemplate from "./BarChartTemplate";
+import { useContext } from "react";
+import BarChartYear from "./BarChartYear";
+import AuthContext from "../../Contexts/AuthContext";
 
 function DataCharts() {
+  const {yearlyData, monthlyData, weeklyData, todayData} = useContext(AuthContext);
+  console.log(yearlyData);
+  console.log(monthlyData);
+  console.log(weeklyData);
+  console.log(todayData); //todayDataは後で消す
+
   return (
     <>
       <hr className="mb-3 border-gray-400"/>
@@ -11,43 +19,44 @@ function DataCharts() {
           <h3 className="collapse-title text-lg font-medium">記録</h3>
           <div className="collapse-content px-0">
             <div role="tablist" className="tabs tabs-bordered grid-cols-3">
+              {/* 今週のチャート */}
               <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="今週" defaultChecked />
               <div role="tabpanel" className="tab-content pt-5">
                 <div className="mb-5">
                   <h3 className="text-center">消費カロリー</h3>
-                  <BarChartTemplate />
+                  <BarChartYear />
                 </div>
 
                 <div className="mb-5">
                   <h3>運動時間</h3>
-                  <BarChartTemplate />
+                  <BarChartYear />
                 </div>
 
               </div>
-
+              {/* 今月のチャート */}
               <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="今月"/>
               <div role="tabpanel" className="tab-content pt-5">
                 <div className="mb-5">
                   <h3 className="text-center">消費カロリー</h3>
-                  <BarChartTemplate />
+                  <BarChartYear />
                 </div>
 
                 <div className="mb-5">
                   <h3>運動時間</h3>
-                  <BarChartTemplate />
+                  <BarChartYear />
                 </div>
               </div>
-
+              {/* 年ごとのチャート */}
               <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="全期間" />
               <div role="tabpanel" className="tab-content pt-5">
                 <div className="mb-5">
                   <h3 className="text-center">消費カロリー</h3>
-                  <BarChartTemplate />
+                  <BarChartYear data={"totalBurnedCalories"}/>
                 </div>
 
                 <div className="mb-5">
                   <h3>運動時間</h3>
-                  <BarChartTemplate />
+                  <BarChartYear  data={"totalTime"}/>
                 </div>
               </div>
             </div>
