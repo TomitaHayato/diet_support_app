@@ -1,28 +1,31 @@
 import { useContext, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import AuthContext from "../../Contexts/AuthContext";
-import { defaultYearlyData } from "../../utils/defaultRecordData";
+import { defaultWeeklyData, dowIndex } from "../../utils/defaultRecordData";
 
-function BarChartYear(props) {
+
+function BarChartWeek(props) {
   // eslint-disable-next-line react/prop-types
-  const {dataKey}       = props;
-  const {yearlyData} = useContext(AuthContext);
+  const {dataKey}    = props;
+  const {weeklyData} = useContext(AuthContext);
 
-  const [userDataSet, setUserDataSet] = useState([...defaultYearlyData]);
+  const [userDataSet, setUserDataSet] = useState([...defaultWeeklyData]);
 
   // // ユーザーデータが存在しない月に、デフォルトのデータを当てはめる
   function makeUserData() {
-    const userYearlyData = [...defaultYearlyData];
+    const userWeeklyData = [...defaultWeeklyData];
 
-    yearlyData.forEach(data =>  userYearlyData[data.month - 1] = data);
+    weeklyData.forEach((data) => {
+      userWeeklyData[dowIndex[data.dow]] = data;
+    });
 
-    return userYearlyData;
+    return userWeeklyData;
   }
   
   useEffect(() => {
-    const userYearlyData = makeUserData();
-    setUserDataSet(userYearlyData);
-  }, [yearlyData])
+    const userWeeklyData = makeUserData();
+    setUserDataSet(userWeeklyData);
+  }, [weeklyData])
 
   return (
     <div className="w-full h-56 text-xs">
@@ -38,7 +41,7 @@ function BarChartYear(props) {
         >
           <CartesianGrid strokeDasharray="3 3" />
           {/* 軸ラベル */}
-          <XAxis dataKey={"month"} />
+          <XAxis dataKey={"dow"} />
           <YAxis />
           <Tooltip />
           {/* 凡例 */}
@@ -55,4 +58,4 @@ function BarChartYear(props) {
   )
 }
 
-export default BarChartYear;
+export default BarChartWeek;

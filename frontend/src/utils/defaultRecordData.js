@@ -1,75 +1,44 @@
-export const defaultYearlyData = [
-  {
-    month: 1,
-    totalTime: 0,
-    totalBurnedCalories: 0,
-    totalUnburnedCalories: 0,
-  },
-  {
-    month: 2,
-    totalTime: 0,
-    totalBurnedCalories: 0,
-    totalUnburnedCalories: 0,
-  },
-  {
-    month: 3,
-    totalTime: 0,
-    totalBurnedCalories: 0,
-    totalUnburnedCalories: 0,
-  },
-  {
-    month: 4,
-    totalTime: 0,
-    totalBurnedCalories: 0,
-    totalUnburnedCalories: 0,
-  },
-  {
-    month: 5,
-    totalTime: 0,
-    totalBurnedCalories: 0,
-    totalUnburnedCalories: 0,
-  },
-  {
-    month: 6,
-    totalTime: 0,
-    totalBurnedCalories: 0,
-    totalUnburnedCalories: 0,
-  },
-  {
-    month: 7,
-    totalTime: 0,
-    totalBurnedCalories: 0,
-    totalUnburnedCalories: 0,
-  },
-  {
-    month: 8,
-    totalTime: 0,
-    totalBurnedCalories: 0,
-    totalUnburnedCalories: 0,
-  },
-  {
-    month: 9,
-    totalTime: 0,
-    totalBurnedCalories: 0,
-    totalUnburnedCalories: 0,
-  },
-  {
-    month: 10,
-    totalTime: 0,
-    totalBurnedCalories: 0,
-    totalUnburnedCalories: 0,
-  },
-  {
-    month: 11,
-    totalTime: 0,
-    totalBurnedCalories: 0,
-    totalUnburnedCalories: 0,
-  },
-  {
-    month: 12,
-    totalTime: 0,
-    totalBurnedCalories: 0,
-    totalUnburnedCalories: 0,
-  },
-]
+const week  = ["日", "月", "火", "水", "木", "金", "土"];
 
+export const dowIndex = {
+  "日": 0,
+  "月": 1,
+  "火": 2,
+  "水": 3,
+  "木": 4,
+  "金": 5,
+  "土": 6
+}
+
+export const defaultWeeklyData = new Array(7).fill(null).map((_, index) => {
+  return {
+    dow: week[index],
+    totalTime: 0,
+    totalBurnedCalories: 0,
+    totalUnburnedCalories: 0,
+  }
+});
+
+export const defaultMonthlyData = new Array(30).fill(null).map((_, index) => {
+  return {
+    date: index + 1,
+    totalTime: 0,
+    totalBurnedCalories: 0,
+    totalUnburnedCalories: 0,
+  }
+}) 
+
+export const defaultYearlyData = new Array(12).fill(null).map((_, index) => {
+  return {
+    month: index + 1,
+    totalTime: 0,
+    totalBurnedCalories: 0,
+    totalUnburnedCalories: 0,
+  }
+});
+
+export const defaultTodayData = {
+  totalTime: 0,
+  totalBurnedCalories: 0,
+  totalUnburnedCalories: 0,
+}
