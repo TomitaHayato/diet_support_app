@@ -16,6 +16,7 @@ export const defaultWeeklyData = new Array(7).fill(null).map((_, index) => {
     totalTime: 0,
     totalBurnedCalories: 0,
     totalUnburnedCalories: 0,
+    totalIntakedCalories: 0
   }
 });
 
@@ -28,6 +29,7 @@ export const defaultMonthlyData = new Array(lastDate.getDate()).fill(null).map((
     totalTime: 0,
     totalBurnedCalories: 0,
     totalUnburnedCalories: 0,
+    totalIntakedCalories: 0
   }
 }) 
 
@@ -37,6 +39,7 @@ export const defaultYearlyData = new Array(12).fill(null).map((_, index) => {
     totalTime: 0,
     totalBurnedCalories: 0,
     totalUnburnedCalories: 0,
+    totalIntakedCalories: 0
   }
 });
 
@@ -44,4 +47,5 @@ export const defaultTodayData = {
   totalTime: 0,
   totalBurnedCalories: 0,
   totalUnburnedCalories: 0,
+  totalIntakedCalories: 0
 }

@@ -47,7 +47,7 @@ function TodayData() {
           <div className="stat">
             <div className="stat-title text-sm">摂取カロリー</div>
             <div className="stat-value text-lg text-primary">
-              {userDataSet.totalUnburnedCalories} kcal
+              {userDataSet.totalIntakedCalories} kcal
             </div>
           </div>
         </div>

@@ -53,7 +53,7 @@ function Workout() {
           </div>
 
           <div className="text-center">
-            <WorkoutForm />
+            <WorkoutForm intakedCalorie={intakedCalorie}/>
           </div>
         </div>
 

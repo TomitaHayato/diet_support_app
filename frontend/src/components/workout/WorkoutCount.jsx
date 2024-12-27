@@ -45,18 +45,16 @@ function WorkoutCount(props) {
   //記録を保存処理
   const createWorkoutRecord = async() => {
     // カウント中は保存できない
-    if (countId.current) {
-      console.log('ストップしてから保存してください');
-      return;
-    }
+    if (countId.current) return;
 
+    setSaveDisabled(true);
     try {
-      setSaveDisabled(true);
       // 記録をサーバに送信
       const params = {
-        workoutTime: workoutSeconds,
+        workoutTime:      workoutSeconds,
         burnedCalories:   Math.ceil(burnedCalorie),
         unburnedCalories: Math.ceil(unburnedCalorie),
+        intakedCalories:   Math.ceil(burnedCalorie) + Math.ceil(unburnedCalorie),
       };
       const res = await postWorkoutRecord(params);
       setYearlyData(res.data.yearlyData);
@@ -67,10 +65,10 @@ function WorkoutCount(props) {
       setWorkoutSeconds(0);
       setBurnedCalorie(0);
       setUnburnedCalorie(0);
-      setSaveDisabled(false);
     } catch(error) {
       alert(error);
     }
+    setSaveDisabled(false);
   };
 
   return (
@@ -97,22 +95,24 @@ function WorkoutCount(props) {
 
         <div className="mb-5">
           <button
-            className="btn btn-lg rounded-full shadow-xl btn-primary"
+            className="btn btn-wide btn-lg rounded-full shadow-xl btn-primary"
             onClick={countBtn}
           >{btnText}</button>
         </div>
 
         <div className=" text-center mb-5">
-          <button className="btn btn-success rounded-full mb-2" onClick={createWorkoutRecord} disabled={saveDisabled}>
+          <button className="btn btn-wide btn-success rounded-full mb-5" onClick={createWorkoutRecord} disabled={saveDisabled}>
             運動記録を保存
           </button>
           
-          <div className="text-gray-500">
+          <div className="text-gray-500 w-3/12 mx-auto">
             <p className="text-sm">以下のデータを保存します</p>
-            <ul className="text-xs">
+            <ul className="text-sm text-start">
+              <li>・運動時間</li>
               <li>・消費カロリー</li>
               <li>・未消費カロリー</li>
-              <li>・運動時間</li>
+              <li>・摂取カロリー</li>
+              <li className="text-xs">(消費カロリー＋未消費カロリー)</li>
             </ul>
           </div>
         </div>
