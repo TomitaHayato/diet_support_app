@@ -1,4 +1,21 @@
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../../Contexts/AuthContext";
+import { defaultTodayData } from "../../utils/defaultRecordData";
+
 function TodayData() {
+  const {todayData} = useContext(AuthContext);
+
+  const [userDataSet, setUserDataSet] = useState(defaultTodayData);
+
+  useEffect(() => {
+    // サーバからデータを取得していないならスキップ
+    if(!todayData[0]) return;
+    // 今日のデータがない場合、totalTimeなどのデータはnullになるのでスキップ
+    if(!todayData[0].totalTime) return;
+
+    setUserDataSet(todayData[0]);
+  }, [todayData])
+
   return (
     <>
       <hr className="mb-3 border-gray-400"/>
@@ -13,19 +30,25 @@ function TodayData() {
             </div>
 
             <div className="stat-title text-sm">運動時間</div>
-            <div className="stat-value text-xl text-primary">{"00"}分{"00"}秒</div>
+            <div className="stat-value text-xl text-primary">
+              {userDataSet.totalTime} 秒
+            </div>
           </div>
         </div>
 
         <div className="stats border border-primary shadow">
           <div className="stat">
             <div className="stat-title text-sm">消費カロリー</div>
-            <div className="stat-value text-lg text-primary">{"100"} kcal</div>
+            <div className="stat-value text-lg text-primary">
+              {userDataSet.totalBurnedCalories} kcal
+            </div>
           </div>
 
           <div className="stat">
             <div className="stat-title text-sm">摂取カロリー</div>
-            <div className="stat-value text-lg text-primary">{"100"} kcal</div>
+            <div className="stat-value text-lg text-primary">
+              {userDataSet.totalUnburnedCalories} kcal
+            </div>
           </div>
         </div>
       </div>

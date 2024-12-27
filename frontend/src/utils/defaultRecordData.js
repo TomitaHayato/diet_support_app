@@ -19,7 +19,10 @@ export const defaultWeeklyData = new Array(7).fill(null).map((_, index) => {
   }
 });
 
-export const defaultMonthlyData = new Array(30).fill(null).map((_, index) => {
+const now      = new Date;
+const lastDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+export const defaultMonthlyData = new Array(lastDate.getDate()).fill(null).map((_, index) => {
   return {
     date: index + 1,
     totalTime: 0,
