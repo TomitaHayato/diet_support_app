@@ -16,8 +16,10 @@ function Workout() {
   const {workout, intakedCalorie}  = location.state;
   const {weight} = useContext(AuthContext);
 
-  //1秒あたりに消費するカロリー
-  const burn_cal_per_second = workout.burned_kcal / 3600;
+  //1秒あたりに消費するカロリー(小数第2位まで)
+  const burn_cal_per_second = Math.round(workout.burned_kcal * 100 / 3600) / 100;
+  // 1分あたりに消費するカロリー(小数第2位まで)
+  const burn_cal_per_minute = Math.round(workout.burned_kcal * 100 / 60) / 100;
 
   //ページ遷移
   const naviToTop = useNavigate();
@@ -53,7 +55,7 @@ function Workout() {
           </div>
 
           <div className="text-center">
-            <WorkoutForm intakedCalorie={intakedCalorie}/>
+            <WorkoutForm intakedCalorie={intakedCalorie} burn_cal_per_minute={burn_cal_per_minute}/>
           </div>
         </div>
 

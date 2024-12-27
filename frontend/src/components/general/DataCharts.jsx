@@ -1,13 +1,8 @@
-import { useContext } from "react";
 import BarChartYear from "./BarChartYear";
-import AuthContext from "../../Contexts/AuthContext";
 import BarChartWeek from "./BarChartWeek";
 import BarChartMonth from "./BarChartMonth";
 
 function DataCharts() {
-  const {todayData} = useContext(AuthContext);
-  console.log(todayData); //todayDataは後で消す
-
   return (
     <>
       <hr className="mb-3 border-gray-400"/>

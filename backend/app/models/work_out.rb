@@ -19,10 +19,10 @@ class WorkOut < ApplicationRecord
     data_list
   end
 
-  # 消費カロリー = mets x 体重kg x 時間h (厚生労働省)
+  # 消費kcal/hour = mets x 体重kg x 1.05 (厚生労働省)
   # 運動1時間あたりの消費カロリー
   def burned_kcal(weight)
-    (mets * weight).round(1)
+    (mets * weight * 105 / 100).round()
   end
 
   # 摂取カロリーを消費するには最低何分の運動が必要？

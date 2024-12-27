@@ -30,6 +30,7 @@ function Top() {
       }
     });
     setWorkoutsObj(res.data);
+    console.log(res.data)
   }
 
   // ページ遷移した時、遷移元から体重・カロリーを受け取っているならfetchWorkoutsData

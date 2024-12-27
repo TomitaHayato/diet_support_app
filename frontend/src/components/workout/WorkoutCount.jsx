@@ -35,8 +35,9 @@ function WorkoutCount(props) {
       //開始
       countId.current = setInterval(() => {
         setWorkoutSeconds(prevSeconds  => prevSeconds + 1);
-        setBurnedCalorie(prevCalorie   => prevCalorie + burn_cal_per_second);
-        setUnburnedCalorie(prevCalorie => prevCalorie - burn_cal_per_second);
+        // 小数第二位以下を丸めて誤差をなくす
+        setBurnedCalorie(prevCalorie   => Math.round(prevCalorie * 100 + burn_cal_per_second * 100) / 100);
+        setUnburnedCalorie(prevCalorie => Math.round(prevCalorie * 100 - burn_cal_per_second * 100) / 100);
       }, 1000);
       setBtnText("ストップ");
     }
@@ -52,9 +53,9 @@ function WorkoutCount(props) {
       // 記録をサーバに送信
       const params = {
         workoutTime:      workoutSeconds,
-        burnedCalories:   Math.ceil(burnedCalorie),
+        burnedCalories:   Math.floor(burnedCalorie),
         unburnedCalories: Math.ceil(unburnedCalorie),
-        intakedCalories:   Math.ceil(burnedCalorie) + Math.ceil(unburnedCalorie),
+        intakedCalories:  Math.floor(burnedCalorie) + Math.ceil(unburnedCalorie),
       };
       const res = await postWorkoutRecord(params);
       setYearlyData(res.data.yearlyData);
