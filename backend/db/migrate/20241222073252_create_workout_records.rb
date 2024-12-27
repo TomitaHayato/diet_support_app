@@ -10,6 +10,7 @@ class CreateWorkoutRecords < ActiveRecord::Migration[7.2]
       t.integer :workout_time     , default: 0
       t.integer :burned_calories  , default: 0
       t.integer :unburned_calories, default: 0
+      t.integer :intaked_calories,  default: 0
 
       t.timestamps
     end

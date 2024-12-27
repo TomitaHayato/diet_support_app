@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_22_073252) do
     t.integer "workout_time", default: 0
     t.integer "burned_calories", default: 0
     t.integer "unburned_calories", default: 0
+    t.integer "intaked_calories", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_workout_records_on_user_id"
