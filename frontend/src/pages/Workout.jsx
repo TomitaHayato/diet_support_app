@@ -6,19 +6,26 @@
 
 import { useLocation, useNavigate } from "react-router-dom";
 import WorkoutCount from "../components/workout/WorkoutCount";
+import SideMenu from "../components/general/SideMenu";
+import { useContext } from "react";
+import AuthContext from "../Contexts/AuthContext";
+import WorkoutForm from "../components/workout/WorkoutForm";
 
 function Workout() {
   const location = useLocation();
-  const {workout, intakedCalorie, weight}  = location.state;
+  const {workout, intakedCalorie}  = location.state;
+  const {weight} = useContext(AuthContext);
 
-  //1秒あたりに消費するカロリー
-  const burn_cal_per_second = workout.burned_kcal / 3600;
+  //1秒あたりに消費するカロリー(小数第2位まで)
+  const burn_cal_per_second = Math.round(workout.burned_kcal * 100 / 3600) / 100;
+  // 1分あたりに消費するカロリー(小数第2位まで)
+  const burn_cal_per_minute = Math.round(workout.burned_kcal * 100 / 60) / 100;
 
   //ページ遷移
   const naviToTop = useNavigate();
   //トップページに遷移 state: {体重, 未消費カロリー}
   function transTop() {
-    naviToTop("/", {state: { weight: weight, intakedCalorie: intakedCalorie}})
+    naviToTop("/", {state: {intakedCalorie: intakedCalorie}})
   }
   //トップページに遷移
   function transTopReset() {
@@ -27,23 +34,36 @@ function Workout() {
 
   return (
     <>
-      <div className="p-16">
-        <div className="flex gap-4 mb-5">
-          <button onClick={transTop}      className="btn bg-cyan-200">運動一覧へ</button>
-          <button onClick={transTopReset} className="btn bg-emerald-200">カロリーを入力し直す</button>
+      <div className="py-12 px-8 flex min-h-screen">
+        <div className="basis-8/12 mx-auto">
+          <div className="flex justify-center gap-4 mb-5">
+            <button onClick={transTop}      className="btn btn-wide btn-outline">運動一覧へ</button>
+            <button onClick={transTopReset} className="btn btn-wide btn-outline">カロリーを入力し直す</button>
+          </div>
+
+          <div className="text-center">
+            <div className="mb-5">
+              <h1 className="text-4xl font-bold">{workout.name}</h1>
+            </div>
+            
+            {/* --- 運動時間を表示 --- */}
+            <WorkoutCount
+              intakedCalorie={intakedCalorie}
+              burn_cal_per_second={burn_cal_per_second}
+              required_exercise_time={workout.required_exercise_time}
+            />
+          </div>
+
+          <div className="text-center">
+            <WorkoutForm intakedCalorie={intakedCalorie} burn_cal_per_minute={burn_cal_per_minute}/>
+          </div>
         </div>
 
-        <div className="text-center">
-          <div className="mb-5">
-            <h1 className="text-4xl font-bold">{workout.name}</h1>
-          </div>
-          
-          {/* --- 運動時間を表示 --- */}
-          <WorkoutCount
-            intakedCalorie={intakedCalorie}
-            burn_cal_per_second={burn_cal_per_second}
-            required_exercise_time={workout.required_exercise_time}
-          />
+        <div className="divider divider-horizontal"></div>
+
+        {/* メニュー */}
+        <div className="basis-3/12">
+          <SideMenu />
         </div>
       </div>
     </>

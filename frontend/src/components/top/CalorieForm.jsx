@@ -1,6 +1,10 @@
+import { useContext } from "react";
+import AuthContext from "../../Contexts/AuthContext";
+
 function CalorieForm(props) {
   // eslint-disable-next-line react/prop-types
-  const {intakedCalorie, setIntakedCalorie, weight, setWeight, fetchWorkoutsData} = props;
+  const {intakedCalorie, setIntakedCalorie, fetchWorkoutsData} = props;
+  const {weight, setWeight} = useContext(AuthContext);
 
   return (
     <>

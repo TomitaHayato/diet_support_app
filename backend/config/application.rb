@@ -8,10 +8,16 @@ Bundler.require(*Rails.groups)
 
 module RailsApp
   class Application < Rails::Application
+    # セッションを使用できるようにする
+    config.session_store :cookie_store, key: "_diet_app_session_#{Rails.env}"
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use config.session_store, config.session_options
+
     config.generators do |g|
       g.test_framework false
       g.skip_routes false
     end
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.2
 
