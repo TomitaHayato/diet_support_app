@@ -10,7 +10,7 @@
 
 # { name: "", mets:  },
 
-workout_arr = [
+workouts = [
   { name: "散歩", mets: 3.5 },
   { name: "サイクリング(20km/h程度)", mets: 8.0 },
   { name: "ラジオ体操第一", mets: 4.0 },
@@ -29,6 +29,15 @@ workout_arr = [
   { name: "スポーツ/ダンスゲーム", mets: 3.8 },
 ]
 
-workout_arr.each do |workout|
+workouts.each do |workout|
   WorkOut.find_or_create_by!(workout)
+end
+
+tags = [
+  { name: "イージー" },
+  { name: "ハード"   }
+]
+
+tags.each do |tag|
+  Tag.find_or_create_by!(tag)
 end

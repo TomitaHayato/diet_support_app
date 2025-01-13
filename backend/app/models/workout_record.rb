@@ -1,5 +1,4 @@
 class WorkoutRecord < ApplicationRecord
-  has_many   :workout_tags, dependent: :destroy
   belongs_to :user
 
   # 指定した週（週の初め・終わりの年月日）のデータを取得(日ごとの合計を取得)
