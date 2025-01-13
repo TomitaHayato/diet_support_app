@@ -35,7 +35,10 @@ end
 
 tags = [
   { name: "イージー" },
-  { name: "ハード"   }
+  { name: "ハード"   },
+  { name: "家でも可"   },
+  { name: "ひとりで"   },
+  { name: "だれかと"   }
 ]
 
 tags.each do |tag|
