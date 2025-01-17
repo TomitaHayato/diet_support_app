@@ -1,34 +1,31 @@
-# This configuration file will be evaluated by Puma. The top-level methods that
-# are invoked here are part of Puma's configuration DSL. For more information
-# about methods provided by the DSL, see https://puma.io/puma/Puma/DSL.html.
+# この設定ファイルはPumaによって評価されます。ここで呼び出されるトップレベルのメソッドは
+# Pumaの設定DSL（ドメイン固有言語）の一部です。
+# DSLで提供されるメソッドの詳細については、https://puma.io/puma/Puma/DSL.html を参照してください。
 
-# Puma starts a configurable number of processes (workers) and each process
-# serves each request in a thread from an internal thread pool.
+# Pumaは設定可能なプロセス数（ワーカー）を起動し、各プロセスは内部のスレッドプールから
+# スレッドを使用してリクエストを処理します。
 #
-# The ideal number of threads per worker depends both on how much time the
-# application spends waiting for IO operations and on how much you wish to
-# to prioritize throughput over latency.
+# 各ワーカーに対する理想的なスレッド数は、アプリケーションがIO操作を待つ時間と、
+# スループット（1秒あたりの処理量）を遅延（応答時間）よりもどれだけ優先したいかによって異なります。
 #
-# As a rule of thumb, increasing the number of threads will increase how much
-# traffic a given process can handle (throughput), but due to CRuby's
-# Global VM Lock (GVL) it has diminishing returns and will degrade the
-# response time (latency) of the application.
+# 一般的な目安として、スレッド数を増やすことで、各プロセスが処理できるトラフィック量（スループット）が増加します。
+# ただし、CRubyのグローバルVMロック（GVL）の影響で、スレッド数を増やす効果には限界があり、
+# アプリケーションの応答時間（遅延）が悪化する可能性があります。
 #
-# The default is set to 3 threads as it's deemed a decent compromise between
-# throughput and latency for the average Rails application.
+# デフォルトでは、スループットと遅延の妥協点として、平均的なRailsアプリケーションに適した
+# スレッド数が3に設定されています。
 #
-# Any libraries that use a connection pool or another resource pool should
-# be configured to provide at least as many connections as the number of
-# threads. This includes Active Record's `pool` parameter in `database.yml`.
+# 接続プールやリソースプールを使用するライブラリは、スレッド数と同じ数以上の接続を提供するように
+# 設定する必要があります。これには、Active Recordの`database.yml`内の`pool`パラメータも含まれます。
 threads_count = ENV.fetch("RAILS_MAX_THREADS", 3)
 threads threads_count, threads_count
 
-# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+# Pumaがリクエストを受信するポートを指定します。デフォルトは3000です。
 port ENV.fetch("PORT", 3000)
 
-# Allow puma to be restarted by `bin/rails restart` command.
+# `bin/rails restart`コマンドでPumaを再起動できるようにします。
 plugin :tmp_restart
 
-# Specify the PID file. Defaults to tmp/pids/server.pid in development.
-# In other environments, only set the PID file if requested.
+# PIDファイルを指定します。デフォルトでは開発環境で`tmp/pids/server.pid`が使用されます。
+# 他の環境では、必要に応じてPIDファイルを設定してください。
 pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
