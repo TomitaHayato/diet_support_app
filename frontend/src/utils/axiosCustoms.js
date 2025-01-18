@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosCunstom = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: import.meta.env.VITE_RAILS_API_DOMEIN,
 });
 
 export default axiosCunstom
