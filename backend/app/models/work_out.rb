@@ -1,4 +1,7 @@
 class WorkOut < ApplicationRecord
+  has_many :workout_tags, dependent: :destroy
+  has_many :tags        , through: :workout_tags
+
   validates :name, presence: true
   validates :mets, presence: true
 

@@ -8,7 +8,9 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-WorkOut.create!([
+# { name: "", mets:  },
+
+workouts = [
   { name: "散歩", mets: 3.5 },
   { name: "サイクリング(20km/h程度)", mets: 8.0 },
   { name: "ラジオ体操第一", mets: 4.0 },
@@ -24,5 +26,21 @@ WorkOut.create!([
   { name: "野球/ソフトボール", mets: 5.0 },
   { name: "階段を登る（ダッシュ）", mets: 8.8 },
   { name: "階段を上り下り（歩く）", mets: 3.75 },
-  { name: "スポーツ/ダンスゲーム", mets: 3.8 }
-])
+  { name: "スポーツ/ダンスゲーム", mets: 3.8 },
+]
+
+workouts.each do |workout|
+  WorkOut.find_or_create_by!(workout)
+end
+
+tags = [
+  { name: "イージー" },
+  { name: "ハード"   },
+  { name: "家でも可"   },
+  { name: "ひとりで"   },
+  { name: "だれかと"   }
+]
+
+tags.each do |tag|
+  Tag.find_or_create_by!(tag)
+end
