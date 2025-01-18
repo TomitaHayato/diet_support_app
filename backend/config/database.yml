@@ -28,27 +28,20 @@ test:
   <<: *default
   database: rails_app_test
 
-# As with config/credentials.yml, you never want to store sensitive information,
-# like your database password, in your source code. If your source code is
-# ever seen by anyone, they now have access to your database.
+# config/credentials.yml と同様に、データベースのパスワードのような機密情報をソースコードに保存してはいけません。
+# 万が一ソースコードが他人に見られた場合、その人があなたのデータベースにアクセスできるようになってしまいます。
+# 代わりに、アプリを起動する際に環境変数としてパスワードや接続URL全体を提供してください。例えば：
+# DATABASE_URL="mysql2://myuser:mypass@localhost/somedatabase"
+# この特殊な DATABASE_URL 環境変数で接続URLが提供されている場合、Railsは自動的にこのファイルに記載された設定値の上に
+# その値をマージします。または、明示的に接続URLの環境変数を指定することも可能です：
 #
-# Instead, provide the password or a full connection URL as an environment
-# variable when you boot the app. For example:
+# production:
+#   url: <%= ENV["MY_APP_DATABASE_URL"] %>
 #
-#   DATABASE_URL="mysql2://myuser:mypass@localhost/somedatabase"
-#
-# If the connection URL is provided in the special DATABASE_URL environment
-# variable, Rails will automatically merge its configuration values on top of
-# the values provided in this file. Alternatively, you can specify a connection
-# URL environment variable explicitly:
-#
-#   production:
-#     url: <%= ENV["MY_APP_DATABASE_URL"] %>
-#
+# データベース接続設定の指定方法に関する詳しい情報は、以下のドキュメントを参照してください：
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
-# for a full overview on how database connection configuration can be specified.
 #
 production:
   <<: *default
   database: rails_app_production
-  username: rails_app
+  username: <%= ENV["MYSQL_USER"] %>
