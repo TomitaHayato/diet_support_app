@@ -17,9 +17,9 @@ function Workout() {
   const {weight} = useContext(AuthContext);
 
   //1秒あたりに消費するカロリー(小数第2位まで)
-  const burn_cal_per_second = Math.round(workout.burned_kcal * 100 / 3600) / 100;
+  const burn_cal_per_second = Math.round(workout.burnedKcal * 100 / 3600) / 100;
   // 1分あたりに消費するカロリー(小数第2位まで)
-  const burn_cal_per_minute = Math.round(workout.burned_kcal * 100 / 60) / 100;
+  const burn_cal_per_minute = Math.round(workout.burnedKcal * 100 / 60) / 100;
 
   //ページ遷移
   const naviToTop = useNavigate();
