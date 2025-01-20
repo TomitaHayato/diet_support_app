@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get "workouts/index"
+    get "workouts/update"
+    get "workouts/destroy"
+  end
   # devise_token_authによる認証用のルーティング
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
     registrations: 'auth/registrations',
