@@ -5,12 +5,12 @@
 
 import { useContext, useEffect, useState } from 'react'
 import '../builds/build.css'
-import axiosCunstom from '../utils/axiosCustoms';
 import WorkOutCard from '../components/top/WorkOutCard';
 import CalorieForm from '../components/top/CalorieForm';
 import { useLocation } from 'react-router-dom';
 import SideMenu from '../components/general/SideMenu';
 import AuthContext from '../Contexts/AuthContext';
+import client from '../utils/apiClient';
 
 function Top() {
   // ページ遷移時の処理
@@ -23,10 +23,10 @@ function Top() {
 
   //クリック時に、apiから運動データを取得する処理
   const fetchWorkoutsData = async () => {
-    const res = await axiosCunstom.get("/work_outs", {
+    const res = await client.get("/work_outs", {
       params: {
         weight:      weight,
-        kcal_intake: intakedCalorie,
+        kcalIntake: intakedCalorie,
       }
     });
     setWorkoutsObj(res.data);

@@ -24,7 +24,7 @@ function WorkOutCard(props) {
             <h3 className="font-semibold">{workout.name}</h3>
             <p className="mb-3">
               目安時間：
-              <span className="text-info font-semibold text-lg">{workout.required_exercise_time}</span>
+              <span className="text-info font-semibold text-lg">{workout.requiredExerciseTime}</span>
               分
             </p>
 

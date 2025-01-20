@@ -50,7 +50,7 @@ function Workout() {
             <WorkoutCount
               intakedCalorie={intakedCalorie}
               burn_cal_per_second={burn_cal_per_second}
-              required_exercise_time={workout.required_exercise_time}
+              required_exercise_time={workout.requiredExerciseTime}
             />
           </div>
 
