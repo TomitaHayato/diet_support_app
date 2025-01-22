@@ -15,9 +15,9 @@ import client from '../utils/apiClient';
 function Top() {
   // ページ遷移時の処理
   const location = useLocation();
-  
+
   const {weight} = useContext(AuthContext)
-  
+
   const [intakedCalorie, setIntakedCalorie] = useState(location.state?.intakedCalorie || 0);
   const [workoutsObj   , setWorkoutsObj   ] = useState([]);
 
@@ -25,11 +25,12 @@ function Top() {
   const fetchWorkoutsData = async () => {
     const res = await client.get("/work_outs", {
       params: {
-        weight:      weight,
+        weight:     weight,
         kcalIntake: intakedCalorie,
       }
     });
     setWorkoutsObj(res.data);
+    console.log('Workoutデータを取得しました')
     console.log(res.data)
   }
 
@@ -54,7 +55,7 @@ function Top() {
           </div>
 
           <div>
-            <div className='grid grid-cols-3 gap-5'>
+            <div className='grid grid-cols-3 gap-3'>
               {workoutsObj?.map((workout) => {
                 return (
                   <div key={workout.id}>
