@@ -67,18 +67,18 @@ function App() {
       <div data-theme={theme}>
         <AuthContext.Provider value={{authInfo, setAuthInfo, currentUser, weight, setWeight, setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
           <BrowserRouter>
-            <div className="py-12 px-8 flex min-h-screen">
-              <div className="basis-auto w-full">
+            <div className="flex px-8 h-screen mx-auto">
+              <div className="py-12 pl-1 pr-5 basis-9/12 w-full overflow-y-scroll overscroll-none">
                 <Routes>
                   <Route path="/"            element={<Top />} />
                   <Route path="/workout/:id" element={<Workout />} />
                 </Routes>
               </div>
 
-              <div className="divider divider-horizontal"></div>
+              <div className="divider divider-horizontal mx-0"></div>
 
               {/* サイドメニュー */}
-              <div className="basis-3/12 w-full">
+              <div className="py-12 px-1 basis-3/12 w-full overflow-y-scroll overscroll-none">
                 <SideMenuContext.Provider value={{yearlyData, monthlyData, weeklyData, todayData, theme, setTheme}}>
                   <SideMenu />
                 </SideMenuContext.Provider>
