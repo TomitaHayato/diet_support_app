@@ -8,7 +8,6 @@ import '../builds/build.css'
 import WorkOutCard from '../components/top/WorkOutCard';
 import CalorieForm from '../components/top/CalorieForm';
 import { useLocation } from 'react-router-dom';
-import SideMenu from '../components/general/SideMenu';
 import AuthContext from '../Contexts/AuthContext';
 import client from '../utils/apiClient';
 
@@ -43,9 +42,9 @@ function Top() {
 
   return (
     <>
-      <div className='py-12 px-8 flex min-h-screen'>
+      <div className=''>
         {/* フォーム/運動情報 */}
-        <div className='basis-8/12 mx-auto'>
+        <div className=''>
           <div className='mb-8'>
             <CalorieForm
               intakedCalorie={intakedCalorie}
@@ -68,13 +67,6 @@ function Top() {
               })}
             </div>
           </div>
-        </div>
-
-        <div className="divider divider-horizontal "></div>
-
-        {/* メニュー */}
-        <div className="basis-3/12">
-          <SideMenu/>
         </div>
       </div>
     </>

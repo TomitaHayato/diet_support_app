@@ -6,7 +6,6 @@
 
 import { useLocation, useNavigate } from "react-router-dom";
 import WorkoutCount from "../components/workout/WorkoutCount";
-import SideMenu from "../components/general/SideMenu";
 import { useContext } from "react";
 import AuthContext from "../Contexts/AuthContext";
 import WorkoutForm from "../components/workout/WorkoutForm";
@@ -34,8 +33,8 @@ function Workout() {
 
   return (
     <>
-      <div className="py-12 px-8 flex min-h-screen">
-        <div className="basis-8/12 mx-auto">
+      <div className="">
+        <div className="">
           <div className="flex justify-center gap-4 mb-5">
             <button onClick={transTop}      className="btn btn-wide btn-outline">運動一覧へ</button>
             <button onClick={transTopReset} className="btn btn-wide btn-outline">カロリーを入力し直す</button>
@@ -57,13 +56,6 @@ function Workout() {
           <div className="text-center">
             <WorkoutForm intakedCalorie={intakedCalorie} burn_cal_per_minute={burn_cal_per_minute}/>
           </div>
-        </div>
-
-        <div className="divider divider-horizontal"></div>
-
-        {/* メニュー */}
-        <div className="basis-3/12">
-          <SideMenu />
         </div>
       </div>
     </>
