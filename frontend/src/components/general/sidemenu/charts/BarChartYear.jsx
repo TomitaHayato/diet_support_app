@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { SideMenuContext } from "../../Contexts/Contexts";
-import { defaultYearlyData } from "../../utils/defaultRecordData";
+import { SideMenuContext } from "../../../../Contexts/Contexts";
+import { defaultYearlyData } from "../../../../utils/defaultRecordData";
 import { CustomTooltip } from "./CustomTooltip";
 
 function BarChartYear(props) {

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { SideMenuContext } from "../../Contexts/Contexts";
-import { defaultTodayData } from "../../utils/defaultRecordData";
-import { secondsToMMSS } from "../../utils/integerStyle";
+import { SideMenuContext } from "../../../Contexts/Contexts";
+import { defaultTodayData } from "../../../utils/defaultRecordData";
+import { secondsToMMSS } from "../../../utils/integerStyle";
 
 function TodayData() {
   const {todayData} = useContext(SideMenuContext);

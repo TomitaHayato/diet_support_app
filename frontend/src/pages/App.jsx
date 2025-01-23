@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Top from "./Top";
 import Workout from "./Workout";
-import SideMenu from "../components/general/SideMenu"
+import SideMenu from "../components/general/sidemenu/SideMenu"
 import { useCallback, useEffect, useState } from "react";
 import { AuthContext, SideMenuContext } from "../Contexts/Contexts";
 import { getUser } from "../utils/auth";

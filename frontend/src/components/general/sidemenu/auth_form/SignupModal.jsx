@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { getUser, signUp } from "../../utils/auth";
+import { getUser, signUp } from "../../../../utils/auth";
 import Cookies from "js-cookie";
-import { AuthContext } from "../../Contexts/Contexts";
+import { AuthContext } from "../../../../Contexts/Contexts";
 import { useForm } from "react-hook-form";
 
 function SignupModal() {

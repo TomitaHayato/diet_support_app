@@ -1,29 +1,32 @@
 import { useContext, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { SideMenuContext } from "../../Contexts/Contexts";
-import { defaultMonthlyData } from "../../utils/defaultRecordData";
+import { SideMenuContext } from "../../../../Contexts/Contexts";
+import { defaultWeeklyData, dowIndex } from "../../../../utils/defaultRecordData";
 import { CustomTooltip } from "./CustomTooltip";
 
-function BarChartMonth(props) {
-  // eslint-disable-next-line react/prop-types
-  const {dataKey}     = props;
-  const {monthlyData} = useContext(SideMenuContext);
 
-  const [userDataSet, setUserDataSet] = useState([...defaultMonthlyData]);
+function BarChartWeek(props) {
+  // eslint-disable-next-line react/prop-types
+  const {dataKey}    = props;
+  const {weeklyData} = useContext(SideMenuContext);
+
+  const [userDataSet, setUserDataSet] = useState([...defaultWeeklyData]);
 
   // // ユーザーデータが存在しない月に、デフォルトのデータを当てはめる
   function makeUserData() {
-    const userMonthlyData = [...defaultMonthlyData];
+    const userWeeklyData = [...defaultWeeklyData];
 
-    monthlyData.forEach(data =>  userMonthlyData[data.date - 1] = data);
+    weeklyData.forEach((data) => {
+      userWeeklyData[dowIndex[data.dow]] = data;
+    });
 
-    return userMonthlyData;
+    return userWeeklyData;
   }
   
   useEffect(() => {
-    const userMonthlyData = makeUserData();
-    setUserDataSet(userMonthlyData);
-  }, [monthlyData])
+    const userWeeklyData = makeUserData();
+    setUserDataSet(userWeeklyData);
+  }, [weeklyData])
 
   return (
     <div className="w-full h-56 text-xs">
@@ -39,9 +42,9 @@ function BarChartMonth(props) {
         >
           <CartesianGrid strokeDasharray="3 3" />
           {/* 軸ラベル */}
-          <XAxis dataKey={"date"} />
+          <XAxis dataKey={"dow"} />
           <YAxis />
-          <Tooltip content={<CustomTooltip dataKey={dataKey} labelUnit={'日'}/>}/>
+          <Tooltip content={<CustomTooltip dataKey={dataKey} labelUnit={'曜日'}/>}/>
           {/* 凡例 */}
           <Legend
             verticalAlign={"top"}
@@ -56,4 +59,4 @@ function BarChartMonth(props) {
   )
 }
 
-export default BarChartMonth;
+export default BarChartWeek;

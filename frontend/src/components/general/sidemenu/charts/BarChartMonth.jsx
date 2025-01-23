@@ -1,32 +1,29 @@
 import { useContext, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { SideMenuContext } from "../../Contexts/Contexts";
-import { defaultWeeklyData, dowIndex } from "../../utils/defaultRecordData";
+import { SideMenuContext } from "../../../../Contexts/Contexts";
+import { defaultMonthlyData } from "../../../../utils/defaultRecordData";
 import { CustomTooltip } from "./CustomTooltip";
 
-
-function BarChartWeek(props) {
+function BarChartMonth(props) {
   // eslint-disable-next-line react/prop-types
-  const {dataKey}    = props;
-  const {weeklyData} = useContext(SideMenuContext);
+  const {dataKey}     = props;
+  const {monthlyData} = useContext(SideMenuContext);
 
-  const [userDataSet, setUserDataSet] = useState([...defaultWeeklyData]);
+  const [userDataSet, setUserDataSet] = useState([...defaultMonthlyData]);
 
   // // ユーザーデータが存在しない月に、デフォルトのデータを当てはめる
   function makeUserData() {
-    const userWeeklyData = [...defaultWeeklyData];
+    const userMonthlyData = [...defaultMonthlyData];
 
-    weeklyData.forEach((data) => {
-      userWeeklyData[dowIndex[data.dow]] = data;
-    });
+    monthlyData.forEach(data =>  userMonthlyData[data.date - 1] = data);
 
-    return userWeeklyData;
+    return userMonthlyData;
   }
   
   useEffect(() => {
-    const userWeeklyData = makeUserData();
-    setUserDataSet(userWeeklyData);
-  }, [weeklyData])
+    const userMonthlyData = makeUserData();
+    setUserDataSet(userMonthlyData);
+  }, [monthlyData])
 
   return (
     <div className="w-full h-56 text-xs">
@@ -42,9 +39,9 @@ function BarChartWeek(props) {
         >
           <CartesianGrid strokeDasharray="3 3" />
           {/* 軸ラベル */}
-          <XAxis dataKey={"dow"} />
+          <XAxis dataKey={"date"} />
           <YAxis />
-          <Tooltip content={<CustomTooltip dataKey={dataKey} labelUnit={'曜日'}/>}/>
+          <Tooltip content={<CustomTooltip dataKey={dataKey} labelUnit={'日'}/>}/>
           {/* 凡例 */}
           <Legend
             verticalAlign={"top"}
@@ -59,4 +56,4 @@ function BarChartWeek(props) {
   )
 }
 
-export default BarChartWeek;
+export default BarChartMonth;

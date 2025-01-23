@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { logout } from "../../utils/auth";
-import { AuthContext } from "../../Contexts/Contexts";
+import { logout } from "../../../../utils/auth";
+import { AuthContext } from "../../../../Contexts/Contexts";
 
 function LogoutForm() {
   const {setAuthInfo} = useContext(AuthContext);
