@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { SideMenuContext } from "../../Contexts/Contexts";
 import { defaultMonthlyData } from "../../utils/defaultRecordData";
+import { CustomTooltip } from "./CustomTooltip";
 
 function BarChartMonth(props) {
   // eslint-disable-next-line react/prop-types
@@ -40,7 +41,7 @@ function BarChartMonth(props) {
           {/* 軸ラベル */}
           <XAxis dataKey={"date"} />
           <YAxis />
-          <Tooltip />
+          <Tooltip content={<CustomTooltip dataKey={dataKey} labelUnit={'日'}/>}/>
           {/* 凡例 */}
           <Legend
             verticalAlign={"top"}

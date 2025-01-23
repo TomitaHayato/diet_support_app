@@ -29,8 +29,8 @@ function Top() {
       }
     });
     setWorkoutsObj(res.data);
-    console.log('Workoutデータを取得しました')
-    console.log(res.data)
+    // console.log('Workoutデータを取得しました')
+    // console.log(res.data)
   }
 
   // ページ遷移した時、遷移元から体重・カロリーを受け取っているならfetchWorkoutsData
@@ -42,30 +42,28 @@ function Top() {
 
   return (
     <>
+      {/* フォーム/運動情報 */}
       <div className=''>
-        {/* フォーム/運動情報 */}
-        <div className=''>
-          <div className='mb-8'>
-            <CalorieForm
-              intakedCalorie={intakedCalorie}
-              setIntakedCalorie={setIntakedCalorie}
-              fetchWorkoutsData={fetchWorkoutsData}
-            />
-          </div>
+        <div className='mb-8'>
+          <CalorieForm
+            intakedCalorie={intakedCalorie}
+            setIntakedCalorie={setIntakedCalorie}
+            fetchWorkoutsData={fetchWorkoutsData}
+          />
+        </div>
 
-          <div>
-            <div className='grid grid-cols-3 gap-3'>
-              {workoutsObj?.map((workout) => {
-                return (
-                  <div key={workout.id}>
-                    <WorkOutCard
-                      workout={workout}
-                      intakedCalorie={intakedCalorie}
-                    />
-                  </div>
-                )
-              })}
-            </div>
+        <div>
+          <div className='grid grid-cols-3 gap-3'>
+            {workoutsObj?.map((workout) => {
+              return (
+                <div key={workout.id}>
+                  <WorkOutCard
+                    workout={workout}
+                    intakedCalorie={intakedCalorie}
+                  />
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>

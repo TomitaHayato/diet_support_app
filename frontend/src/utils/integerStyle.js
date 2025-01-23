@@ -1,4 +1,4 @@
-// workoutSecondsをMM:SSの文字列変換する
+// 秒数をMM:SSの文字列変換する
 export function secondsToMMSS(num) {
   const minutes = Math.floor(num / 60)
   const seconds = num % 60

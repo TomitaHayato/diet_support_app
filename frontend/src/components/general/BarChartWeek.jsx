@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { SideMenuContext } from "../../Contexts/Contexts";
 import { defaultWeeklyData, dowIndex } from "../../utils/defaultRecordData";
+import { CustomTooltip } from "./CustomTooltip";
 
 
 function BarChartWeek(props) {
@@ -43,7 +44,7 @@ function BarChartWeek(props) {
           {/* 軸ラベル */}
           <XAxis dataKey={"dow"} />
           <YAxis />
-          <Tooltip />
+          <Tooltip content={<CustomTooltip dataKey={dataKey} labelUnit={'曜日'}/>}/>
           {/* 凡例 */}
           <Legend
             verticalAlign={"top"}
