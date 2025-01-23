@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import AuthContext from "../../Contexts/AuthContext";
+import { AuthContext } from "../../Contexts/Contexts";
 
 function UserInfo(props) {
   // eslint-disable-next-line react/prop-types

@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import AuthContext from "../../Contexts/AuthContext";
+import { SideMenuContext } from "../../Contexts/Contexts";
 import { defaultWeeklyData, dowIndex } from "../../utils/defaultRecordData";
 
 
 function BarChartWeek(props) {
   // eslint-disable-next-line react/prop-types
   const {dataKey}    = props;
-  const {weeklyData} = useContext(AuthContext);
+  const {weeklyData} = useContext(SideMenuContext);
 
   const [userDataSet, setUserDataSet] = useState([...defaultWeeklyData]);
 

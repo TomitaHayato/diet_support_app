@@ -7,7 +7,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import WorkoutCount from "../components/workout/WorkoutCount";
 import { useContext } from "react";
-import AuthContext from "../Contexts/AuthContext";
+import { AuthContext } from "../Contexts/Contexts";
 import WorkoutForm from "../components/workout/WorkoutForm";
 
 function Workout() {

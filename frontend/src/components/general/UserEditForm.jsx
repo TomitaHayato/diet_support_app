@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import AuthContext from "../../Contexts/AuthContext";
+import { AuthContext } from "../../Contexts/Contexts";
 import { updateUser } from "../../utils/userRequest";
 import { useForm } from "react-hook-form";
 

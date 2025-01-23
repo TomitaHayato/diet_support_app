@@ -1,13 +1,15 @@
 import { useContext, useEffect, useState} from "react";
 import AuthForms from "./AuthForms";
 import LogoutForm from "./LogoutForm";
-import AuthContext from "../../Contexts/AuthContext";
+import { AuthContext, SideMenuContext } from "../../Contexts/Contexts";
 import UserZone from "./UserZone";
 import DataCharts from "./DataCharts";
 import TodayData from "./TodayData";
 
 function SideMenu() {
-  const {authInfo, theme, setTheme} = useContext(AuthContext);
+  const {authInfo       } = useContext(AuthContext);
+  const {theme, setTheme} = useContext(SideMenuContext);
+
   const [themeCheck, setThemeCheck] = useState(theme === "retro" ? false : true)
 
   const [authFormContent, setAuthFormContent] = useState("");

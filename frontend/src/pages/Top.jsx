@@ -8,7 +8,7 @@ import '../builds/build.css'
 import WorkOutCard from '../components/top/WorkOutCard';
 import CalorieForm from '../components/top/CalorieForm';
 import { useLocation } from 'react-router-dom';
-import AuthContext from '../Contexts/AuthContext';
+import { AuthContext } from '../Contexts/Contexts';
 import client from '../utils/apiClient';
 
 function Top() {

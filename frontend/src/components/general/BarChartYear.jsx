@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import AuthContext from "../../Contexts/AuthContext";
+import { SideMenuContext } from "../../Contexts/Contexts";
 import { defaultYearlyData } from "../../utils/defaultRecordData";
 
 function BarChartYear(props) {
   // eslint-disable-next-line react/prop-types
   const {dataKey}    = props;
-  const {yearlyData} = useContext(AuthContext);
+  const {yearlyData} = useContext(SideMenuContext);
 
   const [userDataSet, setUserDataSet] = useState([...defaultYearlyData]);
 

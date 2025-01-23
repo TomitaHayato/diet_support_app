@@ -3,7 +3,7 @@ import Top from "./Top";
 import Workout from "./Workout";
 import SideMenu from "../components/general/SideMenu"
 import { useCallback, useEffect, useState } from "react";
-import AuthContext from "../Contexts/AuthContext";
+import { AuthContext, SideMenuContext } from "../Contexts/Contexts";
 import { getUser } from "../utils/auth";
 import { isEmptyObj } from "../utils/objectControl";
 import { getWorkoutRecords } from "../utils/workoutRecordRequest";
@@ -65,21 +65,23 @@ function App() {
   return (
     <>
       <div data-theme={theme}>
-        <AuthContext.Provider value={{authInfo, setAuthInfo, currentUser, weight, setWeight, theme, setTheme, yearlyData, monthlyData, weeklyData, todayData, setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
+        <AuthContext.Provider value={{authInfo, setAuthInfo, currentUser, weight, setWeight, setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
           <BrowserRouter>
             <div className="py-12 px-8 flex min-h-screen">
               <div className="basis-auto w-full">
                 <Routes>
-                  <Route path="/"             element={<Top />} />
+                  <Route path="/"            element={<Top />} />
                   <Route path="/workout/:id" element={<Workout />} />
                 </Routes>
               </div>
 
-              <div className="divider divider-horizontal "></div>
+              <div className="divider divider-horizontal"></div>
 
               {/* サイドメニュー */}
-              <div className="basis-3/12">
-                <SideMenu />
+              <div className="basis-3/12 w-full">
+                <SideMenuContext.Provider value={{yearlyData, monthlyData, weeklyData, todayData, theme, setTheme}}>
+                  <SideMenu />
+                </SideMenuContext.Provider>
               </div>
             </div>
           </BrowserRouter>

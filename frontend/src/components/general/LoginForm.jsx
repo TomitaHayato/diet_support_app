@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { getUser, signIn } from "../../utils/auth";
 import Cookies from "js-cookie";
-import AuthContext from "../../Contexts/AuthContext";
+import { AuthContext } from "../../Contexts/Contexts";
 import { useForm } from "react-hook-form";
 
 function LoginForm() {

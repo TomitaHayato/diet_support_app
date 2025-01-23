@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import AuthContext from "../../Contexts/AuthContext";
+import { SideMenuContext } from "../../Contexts/Contexts";
 import { defaultTodayData } from "../../utils/defaultRecordData";
 
 function TodayData() {
-  const {todayData} = useContext(AuthContext);
+  const {todayData} = useContext(SideMenuContext);
 
   const [userDataSet, setUserDataSet] = useState(defaultTodayData);
 

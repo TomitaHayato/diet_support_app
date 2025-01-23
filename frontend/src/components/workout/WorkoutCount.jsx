@@ -6,7 +6,7 @@
 import { useContext, useRef, useState } from "react";
 import { secondsToMMSS } from "../../utils/integerStyle";
 import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
-import AuthContext from "../../Contexts/AuthContext";
+import { AuthContext } from "../../Contexts/Contexts";
 
 function WorkoutCount(props) {
   // eslint-disable-next-line react/prop-types
