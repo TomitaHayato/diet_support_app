@@ -1,5 +1,6 @@
 import { btnOff, btnOn, resetInput } from "../../utils/formCtl";
 import { closeEl, openAndCloseEl } from "../../utils/openClose";
+import RadioBtnXs from "../general/data-input/RadioBtnXs";
 
 function SearchForm() {
 
@@ -42,79 +43,46 @@ function SearchForm() {
           {/* 難易度 */}
           <div className="px-4 border-r border-gray-500">
             <p className="text-sm mb-2">難易度</p>
-
-            <div className="form-control">
-              <label className="label cursor-pointer gap-2 justify-start">
-                <input type="radio" name="dificulty" className="radio radio-xs" />
-                <span className="text-xs">指定なし</span>
-              </label>
-            </div>
-
-            <div className="form-control">
-              <label className="label cursor-pointer gap-2 justify-start">
-                <input type="radio" name="dificulty" className="radio radio-xs" />
-                <span className="text-xs">イージー</span>
-              </label>
-            </div>
-
-            <div className="form-control">
-              <label className="label cursor-pointer gap-2 justify-start">
-                <input type="radio" name="dificulty" className="radio radio-xs" />
-                <span className="text-xs">ハード</span>
-              </label>
-            </div>
+            {
+              ['指定なし', 'イージー', 'ハード'].map((radioValue) => {
+                const name='difficulty'
+                return (
+                  <div key={`${name}-${radioValue}`}>
+                    <RadioBtnXs name={name} value={radioValue} />
+                  </div>
+                )
+              })
+            }
           </div>
 
           {/* 場所 */}
           <div className="px-4 border-r border-gray-500">
             <p className="text-sm mb-2">場所</p>
-
-            <div className="form-control">
-              <label className="label cursor-pointer gap-2 justify-start">
-                <input type="radio" name="place" className="radio radio-xs" />
-                <span className="text-xs">指定なし</span>
-              </label>
-            </div>
-
-            <div className="form-control">
-              <label className="label cursor-pointer gap-2 justify-start">
-                <input type="radio" name="place" className="radio radio-xs" />
-                <span className="text-xs">家でできる</span>
-              </label>
-            </div>
-
-            <div className="form-control">
-              <label className="label cursor-pointer gap-2 justify-start">
-                <input type="radio" name="place" className="radio radio-xs" />
-                <span className="text-xs">アウトドア</span>
-              </label>
-            </div>
+            {
+              ['指定なし', '家でできる', 'アウトドア'].map((radioValue) => {
+                const name='place'
+                return (
+                  <div key={`${name}-${radioValue}`}>
+                    <RadioBtnXs name={name} value={radioValue} />
+                  </div>
+                )
+              })
+            }
           </div>
 
           {/* 人数 */}
           <div className="px-4 border-r border-gray-500">
             <p className="text-sm mb-2">人数</p>
-
-            <div className="form-control">
-              <label className="label cursor-pointer gap-2 justify-start">
-                <input type="radio" name="num" className="radio radio-xs" />
-                <span className="text-xs">指定なし</span>
-              </label>
-            </div>
-
-            <div className="form-control">
-              <label className="label cursor-pointer gap-2 justify-start">
-                <input type="radio" name="num" className="radio radio-xs" />
-                <span className="text-xs">ひとりで</span>
-              </label>
-            </div>
-
-            <div className="form-control">
-              <label className="label cursor-pointer gap-2 justify-start">
-                <input type="radio" name="num" className="radio radio-xs" />
-                <span className="text-xs">だれかと</span>
-              </label>
-            </div>
+            {
+              ['指定なし', 'ひとりで', 'だれかと'].map((radioValue) => {
+                const name='menber'
+                return (
+                  <div key={`${name}-${radioValue}`}>
+                    <RadioBtnXs name={name} value={radioValue} />
+                  </div>
+                )
+              })
+            }
           </div>
 
           <div className="flex flex-col gap-4">

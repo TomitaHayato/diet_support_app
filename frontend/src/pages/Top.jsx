@@ -22,11 +22,11 @@ function Top() {
   const [workoutsObj   , setWorkoutsObj   ] = useState([]);
 
   //クリック時に、apiから運動データを取得する処理
-  const fetchWorkoutsData = async () => {
+  const fetchWorkoutsData = async (wei, cal) => {
     const res = await client.get("/work_outs", {
       params: {
-        weight:     weight,
-        kcalIntake: intakedCalorie,
+        weight:     wei,
+        kcalIntake: cal,
       }
     });
     setWorkoutsObj(res.data);
@@ -34,10 +34,10 @@ function Top() {
     // console.log(res.data)
   }
 
-  // ページ遷移した時、遷移元から体重・カロリーを受け取っているならfetchWorkoutsData
+  // ページ遷移した時、遷移元からカロリーを受け取っているなら、そのデータをfetchWorkoutsDataに渡す
   useEffect(() => {
     if (location.state?.intakedCalorie) {
-      fetchWorkoutsData();
+      fetchWorkoutsData(weight, intakedCalorie);
     }
   }, [location]) //fetchWorkoutsData()の更新に反応すると、フォーム入力値が変更される(setWeight)たびにGETリクエストが発行される
 
