@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Contexts/Contexts";
+import { btnOff, btnOn } from "../../utils/formCtl";
 
 function CalorieForm(props) {
   // eslint-disable-next-line react/prop-types
@@ -24,7 +25,11 @@ function CalorieForm(props) {
             </label>
           </div>
 
-          <button className='btn btn-primary' onClick={fetchWorkoutsData}>調べる</button>
+          <button className='btn btn-primary' onClick={(e) => {
+            btnOff(e.target);
+            fetchWorkoutsData();
+            btnOn(e.target);
+          }}>調べる</button>
         </div>
       </div>
     </>

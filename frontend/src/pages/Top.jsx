@@ -10,6 +10,7 @@ import CalorieForm from '../components/top/CalorieForm';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../Contexts/Contexts';
 import client from '../utils/apiClient';
+import SearchForm from '../components/top/SearchForm';
 
 function Top() {
   // ページ遷移時の処理
@@ -52,6 +53,12 @@ function Top() {
           />
         </div>
 
+        {/* Workout検索フォーム */}
+        <div className='mb-4'>
+          <SearchForm />
+        </div>
+
+        {/* Workout一覧表示 */}
         <div>
           <div className='grid grid-cols-3 gap-3'>
             {workoutsObj?.map((workout) => {
