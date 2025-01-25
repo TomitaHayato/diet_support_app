@@ -4,22 +4,24 @@ import { closeEl, openAndCloseEl } from "../../utils/openClose";
 import RadioBtnXs from "./RadioBtnXs";
 import { FilterWorkoutsContext } from "../../Contexts/Contexts";
 
-function SearchForm(props) {
+const defaultSelectedoptions = {'num': '指定なし', 'place': '指定なし', 'difficulty': '指定なし'};
 
+function SearchForm(props) {
   const {workoutsObj} = props;
 
   const {setSearchWords, setFilterQuery} = useContext(FilterWorkoutsContext);
 
-  const [inputWords  , setInputWords  ] = useState(''); // 検索Formの入力値               =>「検索」ボタンClickでsearchWordsにset
-  const [selectedTags, setSelectedTags] = useState([]); // 選択されているradio btnのvalue =>「検索」ボタンClickでfilterQueryにset
+  const [inputWords     , setInputWords     ] = useState(''); // 検索Formの入力値 =>「検索」ボタンClickでsearchWordsにset
+  const [selectedOptions, setSelectedOptions] = useState(defaultSelectedoptions);
 
-  // 検索・絞り込み実行
+  // 検索・絞り込みクエリを反映
   function runSearch() {
     setSearchWords(inputWords);
-    setFilterQuery(selectedTags);
+    const newFilterQuery = Object.values(selectedOptions).filter(val => val !== '指定なし')
+    setFilterQuery(newFilterQuery);
   }
 
-  useEffect(() => runSearch(), [workoutsObj])
+  useEffect(() => runSearch(), [workoutsObj]); // apiからWorkoutデータを取得した際、検索クエリを反映
 
   return (
     <>
@@ -56,68 +58,52 @@ function SearchForm(props) {
 
       <div id="filterBox" className="hidden mt-4 p-4 rounded-lg shadow-xl border border-gray-500/50">
         <div className="flex items-start justify-end gap-4">
-
           {/* 難易度 */}
           <div className="px-4 border-r border-gray-500">
             <p className="text-sm mb-2">難易度</p>
-            {['指定なし', 'イージー', 'ハード'].map((radioValue, _, options) => {
-              const name='difficulty'
-              return (
-                <div key={`${name}-${radioValue}`}>
-                  <RadioBtnXs
-                    name={name}
-                    value={radioValue}
-                    options={options}
-                    selectedTags={selectedTags}
-                    setSelectedTags={setSelectedTags} />
-                </div>
-              )})}
+            <RadioBtnXs
+              name={'difficulty'}
+              options={['指定なし', 'イージー', 'ハード']}
+              selectedOptions={selectedOptions}
+              setSelectedOptions={setSelectedOptions} />
           </div>
 
           {/* 場所 */}
           <div className="px-4 border-r border-gray-500">
             <p className="text-sm mb-2">場所</p>
-            {['指定なし', '家でできる', 'アウトドア'].map((radioValue, _, options) => {
-              const name='place'
-              return (
-                <div key={`${name}-${radioValue}`}>
-                  <RadioBtnXs
-                    name={name}
-                    value={radioValue}
-                    options={options}
-                    selectedTags={selectedTags}
-                    setSelectedTags={setSelectedTags}/>
-                </div>
-              )})}
+            <RadioBtnXs
+              name={'place'}
+              options={['指定なし', '家でできる', 'アウトドア']}
+              selectedOptions={selectedOptions}
+              setSelectedOptions={setSelectedOptions}/>
           </div>
 
           {/* 人数 */}
           <div className="px-4 border-r border-gray-500">
             <p className="text-sm mb-2">人数</p>
-            {['指定なし', 'ひとりで', 'だれかと'].map((radioValue, _, options) => {
-              const name='member'
-              return (
-                <div key={`${name}-${radioValue}`}>
-                  <RadioBtnXs
-                    name={name}
-                    value={radioValue}
-                    options={options}
-                    selectedTags={selectedTags}
-                    setSelectedTags={setSelectedTags}/>
-                </div>
-              )})}
+            <RadioBtnXs
+              name={'num'}
+              options={['指定なし', 'ひとりで', 'だれかと']}
+              selectedOptions={selectedOptions}
+              setSelectedOptions={setSelectedOptions}/>
           </div>
 
           <div className="flex flex-col gap-4">
             <button className="btn btn-xs btn-circle btn-ghost ml-auto" onClick={() => closeEl(document.querySelector('#filterBox'))}>
               <i className="i-uiw-close text-red-500 font-bold"/>
             </button>
+
             <button className="btn btn-xs btn-outline" onClick={(e) => {
               btnOff(e.target);
               runSearch();
               btnOn(e.target);
             }}>この条件で検索</button>
-            <button className="btn btn-xs btn-outline">リセット</button>
+
+            <button className="btn btn-xs btn-outline" onClick={e => {
+              btnOff(e.target);
+              setSelectedOptions(defaultSelectedoptions);
+              btnOn(e.target);
+            }}>リセット</button>
           </div>
         </div>
       </div>
