@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 
 /* eslint-disable react/prop-types */
-function WorkOutCard(props) {
+function WorkoutCard(props) {
   const {workout, intakedCalorie} = props;
 
   const navi = useNavigate();
@@ -50,4 +50,4 @@ function WorkOutCard(props) {
   )
 }
 
-export default WorkOutCard;
+export default WorkoutCard;
