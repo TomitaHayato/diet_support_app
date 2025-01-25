@@ -1,18 +1,19 @@
 import { useContext, useState } from "react";
-import { getUser, signIn } from "../../utils/auth";
+import { getUser, signIn } from "../../../../utils/auth";
 import Cookies from "js-cookie";
-import AuthContext from "../../Contexts/AuthContext";
+import { AuthContext } from "../../../../Contexts/Contexts";
+import { useForm } from "react-hook-form";
 
 function LoginForm() {
   const {setAuthInfo} = useContext(AuthContext);
 
-  const [email   , setEmail   ] = useState("");
-  const [password, setPassword] = useState(""); 
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const login = async() => {
+  const [loginError, setLoginError] = useState(null);
+
+  const login = async(params) => {
     try {
       //ログイン処理
-      const params = { email, password }
       const res = await signIn(params);
       Cookies.set("_access_token", res.headers["access-token"]);
       Cookies.set("_client"      , res.headers["client"]);
@@ -20,31 +21,31 @@ function LoginForm() {
       // ユーザー情報を取得
       const resUser = await getUser();
       setAuthInfo(resUser.data);
+      setLoginError(null);
     } catch(error) {
       console.log(error);
+      setLoginError('ログインできませんでした。');
     }
   }
 
   return (
     <>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          login();
-        }}
-      >
+      <form onSubmit={handleSubmit(login)} >
+        <p className="text-red-500 text-lg">{loginError}</p>
+
+        {errors.email?.message && (<p className="text-red-500">{errors.email.message}</p>)}
         <label className="input input-sm input-bordered flex items-center gap-2 mb-3">
           <i className="i-lucide-mail" />
           <input type="email" className="grow" placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            {...register('email', {required: 'メールアドレスを入力してください'})}
           />
         </label>
 
+        {errors.password?.message && (<p className="text-red-500">{errors.password.message}</p>)}
         <label className="input input-sm input-bordered flex items-center gap-2 mb-3">
           <i className="i-lucide-key-round" />
-          <input type="password" className="grow" placeholder="Password" value={password}
-            onChange={(e) => setPassword(e.target.value)}
+          <input type="password" className="grow" placeholder="Password"
+            {...register('password', {required: 'パスワードを入力してください'})}
           />
         </label>
 

@@ -6,9 +6,8 @@
 
 import { useLocation, useNavigate } from "react-router-dom";
 import WorkoutCount from "../components/workout/WorkoutCount";
-import SideMenu from "../components/general/SideMenu";
 import { useContext } from "react";
-import AuthContext from "../Contexts/AuthContext";
+import { AuthContext } from "../Contexts/Contexts";
 import WorkoutForm from "../components/workout/WorkoutForm";
 
 function Workout() {
@@ -17,9 +16,9 @@ function Workout() {
   const {weight} = useContext(AuthContext);
 
   //1秒あたりに消費するカロリー(小数第2位まで)
-  const burn_cal_per_second = Math.round(workout.burned_kcal * 100 / 3600) / 100;
+  const burn_cal_per_second = Math.round(workout.burnedKcal * 100 / 3600) / 100;
   // 1分あたりに消費するカロリー(小数第2位まで)
-  const burn_cal_per_minute = Math.round(workout.burned_kcal * 100 / 60) / 100;
+  const burn_cal_per_minute = Math.round(workout.burnedKcal * 100 / 60) / 100;
 
   //ページ遷移
   const naviToTop = useNavigate();
@@ -34,8 +33,8 @@ function Workout() {
 
   return (
     <>
-      <div className="py-12 px-8 flex min-h-screen">
-        <div className="basis-8/12 mx-auto">
+      <div className="">
+        <div className="">
           <div className="flex justify-center gap-4 mb-5">
             <button onClick={transTop}      className="btn btn-wide btn-outline">運動一覧へ</button>
             <button onClick={transTopReset} className="btn btn-wide btn-outline">カロリーを入力し直す</button>
@@ -50,20 +49,13 @@ function Workout() {
             <WorkoutCount
               intakedCalorie={intakedCalorie}
               burn_cal_per_second={burn_cal_per_second}
-              required_exercise_time={workout.required_exercise_time}
+              required_exercise_time={workout.requiredExerciseTime}
             />
           </div>
 
           <div className="text-center">
             <WorkoutForm intakedCalorie={intakedCalorie} burn_cal_per_minute={burn_cal_per_minute}/>
           </div>
-        </div>
-
-        <div className="divider divider-horizontal"></div>
-
-        {/* メニュー */}
-        <div className="basis-3/12">
-          <SideMenu />
         </div>
       </div>
     </>

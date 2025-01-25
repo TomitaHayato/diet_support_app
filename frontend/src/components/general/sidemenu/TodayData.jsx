@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import AuthContext from "../../Contexts/AuthContext";
-import { defaultTodayData } from "../../utils/defaultRecordData";
+import { SideMenuContext } from "../../../Contexts/Contexts";
+import { defaultTodayData } from "../../../utils/defaultRecordData";
+import { secondsToMMSS } from "../../../utils/integerStyle";
 
 function TodayData() {
-  const {todayData} = useContext(AuthContext);
+  const {todayData} = useContext(SideMenuContext);
 
   const [userDataSet, setUserDataSet] = useState(defaultTodayData);
 
@@ -31,7 +32,7 @@ function TodayData() {
 
             <div className="stat-title text-sm">運動時間</div>
             <div className="stat-value text-xl text-primary">
-              {userDataSet.totalTime} 秒
+              {secondsToMMSS(userDataSet.totalTime)}
             </div>
           </div>
         </div>

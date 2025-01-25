@@ -5,75 +5,57 @@
 
 import { useContext, useEffect, useState } from 'react'
 import '../builds/build.css'
-import axiosCunstom from '../utils/axiosCustoms';
-import WorkOutCard from '../components/top/WorkOutCard';
+import WorkoutCard from '../components/top/WorkoutCard';
 import CalorieForm from '../components/top/CalorieForm';
 import { useLocation } from 'react-router-dom';
-import SideMenu from '../components/general/SideMenu';
-import AuthContext from '../Contexts/AuthContext';
+import { AuthContext } from '../Contexts/Contexts';
+import client from '../utils/apiClient';
+import SearchForm from '../components/top/SearchForm';
+import WorkoutsIndex from '../components/top/WorkoutsIndex';
 
 function Top() {
   // ページ遷移時の処理
   const location = useLocation();
-  
+
   const {weight} = useContext(AuthContext)
-  
+
   const [intakedCalorie, setIntakedCalorie] = useState(location.state?.intakedCalorie || 0);
   const [workoutsObj   , setWorkoutsObj   ] = useState([]);
 
   //クリック時に、apiから運動データを取得する処理
-  const fetchWorkoutsData = async () => {
-    const res = await axiosCunstom.get("/work_outs", {
+  const fetchWorkoutsData = async (wei, cal) => {
+    const res = await client.get("/work_outs", {
       params: {
-        weight:      weight,
-        kcal_intake: intakedCalorie,
+        weight:     wei,
+        kcalIntake: cal,
       }
     });
     setWorkoutsObj(res.data);
-    console.log(res.data)
+    // console.log('Workoutデータを取得しました')
+    // console.log(res.data)
   }
 
-  // ページ遷移した時、遷移元から体重・カロリーを受け取っているならfetchWorkoutsData
+  // ページ遷移した時、遷移元からカロリーを受け取っているなら、そのデータをfetchWorkoutsDataに渡す
   useEffect(() => {
     if (location.state?.intakedCalorie) {
-      fetchWorkoutsData();
+      fetchWorkoutsData(weight, intakedCalorie);
     }
   }, [location]) //fetchWorkoutsData()の更新に反応すると、フォーム入力値が変更される(setWeight)たびにGETリクエストが発行される
 
   return (
     <>
-      <div className='py-12 px-8 flex min-h-screen'>
-        {/* フォーム/運動情報 */}
-        <div className='basis-8/12 mx-auto'>
-          <div className='mb-8'>
-            <CalorieForm
-              intakedCalorie={intakedCalorie}
-              setIntakedCalorie={setIntakedCalorie}
-              fetchWorkoutsData={fetchWorkoutsData}
-            />
-          </div>
-
-          <div>
-            <div className='grid grid-cols-3 gap-5'>
-              {workoutsObj?.map((workout) => {
-                return (
-                  <div key={workout.id}>
-                    <WorkOutCard
-                      workout={workout}
-                      intakedCalorie={intakedCalorie}
-                    />
-                  </div>
-                )
-              })}
-            </div>
-          </div>
+      {/* フォーム/運動情報 */}
+      <div className=''>
+        <div className='mb-8'>
+          <CalorieForm
+            intakedCalorie={intakedCalorie}
+            setIntakedCalorie={setIntakedCalorie}
+            fetchWorkoutsData={fetchWorkoutsData}
+          />
         </div>
 
-        <div className="divider divider-horizontal "></div>
-
-        {/* メニュー */}
-        <div className="basis-3/12">
-          <SideMenu/>
+        <div>
+          <WorkoutsIndex workoutsObj={workoutsObj} intakedCalorie={intakedCalorie}/>
         </div>
       </div>
     </>

@@ -10,12 +10,15 @@ class WorkOut < ApplicationRecord
   # [{id, name, 1時間あたりの消費カロリー, 必要な運動量}, {...} }形式の配列を返す
   # 運動からランダムに10件選択して返す
   def self.workouts_data(weight:, kcal_intake:)
-    data_list = all.map do |workout|
+    all_workouts = order(mets: :desc).includes(:tags)
+
+    data_list = all_workouts.map do |workout|
       {
         id:                     workout.id,
         name:                   workout.name,
         burned_kcal:            workout.burned_kcal(weight),
-        required_exercise_time: workout.required_exercise_time(weight: weight, kcal_intake: kcal_intake)
+        required_exercise_time: workout.required_exercise_time(weight: weight, kcal_intake: kcal_intake),
+        tag_list:               workout.tags.pluck(:name)
       }
     end
 

@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Top from "./Top";
 import Workout from "./Workout";
+import SideMenu from "../components/general/sidemenu/SideMenu"
 import { useCallback, useEffect, useState } from "react";
-import AuthContext from "../Contexts/AuthContext";
+import { AuthContext, SideMenuContext } from "../Contexts/Contexts";
 import { getUser } from "../utils/auth";
 import { isEmptyObj } from "../utils/objectControl";
 import { getWorkoutRecords } from "../utils/workoutRecordRequest";
@@ -64,12 +65,25 @@ function App() {
   return (
     <>
       <div data-theme={theme}>
-        <AuthContext.Provider value={{authInfo, setAuthInfo, currentUser, weight, setWeight, theme, setTheme, yearlyData, monthlyData, weeklyData, todayData, setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
+        <AuthContext.Provider value={{authInfo, setAuthInfo, currentUser, weight, setWeight, setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
           <BrowserRouter>
-            <Routes>
-              <Route path="/"            element={<Top />} />
-              <Route path="/workout/:id" element={<Workout />} />
-            </Routes>
+            <div className="flex px-8 h-screen mx-auto">
+              <div className="py-12 pl-1 pr-5 basis-9/12 w-full overflow-y-scroll overscroll-none">
+                <Routes>
+                  <Route path="/"            element={<Top />} />
+                  <Route path="/workout/:id" element={<Workout />} />
+                </Routes>
+              </div>
+
+              <div className="divider divider-horizontal mx-0"></div>
+
+              {/* サイドメニュー */}
+              <div className="py-12 px-1 basis-3/12 w-full overflow-y-scroll overscroll-none">
+                <SideMenuContext.Provider value={{yearlyData, monthlyData, weeklyData, todayData, theme, setTheme}}>
+                  <SideMenu />
+                </SideMenuContext.Provider>
+              </div>
+            </div>
           </BrowserRouter>
         </AuthContext.Provider>
       </div>

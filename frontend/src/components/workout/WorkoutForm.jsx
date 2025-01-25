@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
-import AuthContext from "../../Contexts/AuthContext";
+import { AuthContext } from "../../Contexts/Contexts";
 
 function WorkoutForm(props) {
   // eslint-disable-next-line react/prop-types
