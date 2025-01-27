@@ -5,12 +5,10 @@
 
 import { useContext, useEffect, useState } from 'react'
 import '../builds/build.css'
-import WorkoutCard from '../components/top/WorkoutCard';
 import CalorieForm from '../components/top/CalorieForm';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../Contexts/Contexts';
 import client from '../utils/apiClient';
-import SearchForm from '../components/top/SearchForm';
 import WorkoutsIndex from '../components/top/WorkoutsIndex';
 
 function Top() {

@@ -7,6 +7,7 @@ import { AuthContext, SideMenuContext } from "../Contexts/Contexts";
 import { getUser } from "../utils/auth";
 import { isEmptyObj } from "../utils/objectControl";
 import { getWorkoutRecords } from "../utils/workoutRecordRequest";
+import Header from "../components/general/header/Header";
 
 function App() {
   const [authInfo, setAuthInfo] = useState({});
@@ -68,11 +69,15 @@ function App() {
         <AuthContext.Provider value={{authInfo, setAuthInfo, currentUser, weight, setWeight, setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
           <BrowserRouter>
             <div className="flex px-8 h-screen mx-auto">
-              <div className="py-12 pl-1 pr-5 basis-9/12 w-full overflow-y-scroll overscroll-none">
-                <Routes>
-                  <Route path="/"            element={<Top />} />
-                  <Route path="/workout/:id" element={<Workout />} />
-                </Routes>
+              <div className="basis-9/12 w-full overflow-y-scroll overscroll-none">
+                <Header />
+
+                <div className="py-8 pl-1 pr-5">
+                  <Routes>
+                    <Route path="/"            element={<Top />} />
+                    <Route path="/workout/:id" element={<Workout />} />
+                  </Routes>
+                </div>
               </div>
 
               <div className="divider divider-horizontal mx-0"></div>

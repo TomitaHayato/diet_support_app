@@ -17,6 +17,7 @@ function CalorieForm(props) {
   return (
     <>
       <div className="">
+        <p className="text-center my-3">「消費したいカロリー」と「あなたの体重」を入力してください</p>
         <div className='flex gap-4 justify-center'>
           <div className='tooltip' data-tip="摂取カロリー（整数）">
             <label className="input input-primary input-bordered flex items-center gap-2">
