@@ -3,52 +3,40 @@
 // - 未消費のカロリーを表示(摂取カロリーが必要)
 // - 運動に取り組んだ秒数を「MM分SS秒」形式で表示
 
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { secondsToMMSS } from "../../utils/integerStyle";
 import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
 import { AuthContext } from "../../Contexts/Contexts";
+import { btnOff, btnOn } from "../../utils/formCtl";
 
 function WorkoutCount(props) {
-  // eslint-disable-next-line react/prop-types
   const {intakedCalorie, burn_cal_per_second, required_exercise_time} = props;
-  const {setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
+  const {currentUser, setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
 
   const [unburnedCalorie, setUnburnedCalorie] = useState(intakedCalorie);
   const [burnedCalorie  , setBurnedCalorie  ] = useState(0);
   const [workoutSeconds , setWorkoutSeconds ] = useState(0);
-  const [btnText        , setBtnText        ] = useState("スタート");
   const [saveDisabled   , setSaveDisabled   ] = useState(true);
+  const [isCountDown    , setIsCountDown    ] = useState(false)
 
-  // カウント処理(setInterval)のIDを管理(countId={current: 値})
-  const countId = useRef(false);
-
-  // 運動時間のカウントを開始/停止する
-  function countBtn() {
-    if(countId.current) {
-      //停止
-      clearInterval(countId.current);
-      countId.current = false;
-      setBtnText("スタート");
-      setSaveDisabled(false);
-    } else {
-      setSaveDisabled(true);
-      //開始
-      countId.current = setInterval(() => {
+  // スタートボタン => isCountDownをtrueに
+  useEffect(() => {
+    let intervalId
+    if(isCountDown) {
+      intervalId = setInterval(() => {
         setWorkoutSeconds(prevSeconds  => prevSeconds + 1);
-        // 小数第二位以下を丸めて誤差をなくす
+        // burn_cal_per_secondの小数第二位を整数部に調整して計算
         setBurnedCalorie(prevCalorie   => Math.round(prevCalorie * 100 + burn_cal_per_second * 100) / 100);
         setUnburnedCalorie(prevCalorie => Math.round(prevCalorie * 100 - burn_cal_per_second * 100) / 100);
       }, 1000);
-      setBtnText("ストップ");
     }
-  }
+    return () => clearInterval(intervalId);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCountDown])
 
   //記録を保存処理
-  const createWorkoutRecord = async() => {
-    // カウント中は保存できない
-    if (countId.current) return;
-
-    setSaveDisabled(true);
+  const createWorkoutRecord = async(btn) => {
+    btnOff(btn);
     try {
       // 記録をサーバに送信
       const params = {
@@ -67,9 +55,10 @@ function WorkoutCount(props) {
       setBurnedCalorie(0);
       setUnburnedCalorie(0);
     } catch(error) {
-      alert(error);
+      console.log(error);
     }
-    setSaveDisabled(false);
+    // setSaveDisabled(false);
+    btnOn(btn);
   };
 
   return (
@@ -97,12 +86,14 @@ function WorkoutCount(props) {
         <div className="mb-5">
           <button
             className="btn btn-wide btn-lg rounded-full shadow-xl btn-primary"
-            onClick={countBtn}
-          >{btnText}</button>
+            onClick={() => {
+              setIsCountDown(prev => !prev);
+              setSaveDisabled(!isCountDown); //カウントダウン中はdisabledをtrue
+          }}>{isCountDown ? 'ストップ' : 'スタート'}</button>
         </div>
 
         <div className=" text-center mb-5">
-          <button className="btn btn-wide btn-success rounded-full mb-5" onClick={createWorkoutRecord} disabled={saveDisabled}>
+          <button className="btn btn-wide btn-success rounded-full mb-5" onClick={e => createWorkoutRecord(e.target)} disabled={currentUser ? saveDisabled : true}>
             運動記録を保存
           </button>
           
