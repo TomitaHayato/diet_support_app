@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { btnOff, btnOn, resetInput } from "../../utils/formCtl";
+import { btnOff, btnOn } from "../../utils/formCtl";
 import { closeEl, openAndCloseEl } from "../../utils/openClose";
 import RadioBtnXs from "./RadioBtnXs";
 import { FilterWorkoutsContext } from "../../Contexts/Contexts";

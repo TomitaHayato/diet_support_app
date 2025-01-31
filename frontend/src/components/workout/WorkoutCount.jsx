@@ -35,8 +35,7 @@ function WorkoutCount(props) {
   }, [isCountDown])
 
   //記録を保存処理
-  const createWorkoutRecord = async(btn) => {
-    btnOff(btn);
+  const createWorkoutRecord = async() => {
     try {
       // 記録をサーバに送信
       const params = {
@@ -57,8 +56,6 @@ function WorkoutCount(props) {
     } catch(error) {
       console.log(error);
     }
-    // setSaveDisabled(false);
-    btnOn(btn);
   };
 
   return (
@@ -93,9 +90,13 @@ function WorkoutCount(props) {
         </div>
 
         <div className=" text-center mb-5">
-          <button className="btn btn-wide btn-success rounded-full mb-5" onClick={e => createWorkoutRecord(e.target)} disabled={currentUser ? saveDisabled : true}>
-            運動記録を保存
-          </button>
+          <button className="btn btn-wide btn-success rounded-full mb-5" disabled={currentUser ? saveDisabled : true}
+            onClick={(e) => {
+              btnOff(e.target);
+              createWorkoutRecord();
+              btnOn(e.target);
+            }
+          }>運動記録を保存</button>
           
           <div className="text-gray-500 w-3/12 mx-auto">
             <p className="text-sm">以下のデータを保存します</p>

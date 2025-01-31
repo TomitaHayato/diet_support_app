@@ -6,6 +6,7 @@ function CalorieForm(props) {
   const {intakedCalorie, setIntakedCalorie, fetchWorkoutsData} = props;
   const {weight, setWeight} = useContext(AuthContext);
 
+  // Formの入力値管理
   const [inputCalorie, setInputCalorie] = useState(intakedCalorie);
   const [inputWeight , setInputWeight ] = useState(weight);
 

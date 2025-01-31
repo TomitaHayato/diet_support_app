@@ -56,3 +56,4 @@
 /frontend/*.sw?
 
 /frontend/src/builds/*
+/frontend/src/tests/testcase.text
