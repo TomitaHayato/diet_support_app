@@ -9,7 +9,6 @@ import { getWorkoutRecords } from "../utils/workoutRecordRequest";
 import Header from "../components/general/header/Header";
 
 function App() {
-  const [authInfo, setAuthInfo] = useState({isLogin: false});
   const [weight  , setWeight  ] = useState(50);
   const [theme   , setTheme   ] = useState("dark");
 
@@ -18,13 +17,14 @@ function App() {
   const [weeklyData , setWeeklyData ] = useState([]);
   const [todayData  , setTodayData  ] = useState([]);
 
-  const [currentUser, setCurrentUser] = useState(authInfo.isLogin ? authInfo.data : false);
+  const [currentUser, setCurrentUser] = useState(false);
 
-  // 初期レンダリング時に、認証トークンを保持していればログイン
+  // 初期レンダリング時に、認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
     const getAuthInfo = async() => {
       const res = await getUser();
-      setAuthInfo(res.data);
+      setCurrentUser(res.data);
+      // console.log(res.data)
     }
 
     if(isAccessTokenInCookie()) getAuthInfo();
@@ -32,14 +32,11 @@ function App() {
 
   // ログイン/ログアウト時の処理
   useEffect(() => {
-    if(authInfo?.isLogin) {
-      requestWorkoutRecords();         // 運動データを取得
-      setCurrentUser(authInfo.data);   // currentUserにユーザデータをセット
-      setWeight(authInfo.data.weight); // weightにログインユーザの体重をセット
-    } else {
-      setCurrentUser(false);
+    if(currentUser) {
+      requestWorkoutRecords();       // 運動データを取得
+      setWeight(currentUser.weight); // weightにログインユーザの体重をセット
     }
-  }, [authInfo])
+  }, [currentUser])
 
   const requestWorkoutRecords = async() => {
     try {
@@ -57,7 +54,7 @@ function App() {
   return (
     <>
       <div data-theme={theme}>
-        <AuthContext.Provider value={{authInfo, setAuthInfo, currentUser, weight, setWeight, setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
+        <AuthContext.Provider value={{currentUser, setCurrentUser, weight, setWeight, setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
           <BrowserRouter>
             <div className="flex px-8 h-screen mx-auto">
               <div className="basis-9/12 w-full overflow-y-scroll overscroll-none">

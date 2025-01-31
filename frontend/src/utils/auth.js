@@ -26,7 +26,7 @@ export function getUser() {
 }
 
 export function logout() {
-  //tokenがない場合は何もしない
+  // tokenがない場合は何もしない
   if(!isAccessTokenInCookie()) return;
 
   return client.delete("/auth/sign_out", {

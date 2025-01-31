@@ -7,7 +7,7 @@ import DataCharts from "./charts/DataCharts";
 import TodayData from "./TodayData";
 
 function SideMenu() {
-  const {authInfo} = useContext(AuthContext);
+  const {currentUser} = useContext(AuthContext);
   const {theme, setTheme} = useContext(SideMenuContext);
 
   const [authFormContent , setAuthFormContent ] = useState("");
@@ -17,11 +17,11 @@ function SideMenu() {
 
   // ログイン前後で表示を変更
   useEffect(() => {
-    setAuthFormContent(authInfo.isLogin  ? <LogoutForm /> : <AuthForms />);
-    setUserZoneContent(authInfo.isLogin  ? <UserZone />   : "");
-    setUserDataContent(authInfo.isLogin  ? <DataCharts /> : "");
-    setTodayDataContent(authInfo.isLogin ? <TodayData />  : "");
-  }, [authInfo])
+    setAuthFormContent(currentUser  ? <LogoutForm /> : <AuthForms />);
+    setUserZoneContent(currentUser  ? <UserZone />   : "");
+    setUserDataContent(currentUser  ? <DataCharts /> : "");
+    setTodayDataContent(currentUser ? <TodayData />  : "");
+  }, [currentUser])
 
   return (
     <>

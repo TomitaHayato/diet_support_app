@@ -5,7 +5,7 @@ import { AuthContext } from "../../../../Contexts/Contexts";
 import { useForm } from "react-hook-form";
 
 function SignupModal() {
-  const {setAuthInfo} = useContext(AuthContext);
+  const {setCurrentUser} = useContext(AuthContext);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -17,16 +17,14 @@ function SignupModal() {
       Cookies.set("_access_token", res.headers["access-token"]);
       Cookies.set("_client"      , res.headers["client"]);
       Cookies.set("_uid"         , res.headers["uid"]);
-      console.log(res.data);
+      // console.log(res.data);
       // ユーザー情報を取得
       const resUser = await getUser();
-      setAuthInfo(resUser.data);
+      setCurrentUser(resUser.data);
     } catch(error) {
       alert(error);
     }
   }
-
-  // console.log(watch("name"))
 
   return (
     <>

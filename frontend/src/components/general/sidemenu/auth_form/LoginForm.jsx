@@ -5,7 +5,7 @@ import { AuthContext } from "../../../../Contexts/Contexts";
 import { useForm } from "react-hook-form";
 
 function LoginForm() {
-  const {setAuthInfo} = useContext(AuthContext);
+  const {setCurrentUser} = useContext(AuthContext);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -18,10 +18,10 @@ function LoginForm() {
       Cookies.set("_access_token", res.headers["access-token"]);
       Cookies.set("_client"      , res.headers["client"]);
       Cookies.set("_uid"         , res.headers["uid"]);
-      console.log(res);
+      // console.log(res);
       // ユーザー情報を取得
       const resUser = await getUser();
-      setAuthInfo(resUser.data);
+      setCurrentUser(resUser.data);
       setLoginError(null);
     } catch(error) {
       console.log(error);

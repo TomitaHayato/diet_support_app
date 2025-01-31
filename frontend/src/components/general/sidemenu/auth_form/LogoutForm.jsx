@@ -3,13 +3,12 @@ import { logout } from "../../../../utils/auth";
 import { AuthContext } from "../../../../Contexts/Contexts";
 
 function LogoutForm() {
-  const {setAuthInfo} = useContext(AuthContext);
+  const {setCurrentUser} = useContext(AuthContext);
 
   const signOut = async () => {
     try {
       await logout();
-      console.log('ログアウトしました')
-      setAuthInfo({});
+      setCurrentUser(false);
     } catch(e) {
       alert(e);
     }

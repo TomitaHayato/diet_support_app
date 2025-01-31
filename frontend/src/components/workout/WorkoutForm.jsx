@@ -11,8 +11,6 @@ function WorkoutForm(props) {
   const [unburnedCalories, setUnburnedCalories] = useState(0);
   const [saveDisabled    , setSaveDisabled    ] = useState(false);
 
-  console.log(currentUser);
-
   function changeRecords(minutes) {
     if(minutes < 0) return;
 
@@ -62,7 +60,7 @@ function WorkoutForm(props) {
 
         <div className="flex justify-center items-center gap-2 mb-3">
           <input type="number" className="input input-bordered" value={workoutTime} onChange={(e) => changeRecords(e.target.value)}/>
-          <span className="">分</span>
+          <span>分</span>
         </div>
 
         <div className="mb-3 flex justify-center items-center gap-3 text-gray-500">
@@ -89,7 +87,6 @@ function WorkoutForm(props) {
           {currentUser ? null : 
             <p className="text-red-500 text-sm">＊ログイン後に保存できます</p>
           }
-
         </div>
 
         <div className="text-gray-500 w-3/12 mx-auto">
