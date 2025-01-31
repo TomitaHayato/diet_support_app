@@ -1,7 +1,7 @@
 // 秒数をMM:SSの文字列変換する
-export function secondsToMMSS(num) {
-  const minutes = Math.floor(num / 60)
-  const seconds = num % 60
+export function secondsToMMSS(sec) {
+  const minutes = Math.floor(sec / 60)
+  const seconds = sec % 60
 
   if(minutes > 0) {
     return `${zeroPadding(minutes)}分 ${zeroPadding(seconds)}秒`;
