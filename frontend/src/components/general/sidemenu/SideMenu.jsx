@@ -7,32 +7,20 @@ import DataCharts from "./charts/DataCharts";
 import TodayData from "./TodayData";
 
 function SideMenu() {
-  const {authInfo       } = useContext(AuthContext);
+  const {authInfo} = useContext(AuthContext);
   const {theme, setTheme} = useContext(SideMenuContext);
 
-  const [themeCheck, setThemeCheck] = useState(theme === "retro" ? false : true)
-
-  const [authFormContent, setAuthFormContent] = useState("");
-  const [userZoneContent, setUserZoneContent] = useState("");
-  const [userDataContent, setUserDataContent] = useState("");
+  const [authFormContent , setAuthFormContent ] = useState("");
+  const [userZoneContent , setUserZoneContent ] = useState("");
+  const [userDataContent , setUserDataContent ] = useState("");
   const [todayDataContent, setTodayDataContent] = useState("");
-
-  function changeTheme(isChecked) {
-    if(isChecked) {
-      setTheme("dark");
-      setThemeCheck(true);
-    } else {
-      setTheme("retro");
-      setThemeCheck(false);
-    }
-  }
 
   // ログイン前後で表示を変更
   useEffect(() => {
     setAuthFormContent(authInfo.isLogin  ? <LogoutForm /> : <AuthForms />);
     setUserZoneContent(authInfo.isLogin  ? <UserZone />   : "");
     setUserDataContent(authInfo.isLogin  ? <DataCharts /> : "");
-    setTodayDataContent(authInfo.isLogin ? <TodayData /> : "")
+    setTodayDataContent(authInfo.isLogin ? <TodayData />  : "");
   }, [authInfo])
 
   return (
@@ -54,7 +42,7 @@ function SideMenu() {
       <div className="flex justify-center gap-4 mb-5">
         <p>テーマ変更</p>
         <label className="swap swap-rotate">
-          <input type="checkbox" className="theme-controller" checked={themeCheck} onChange={(e) => changeTheme(e.target.checked)} />
+          <input type="checkbox" className="theme-controller" checked={theme === "dark"} onChange={() => setTheme(theme === "retro" ? "dark" : "retro")} />
           <i className="i-lucide-sun swap-off h-6 w-6 fill-current" />
           <i className="i-lucide-moon swap-on h-6 w-6 fill-current"/>
         </label>

@@ -18,6 +18,7 @@ function LoginForm() {
       Cookies.set("_access_token", res.headers["access-token"]);
       Cookies.set("_client"      , res.headers["client"]);
       Cookies.set("_uid"         , res.headers["uid"]);
+      console.log(res);
       // ユーザー情報を取得
       const resUser = await getUser();
       setAuthInfo(resUser.data);

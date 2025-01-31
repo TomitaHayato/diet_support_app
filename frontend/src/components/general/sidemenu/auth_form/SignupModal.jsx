@@ -17,9 +17,8 @@ function SignupModal() {
       Cookies.set("_access_token", res.headers["access-token"]);
       Cookies.set("_client"      , res.headers["client"]);
       Cookies.set("_uid"         , res.headers["uid"]);
-      // レスポンスデータを表示
       console.log(res.data);
-      //ユーザー情報を取得
+      // ユーザー情報を取得
       const resUser = await getUser();
       setAuthInfo(resUser.data);
     } catch(error) {

@@ -2,29 +2,42 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Top from "./Top";
 import Workout from "./Workout";
 import SideMenu from "../components/general/sidemenu/SideMenu"
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthContext, SideMenuContext } from "../Contexts/Contexts";
-import { getUser } from "../utils/auth";
-import { isEmptyObj } from "../utils/objectControl";
+import { getUser, isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecords } from "../utils/workoutRecordRequest";
 import Header from "../components/general/header/Header";
 
 function App() {
-  const [authInfo, setAuthInfo] = useState({});
+  const [authInfo, setAuthInfo] = useState({isLogin: false});
   const [weight  , setWeight  ] = useState(50);
-  const [theme   , setTheme   ] = useState("retro");
+  const [theme   , setTheme   ] = useState("dark");
 
   const [yearlyData , setYearlyData ] = useState([]);
   const [monthlyData, setMonthlyData] = useState([]);
   const [weeklyData , setWeeklyData ] = useState([]);
   const [todayData  , setTodayData  ] = useState([]);
 
-  let currentUser = authInfo?.isLogin ? authInfo.data : false;
+  const [currentUser, setCurrentUser] = useState(authInfo.isLogin ? authInfo.data : false);
 
-  // ユーザーログイン時に、運動データを取得
+  // 初期レンダリング時に、認証トークンを保持していればログイン
+  useEffect(() => {
+    const getAuthInfo = async() => {
+      const res = await getUser();
+      setAuthInfo(res.data);
+    }
+
+    if(isAccessTokenInCookie()) getAuthInfo();
+  }, []);
+
+  // ログイン/ログアウト時の処理
   useEffect(() => {
     if(authInfo?.isLogin) {
-      requestWorkoutRecords(); // "/workout_records" にGETリクエストを送信
+      requestWorkoutRecords();         // 運動データを取得
+      setCurrentUser(authInfo.data);   // currentUserにユーザデータをセット
+      setWeight(authInfo.data.weight); // weightにログインユーザの体重をセット
+    } else {
+      setCurrentUser(false);
     }
   }, [authInfo])
 
@@ -40,28 +53,6 @@ function App() {
       console.log(error);
     }
   }
-
-  // ユーザーログイン時に、体重をユーザーの体重に変更
-  useEffect(() => {
-    const userWeight = authInfo.data?.weight
-    if(userWeight) {
-      setWeight(userWeight);
-    }
-  }, [authInfo])
-
-  // ユーザーの認証情報を取得
-  const firstSetUserInfo = useCallback(
-    async () => {
-      const res = await getUser();
-      setAuthInfo(res.data);
-    }, [setAuthInfo]
-  )
-
-  useEffect(() => {
-    if(isEmptyObj(authInfo)) {
-      firstSetUserInfo();
-    }
-  }, [authInfo, firstSetUserInfo])
 
   return (
     <>

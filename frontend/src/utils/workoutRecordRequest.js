@@ -1,9 +1,10 @@
 import client from "./apiClient";
 import Cookies from "js-cookie";
+import { isAccessTokenInCookie } from "./auth";
 
 export function postWorkoutRecord(params) {
   //tokenがない場合は何もしない
-  if(!Cookies.get("_access_token") || !Cookies.get("_client") || !Cookies.get("_uid")) return;
+  if(!isAccessTokenInCookie()) return;
 
   return client.post("/workout_records", params, {
     headers: {
@@ -17,7 +18,7 @@ export function postWorkoutRecord(params) {
 // indexアクションへのGET
 export function getWorkoutRecords() {
   //tokenがない場合は何もしない
-  if(!Cookies.get("_access_token") || !Cookies.get("_client") || !Cookies.get("_uid")) return;
+  if(!isAccessTokenInCookie()) return;
 
   return client.get("/workout_records", {
     headers: {
