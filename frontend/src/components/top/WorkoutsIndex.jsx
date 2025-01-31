@@ -15,9 +15,9 @@ function WorkoutsIndex(props) {
 
   // 「検索実行」or「apiからデータ取得」=> 検索結果を更新
   useEffect(() => {
-    const searchedWorkouts = nameSearch(workoutsObj, searchWords)
+    const workoutsSearchedByName = nameSearch(workoutsObj, searchWords)
 
-    setFilteredWorkouts(tagFilter(searchedWorkouts, filterQuery))
+    setFilteredWorkouts(tagFilter(workoutsSearchedByName, filterQuery))
   }, [workoutsObj, searchWords, filterQuery])
 
   return (

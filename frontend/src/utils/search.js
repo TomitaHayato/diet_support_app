@@ -15,6 +15,7 @@ export function nameSearch(objArray=[], inputWords='') {
 }
 
 // tag条件から絞り込み
+// filterQueryの例: { "イージー", "アウトドア" }
 export function tagFilter(objArray=[], filterQuery=[]) {
   if(filterQuery.length === 0) return objArray;
 
@@ -24,6 +25,6 @@ export function tagFilter(objArray=[], filterQuery=[]) {
   objArray.forEach(obj => {
     if( filterQuery.every(el => obj.tagList.includes(el)) ) filteredObjs.push(obj);
   })
-  console.log(filteredObjs);
+
   return filteredObjs;
 }
