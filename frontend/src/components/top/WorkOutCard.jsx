@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom"
-
-/* eslint-disable react/prop-types */
 function WorkoutCard(props) {
   const {workout, intakedCalorie} = props;
 

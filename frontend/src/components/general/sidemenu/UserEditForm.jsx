@@ -4,7 +4,6 @@ import { updateUser } from "../../../utils/userRequest";
 import { useForm } from "react-hook-form";
 
 function UserEditForm(props) {
-  // eslint-disable-next-line react/prop-types
   const {setEditMode} = props;
   const {currentUser, setCurrentUser} = useContext(AuthContext);
 

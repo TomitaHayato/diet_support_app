@@ -9,15 +9,13 @@ import { getWorkoutRecords } from "../utils/workoutRecordRequest";
 import Header from "../components/general/header/Header";
 
 function App() {
-  const [weight  , setWeight  ] = useState(50);
-  const [theme   , setTheme   ] = useState("dark");
-
+  const [weight     , setWeight     ] = useState(50);
+  const [theme      , setTheme      ] = useState("dark");
+  const [currentUser, setCurrentUser] = useState(false);
   const [yearlyData , setYearlyData ] = useState([]);
   const [monthlyData, setMonthlyData] = useState([]);
   const [weeklyData , setWeeklyData ] = useState([]);
   const [todayData  , setTodayData  ] = useState([]);
-
-  const [currentUser, setCurrentUser] = useState(false);
 
   // 初期レンダリング時に、認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {

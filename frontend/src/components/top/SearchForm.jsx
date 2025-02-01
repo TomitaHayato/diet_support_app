@@ -17,7 +17,7 @@ function SearchForm(props) {
   // 検索・絞り込みクエリを反映
   function runSearch() {
     setSearchWords(inputWords);
-    const newFilterQuery = Object.values(selectedOptions).filter(val => val !== '指定なし')
+    const newFilterQuery = Object.values(selectedOptions).filter(val => val !== '指定なし');
     setFilterQuery(newFilterQuery);
   }
 
