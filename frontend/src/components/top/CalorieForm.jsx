@@ -3,7 +3,7 @@ import { AuthContext } from "../../Contexts/Contexts";
 import { btnOff, btnOn } from "../../utils/formCtl";
 
 function CalorieForm(props) {
-  const {intakedCalorie, setIntakedCalorie, fetchWorkoutsData} = props;
+  const {intakedCalorie, setIntakedCalorie} = props;
   const {weight, setWeight} = useContext(AuthContext);
 
   // Formの入力値管理
@@ -12,7 +12,7 @@ function CalorieForm(props) {
 
   // ログインやプロフィール編集時など、weightの値が変更された時にフォームの値も変更
   useEffect(() => {
-    if(weight !== inputWeight) setInputWeight(weight);
+    setInputWeight(weight);
   }, [weight])
 
   return (
@@ -38,7 +38,6 @@ function CalorieForm(props) {
             btnOff(e.target);
             setIntakedCalorie(inputCalorie);
             setWeight(inputWeight);
-            fetchWorkoutsData(inputWeight, inputCalorie);
             btnOn(e.target);
           }}>調べる</button>
         </div>

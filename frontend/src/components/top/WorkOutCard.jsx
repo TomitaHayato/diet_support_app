@@ -9,10 +9,7 @@ function WorkoutCard(props) {
   // Workoutページに遷移
   function moveWorkoutPage() {
     navi(`/workout/${workout.id}`, {
-      state: {
-        workout:        workout,
-        intakedCalorie: intakedCalorie,
-      }
+      state: { workout, intakedCalorie, }
     });
   }
 

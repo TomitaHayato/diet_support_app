@@ -10,7 +10,7 @@ function UserEditForm(props) {
 
   const [errorUser, setErrorUser] = useState(null);
 
-  const {register   , handleSubmit, formState: {errors}} = useForm();
+  const {register, handleSubmit, formState: {errors}} = useForm();
 
   // ユーザ情報の更新処理
   const requestUsersUpdate = async(params) => {

@@ -19,8 +19,6 @@ function TodayData() {
 
   return (
     <>
-      <hr className="mb-3 border-gray-400"/>
-      
       <div className="text-center">
         <h3 className="text-gray-500 font-semibold mb-3">今日のデータ</h3>
 

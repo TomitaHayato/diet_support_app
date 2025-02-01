@@ -22,7 +22,7 @@ function WorkoutForm(props) {
 
   const createWorkoutRecord = async() => {
     if(workoutTime === 0) return;
-    
+
     setSaveDisabled(true);
     try {
       const params = {

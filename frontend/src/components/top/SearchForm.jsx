@@ -4,7 +4,7 @@ import { closeEl, openAndCloseEl } from "../../utils/openClose";
 import RadioBtnXs from "./RadioBtnXs";
 import { FilterWorkoutsContext } from "../../Contexts/Contexts";
 
-const defaultSelectedoptions = {'num': '指定なし', 'place': '指定なし', 'difficulty': '指定なし'};
+const defaultSelectedOptions = {'num': '指定なし', 'place': '指定なし', 'difficulty': '指定なし'};
 
 function SearchForm(props) {
   const {workoutsObj} = props;
@@ -12,7 +12,7 @@ function SearchForm(props) {
   const {setSearchWords, setFilterQuery} = useContext(FilterWorkoutsContext);
 
   const [inputWords     , setInputWords     ] = useState(''); // 検索Formの入力値 =>「検索」ボタンClickでsearchWordsにset
-  const [selectedOptions, setSelectedOptions] = useState(defaultSelectedoptions);
+  const [selectedOptions, setSelectedOptions] = useState(defaultSelectedOptions);
 
   // 検索・絞り込みクエリを反映
   function runSearch() {
@@ -101,7 +101,7 @@ function SearchForm(props) {
 
             <button className="btn btn-xs btn-outline" onClick={e => {
               btnOff(e.target);
-              setSelectedOptions(defaultSelectedoptions);
+              setSelectedOptions(defaultSelectedOptions);
               btnOn(e.target);
             }}>リセット</button>
           </div>

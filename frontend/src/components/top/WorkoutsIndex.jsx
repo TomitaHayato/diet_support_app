@@ -13,7 +13,7 @@ function WorkoutsIndex(props) {
   // 検索・絞り込み結果のWorkout配列を管理
   const [filteredWorkouts, setFilteredWorkouts] = useState([...workoutsObj]);
 
-  // 「検索実行」or「apiからデータ取得」=> 検索結果を更新
+  // 「検索クエリ反映」or「apiからデータ取得」=> 検索結果を更新
   useEffect(() => {
     const workoutsSearchedByName = nameSearch(workoutsObj, searchWords)
 
