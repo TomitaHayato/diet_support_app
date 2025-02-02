@@ -46,6 +46,7 @@ function LoginForm() {
         <label className="input input-sm input-bordered flex items-center gap-2 mb-3">
           <i className="i-lucide-key-round" />
           <input type="password" className="grow" placeholder="Password"
+            aria-label="login-password" role="passwordbox"
             {...register('password', {required: 'パスワードを入力してください'})}
           />
         </label>
