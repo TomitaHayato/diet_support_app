@@ -1,6 +1,5 @@
 import { useContext } from "react";
-import { getUser, signUp } from "../../../../utils/auth";
-import Cookies from "js-cookie";
+import { settingAuthTokenToCookie, signUp } from "../../../../utils/auth";
 import { AuthContext } from "../../../../Contexts/Contexts";
 import { useForm } from "react-hook-form";
 
@@ -13,14 +12,8 @@ function SignupModal() {
     try {
       // リクエストを送信
       const res = await signUp(params);
-      // レスポンスからトークンを取得し、Cookieに保存
-      Cookies.set("_access_token", res.headers["access-token"]);
-      Cookies.set("_client"      , res.headers["client"]);
-      Cookies.set("_uid"         , res.headers["uid"]);
-      // console.log(res.data);
-      // ユーザー情報を取得
-      const resUser = await getUser();
-      setCurrentUser(resUser.data);
+      settingAuthTokenToCookie(res); // レスポンスからトークンを取得し、Cookieに保存
+      setCurrentUser(res.data.data);
     } catch(error) {
       alert(error);
     }

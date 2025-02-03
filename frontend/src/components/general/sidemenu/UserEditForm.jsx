@@ -15,7 +15,6 @@ function UserEditForm(props) {
   const requestUsersUpdate = async(params) => {
     try {
       const res = await updateUser(params, currentUser.id)
-      // console.log(res.data);
       setCurrentUser(res.data);
       setEditMode(false);
       setErrorUser(null);

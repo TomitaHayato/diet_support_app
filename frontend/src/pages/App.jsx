@@ -7,6 +7,7 @@ import { AuthContext, SideMenuContext } from "../Contexts/Contexts";
 import { getUser, isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecords } from "../utils/workoutRecordRequest";
 import Header from "../components/general/header/Header";
+import { defaultTodayData } from "../utils/defaultRecordData";
 
 function App() {
   const [weight     , setWeight     ] = useState(50);
@@ -15,7 +16,7 @@ function App() {
   const [yearlyData , setYearlyData ] = useState([]);
   const [monthlyData, setMonthlyData] = useState([]);
   const [weeklyData , setWeeklyData ] = useState([]);
-  const [todayData  , setTodayData  ] = useState([]);
+  const [todayData  , setTodayData  ] = useState([defaultTodayData]);
 
   // 初期レンダリング時に、認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
@@ -43,7 +44,7 @@ function App() {
       setMonthlyData(res.data.monthlyData);
       setWeeklyData(res.data.weeklyData);
       setTodayData(res.data.todayData);
-      // console.log(res.data)
+      console.log(res.data)
     } catch(error) {
       console.log(error);
     }

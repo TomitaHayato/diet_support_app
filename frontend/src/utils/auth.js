@@ -11,6 +11,12 @@ export function signIn(params) {
   return client.post("/auth/sign_in", params)
 }
 
+export function settingAuthTokenToCookie(res) {
+  Cookies.set("_access_token", res.headers["access-token"]);
+  Cookies.set("_client"      , res.headers["client"]);
+  Cookies.set("_uid"         , res.headers["uid"]);
+}
+
 // ログインユーザの情報取得（取得データの形式: { is_login: true, data: current_user }）
 export function getUser() {
   //tokenがない場合は何もしない

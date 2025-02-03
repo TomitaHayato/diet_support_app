@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
-import { getUser, signIn } from "../../../../utils/auth";
-import Cookies from "js-cookie";
+import { settingAuthTokenToCookie, signIn } from "../../../../utils/auth";
 import { AuthContext } from "../../../../Contexts/Contexts";
 import { useForm } from "react-hook-form";
 
@@ -13,15 +12,11 @@ function LoginForm() {
 
   const login = async(params) => {
     try {
-      //ログイン処理
+      // ログインリクエスト
       const res = await signIn(params);
-      Cookies.set("_access_token", res.headers["access-token"]);
-      Cookies.set("_client"      , res.headers["client"]);
-      Cookies.set("_uid"         , res.headers["uid"]);
-      // console.log(res);
-      // ユーザー情報を取得
-      const resUser = await getUser();
-      setCurrentUser(resUser.data);
+      // 認証情報をセット
+      settingAuthTokenToCookie(res)
+      setCurrentUser(res.data.data);
       setLoginError(null);
     } catch(error) {
       console.log(error);
