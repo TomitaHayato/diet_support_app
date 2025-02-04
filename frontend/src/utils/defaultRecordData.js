@@ -1,5 +1,9 @@
-const week  = ["日", "月", "火", "水", "木", "金", "土"];
+// Todo: 各デフォルトデータを指定した期間のデフォルトデータに動的に対応させる
+const week     = ["日", "月", "火", "水", "木", "金", "土"];
+const now      = new Date;
+const lastDate = new Date(now.getFullYear(), now.getMonth() + 1, 0); // 今月末の日にち
 
+// 曜日と0~6を対応させるオブジェクトを作成
 export const dowIndex = {
   "日": 0,
   "月": 1,
@@ -19,9 +23,6 @@ export const defaultWeeklyData = new Array(7).fill(null).map((_, index) => {
     totalIntakedCalories: 0
   }
 });
-
-const now      = new Date;
-const lastDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
 export const defaultMonthlyData = new Array(lastDate.getDate()).fill(null).map((_, index) => {
   return {

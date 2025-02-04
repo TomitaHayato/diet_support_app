@@ -1,11 +1,10 @@
 import { useContext } from "react";
-import { getUser, signUp } from "../../../../utils/auth";
-import Cookies from "js-cookie";
+import { settingAuthTokenToCookie, signUp } from "../../../../utils/auth";
 import { AuthContext } from "../../../../Contexts/Contexts";
 import { useForm } from "react-hook-form";
 
 function SignupModal() {
-  const {setAuthInfo} = useContext(AuthContext);
+  const {setCurrentUser} = useContext(AuthContext);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -13,21 +12,12 @@ function SignupModal() {
     try {
       // リクエストを送信
       const res = await signUp(params);
-      // レスポンスからトークンを取得し、Cookieに保存
-      Cookies.set("_access_token", res.headers["access-token"]);
-      Cookies.set("_client"      , res.headers["client"]);
-      Cookies.set("_uid"         , res.headers["uid"]);
-      // レスポンスデータを表示
-      console.log(res.data);
-      //ユーザー情報を取得
-      const resUser = await getUser();
-      setAuthInfo(resUser.data);
+      settingAuthTokenToCookie(res); // レスポンスからトークンを取得し、Cookieに保存
+      setCurrentUser(res.data.data);
     } catch(error) {
       alert(error);
     }
   }
-
-  // console.log(watch("name"))
 
   return (
     <>
@@ -37,7 +27,7 @@ function SignupModal() {
           アカウント新規作成
         </button>
 
-        <dialog id="signup-form" className="modal">
+        <dialog id="signup-form" className="modal" aria-label="signup-form-modal">
           <div className="modal-box">
             {/* Close ボタン */}
             <form method="dialog">
@@ -53,6 +43,7 @@ function SignupModal() {
               <label className="input input-bordered flex items-center gap-2 mb-8">
                 <i className="i-uiw-user"/>
                 <input type="text" className="grow" placeholder="もちもち太郎"
+                  aria-label="signup-name"
                   {...register("name", { required: '*名前を入力してください' })}
                 />
               </label>
@@ -61,6 +52,7 @@ function SignupModal() {
               <label className="input input-bordered flex items-center gap-2 mb-8">
                 <i className="i-lucide-mail"/>
                 <input type="email" className="grow" placeholder="user@example.com"
+                  aria-label="signup-email"
                   {...register("email", { required: '*メールアドレスを入力してください' })}
                 />
               </label>
@@ -69,6 +61,7 @@ function SignupModal() {
               <label className="input input-bordered flex items-center gap-2 mb-8">
                 <i className="i-lucide-key-round"/>
                 <input type="password" className="grow" placeholder="Password"
+                  aria-label="signup-password" role="passwordbox"
                   {...register("password", {
                       required:  '*パスワードを入力してください。',
                       minLength: {
@@ -82,6 +75,7 @@ function SignupModal() {
               <label className="input input-bordered flex items-center gap-2 mb-8">
                 <i className="i-lucide-key-round"/>
                 <input type="password" className="grow" placeholder="Password Confirmation"
+                  aria-label="signup-password-confirmation" role="passwordbox"
                   {...register("passwordConfirmation", {
                     required:  '*パスワード確認を入力してください。',
                     minLength: {

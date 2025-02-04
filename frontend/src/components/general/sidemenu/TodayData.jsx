@@ -1,26 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { SideMenuContext } from "../../../Contexts/Contexts";
-import { defaultTodayData } from "../../../utils/defaultRecordData";
 import { secondsToMMSS } from "../../../utils/integerStyle";
 
 function TodayData() {
   const {todayData} = useContext(SideMenuContext);
 
-  const [userDataSet, setUserDataSet] = useState(defaultTodayData);
-
-  useEffect(() => {
-    // サーバからデータを取得していないならスキップ
-    if(!todayData[0]) return;
-    // 今日のデータがない場合、totalTimeなどのデータはnullになるのでスキップ
-    if(!todayData[0].totalTime) return;
-
-    setUserDataSet(todayData[0]);
-  }, [todayData])
-
   return (
     <>
-      <hr className="mb-3 border-gray-400"/>
-      
       <div className="text-center">
         <h3 className="text-gray-500 font-semibold mb-3">今日のデータ</h3>
 
@@ -32,7 +18,7 @@ function TodayData() {
 
             <div className="stat-title text-sm">運動時間</div>
             <div className="stat-value text-xl text-primary">
-              {secondsToMMSS(userDataSet.totalTime)}
+              {secondsToMMSS(todayData[0].totalTime)}
             </div>
           </div>
         </div>
@@ -41,14 +27,14 @@ function TodayData() {
           <div className="stat">
             <div className="stat-title text-sm">消費カロリー</div>
             <div className="stat-value text-lg text-primary">
-              {userDataSet.totalBurnedCalories} kcal
+              {todayData[0].totalBurnedCalories} kcal
             </div>
           </div>
 
           <div className="stat">
             <div className="stat-title text-sm">摂取カロリー</div>
             <div className="stat-value text-lg text-primary">
-              {userDataSet.totalIntakedCalories} kcal
+              {todayData[0].totalIntakedCalories} kcal
             </div>
           </div>
         </div>

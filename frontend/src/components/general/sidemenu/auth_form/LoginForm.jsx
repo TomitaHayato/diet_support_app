@@ -1,11 +1,10 @@
 import { useContext, useState } from "react";
-import { getUser, signIn } from "../../../../utils/auth";
-import Cookies from "js-cookie";
+import { settingAuthTokenToCookie, signIn } from "../../../../utils/auth";
 import { AuthContext } from "../../../../Contexts/Contexts";
 import { useForm } from "react-hook-form";
 
 function LoginForm() {
-  const {setAuthInfo} = useContext(AuthContext);
+  const {setCurrentUser} = useContext(AuthContext);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -13,14 +12,11 @@ function LoginForm() {
 
   const login = async(params) => {
     try {
-      //ログイン処理
+      // ログインリクエスト
       const res = await signIn(params);
-      Cookies.set("_access_token", res.headers["access-token"]);
-      Cookies.set("_client"      , res.headers["client"]);
-      Cookies.set("_uid"         , res.headers["uid"]);
-      // ユーザー情報を取得
-      const resUser = await getUser();
-      setAuthInfo(resUser.data);
+      // 認証情報をセット
+      settingAuthTokenToCookie(res)
+      setCurrentUser(res.data.data);
       setLoginError(null);
     } catch(error) {
       console.log(error);
@@ -45,6 +41,7 @@ function LoginForm() {
         <label className="input input-sm input-bordered flex items-center gap-2 mb-3">
           <i className="i-lucide-key-round" />
           <input type="password" className="grow" placeholder="Password"
+            aria-label="login-password" role="passwordbox"
             {...register('password', {required: 'パスワードを入力してください'})}
           />
         </label>

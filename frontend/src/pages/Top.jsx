@@ -5,12 +5,10 @@
 
 import { useContext, useEffect, useState } from 'react'
 import '../builds/build.css'
-import WorkoutCard from '../components/top/WorkoutCard';
 import CalorieForm from '../components/top/CalorieForm';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../Contexts/Contexts';
 import client from '../utils/apiClient';
-import SearchForm from '../components/top/SearchForm';
 import WorkoutsIndex from '../components/top/WorkoutsIndex';
 
 function Top() {
@@ -22,25 +20,19 @@ function Top() {
   const [intakedCalorie, setIntakedCalorie] = useState(location.state?.intakedCalorie || 0);
   const [workoutsObj   , setWorkoutsObj   ] = useState([]);
 
-  //クリック時に、apiから運動データを取得する処理
-  const fetchWorkoutsData = async (wei, cal) => {
+  // apiから運動データを取得する処理
+  const fetchWorkoutsData = async (weight, kcalIntake) => {
     const res = await client.get("/work_outs", {
-      params: {
-        weight:     wei,
-        kcalIntake: cal,
-      }
+      params: { weight, kcalIntake, }
     });
     setWorkoutsObj(res.data);
-    // console.log('Workoutデータを取得しました')
     // console.log(res.data)
   }
 
-  // ページ遷移した時、遷移元からカロリーを受け取っているなら、そのデータをfetchWorkoutsDataに渡す
+  // ページ遷移時または体重・カロリー入力時、そのデータをfetchWorkoutsDataに渡す
   useEffect(() => {
-    if (location.state?.intakedCalorie) {
-      fetchWorkoutsData(weight, intakedCalorie);
-    }
-  }, [location]) //fetchWorkoutsData()の更新に反応すると、フォーム入力値が変更される(setWeight)たびにGETリクエストが発行される
+    fetchWorkoutsData(weight, intakedCalorie);
+  }, [intakedCalorie, weight, location])
 
   return (
     <>
@@ -49,13 +41,13 @@ function Top() {
         <div className='mb-8'>
           <CalorieForm
             intakedCalorie={intakedCalorie}
-            setIntakedCalorie={setIntakedCalorie}
-            fetchWorkoutsData={fetchWorkoutsData}
-          />
+            setIntakedCalorie={setIntakedCalorie}/>
         </div>
 
         <div>
-          <WorkoutsIndex workoutsObj={workoutsObj} intakedCalorie={intakedCalorie}/>
+          <WorkoutsIndex
+            workoutsObj={workoutsObj}
+            intakedCalorie={intakedCalorie}/>
         </div>
       </div>
     </>

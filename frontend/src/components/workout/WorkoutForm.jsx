@@ -3,9 +3,8 @@ import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
 import { AuthContext } from "../../Contexts/Contexts";
 
 function WorkoutForm(props) {
-  // eslint-disable-next-line react/prop-types
   const {intakedCalorie, burn_cal_per_minute} = props;
-  const {setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
+  const {currentUser, setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
 
   const [workoutTime     , setWorkoutTime     ] = useState(0);
   const [burnedCalories  , setBurnedCalories  ] = useState(0);
@@ -23,7 +22,7 @@ function WorkoutForm(props) {
 
   const createWorkoutRecord = async() => {
     if(workoutTime === 0) return;
-    
+
     setSaveDisabled(true);
     try {
       const params = {
@@ -61,7 +60,7 @@ function WorkoutForm(props) {
 
         <div className="flex justify-center items-center gap-2 mb-3">
           <input type="number" className="input input-bordered" value={workoutTime} onChange={(e) => changeRecords(e.target.value)}/>
-          <span className="">分</span>
+          <span>分</span>
         </div>
 
         <div className="mb-3 flex justify-center items-center gap-3 text-gray-500">
@@ -77,13 +76,18 @@ function WorkoutForm(props) {
           <span className="text-lg text-error">{unburnedCalories}</span>
           <span>kcal</span>
         </div>
-        
-        {/* 運動時間&消費カロリーを保存 => フォームの値を0にする */}
-        <button
-          className="btn btn-wide btn-success rounded-xl mb-5"
-          disabled={saveDisabled}
-          onClick={createWorkoutRecord}
-        >保存</button>
+
+        <div className="mb-5">
+          {/* 運動時間&消費カロリーを保存 => フォームの値を0にする */}
+          <button
+            className="btn btn-wide btn-success rounded-xl"
+            disabled={currentUser ? saveDisabled : true}
+            onClick={createWorkoutRecord}
+          >保存</button>
+          {currentUser ? null : 
+            <p className="text-red-500 text-sm">＊ログイン後に保存できます</p>
+          }
+        </div>
 
         <div className="text-gray-500 w-3/12 mx-auto">
             <p className="text-sm">以下のデータを保存します</p>

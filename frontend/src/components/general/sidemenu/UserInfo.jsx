@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { AuthContext } from "../../../Contexts/Contexts";
 
 function UserInfo(props) {
-  // eslint-disable-next-line react/prop-types
   const {setEditMode} = props;
   const {currentUser} = useContext(AuthContext);
 

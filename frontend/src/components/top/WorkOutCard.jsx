@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom"
-
-/* eslint-disable react/prop-types */
 function WorkoutCard(props) {
   const {workout, intakedCalorie} = props;
 
@@ -9,10 +7,7 @@ function WorkoutCard(props) {
   // Workoutページに遷移
   function moveWorkoutPage() {
     navi(`/workout/${workout.id}`, {
-      state: {
-        workout:        workout,
-        intakedCalorie: intakedCalorie,
-      }
+      state: { workout, intakedCalorie, }
     });
   }
 

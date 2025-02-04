@@ -4,18 +4,18 @@ import { updateUser } from "../../../utils/userRequest";
 import { useForm } from "react-hook-form";
 
 function UserEditForm(props) {
-  // eslint-disable-next-line react/prop-types
   const {setEditMode} = props;
-  const {setAuthInfo, currentUser} = useContext(AuthContext);
+  const {currentUser, setCurrentUser} = useContext(AuthContext);
 
   const [errorUser, setErrorUser] = useState(null);
 
-  const {register   , handleSubmit, formState: {errors}} = useForm();
+  const {register, handleSubmit, formState: {errors}} = useForm();
 
+  // ユーザ情報の更新処理
   const requestUsersUpdate = async(params) => {
     try {
       const res = await updateUser(params, currentUser.id)
-      setAuthInfo(res.data);
+      setCurrentUser(res.data);
       setEditMode(false);
       setErrorUser(null);
     } catch(error) {

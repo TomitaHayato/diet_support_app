@@ -20,15 +20,15 @@ function Workout() {
   // 1分あたりに消費するカロリー(小数第2位まで)
   const burn_cal_per_minute = Math.round(workout.burnedKcal * 100 / 60) / 100;
 
-  //ページ遷移
   const naviToTop = useNavigate();
+
   //トップページに遷移 state: {体重, 未消費カロリー}
   function transTop() {
-    naviToTop("/", {state: {intakedCalorie: intakedCalorie}})
+    naviToTop("/", {state: { intakedCalorie }});
   }
   //トップページに遷移
   function transTopReset() {
-    naviToTop("/", {state: { weight: weight}})
+    naviToTop("/", {state: { weight }});
   }
 
   return (
@@ -49,12 +49,13 @@ function Workout() {
             <WorkoutCount
               intakedCalorie={intakedCalorie}
               burn_cal_per_second={burn_cal_per_second}
-              required_exercise_time={workout.requiredExerciseTime}
-            />
+              required_exercise_time={workout.requiredExerciseTime} />
           </div>
 
           <div className="text-center">
-            <WorkoutForm intakedCalorie={intakedCalorie} burn_cal_per_minute={burn_cal_per_minute}/>
+            <WorkoutForm
+              intakedCalorie={intakedCalorie}
+              burn_cal_per_minute={burn_cal_per_minute} />
           </div>
         </div>
       </div>
