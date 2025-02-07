@@ -3,8 +3,7 @@ import { btnOff, btnOn } from "../../utils/formCtl";
 import { closeEl, openAndCloseEl } from "../../utils/openClose";
 import RadioBtnXs from "./RadioBtnXs";
 import { FilterWorkoutsContext } from "../../Contexts/Contexts";
-
-const defaultSelectedOptions = {'num': '指定なし', 'place': '指定なし', 'difficulty': '指定なし'};
+import { defaultSelectedOptions, numOptions, placeOptions, strengthOptions, typeOptions } from "../../utils/workoutTags";
 
 function SearchForm(props) {
   const {workoutsObj} = props;
@@ -58,12 +57,12 @@ function SearchForm(props) {
 
       <div id="filterBox" className="hidden mt-4 p-4 rounded-lg shadow-xl border border-gray-500/50">
         <div className="flex items-start justify-end gap-4">
-          {/* 難易度 */}
+          {/* 強度 */}
           <div className="px-4 border-r border-gray-500">
-            <p className="text-sm mb-2">難易度</p>
+            <p className="text-sm mb-2">運動の強度</p>
             <RadioBtnXs
-              name={'difficulty'}
-              options={['指定なし', 'イージー', 'ハード']}
+              name={'strength'}
+              options={strengthOptions}
               selectedOptions={selectedOptions}
               setSelectedOptions={setSelectedOptions} />
           </div>
@@ -73,7 +72,7 @@ function SearchForm(props) {
             <p className="text-sm mb-2">場所</p>
             <RadioBtnXs
               name={'place'}
-              options={['指定なし', '家でできる', 'アウトドア']}
+              options={placeOptions}
               selectedOptions={selectedOptions}
               setSelectedOptions={setSelectedOptions}/>
           </div>
@@ -83,7 +82,17 @@ function SearchForm(props) {
             <p className="text-sm mb-2">人数</p>
             <RadioBtnXs
               name={'num'}
-              options={['指定なし', 'ひとりで', 'だれかと']}
+              options={numOptions}
+              selectedOptions={selectedOptions}
+              setSelectedOptions={setSelectedOptions}/>
+          </div>
+
+          {/* タイプ */}
+          <div className="px-4 border-r border-gray-500">
+            <p className="text-sm mb-2">運動の種類</p>
+            <RadioBtnXs
+              name={'type'}
+              options={typeOptions}
               selectedOptions={selectedOptions}
               setSelectedOptions={setSelectedOptions}/>
           </div>
