@@ -124,7 +124,6 @@ workouts = [
   { name: '自転車に乗る（16km/時未満）', mets: 4.0 },
   { name: '階段を上る（ゆっくり）', mets: 4.0 },
   { name: '動物と遊ぶ（中強度）', mets: 4.0 },
-  { name: '高齢者の介護', mets: 4.0 },
   { name: '屋根の雪下ろし', mets: 4.0 },
   { name: 'やや速歩（93m/分）', mets: 4.3 },
   { name: '苗木の植栽', mets: 4.3 },
@@ -144,12 +143,6 @@ workouts = [
   { name: '階段を上る（速く）', mets: 8.8 }
 ]
 
-workouts.each do |workout|
-  WorkOut.find_or_create_by!(name: workout[:name]) do |new_workout|
-    new_workout.mets = workout[:mets]
-  end
-end
-
 # Tagのデータ作成
 tags = [
   # 運動強度
@@ -168,27 +161,125 @@ tags = [
   { name: "運動"     }
 ]
 
-tags.each do |tag|
-  Tag.find_or_create_by!(name: tag[:name])
+WorkOut.transaction do
+  workouts.each do |workout|
+    WorkOut.find_or_create_by!(name: workout[:name]) do |new_workout|
+      new_workout.mets = workout[:mets]
+    end
+  end
+
+  tags.each do |tag|
+    Tag.find_or_create_by!(name: tag[:name])
+  end
 end
 
 # Tagをworkoutに設定
-workouts = WorkOuts.all
+# 強度
+tags_strength = [Tag.find_by(name: '低強度'), Tag.find_by(name: '中強度'), Tag.find_by(name: '高強度'), Tag.find_by(name: '非常に高強度')]
+# 運動の種類
+kind_of_work  = '運動'
+# place
+indoors = [
+  "全身を使ったテレビゲーム（バランス運動、ヨガ）",
+  "ヨガ",
+  "座って行うラジオ体操",
+  "ピラティス",
+  "太極拳",
+  "自転車エルゴメーター(30～50ワット)",
+  "自体重を使った軽い筋力トレーニング（軽・中等度）",
+  "体操（家で、軽・中等度）",
+  "全身を使ったテレビゲーム（スポーツ・ダンス）",
+  "パワーヨガ",
+  "ラジオ体操第１",
+  "ラジオ体操第２",
+  "ウェイトトレーニング（高強度、パワーリフティング、ボディビル）",
+  "自転車エルゴメーター（90～100ワット）",
+  "自転車エルゴメーター（161～200ワット）",
+  "皿洗い",
+  "料理や食材の準備",
+  "洗濯",
+  "ピアノの演奏",
+  "ギター演奏（立位）",
+  "掃除機",
+  "モップがけ",
+  "風呂掃除",
+  "立位（会話、電話、読書)",
+  "子どもを抱えながら立つ",
+  "子どもと遊ぶ（座位、軽度）",
+  "動物の世話",
+  "植物への水やり",
+  "子どもの世話",
+  "仕立て作業",
+  "子ども・動物と遊ぶ（立位、軽度）",
+  "家財道具の片付け",
+  "子どもの世話（立位）",
+  "台所の手伝い",
+  "梱包",
+  "カーペット掃き",
+  "フロア掃き",
+  "スポーツ観戦（動きあり）",
+  "荷づくり",
+  "床磨き",
+  "子どもと遊ぶ（歩く/走る、中強度）",
+  "ゆっくりした歩行（非常に遅い）",
+  "ゆっくりした歩行（遅い）",
+  "荷物を上の階へ運ぶ"
+]
+tag_place  = [Tag.find_by(name: '家でできる'), Tag.find_by(name: 'アウトドア')]
+# 人数
+workouts_with_others = [
+  "ゴルフ（手引きカートを使って）",
+  "ゴルフ（クラブを担いで運ぶ）",
+  "ビリヤード",
+  "バレーボール",
+  "社交ダンス（ワルツ、サンバ、タンゴ）",
+  "卓球",
+  "テニス（ダブルス）＊",
+  "野球",
+  "ソフトボール",
+  "バドミントン",
+  "バスケットボール",
+  "サッカー",
+  "ハンドボール",
+  "テニス（シングルス）",
+  "ラグビー",
+  "武道・武術（柔道、柔術、空手、キックボクシング、テコンドー）",
+  "子どもを抱えながら立つ",
+  "子どもと遊ぶ（座位、軽度）",
+  "子どもの世話",
+  "子ども・動物と遊ぶ（立位、軽度）",
+  "子どもの世話（立位）",
+  "子どもと遊ぶ（歩く/走る、中強度）",
+  "車椅子を押す",
+  "動物の世話",
+]
+tag_people = [Tag.find_by(name: 'ひとりで'), Tag.find_by(name: 'だれかと')]
 
-# 強度, 種類に関するTagを追加
-kind_of_work = '運動'
-workouts.each do |w|
-  if w.mets < 3
-    w.tags << Tag.find_by(name: '低強度')
-  elsif w.mets < 6
-    w.tags << Tag.find_by(name: '中強度')
-  elsif w.mets < 9
-    w.tags << Tag.find_by(name: '高強度')
-  else
-    w.tags << Tag.find_by(name: '非常に高強度')
+# タグを付与
+Tag.transaction do
+  workouts = WorkOut.all
+  workouts.each do |w|
+    # 強度のタグを付与
+    strength_tag =  if    w.mets < 3
+                      tags_strength[0]
+                    elsif w.mets < 6
+                      tags_strength[1]
+                    elsif w.mets < 9
+                      tags_strength[2]
+                    else
+                      tags_strength[3]
+                    end
+    w.set_tag(strength_tag)
+    # 種類のタグ
+    type_tag = Tag.find_by(name: kind_of_work)
+    w.set_tag(type_tag)
+    # 場所のタグ
+    place_tag = indoors.include?(w.name) ? tag_place[0] : tag_place[1]
+    w.set_tag(place_tag)
+    # 人数
+    people_tag = workouts_with_others.include?(w.name) ? tag_people[1] : tag_people[0]
+    w.set_tag(people_tag)
+
+    kind_of_work = '生活動作' if w.name == "自転車エルゴメーター（161～200ワット）"
   end
-
-  w.tags << Tag.find_by(name: kind_of_work)
-
-  kind_of_work = '生活動作' if w.name == "自転車エルゴメーター（161～200ワット）"
 end
