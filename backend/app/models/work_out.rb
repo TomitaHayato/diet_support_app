@@ -33,7 +33,7 @@ class WorkOut < ApplicationRecord
 
   # 摂取カロリーを消費するには最低何分の運動が必要？
   def required_exercise_time(weight:, kcal_intake:)
-    (kcal_intake / burned_kcal_per_min(weight)).ceil
+    (burned_kcal_per_min(weight) == 0) ? 0 : (kcal_intake / burned_kcal_per_min(weight)).ceil
   end
 
   # 運動１分あたりの消費カロリー

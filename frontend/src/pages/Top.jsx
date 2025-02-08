@@ -31,8 +31,8 @@ function Top() {
 
   // ページ遷移時または体重・カロリー入力時、そのデータをfetchWorkoutsDataに渡す
   useEffect(() => {
-    fetchWorkoutsData(weight, intakedCalorie);
-  }, [intakedCalorie, weight, location])
+    if(weight && weight > 0) fetchWorkoutsData(weight, intakedCalorie);
+  }, [intakedCalorie, weight, location]);
 
   return (
     <>
