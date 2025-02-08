@@ -1,24 +1,26 @@
 import { useEffect, useState } from "react";
 import SearchForm from "./SearchForm";
 import WorkoutCard from "./WorkoutCard";
-import { nameSearch, tagFilter } from "../../utils/search";
+import { searchAndFilter } from "../../utils/search";
 import { FilterWorkoutsContext } from "../../Contexts/Contexts";
 
 function WorkoutsIndex(props) {
   const {workoutsObj, intakedCalorie} = props;
 
-  // 検索フォームの値/絞り込み条件を管理
+  // 検索/Filter条件を管理
   const [searchWords, setSearchWords] = useState('');
   const [filterQuery, setFilterQuery] = useState([]);
-  // 検索・絞り込み結果のWorkout配列を管理
+  // 実際にUIに表示するWorkout一覧（検索・Filter済）
   const [filteredWorkouts, setFilteredWorkouts] = useState([...workoutsObj]);
+  // Workoutsのオートコンプリート
+  const [autoCompleteList, setAutoCompleteList] = useState([...filteredWorkouts]);
 
-  // 「検索クエリ反映」or「apiからデータ取得」=> 検索結果を更新
+  // 「検索クエリ反映」or「apiからデータ取得」=> 検索結果をオートコンプリートと同じに更新
   useEffect(() => {
-    const workoutsSearchedByName = nameSearch(workoutsObj, searchWords)
-
-    setFilteredWorkouts(tagFilter(workoutsSearchedByName, filterQuery))
-  }, [workoutsObj, searchWords, filterQuery])
+    setFilteredWorkouts(
+      searchAndFilter(workoutsObj, searchWords, filterQuery)
+    )
+  }, [workoutsObj, searchWords, filterQuery]);
 
   return (
     <>
@@ -27,6 +29,8 @@ function WorkoutsIndex(props) {
         <div className='mb-4'>
           <SearchForm
             workoutsObj={workoutsObj}
+            autoCompleteList={autoCompleteList}
+            setAutoCompleteList={setAutoCompleteList}
           />
         </div>
 
