@@ -28,3 +28,13 @@ export function tagFilter(objArray=[], filterQuery=[]) {
 
   return filteredObjs;
 }
+
+// 検索＋絞り込みを同時に行う
+export function searchAndFilter(objArray=[], inputWords='', filterQuery=[]) {
+  return tagFilter(nameSearch(objArray, inputWords), filterQuery);
+}
+
+// 選択した絞り込み用の選択肢から'指定なし'を抜く
+export function removeUnspecified(selectedOptions) {
+  return Object.values(selectedOptions).filter(val => val !== '指定なし');
+}

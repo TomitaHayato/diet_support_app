@@ -3,16 +3,16 @@ function RadioBtnXs(props) {
 
   return (
     <>
-      {options.map((value) => {
+      {options.map((option) => {
         return (
-          <div key={`${name}-${value}`}>
+          <div key={`${name}-${option}`}>
             <div className="form-control">
               <label className="label cursor-pointer gap-2 justify-start">
                 <input type="radio" name={name} className="radio radio-xs"
-                  checked={value === selectedOptions[name]}
-                  onChange={ () => setSelectedOptions({...selectedOptions, [name]: value}) }/>
+                  checked={option === selectedOptions[name]}
+                  onChange={ () => setSelectedOptions({...selectedOptions, [name]: option}) }/>
 
-                <span className="text-xs">{value}</span>
+                <span className="text-xs">{option}</span>
               </label>
             </div>
           </div>

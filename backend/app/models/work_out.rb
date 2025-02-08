@@ -40,4 +40,9 @@ class WorkOut < ApplicationRecord
   def burned_kcal_per_min(weight)
     burned_kcal(weight) / 60
   end
+
+  # tagを付与する
+  def set_tag(tag)
+    tags << tag unless tags.include?(tag)
+  end
 end
