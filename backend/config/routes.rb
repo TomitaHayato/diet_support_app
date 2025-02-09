@@ -9,8 +9,11 @@ Rails.application.routes.draw do
     resources :get_sessions, only: %i[index]
   end
 
-  resources :work_outs, only: %i[index]
-  resources :users    , only: %i[update]
+  resources :workouts, only: %i[index], shallow: true do
+    resources :user_workout_likes, only: %i[create update]
+  end
+
+  resources :users, only: %i[update]
 
   post "workout_records"         => "workout_records#create"
   get  "workout_records"         => "workout_records#index"

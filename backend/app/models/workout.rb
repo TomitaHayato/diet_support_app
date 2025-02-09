@@ -1,4 +1,4 @@
-class WorkOut < ApplicationRecord
+class Workout < ApplicationRecord
   has_many :workout_tags, dependent: :destroy
   has_many :tags        , through: :workout_tags
 

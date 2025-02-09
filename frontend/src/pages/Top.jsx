@@ -22,7 +22,7 @@ function Top() {
 
   // apiから運動データを取得する処理
   const fetchWorkoutsData = async (weight, kcalIntake) => {
-    const res = await client.get("/work_outs", {
+    const res = await client.get("/workouts", {
       params: { weight, kcalIntake, }
     });
     setWorkoutsObj(res.data);

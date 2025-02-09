@@ -161,9 +161,9 @@ tags = [
   { name: "運動"     }
 ]
 
-WorkOut.transaction do
+Workout.transaction do
   workouts.each do |workout|
-    WorkOut.find_or_create_by!(name: workout[:name]) do |new_workout|
+    Workout.find_or_create_by!(name: workout[:name]) do |new_workout|
       new_workout.mets = workout[:mets]
     end
   end
@@ -257,7 +257,7 @@ tag_people = [Tag.find_by(name: 'ひとりで'), Tag.find_by(name: 'だれかと
 
 # タグを付与
 Tag.transaction do
-  workouts = WorkOut.all
+  workouts = Workout.all
   workouts.each do |w|
     # 強度のタグを付与
     strength_tag =  if    w.mets < 3
