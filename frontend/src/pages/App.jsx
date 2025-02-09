@@ -17,6 +17,7 @@ function App() {
   const [monthlyData, setMonthlyData] = useState([]);
   const [weeklyData , setWeeklyData ] = useState([]);
   const [todayData  , setTodayData  ] = useState([defaultTodayData]);
+  // const [likedIds   , setLikedIds] = useState([]); // お気に入り登録しているWorkoutsのid
 
   // 初期レンダリング時に、認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
@@ -25,7 +26,6 @@ function App() {
       setCurrentUser(res.data);
       // console.log(res.data)
     }
-
     if(isAccessTokenInCookie()) getAuthInfo();
   }, []);
 
@@ -47,6 +47,14 @@ function App() {
       // console.log(res.data)
     } catch(error) {
       console.log(error);
+    }
+  }
+
+  const requestLikedWorkoutIds = async() => {
+    try {
+      // お気に入り登録したid配列を取得する
+    } catch(e) {
+      // エラー発生時の処理
     }
   }
 

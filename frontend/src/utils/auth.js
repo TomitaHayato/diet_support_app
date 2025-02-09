@@ -23,11 +23,7 @@ export function getUser() {
   if(!isAccessTokenInCookie()) return;
 
   return client.get("/auth/get_sessions", {
-    headers: {
-      "access-token": Cookies.get("_access_token"),
-      "client": Cookies.get("_client"),
-      "uid": Cookies.get("_uid"),
-    },
+    headers: authTokensInCookie(),
   });
 }
 
@@ -36,15 +32,21 @@ export function logout() {
   if(!isAccessTokenInCookie()) return;
 
   return client.delete("/auth/sign_out", {
-    headers: {
-      "access-token": Cookies.get("_access_token"),
-      "client": Cookies.get("_client"),
-      "uid": Cookies.get("_uid"),
-    }
+    headers: authTokensInCookie()
   })
 }
 
 // Cookieにアクセストークンが保存されているか確認
 export function isAccessTokenInCookie() {
   return Cookies.get("_access_token") && Cookies.get("_client") && Cookies.get("_uid");
+}
+
+// リクエストに付与する認証トークンのハッシュ
+export function authTokensInCookie() {
+  return (
+    {
+      "access-token": Cookies.get("_access_token"),
+      "client":       Cookies.get("_client"),
+      "uid":          Cookies.get("_uid"),
+    })
 }

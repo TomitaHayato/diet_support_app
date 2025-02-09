@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :workouts, only: %i[index], shallow: true do
-    resources :user_workout_likes, only: %i[index create update]
+    resources :user_workout_likes, only: %i[create destroy]
   end
 
   resources :users, only: %i[update]

@@ -1,11 +1,6 @@
 class UserWorkoutLikesController < ApplicationController
   before_action :authenticate_user! # 未認証ユーザーにstatus: :401を返す
 
-  # ログインユーザがお気に入りしている全Workoutを返す
-  def index
-    render json: current_user.workouts
-  end
-
   def create
     workout = Workout.find_by(id: params[:workout_id])
 
