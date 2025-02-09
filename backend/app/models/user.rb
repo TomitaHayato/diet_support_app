@@ -7,7 +7,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
-  has_many :workout_records, dependent: :destroy
+  has_many :workout_records   , dependent: :destroy
+  has_many :user_workout_likes, dependent: :destroy
+  has_many :workouts          , through: :user_workout_likes
 
   validates :weight, presence: true
 end
