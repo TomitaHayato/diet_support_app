@@ -11,7 +11,6 @@ class Workout < ApplicationRecord
   scope :random, -> {order("RAND()")}
 
   # [{id, name, 1時間あたりの消費カロリー, 必要な運動量}, {...} }形式の配列を返す
-  # 運動からランダムに10件選択して返す
   def self.workouts_data(weight:, kcal_intake:)
     all_workouts = order(mets: :desc).includes(:tags)
 
@@ -20,7 +19,7 @@ class Workout < ApplicationRecord
         id:                     workout.id,
         name:                   workout.name,
         burned_kcal:            workout.burned_kcal(weight),
-        required_exercise_time: workout.required_exercise_time(weight: weight, kcal_intake: kcal_intake),
+        required_exercise_time: workout.required_exercise_time(weight:, kcal_intake:),
         tag_list:               workout.tags.pluck(:name)
       }
     end
@@ -29,7 +28,6 @@ class Workout < ApplicationRecord
   end
 
   # 消費kcal/hour = mets x 体重kg x 1.05 (厚生労働省)
-  # 運動1時間あたりの消費カロリー
   def burned_kcal(weight)
     (mets * weight * 105 / 100).round()
   end

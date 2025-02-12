@@ -6,7 +6,7 @@ class UserWorkoutLikesController < ApplicationController
 
     if workout
       current_user.workouts << workout
-      render status: 200
+      render status: 201
     else
       render status: 422
     end
