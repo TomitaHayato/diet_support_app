@@ -17,14 +17,15 @@ function App() {
   const [monthlyData, setMonthlyData] = useState([]);
   const [weeklyData , setWeeklyData ] = useState([]);
   const [todayData  , setTodayData  ] = useState([defaultTodayData]);
-  // const [likedIds   , setLikedIds] = useState([]); // お気に入り登録しているWorkoutsのid
+  const [likedIds   , setLikedIds   ] = useState([]); // お気に入り登録しているWorkoutsのid
 
   // 初期レンダリング時に、認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
     const getAuthInfo = async() => {
       const res = await getUser();
-      setCurrentUser(res.data);
-      // console.log(res.data)
+      setCurrentUser(res.data.currentUser);
+      setLikedIds(res.data.likedWorkoutIds);
+      // console.log(res.data);
     }
     if(isAccessTokenInCookie()) getAuthInfo();
   }, []);
@@ -34,6 +35,8 @@ function App() {
     if(currentUser) {
       requestWorkoutRecords();       // 運動データを取得
       setWeight(currentUser.weight); // weightにログインユーザの体重をセット
+    } else {
+      setLikedIds([]);
     }
   }, [currentUser])
 
@@ -50,18 +53,10 @@ function App() {
     }
   }
 
-  const requestLikedWorkoutIds = async() => {
-    try {
-      // お気に入り登録したid配列を取得する
-    } catch(e) {
-      // エラー発生時の処理
-    }
-  }
-
   return (
     <>
       <div data-theme={theme}>
-        <AuthContext.Provider value={{currentUser, setCurrentUser, weight, setWeight, setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
+        <AuthContext.Provider value={{currentUser, setCurrentUser, weight, setWeight, setYearlyData, setMonthlyData, setWeeklyData, setTodayData, likedIds, setLikedIds}}>
           <BrowserRouter>
             <div className="flex px-8 h-screen mx-auto">
               <div className="basis-9/12 w-full overflow-y-scroll overscroll-none">

@@ -16,7 +16,7 @@ export function addWorkoutLiked(workout) {
   if(!isAccessTokenInCookie()) return;
 
   return (
-    client.post(`/workouts/${workout.id}/user_workout_likes`, {
+    client.post(`/workouts/${workout.id}/user_workout_likes`, {}, {
       headers: authTokensInCookie()
     }))
 }

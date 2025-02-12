@@ -6,18 +6,18 @@ class UserWorkoutLikesController < ApplicationController
 
     if workout
       current_user.workouts << workout
-      render status: 201
+      render json: current_user.workouts.ids ,status: 201
     else
       render status: 422
     end
   end
 
   def destroy
-    workout = Workout.find_by(id: params[:workout_id])
+    workout = Workout.find_by(id: params[:id])
 
     if workout
-      current_user.workouts.destroy!(workout)
-      render status: 200
+      current_user.workouts.destroy(workout)
+      render json: current_user.workouts.ids
     else
       render status: 422
     end

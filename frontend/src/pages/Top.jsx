@@ -8,8 +8,8 @@ import '../builds/build.css'
 import CalorieForm from '../components/top/CalorieForm';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../Contexts/Contexts';
-import client from '../utils/apiClient';
 import WorkoutsIndex from '../components/top/WorkoutsIndex';
+import { workoutRequest } from '../utils/workoutRequest';
 
 function Top() {
   // ページ遷移時の処理
@@ -22,11 +22,9 @@ function Top() {
 
   // apiから運動データを取得する処理
   const fetchWorkoutsData = async (weight, kcalIntake) => {
-    const res = await client.get("/workouts", {
-      params: { weight, kcalIntake, }
-    });
-    setWorkoutsObj(res.data);
+    const res = await workoutRequest({ weight, kcalIntake, });
     // console.log(res.data)
+    setWorkoutsObj(res.data.workouts);
   }
 
   // ページ遷移時または体重・カロリー入力時、そのデータをfetchWorkoutsDataに渡す

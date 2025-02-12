@@ -39,7 +39,7 @@ function WorkoutsIndex(props) {
           <div className='grid grid-cols-3 gap-3'>
             {filteredWorkouts.map((workout) => {
               return (
-                <div key={workout.id}>
+                <div key={`workout-card-${workout.id}`}>
                   <WorkoutCard
                     workout={workout}
                     intakedCalorie={intakedCalorie}
