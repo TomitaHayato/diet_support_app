@@ -1,6 +1,6 @@
 class WorkoutTag < ApplicationRecord
   belongs_to :tag
-  belongs_to :work_out
+  belongs_to :workout
 
-  validates :tag_id, uniqueness: { scope: :work_out_id }
+  validates :tag_id, uniqueness: { scope: :workout_id }
 end

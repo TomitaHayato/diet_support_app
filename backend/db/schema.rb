@@ -10,11 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_13_114716) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_09_122733) do
   create_table "tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "user_workout_likes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "workout_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "workout_id"], name: "index_user_workout_likes_on_user_id_and_workout_id", unique: true
+    t.index ["user_id"], name: "index_user_workout_likes_on_user_id"
+    t.index ["workout_id"], name: "index_user_workout_likes_on_workout_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -43,13 +53,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_13_114716) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  create_table "work_outs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name", null: false
-    t.float "mets", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "workout_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "dow", null: false
@@ -65,16 +68,25 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_13_114716) do
   end
 
   create_table "workout_tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "work_out_id"
+    t.bigint "workout_id"
     t.bigint "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tag_id"], name: "index_workout_tags_on_tag_id"
-    t.index ["work_out_id", "tag_id"], name: "index_workout_tags_on_work_out_id_and_tag_id", unique: true
-    t.index ["work_out_id"], name: "index_workout_tags_on_work_out_id"
+    t.index ["workout_id", "tag_id"], name: "index_workout_tags_on_workout_id_and_tag_id", unique: true
+    t.index ["workout_id"], name: "index_workout_tags_on_workout_id"
   end
 
+  create_table "workouts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.float "mets", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "user_workout_likes", "users"
+  add_foreign_key "user_workout_likes", "workouts"
   add_foreign_key "workout_records", "users"
   add_foreign_key "workout_tags", "tags"
-  add_foreign_key "workout_tags", "work_outs"
+  add_foreign_key "workout_tags", "workouts"
 end

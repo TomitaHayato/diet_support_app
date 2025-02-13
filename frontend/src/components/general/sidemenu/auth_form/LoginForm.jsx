@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
-import { settingAuthTokenToCookie, signIn } from "../../../../utils/auth";
+import { getUser, settingAuthTokenToCookie, signIn } from "../../../../utils/auth";
 import { AuthContext } from "../../../../Contexts/Contexts";
 import { useForm } from "react-hook-form";
 
 function LoginForm() {
-  const {setCurrentUser} = useContext(AuthContext);
+  const {setCurrentUser, setLikedIds} = useContext(AuthContext);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -15,8 +15,10 @@ function LoginForm() {
       // ログインリクエスト
       const res = await signIn(params);
       // 認証情報をセット
-      settingAuthTokenToCookie(res)
-      setCurrentUser(res.data.data);
+      settingAuthTokenToCookie(res);
+      const userData = await getUser();
+      setCurrentUser(userData.data.currentUser);
+      setLikedIds(userData.data.likedWorkoutIds);
       setLoginError(null);
     } catch(error) {
       console.log(error);
