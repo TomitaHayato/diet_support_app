@@ -36,6 +36,12 @@ export function logout() {
   })
 }
 
+export function removeAuthToken() {
+  ["_access_token", "_client", "_uid"].forEach((cookieKey) => {
+    Cookies.remove(cookieKey);
+  })
+}
+
 // Cookieにアクセストークンが保存されているか確認
 export function isAccessTokenInCookie() {
   return Cookies.get("_access_token") && Cookies.get("_client") && Cookies.get("_uid");
