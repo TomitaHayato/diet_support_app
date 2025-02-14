@@ -7,7 +7,6 @@ import { AuthContext, SideMenuContext } from "../Contexts/Contexts";
 import { getUser, isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecords } from "../utils/workoutRecordRequest";
 import Header from "../components/general/header/Header";
-import { getDefaultTodayData } from "../utils/defaultRecordData";
 
 function App() {
   const [weight     , setWeight     ] = useState(50);
@@ -16,7 +15,7 @@ function App() {
   const [yearlyData , setYearlyData ] = useState([]);
   const [monthlyData, setMonthlyData] = useState([]);
   const [weeklyData , setWeeklyData ] = useState([]);
-  const [todayData  , setTodayData  ] = useState([getDefaultTodayData()]);
+  const [todayData  , setTodayData  ] = useState({});
   const [likedIds   , setLikedIds   ] = useState([]); // お気に入り登録しているWorkoutsのid
 
   // 初期レンダリング時に、認証トークンを保持していればログインユーザデータ取得

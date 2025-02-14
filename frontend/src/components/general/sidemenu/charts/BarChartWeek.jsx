@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { SideMenuContext } from "../../../../Contexts/Contexts";
-import { getDefaultWeeklyData, getDowIndex } from "../../../../utils/defaultRecordData";
 import { CustomTooltip } from "./CustomTooltip";
 
 
@@ -9,30 +8,11 @@ function BarChartWeek(props) {
   const {dataKey}    = props;
   const {weeklyData} = useContext(SideMenuContext);
 
-  const [userDataSet, setUserDataSet] = useState(getDefaultWeeklyData());
-
-  // // ユーザーデータが存在しない月に、デフォルトのデータを当てはめる
-  function makeUserData() {
-    const userWeeklyData = getDefaultWeeklyData();
-    const dowIndex = getDowIndex();
-
-    weeklyData.forEach((data) => {
-      userWeeklyData[dowIndex[data.dow]] = data;
-    });
-
-    return userWeeklyData;
-  }
-  
-  useEffect(() => {
-    const userWeeklyData = makeUserData();
-    setUserDataSet(userWeeklyData);
-  }, [weeklyData])
-
   return (
     <div className="w-full h-56 text-xs">
       <ResponsiveContainer>
         <BarChart
-          data  ={userDataSet}
+          data  ={weeklyData}
           margin={{
             top:    5,
             right:  0,

@@ -1,34 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { SideMenuContext } from "../../../../Contexts/Contexts";
-import { getDefaultYearlyData } from "../../../../utils/defaultRecordData";
 import { CustomTooltip } from "./CustomTooltip";
 
 function BarChartYear(props) {
   const {dataKey}    = props;
   const {yearlyData} = useContext(SideMenuContext);
 
-  const [userDataSet, setUserDataSet] = useState(getDefaultYearlyData());
-
-  // // ユーザーデータが存在しない月に、デフォルトのデータを当てはめる
-  function makeFullUserData(yearlyData) {
-    const userYearlyData = getDefaultYearlyData();
-
-    yearlyData.forEach(data => userYearlyData[data.month - 1] = data);
-
-    return userYearlyData;
-  }
-
-  useEffect(() => {
-    const userYearlyData = makeFullUserData(yearlyData);
-    setUserDataSet(userYearlyData);
-  }, [yearlyData])
-
   return (
     <div className="w-full h-56 text-xs">
       <ResponsiveContainer>
         <BarChart
-          data  ={userDataSet}
+          data  ={yearlyData}
           margin={{
             top:    5,
             right:  0,
