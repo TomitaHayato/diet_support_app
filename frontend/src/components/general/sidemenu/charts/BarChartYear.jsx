@@ -11,16 +11,16 @@ function BarChartYear(props) {
   const [userDataSet, setUserDataSet] = useState(getDefaultYearlyData());
 
   // // ユーザーデータが存在しない月に、デフォルトのデータを当てはめる
-  function makeUserData() {
+  function makeFullUserData(yearlyData) {
     const userYearlyData = getDefaultYearlyData();
 
-    yearlyData.forEach(data =>  userYearlyData[data.month - 1] = data);
+    yearlyData.forEach(data => userYearlyData[data.month - 1] = data);
 
     return userYearlyData;
   }
-  
+
   useEffect(() => {
-    const userYearlyData = makeUserData();
+    const userYearlyData = makeFullUserData(yearlyData);
     setUserDataSet(userYearlyData);
   }, [yearlyData])
 
