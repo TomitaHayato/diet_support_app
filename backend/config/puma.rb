@@ -21,7 +21,8 @@ threads_count = ENV.fetch("RAILS_MAX_THREADS", 3)
 threads threads_count, threads_count
 
 # Pumaがリクエストを受信するポートを指定します。デフォルトは3000です。
-port ENV.fetch("PORT", 3000)
+# port ENV.fetch("PORT", 3000)
+bind "unix:///var/www/diet_support_app/backend/tmp/sockets/puma.sock"
 
 # `bin/rails restart`コマンドでPumaを再起動できるようにします。
 plugin :tmp_restart
