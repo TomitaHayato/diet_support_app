@@ -13,6 +13,7 @@
 /backend/tmp/*
 !/backend/log/.keep
 !/backend/tmp/.keep
+!/backend/tmp/sockets/
 
 # Ignore pidfiles, but keep the directory.
 /backend/tmp/pids/*
