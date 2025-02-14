@@ -1,19 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { SideMenuContext } from "../../../../Contexts/Contexts";
-import { defaultYearlyData } from "../../../../utils/defaultRecordData";
+import { getDefaultYearlyData } from "../../../../utils/defaultRecordData";
 import { CustomTooltip } from "./CustomTooltip";
 
 function BarChartYear(props) {
-  // eslint-disable-next-line react/prop-types
   const {dataKey}    = props;
   const {yearlyData} = useContext(SideMenuContext);
 
-  const [userDataSet, setUserDataSet] = useState([...defaultYearlyData]);
+  const [userDataSet, setUserDataSet] = useState(getDefaultYearlyData());
 
   // // ユーザーデータが存在しない月に、デフォルトのデータを当てはめる
   function makeUserData() {
-    const userYearlyData = [...defaultYearlyData];
+    const userYearlyData = getDefaultYearlyData();
 
     yearlyData.forEach(data =>  userYearlyData[data.month - 1] = data);
 

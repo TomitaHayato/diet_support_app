@@ -1,9 +1,7 @@
 export function CustomTooltip(props) {
-  // eslint-disable-next-line react/prop-types
   const {label, payload, dataKey, labelUnit} = props;
 
   function makeDisplayValue(dataKey) {
-    // eslint-disable-next-line react/prop-types
     const activeValue = payload[0]?.payload[dataKey]
 
     switch(dataKey) {

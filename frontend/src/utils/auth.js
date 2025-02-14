@@ -1,8 +1,7 @@
 import client from "./apiClient";
 import Cookies from "js-cookie";
 
-// 認証関連の機能を用意
-
+// 認証関連の機能
 export function signUp(params) {
   return client.post("/auth", params);
 }
@@ -17,7 +16,7 @@ export function settingAuthTokenToCookie(res) {
   Cookies.set("_uid"         , res.headers["uid"]);
 }
 
-// ログインユーザの情報取得（取得データの形式: { is_login: true, data: current_user }）
+// ログインユーザの情報取得（取得データの形式: { currentUser: Obj, likedList: Array }）
 export function getUser() {
   //tokenがない場合は何もしない
   if(!isAccessTokenInCookie()) return;
@@ -37,9 +36,7 @@ export function logout() {
 }
 
 export function removeAuthToken() {
-  ["_access_token", "_client", "_uid"].forEach((cookieKey) => {
-    Cookies.remove(cookieKey);
-  })
+  ["_access_token", "_client", "_uid"].forEach(cookieKey => Cookies.remove(cookieKey));
 }
 
 // Cookieにアクセストークンが保存されているか確認

@@ -1,20 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { SideMenuContext } from "../../../../Contexts/Contexts";
-import { defaultWeeklyData, dowIndex } from "../../../../utils/defaultRecordData";
+import { getDefaultWeeklyData, getDowIndex } from "../../../../utils/defaultRecordData";
 import { CustomTooltip } from "./CustomTooltip";
 
 
 function BarChartWeek(props) {
-  // eslint-disable-next-line react/prop-types
   const {dataKey}    = props;
   const {weeklyData} = useContext(SideMenuContext);
 
-  const [userDataSet, setUserDataSet] = useState([...defaultWeeklyData]);
+  const [userDataSet, setUserDataSet] = useState(getDefaultWeeklyData());
 
   // // ユーザーデータが存在しない月に、デフォルトのデータを当てはめる
   function makeUserData() {
-    const userWeeklyData = [...defaultWeeklyData];
+    const userWeeklyData = getDefaultWeeklyData();
+    const dowIndex = getDowIndex();
 
     weeklyData.forEach((data) => {
       userWeeklyData[dowIndex[data.dow]] = data;
