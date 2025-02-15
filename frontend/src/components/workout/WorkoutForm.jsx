@@ -4,7 +4,7 @@ import { AuthContext } from "../../Contexts/Contexts";
 import { useAuth } from "../../Contexts/AuthsContext";
 
 function WorkoutForm(props) {
-  const {intakedCalorie, burn_cal_per_minute} = props;
+  const {intakedCalorie, workout} = props;
   const {setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
   const {currentUser} = useAuth();
 
@@ -13,13 +13,13 @@ function WorkoutForm(props) {
   const [unburnedCalories, setUnburnedCalories] = useState(0);
   const [saveDisabled    , setSaveDisabled    ] = useState(false);
 
-  function changeRecords(minutes) {
+  function changeRecords(minutes, intakedCalorie) {
     if(minutes < 0) return;
 
-    const burnedCaloX1000 = minutes * Math.floor(burn_cal_per_minute * 1000) //誤差をなくすために整数化する
+    const burnedCaloX100000 = minutes * Math.floor(workout.burnedKcalPerMin * 100000) //誤差をなくすために整数化する
     setWorkoutTime(minutes);
-    setBurnedCalories(Math.floor(burnedCaloX1000 / 1000));
-    setUnburnedCalories(Math.ceil((intakedCalorie * 1000 - burnedCaloX1000) / 1000));
+    setBurnedCalories(Math.floor(burnedCaloX100000 / 100000));
+    setUnburnedCalories(Math.ceil((intakedCalorie * 100000 - burnedCaloX100000) / 100000));
   }
 
   const createWorkoutRecord = async() => {
@@ -61,7 +61,7 @@ function WorkoutForm(props) {
         </div>
 
         <div className="flex justify-center items-center gap-2 mb-3">
-          <input type="number" className="input input-bordered" value={workoutTime} onChange={(e) => changeRecords(e.target.value)}/>
+          <input type="number" className="input input-bordered" value={workoutTime} onChange={(e) => changeRecords(e.target.value, intakedCalorie)}/>
           <span>分</span>
         </div>
 
