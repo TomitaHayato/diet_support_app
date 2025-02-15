@@ -49,7 +49,7 @@ function App() {
       setMonthlyData(res.data.monthlyData);
       setWeeklyData(res.data.weeklyData);
       setTodayData(res.data.todayData);
-      // console.log(res.data)
+      console.log(res.data)
     } catch(error) {
       console.log(error);
     }
