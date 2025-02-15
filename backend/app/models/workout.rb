@@ -20,7 +20,6 @@ class Workout < ApplicationRecord
       {
         id:                     workout.id,
         name:                   workout.name,
-        burned_kcal:            workout.burned_kcal(weight),
         burned_kcal_per_min:    workout.burned_kcal_per_min(weight),
         burned_kcal_per_sec:    workout.burned_kcal_per_sec(weight),
         required_exercise_time: workout.required_exercise_time(weight:, kcal_intake:),

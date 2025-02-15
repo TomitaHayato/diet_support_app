@@ -9,6 +9,7 @@ import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
 import { AuthContext } from "../../Contexts/Contexts";
 import { btnOff, btnOn } from "../../utils/formCtl";
 import { useAuth } from "../../Contexts/AuthsContext";
+import Big from 'big.js';
 
 function WorkoutCount(props) {
   const {intakedCalorie, workout} = props;
@@ -27,9 +28,8 @@ function WorkoutCount(props) {
     if(isCountDown) {
       intervalId = setInterval(() => {
         setWorkoutSeconds(prevSeconds  => prevSeconds + 1);
-        // burn_cal_per_secondの小数第二位を整数部に調整して計算
-        setBurnedCalorie(prevCalorie   => Math.round(prevCalorie * 100 + workout.burnedKcalPerSec * 100) / 100);
-        setUnburnedCalorie(prevCalorie => Math.round(prevCalorie * 100 - workout.burnedKcalPerSec * 100) / 100);
+        setBurnedCalorie(prevCalorie => new Big(workout.burnedKcalPerSec).plus(prevCalorie).toNumber())
+        setUnburnedCalorie(prevCalorie => prevCalorie - new Big(workout.burnedKcalPerSec))
       }, 1000);
     }
     return () => clearInterval(intervalId);

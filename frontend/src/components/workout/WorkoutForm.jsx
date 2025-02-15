@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
 import { AuthContext } from "../../Contexts/Contexts";
 import { useAuth } from "../../Contexts/AuthsContext";
+import Big from 'big.js';
 
 function WorkoutForm(props) {
   const {intakedCalorie, workout} = props;
@@ -16,10 +17,11 @@ function WorkoutForm(props) {
   function changeRecords(minutes, intakedCalorie) {
     if(minutes < 0) return;
 
-    const burnedCaloX100000 = minutes * Math.floor(workout.burnedKcalPerMin * 100000) //誤差をなくすために整数化する
+    // const burnedCaloX100000 = minutes * Math.floor(workout.burnedKcalPerMin * 100000) //誤差をなくすために整数化する
+    const burnedKcal = new Big(workout.burnedKcalPerMin).times(minutes).round().toNumber();
     setWorkoutTime(minutes);
-    setBurnedCalories(Math.floor(burnedCaloX100000 / 100000));
-    setUnburnedCalories(Math.ceil((intakedCalorie * 100000 - burnedCaloX100000) / 100000));
+    setBurnedCalories(burnedKcal);
+    setUnburnedCalories(intakedCalorie - burnedKcal);
   }
 
   const createWorkoutRecord = async() => {
