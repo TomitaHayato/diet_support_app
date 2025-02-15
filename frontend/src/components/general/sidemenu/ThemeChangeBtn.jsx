@@ -1,9 +1,7 @@
-import { useContext } from "react";
-import { SideMenuContext } from "../../../Contexts/Contexts";
-
+import { useTheme } from "../../../Contexts/ThemeContext";
 
 function ThemeChangeBtn() {
-  const {theme, setTheme} = useContext(SideMenuContext);
+  const {theme, setTheme} = useTheme();
 
   return(
     <>

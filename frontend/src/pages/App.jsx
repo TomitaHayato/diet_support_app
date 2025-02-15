@@ -7,16 +7,18 @@ import { AuthContext, SideMenuContext } from "../Contexts/Contexts";
 import { getUser, isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecords } from "../utils/workoutRecordRequest";
 import Header from "../components/general/header/Header";
+import { useTheme } from "../Contexts/ThemeContext";
 
 function App() {
   const [weight     , setWeight     ] = useState(50);
-  const [theme      , setTheme      ] = useState("dark");
   const [currentUser, setCurrentUser] = useState(false);
   const [yearlyData , setYearlyData ] = useState([]);
   const [monthlyData, setMonthlyData] = useState([]);
   const [weeklyData , setWeeklyData ] = useState([]);
   const [todayData  , setTodayData  ] = useState({});
   const [likedIds   , setLikedIds   ] = useState([]); // お気に入り登録しているWorkoutsのid
+
+  const {theme} = useTheme();
 
   // 初期レンダリング時に、認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
@@ -73,7 +75,7 @@ function App() {
 
               {/* サイドメニュー */}
               <div className="py-12 px-1 basis-3/12 w-full overflow-y-scroll overscroll-none">
-                <SideMenuContext.Provider value={{yearlyData, monthlyData, weeklyData, todayData, theme, setTheme}}>
+                <SideMenuContext.Provider value={{yearlyData, monthlyData, weeklyData, todayData}}>
                   <SideMenu />
                 </SideMenuContext.Provider>
               </div>
