@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState} from "react";
-import { AuthContext } from "../../../Contexts/Contexts";
+import { useEffect, useState} from "react";
 import LoggedInContents from "./LoggedInContents";
 import BeforeLoginContents from "./beforeLoginContents";
 import HrTag from "./HrTag";
 import ThemeChangeBtn from "./ThemeChangeBtn";
+import { useAuth } from "../../../Contexts/AuthsContext";
 
 function SideMenu() {
-  const {currentUser} = useContext(AuthContext);
+  const {currentUser} = useAuth();
 
   const [contents, setContents] = useState()
 

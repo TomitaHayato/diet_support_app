@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { settingAuthTokenToCookie, signUp } from "../../../../utils/auth";
-import { AuthContext } from "../../../../Contexts/Contexts";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../../../Contexts/AuthsContext";
 
 function SignupModal() {
-  const {setCurrentUser} = useContext(AuthContext);
+  const {setCurrentUser} = useAuth();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 

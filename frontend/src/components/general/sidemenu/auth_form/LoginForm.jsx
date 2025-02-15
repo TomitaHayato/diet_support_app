@@ -1,10 +1,11 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { getUser, settingAuthTokenToCookie, signIn } from "../../../../utils/auth";
-import { AuthContext } from "../../../../Contexts/Contexts";
 import { useForm } from "react-hook-form";
+import { useAuth, useLikedIds } from "../../../../Contexts/AuthsContext";
 
 function LoginForm() {
-  const {setCurrentUser, setLikedIds} = useContext(AuthContext);
+  const {setCurrentUser} = useAuth();
+  const {setLikedIds} = useLikedIds();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 

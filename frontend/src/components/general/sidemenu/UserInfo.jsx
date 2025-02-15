@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { AuthContext } from "../../../Contexts/Contexts";
+import { useAuth } from "../../../Contexts/AuthsContext";
 
 function UserInfo(props) {
   const {setEditMode} = props;
-  const {currentUser} = useContext(AuthContext);
+  const {currentUser} = useAuth();
 
   return (
     <>

@@ -8,10 +8,12 @@ import { secondsToMMSS } from "../../utils/integerStyle";
 import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
 import { AuthContext } from "../../Contexts/Contexts";
 import { btnOff, btnOn } from "../../utils/formCtl";
+import { useAuth } from "../../Contexts/AuthsContext";
 
 function WorkoutCount(props) {
   const {intakedCalorie, burn_cal_per_second, required_exercise_time} = props;
-  const {currentUser, setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
+  const {setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
+  const {currentUser} = useAuth();
 
   const [unburnedCalorie, setUnburnedCalorie] = useState(intakedCalorie);
   const [burnedCalorie  , setBurnedCalorie  ] = useState(0);

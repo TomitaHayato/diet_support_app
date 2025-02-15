@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
 import { AuthContext } from "../../Contexts/Contexts";
+import { useAuth } from "../../Contexts/AuthsContext";
 
 function WorkoutForm(props) {
   const {intakedCalorie, burn_cal_per_minute} = props;
-  const {currentUser, setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
+  const {setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
+  const {currentUser} = useAuth();
 
   const [workoutTime     , setWorkoutTime     ] = useState(0);
   const [burnedCalories  , setBurnedCalories  ] = useState(0);
