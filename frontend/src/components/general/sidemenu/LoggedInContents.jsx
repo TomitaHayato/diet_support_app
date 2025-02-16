@@ -1,35 +1,19 @@
 import LogoutForm from "./auth_form/LogoutForm";
 import DataCharts from "./charts/DataCharts";
-import HrTag from "./HrTag";
+import Section from "./Section";
 import TodayData from "./TodayData";
 import UserZone from "./UserZone";
 
 function LoggedInContents() {
   return(
     <>
-      <HrTag />
+      <Section><TodayData /></Section>
 
-      <div className="mb-5">
-        <TodayData />
-      </div>
+      <Section><DataCharts /></Section>
 
-      <HrTag />
+      <Section><UserZone /></Section>
 
-      <div className="mb-5">
-        <DataCharts />
-      </div>
-
-      <HrTag />
-
-      <div className="mb-5">
-        <UserZone />
-      </div>
-
-      <HrTag />
-
-      <div className="mb-5">
-        <LogoutForm />
-      </div>
+      <Section><LogoutForm /></Section>
     </>
   )
 }
