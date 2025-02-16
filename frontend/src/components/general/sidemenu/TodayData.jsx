@@ -18,7 +18,7 @@ function TodayData() {
 
             <div className="stat-title text-sm">運動時間</div>
             <div className="stat-value text-xl text-primary">
-              {secondsToMMSS(todayData[0].totalTime)}
+              {secondsToMMSS(todayData.totalTime)}
             </div>
           </div>
         </div>
@@ -27,14 +27,14 @@ function TodayData() {
           <div className="stat">
             <div className="stat-title text-sm">消費カロリー</div>
             <div className="stat-value text-lg text-primary">
-              {todayData[0].totalBurnedCalories} kcal
+              {todayData.totalBurnedCalories} kcal
             </div>
           </div>
 
           <div className="stat">
             <div className="stat-title text-sm">摂取カロリー</div>
             <div className="stat-value text-lg text-primary">
-              {todayData[0].totalIntakedCalories} kcal
+              {todayData.totalIntakedCalories} kcal
             </div>
           </div>
         </div>

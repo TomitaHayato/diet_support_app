@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
-import { AuthContext } from "../../../Contexts/Contexts";
+import { useState } from "react";
 import { updateUser } from "../../../utils/userRequest";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../../Contexts/AuthsContext";
 
 function UserEditForm(props) {
   const {setEditMode} = props;
-  const {currentUser, setCurrentUser} = useContext(AuthContext);
+  const {currentUser, setCurrentUser} = useAuth();
 
   const [errorUser, setErrorUser] = useState(null);
 

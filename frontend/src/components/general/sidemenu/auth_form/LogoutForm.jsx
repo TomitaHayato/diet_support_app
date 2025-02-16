@@ -1,9 +1,8 @@
-import { useContext } from "react";
 import { logout, removeAuthToken } from "../../../../utils/auth";
-import { AuthContext } from "../../../../Contexts/Contexts";
+import { useAuth } from "../../../../Contexts/AuthsContext";
 
 function LogoutForm() {
-  const {setCurrentUser} = useContext(AuthContext);
+  const {setCurrentUser} = useAuth();
 
   const signOut = async () => {
     try {

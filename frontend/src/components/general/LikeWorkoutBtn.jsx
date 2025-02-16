@@ -1,10 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { addWorkoutLiked, removeWorkoutLiked } from "../../utils/UserWorkoutLikesRequest";
-import { AuthContext } from "../../Contexts/Contexts";
+import { useAuth, useLikedIds } from "../../Contexts/AuthsContext";
 
 function LikeWorkoutBtn(props) {
   const {workout} = props;
-  const {likedIds, setLikedIds, currentUser} = useContext(AuthContext);
+
+  const {likedIds, setLikedIds} = useLikedIds();
+  const currentUser = useAuth();
 
   const [isLiked, setIsLiked] = useState(false);
 

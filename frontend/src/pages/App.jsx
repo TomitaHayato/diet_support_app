@@ -7,17 +7,19 @@ import { AuthContext, SideMenuContext } from "../Contexts/Contexts";
 import { getUser, isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecords } from "../utils/workoutRecordRequest";
 import Header from "../components/general/header/Header";
-import { defaultTodayData } from "../utils/defaultRecordData";
+import { useTheme } from "../Contexts/ThemeContext";
+import { useAuth, useLikedIds } from "../Contexts/AuthsContext";
 
 function App() {
   const [weight     , setWeight     ] = useState(50);
-  const [theme      , setTheme      ] = useState("dark");
-  const [currentUser, setCurrentUser] = useState(false);
   const [yearlyData , setYearlyData ] = useState([]);
   const [monthlyData, setMonthlyData] = useState([]);
   const [weeklyData , setWeeklyData ] = useState([]);
-  const [todayData  , setTodayData  ] = useState([defaultTodayData]);
-  const [likedIds   , setLikedIds   ] = useState([]); // お気に入り登録しているWorkoutsのid
+  const [todayData  , setTodayData  ] = useState({});
+
+  const {theme} = useTheme();
+  const {currentUser, setCurrentUser} = useAuth();
+  const {setLikedIds} = useLikedIds();
 
   // 初期レンダリング時に、認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
@@ -38,7 +40,7 @@ function App() {
     } else {
       setLikedIds([]);
     }
-  }, [currentUser])
+  }, [currentUser, setLikedIds])
 
   const requestWorkoutRecords = async() => {
     try {
@@ -56,7 +58,7 @@ function App() {
   return (
     <>
       <div data-theme={theme}>
-        <AuthContext.Provider value={{currentUser, setCurrentUser, weight, setWeight, setYearlyData, setMonthlyData, setWeeklyData, setTodayData, likedIds, setLikedIds}}>
+        <AuthContext.Provider value={{weight, setWeight, setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
           <BrowserRouter>
             <div className="flex px-8 h-screen mx-auto">
               <div className="basis-9/12 w-full overflow-y-scroll overscroll-none">
@@ -74,7 +76,7 @@ function App() {
 
               {/* サイドメニュー */}
               <div className="py-12 px-1 basis-3/12 w-full overflow-y-scroll overscroll-none">
-                <SideMenuContext.Provider value={{yearlyData, monthlyData, weeklyData, todayData, theme, setTheme}}>
+                <SideMenuContext.Provider value={{yearlyData, monthlyData, weeklyData, todayData}}>
                   <SideMenu />
                 </SideMenuContext.Provider>
               </div>

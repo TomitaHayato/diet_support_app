@@ -4,10 +4,10 @@ class WorkoutRecordsController < ApplicationController
   # 今日、今週、今月、全期間のデータを返す
   def index
     now          = Time.current
-    yearly_data  = current_user.workout_records.yearly_data(now.beginning_of_year  , now.end_of_year)
-    monthly_data = current_user.workout_records.monthly_data(now.beginning_of_month, now.end_of_month)
-    weekly_data  = current_user.workout_records.weekly_data(now.beginning_of_week  , now.end_of_week)
-    today_data   = current_user.workout_records.today_data
+    yearly_data  = current_user.get_complete_yearly_records(now)
+    monthly_data = current_user.get_complete_monthly_records(now)
+    weekly_data  = current_user.get_complete_weekly_records(now)
+    today_data   = current_user.get_today_record
     all_data     = { yearly_data:, monthly_data:, weekly_data:, today_data:}
 
     render json: all_data, status: 200

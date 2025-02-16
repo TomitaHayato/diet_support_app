@@ -8,10 +8,13 @@ import { secondsToMMSS } from "../../utils/integerStyle";
 import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
 import { AuthContext } from "../../Contexts/Contexts";
 import { btnOff, btnOn } from "../../utils/formCtl";
+import { useAuth } from "../../Contexts/AuthsContext";
+import Big from 'big.js';
 
 function WorkoutCount(props) {
-  const {intakedCalorie, burn_cal_per_second, required_exercise_time} = props;
-  const {currentUser, setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
+  const {intakedCalorie, workout} = props;
+  const {setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
+  const {currentUser} = useAuth();
 
   const [unburnedCalorie, setUnburnedCalorie] = useState(intakedCalorie);
   const [burnedCalorie  , setBurnedCalorie  ] = useState(0);
@@ -25,14 +28,12 @@ function WorkoutCount(props) {
     if(isCountDown) {
       intervalId = setInterval(() => {
         setWorkoutSeconds(prevSeconds  => prevSeconds + 1);
-        // burn_cal_per_secondの小数第二位を整数部に調整して計算
-        setBurnedCalorie(prevCalorie   => Math.round(prevCalorie * 100 + burn_cal_per_second * 100) / 100);
-        setUnburnedCalorie(prevCalorie => Math.round(prevCalorie * 100 - burn_cal_per_second * 100) / 100);
+        setBurnedCalorie(prevCalorie => new Big(workout.burnedKcalPerSec).plus(prevCalorie).toNumber())
+        setUnburnedCalorie(prevCalorie => prevCalorie - new Big(workout.burnedKcalPerSec))
       }, 1000);
     }
     return () => clearInterval(intervalId);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCountDown])
+  }, [isCountDown, workout.burnedKcalPerSec])
 
   //記録を保存処理
   const createWorkoutRecord = async() => {
@@ -76,7 +77,7 @@ function WorkoutCount(props) {
         </div>
 
         <div className="mb-8">
-          <p className="mb-2 text-gray-500 text-lg">目標: {required_exercise_time}分</p>
+          <p className="mb-2 text-gray-500 text-lg">目標: {workout.requiredExerciseTime}分</p>
           <h3 className="text-5xl mb-2">{secondsToMMSS(workoutSeconds)}</h3>
         </div>
 
