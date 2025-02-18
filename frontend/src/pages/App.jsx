@@ -7,8 +7,8 @@ import { AuthContext, SideMenuContext } from "../Contexts/Contexts";
 import { getUser, isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecords } from "../utils/workoutRecordRequest";
 import Header from "../components/general/header/Header";
-import { useTheme } from "../Contexts/ThemeContext";
 import { useAuth, useLikedIds } from "../Contexts/AuthsContext";
+import { useSelector } from "react-redux";
 
 function App() {
   const [weight     , setWeight     ] = useState(50);
@@ -17,7 +17,8 @@ function App() {
   const [weeklyData , setWeeklyData ] = useState([]);
   const [todayData  , setTodayData  ] = useState({});
 
-  const {theme} = useTheme();
+  const theme = useSelector(state => state.theme.name);
+
   const {currentUser, setCurrentUser} = useAuth();
   const {setLikedIds} = useLikedIds();
 
