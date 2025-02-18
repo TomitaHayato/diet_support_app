@@ -1,10 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Contexts/Contexts";
-import { btnOff, btnOn } from "../../utils/formCtl";
+import { useDispatch, useSelector } from "react-redux";
+import { setValue } from "../../Redux/intakedCalorie/intakedCalorieSlice";
 
-function CalorieForm(props) {
-  const {intakedCalorie, setIntakedCalorie} = props;
+function CalorieForm() {
   const {weight, setWeight} = useContext(AuthContext);
+  const intakedCalorie = useSelector(state => state.intakedCalorie.value)
+
+  const dispatch = useDispatch();
 
   // Formの入力値管理
   const [inputCalorie, setInputCalorie] = useState(intakedCalorie);
@@ -34,11 +37,9 @@ function CalorieForm(props) {
             </label>
           </div>
 
-          <button className='btn btn-primary' onClick={(e) => {
-            btnOff(e.target);
-            setIntakedCalorie(inputCalorie);
+          <button className='btn btn-primary' onClick={() => {
+            dispatch(setValue(inputCalorie));
             setWeight(inputWeight);
-            btnOn(e.target);
           }}>調べる</button>
         </div>
       </div>

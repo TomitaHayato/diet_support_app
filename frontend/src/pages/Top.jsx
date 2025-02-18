@@ -6,18 +6,17 @@
 import { useContext, useEffect, useState } from 'react'
 import '../builds/build.css'
 import CalorieForm from '../components/top/CalorieForm';
-import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../Contexts/Contexts';
 import WorkoutsIndex from '../components/top/WorkoutsIndex';
 import { workoutRequest } from '../utils/workoutRequest';
+import { useSelector } from 'react-redux';
 
 function Top() {
-  // ページ遷移時の処理
-  const location = useLocation();
 
   const {weight} = useContext(AuthContext)
 
-  const [intakedCalorie, setIntakedCalorie] = useState(location.state?.intakedCalorie || 0);
+  const intakedCalorie = useSelector(state => state.intakedCalorie.value);
+
   const [workoutsObj   , setWorkoutsObj   ] = useState([]);
 
   // apiから運動データを取得する処理
@@ -30,22 +29,19 @@ function Top() {
   // ページ遷移時または体重・カロリー入力時、そのデータをfetchWorkoutsDataに渡す
   useEffect(() => {
     if(weight && weight > 0) fetchWorkoutsData(weight, intakedCalorie);
-  }, [intakedCalorie, weight, location]);
+  }, [intakedCalorie, weight]);
 
   return (
     <>
       {/* フォーム/運動情報 */}
       <div className=''>
         <div className='mb-8'>
-          <CalorieForm
-            intakedCalorie={intakedCalorie}
-            setIntakedCalorie={setIntakedCalorie}/>
+          <CalorieForm/>
         </div>
 
         <div>
           <WorkoutsIndex
-            workoutsObj={workoutsObj}
-            intakedCalorie={intakedCalorie}/>
+            workoutsObj={workoutsObj}/>
         </div>
       </div>
     </>

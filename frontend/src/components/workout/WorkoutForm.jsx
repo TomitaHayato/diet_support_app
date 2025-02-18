@@ -3,9 +3,11 @@ import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
 import { AuthContext } from "../../Contexts/Contexts";
 import { useAuth } from "../../Contexts/AuthsContext";
 import Big from 'big.js';
+import { useSelector } from "react-redux";
 
 function WorkoutForm(props) {
-  const {intakedCalorie, workout} = props;
+  const {workout} = props;
+  const intakedCalorie = useSelector(state => state.intakedCalorie.value);
   const {setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
   const {currentUser} = useAuth();
 

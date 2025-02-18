@@ -10,9 +10,11 @@ import { AuthContext } from "../../Contexts/Contexts";
 import { btnOff, btnOn } from "../../utils/formCtl";
 import { useAuth } from "../../Contexts/AuthsContext";
 import Big from 'big.js';
+import { useSelector } from "react-redux";
 
 function WorkoutCount(props) {
-  const {intakedCalorie, workout} = props;
+  const {workout} = props;
+  const intakedCalorie = useSelector(state => state.intakedCalorie.value);
   const {setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
   const {currentUser} = useAuth();
 
@@ -20,7 +22,7 @@ function WorkoutCount(props) {
   const [burnedCalorie  , setBurnedCalorie  ] = useState(0);
   const [workoutSeconds , setWorkoutSeconds ] = useState(0);
   const [saveDisabled   , setSaveDisabled   ] = useState(true);
-  const [isCountDown    , setIsCountDown    ] = useState(false)
+  const [isCountDown    , setIsCountDown    ] = useState(false);
 
   // スタートボタン => isCountDownをtrueに
   useEffect(() => {

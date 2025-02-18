@@ -5,7 +5,7 @@ import { searchAndFilter } from "../../utils/search";
 import { FilterWorkoutsContext } from "../../Contexts/Contexts";
 
 function WorkoutsIndex(props) {
-  const {workoutsObj, intakedCalorie} = props;
+  const {workoutsObj} = props;
 
   // 検索/Filter条件を管理
   const [searchWords, setSearchWords] = useState('');
@@ -42,7 +42,6 @@ function WorkoutsIndex(props) {
                 <div key={`workout-card-${workout.id}`}>
                   <WorkoutCard
                     workout={workout}
-                    intakedCalorie={intakedCalorie}
                   />
                 </div>
               )

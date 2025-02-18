@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  value: 0
+  value: 0,
 }
 
 const intakedCalorieSlice = createSlice({
@@ -10,8 +10,9 @@ const intakedCalorieSlice = createSlice({
   reducers: {
     // 入力値をセット（数値の場合のみ）
     setValue(state, action) {
-      const isInputOK = Number.isFinite(action.payload);
-      if(isInputOK) state.value = action.payload
+      const isInputOK = !isNaN(action.payload);
+      if(isInputOK) state.value = Number(action.payload)
+      return state;
     },
     // 入力値リセット
     resetValue(state) {
