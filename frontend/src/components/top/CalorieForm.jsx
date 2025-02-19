@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Contexts/Contexts";
 import { useDispatch, useSelector } from "react-redux";
-import { setValue } from "../../Redux/intakedCalorie/intakedCalorieSlice";
+import { setCalorie } from "../../Redux/Slice/intakedCalorieSlice";
 
 function CalorieForm() {
   const {weight, setWeight} = useContext(AuthContext);
@@ -38,7 +38,7 @@ function CalorieForm() {
           </div>
 
           <button className='btn btn-primary' onClick={() => {
-            dispatch(setValue(inputCalorie));
+            dispatch(setCalorie(inputCalorie));
             setWeight(inputWeight);
           }}>調べる</button>
         </div>

@@ -9,18 +9,18 @@ const intakedCalorieSlice = createSlice({
   initialState,
   reducers: {
     // 入力値をセット（数値の場合のみ）
-    setValue(state, action) {
+    setCalorie(state, action) {
       const isInputOK = !isNaN(action.payload);
       if(isInputOK) state.value = Number(action.payload)
       return state;
     },
     // 入力値リセット
-    resetValue(state) {
+    resetCalorie(state) {
       state.value = 0
     },
   }
 })
 
-export const { setValue, resetValue } = intakedCalorieSlice.actions;
+export const { setCalorie, resetCalorie } = intakedCalorieSlice.actions;
 
 export const intakedCalorieReducer = intakedCalorieSlice.reducer;
