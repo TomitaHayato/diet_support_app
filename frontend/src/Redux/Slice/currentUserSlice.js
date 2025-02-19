@@ -124,15 +124,15 @@ const currentUserSlice = createSlice({
         state.error = action.error.message ?? 'Unkown Error';
       })
       // logoutThunk
-      .addCase(signupThunk.pending, (state, action) => {
+      .addCase(logoutThunk.pending, (state, action) => {
         state.status = 'pending';
       })
-      .addCase(signupThunk.fulfilled, (state, action) => {
+      .addCase(logoutThunk.fulfilled, (state, action) => {
         state.status = 'successed';
         state.user = initialState.user;
         state.likedWorkoutIds = initialState.likedWorkoutIds;
       })
-      .addCase(signupThunk.rejected, (state, action) => {
+      .addCase(logoutThunk.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message ?? 'Unkown Error';
       })
