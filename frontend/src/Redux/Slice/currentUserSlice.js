@@ -2,6 +2,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getUser, logout, removeAuthToken, settingAuthTokenToCookie, signIn, signUp } from "../../utils/auth";
 import { updateUser } from "../../utils/userRequest";
+import { addWorkoutLiked, removeWorkoutLiked } from "../../utils/UserWorkoutLikesRequest";
 
 // ログインユーザーを取得する処理
 export const fetchUserThunk = createAsyncThunk('currentUser/fetchUserThunk', async() => {
@@ -84,9 +85,28 @@ export const updateUserThunk = createAsyncThunk('currentUser/updateUserThunk', a
   };
 })
 
+// Workoutお気に入り登録処理
+export const addLikedWorkoutIdsThunk = createAsyncThunk('currentUser/addLikedWorkoutIds', async(workout) => {
+  try{
+    const res = await addWorkoutLiked(workout);
+    if(!res) return;
+    const newLikedWorkoutIds = res.data
+    return newLikedWorkoutIds;
+  } catch(e) {console.log(e)}
+})
+
+export const removeLikedWorkoutIdsThunk = createAsyncThunk('currentUser/removeLikedWorkoutId', async(workout) => {
+  try{
+    const res = await removeWorkoutLiked(workout);
+    if(!res) return;
+    const newLikedWorkoutIds = res.data
+    return newLikedWorkoutIds;
+  } catch(e) {console.log(e)}
+})
+
 const initialState = {
   user: false,
-  likedWorkoutIds: false,
+  likedWorkoutIds: [],
   status: 'idle',
   error: null,
 };
@@ -103,6 +123,7 @@ const currentUserSlice = createSlice({
       })
       .addCase(fetchUserThunk.fulfilled, (state, action) => {
         state.status = 'successed';
+        if(!action.payload) return;
         state.user = action.payload.user;
         state.likedWorkoutIds = action.payload.likedWorkoutIds;
       })
@@ -161,11 +182,35 @@ const currentUserSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message ?? 'Unkown Error';
       })
+      // addLikedWorkoutIdsThunk
+      .addCase(addLikedWorkoutIdsThunk.pending, (state, action) => {
+        state.status = 'pending';
+      })
+      .addCase(addLikedWorkoutIdsThunk.fulfilled, (state, action) => {
+        state.status = 'successed';
+        state.likedWorkoutIds = action.payload;
+      })
+      .addCase(addLikedWorkoutIdsThunk.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message ?? 'Unkown Error';
+      })
+      // removeLikedWorkoutIdsThunk
+      .addCase(removeLikedWorkoutIdsThunk.pending, (state, action) => {
+        state.status = 'pending';
+      })
+      .addCase(removeLikedWorkoutIdsThunk.fulfilled, (state, action) => {
+        state.status = 'successed';
+        state.likedWorkoutIds = action.payload;
+      })
+      .addCase(removeLikedWorkoutIdsThunk.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message ?? 'Unkown Error';
+      })
   }
 });
 
-export const selectCurrentUser = state => state.currentUser.user;
-export const selectLikedWorkoutIds = state => state.currentUser.likedWorkoutIds;
+export const selectCurrentUser       = state => state.currentUser.user;
+export const selectLikedWorkoutIds   = state => state.currentUser.likedWorkoutIds;
 export const selectCurrentUserStatus = state => state.currentUser.status
 
 export const currentUserReducer = currentUserSlice.reducer;

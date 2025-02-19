@@ -1,36 +1,28 @@
 import { useEffect, useState } from "react";
-import { addWorkoutLiked, removeWorkoutLiked } from "../../utils/UserWorkoutLikesRequest";
-import { useLikedIds } from "../../Contexts/AuthsContext";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addLikedWorkoutIdsThunk, removeLikedWorkoutIdsThunk, selectCurrentUser, selectLikedWorkoutIds } from "../../Redux/Slice/currentUserSlice";
 
 function LikeWorkoutBtn(props) {
   const {workout} = props;
+  const dispatch = useDispatch();
 
-  const {likedIds, setLikedIds} = useLikedIds();
+  const likedWorkoutIds = useSelector(selectLikedWorkoutIds);
   const currentUser = useSelector(selectCurrentUser);
 
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
-    setIsLiked(likedIds.includes(workout.id));
-  }, [likedIds, workout.id])
+    setIsLiked(likedWorkoutIds.includes(workout.id));
+  }, [likedWorkoutIds, workout.id])
 
   // 指定されたWorkoutをお気に入り登録する
   const likeRequest = async(workout) => {
     if(isLiked) {
       // DELETEリクエスト送信
-      try{
-        const res = await removeWorkoutLiked(workout);
-        setLikedIds(res.data);
-      } catch(e) {console.log(e)}
-      
+      dispatch(removeLikedWorkoutIdsThunk(workout))
     } else {
       // POSTリクエスト送信
-      try{
-        const res = await addWorkoutLiked(workout);
-        setLikedIds(res.data);
-      } catch(e) {console.log(e)}
+      dispatch(addLikedWorkoutIdsThunk(workout))
     }
   }
 
