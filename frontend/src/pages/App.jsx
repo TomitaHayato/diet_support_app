@@ -8,10 +8,12 @@ import { getUser, isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecords } from "../utils/workoutRecordRequest";
 import Header from "../components/general/header/Header";
 import { useAuth, useLikedIds } from "../Contexts/AuthsContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setWeight } from "../Redux/Slice/WeightSlice";
 
 function App() {
-  const [weight     , setWeight     ] = useState(50);
+  const dispatch = useDispatch();
+
   const [yearlyData , setYearlyData ] = useState([]);
   const [monthlyData, setMonthlyData] = useState([]);
   const [weeklyData , setWeeklyData ] = useState([]);
@@ -37,7 +39,7 @@ function App() {
   useEffect(() => {
     if(currentUser) {
       requestWorkoutRecords();       // 運動データを取得
-      setWeight(currentUser.weight); // weightにログインユーザの体重をセット
+      dispatch(setWeight(currentUser.weight)); // weightにログインユーザの体重をセット
     } else {
       setLikedIds([]);
     }
@@ -59,7 +61,7 @@ function App() {
   return (
     <>
       <div data-theme={theme}>
-        <AuthContext.Provider value={{weight, setWeight, setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
+        <AuthContext.Provider value={{setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
           <BrowserRouter>
             <div className="flex px-8 h-screen mx-auto">
               <div className="basis-9/12 w-full overflow-y-scroll overscroll-none">

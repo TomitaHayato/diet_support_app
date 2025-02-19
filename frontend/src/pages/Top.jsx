@@ -3,17 +3,17 @@
 // - 各運動と必要な運動時間をRails apiから取得して表示
 // - 各運動データのボタンから、運動管理画面に遷移(state: {体重, 摂取カロリー, 運動データ})
 
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../builds/build.css'
 import CalorieForm from '../components/top/CalorieForm';
-import { AuthContext } from '../Contexts/Contexts';
 import WorkoutsIndex from '../components/top/WorkoutsIndex';
 import { workoutRequest } from '../utils/workoutRequest';
 import { useSelector } from 'react-redux';
+import { selectWeight } from '../Redux/Slice/WeightSlice';
 
 function Top() {
 
-  const {weight} = useContext(AuthContext)
+  const weight = useSelector(selectWeight);
 
   const intakedCalorie = useSelector(state => state.intakedCalorie.value);
 

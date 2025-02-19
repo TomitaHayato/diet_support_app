@@ -10,8 +10,9 @@ const weightSlice = createSlice({
   reducers: {
     setWeight(state, action) {
       // 数値以外、または0, '0'の場合、何もしない
-      if(isNaN(action) || action.payload == 0) return;
-      state.value = action.payload;
+      if(isNaN(action.payload) || action.payload == 0) return;
+      state.value = Number(action.payload);
+      return state;
     },
   },
   // currentUserステートが更新された時、発火

@@ -1,11 +1,13 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../Contexts/Contexts";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCalorie } from "../../Redux/Slice/intakedCalorieSlice";
+import { selectWeight, setWeight } from "../../Redux/Slice/WeightSlice";
+import { useAuth } from "../../Contexts/AuthsContext";
 
 function CalorieForm() {
-  const {weight, setWeight} = useContext(AuthContext);
+  const weight = useSelector(selectWeight);
   const intakedCalorie = useSelector(state => state.intakedCalorie.value)
+  const {currentUser} = useAuth();
 
   const dispatch = useDispatch();
 
@@ -15,8 +17,8 @@ function CalorieForm() {
 
   // ログインやプロフィール編集時など、weightの値が変更された時にフォームの値も変更
   useEffect(() => {
-    setInputWeight(weight);
-  }, [weight])
+    if (currentUser) setInputWeight(currentUser.weight);
+  }, [currentUser])
 
   return (
     <>
@@ -39,7 +41,7 @@ function CalorieForm() {
 
           <button className='btn btn-primary' onClick={() => {
             dispatch(setCalorie(inputCalorie));
-            setWeight(inputWeight);
+            dispatch(setWeight(inputWeight));
           }}>調べる</button>
         </div>
       </div>
