@@ -1,15 +1,15 @@
 import { useContext, useState } from "react";
 import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
 import { AuthContext } from "../../Contexts/Contexts";
-import { useAuth } from "../../Contexts/AuthsContext";
 import Big from 'big.js';
 import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 
 function WorkoutForm(props) {
   const {workout} = props;
   const intakedCalorie = useSelector(state => state.intakedCalorie.value);
   const {setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
-  const {currentUser} = useAuth();
+  const currentUser = useSelector(selectCurrentUser);
 
   const [workoutTime     , setWorkoutTime     ] = useState(0);
   const [burnedCalories  , setBurnedCalories  ] = useState(0);

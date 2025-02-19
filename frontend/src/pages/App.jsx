@@ -4,11 +4,10 @@ import Workout from "./Workout";
 import SideMenu from "../components/general/sidemenu/SideMenu"
 import { useEffect, useState } from "react";
 import { AuthContext, SideMenuContext } from "../Contexts/Contexts";
-import { getUser, isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecords } from "../utils/workoutRecordRequest";
 import Header from "../components/general/header/Header";
-import { useAuth, useLikedIds } from "../Contexts/AuthsContext";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchUserThunk, selectCurrentUser, selectCurrentUserStatus } from "../Redux/Slice/currentUserSlice";
 import { setWeight } from "../Redux/Slice/WeightSlice";
 
 function App() {
@@ -20,30 +19,22 @@ function App() {
   const [todayData  , setTodayData  ] = useState({});
 
   const theme = useSelector(state => state.theme.name);
-
-  const {currentUser, setCurrentUser} = useAuth();
-  const {setLikedIds} = useLikedIds();
+  const currentUser = useSelector(selectCurrentUser);
+  const currentUserStatus = useSelector(selectCurrentUserStatus);
 
   // 初期レンダリング時に、認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
-    const getAuthInfo = async() => {
-      const res = await getUser();
-      setCurrentUser(res.data.currentUser);
-      setLikedIds(res.data.likedWorkoutIds);
-      // console.log(res.data);
-    }
-    if(isAccessTokenInCookie()) getAuthInfo();
+    if(currentUserStatus !== 'idle') return;
+    dispatch(fetchUserThunk());
   }, []);
 
-  // ログイン/ログアウト時の処理
+  // ログイン時の処理
   useEffect(() => {
     if(currentUser) {
-      requestWorkoutRecords();       // 運動データを取得
+      requestWorkoutRecords();                 // 運動データを取得
       dispatch(setWeight(currentUser.weight)); // weightにログインユーザの体重をセット
-    } else {
-      setLikedIds([]);
     }
-  }, [currentUser, setLikedIds])
+  }, [currentUser])
 
   const requestWorkoutRecords = async() => {
     try {

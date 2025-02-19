@@ -1,8 +1,9 @@
-import { useAuth } from "../../../Contexts/AuthsContext";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../../Redux/Slice/currentUserSlice";
 
 function UserInfo(props) {
   const {setEditMode} = props;
-  const {currentUser} = useAuth();
+  const currentUser = useSelector(selectCurrentUser);
 
   return (
     <>

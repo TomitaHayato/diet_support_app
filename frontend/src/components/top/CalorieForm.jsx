@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCalorie } from "../../Redux/Slice/intakedCalorieSlice";
 import { selectWeight, setWeight } from "../../Redux/Slice/WeightSlice";
-import { useAuth } from "../../Contexts/AuthsContext";
+import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 
 function CalorieForm() {
   const weight = useSelector(selectWeight);
   const intakedCalorie = useSelector(state => state.intakedCalorie.value)
-  const {currentUser} = useAuth();
+  const currentUser = useSelector(selectCurrentUser);
 
   const dispatch = useDispatch();
 

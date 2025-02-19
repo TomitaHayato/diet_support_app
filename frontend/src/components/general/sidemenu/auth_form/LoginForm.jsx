@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { getUser, settingAuthTokenToCookie, signIn } from "../../../../utils/auth";
 import { useForm } from "react-hook-form";
-import { useAuth, useLikedIds } from "../../../../Contexts/AuthsContext";
+import { useDispatch } from "react-redux";
+import { loginThunk } from "../../../../Redux/Slice/currentUserSlice";
 
 function LoginForm() {
-  const {setCurrentUser} = useAuth();
-  const {setLikedIds} = useLikedIds();
+  const dispatch = useDispatch();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -13,13 +12,7 @@ function LoginForm() {
 
   const login = async(params) => {
     try {
-      // ログインリクエスト
-      const res = await signIn(params);
-      // 認証情報をセット
-      settingAuthTokenToCookie(res);
-      const userData = await getUser();
-      setCurrentUser(userData.data.currentUser);
-      setLikedIds(userData.data.likedWorkoutIds);
+      dispatch(loginThunk(params));
       setLoginError(null);
     } catch(error) {
       console.log(error);

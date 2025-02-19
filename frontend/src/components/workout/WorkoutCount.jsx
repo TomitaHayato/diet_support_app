@@ -8,15 +8,15 @@ import { secondsToMMSS } from "../../utils/integerStyle";
 import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
 import { AuthContext } from "../../Contexts/Contexts";
 import { btnOff, btnOn } from "../../utils/formCtl";
-import { useAuth } from "../../Contexts/AuthsContext";
 import Big from 'big.js';
 import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 
 function WorkoutCount(props) {
   const {workout} = props;
   const intakedCalorie = useSelector(state => state.intakedCalorie.value);
   const {setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
-  const {currentUser} = useAuth();
+  const currentUser = useSelector(selectCurrentUser);
 
   const [unburnedCalorie, setUnburnedCalorie] = useState(intakedCalorie);
   const [burnedCalorie  , setBurnedCalorie  ] = useState(0);

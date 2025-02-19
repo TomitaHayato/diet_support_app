@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { addWorkoutLiked, removeWorkoutLiked } from "../../utils/UserWorkoutLikesRequest";
-import { useAuth, useLikedIds } from "../../Contexts/AuthsContext";
+import { useLikedIds } from "../../Contexts/AuthsContext";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 
 function LikeWorkoutBtn(props) {
   const {workout} = props;
 
   const {likedIds, setLikedIds} = useLikedIds();
-  const currentUser = useAuth();
+  const currentUser = useSelector(selectCurrentUser);
 
   const [isLiked, setIsLiked] = useState(false);
 

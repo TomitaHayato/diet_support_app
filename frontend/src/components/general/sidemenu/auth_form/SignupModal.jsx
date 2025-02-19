@@ -1,18 +1,15 @@
-import { settingAuthTokenToCookie, signUp } from "../../../../utils/auth";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../../../Contexts/AuthsContext";
+import { useDispatch } from "react-redux";
+import { signupThunk } from "../../../../Redux/Slice/currentUserSlice";
 
 function SignupModal() {
-  const {setCurrentUser} = useAuth();
+  const dispatch = useDispatch();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const registerReq = async (params) => {
     try {
-      // リクエストを送信
-      const res = await signUp(params);
-      settingAuthTokenToCookie(res); // レスポンスからトークンを取得し、Cookieに保存
-      setCurrentUser(res.data.data);
+      dispatch(signupThunk(params));
     } catch(error) {
       alert(error);
     }
