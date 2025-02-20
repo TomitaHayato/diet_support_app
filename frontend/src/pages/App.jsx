@@ -36,7 +36,7 @@ function App() {
       requestWorkoutRecords();                 // 運動データを取得
       dispatch(setWeight(currentUser.weight)); // weightにログインユーザの体重をセット
     }
-  }, [currentUser])
+  }, [currentUser, dispatch])
 
   const requestWorkoutRecords = async() => {
     putDev('requestWorkoutRecords');

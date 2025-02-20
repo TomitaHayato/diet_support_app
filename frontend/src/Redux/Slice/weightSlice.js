@@ -15,8 +15,6 @@ const weightSlice = createSlice({
       return state;
     },
   },
-  // currentUserステートが更新された時、発火
-  // extraReducers: builder => {}
 })
 
 export const selectWeight = state => state.weight.value;

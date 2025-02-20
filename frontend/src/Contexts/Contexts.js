@@ -8,5 +8,3 @@ export const AuthContext     = createContext({});
 // - テーマ, setTheme
 export const SideMenuContext = createContext({});
 
-// Workouts一覧を検索・絞り込みして表示する
-export const FilterWorkoutsContext = createContext({});
