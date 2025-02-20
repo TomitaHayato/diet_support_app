@@ -4,40 +4,65 @@ import { putDev } from "../../utils/devTool";
 import { getWorkoutRecords, postWorkoutRecord } from "../../utils/workoutRecordRequest";
 
 // レコードデータをapiから取得
-export const getWorkoutRecordsThunk = createAsyncThunk('workoutRecords/getWorkoutRecordsThunk', async(_unused, {rejectWithValue}) => {
-  try{
-    const res = await getWorkoutRecords();
-    putDev('getWorkoutRecordsのres')
-    putDev(res);
-    if(!res) return rejectWithValue('Error: データの取得に失敗しました。');
+export const getWorkoutRecordsThunk = createAsyncThunk(
+  'workoutRecords/getWorkoutRecordsThunk',
+  async(_unused, {rejectWithValue}) => {
+    try{
+      const res = await getWorkoutRecords();
+      putDev('getWorkoutRecordsのres')
+      putDev(res);
+      if(!res) return rejectWithValue('Error: データの取得に失敗しました。');
 
-    const todayData   = res.data.todayData;
-    const weeklyData  = res.data.weeklyData
-    const monthlyData = res.data.monthlyData
-    const yearlyData  = res.data.yearlyData
+      const todayData   = res.data.todayData;
+      const weeklyData  = res.data.weeklyData
+      const monthlyData = res.data.monthlyData
+      const yearlyData  = res.data.yearlyData
 
-    return { todayData, weeklyData, monthlyData, yearlyData };
-  } catch(e) {
-    putDev(e);
+      return { todayData, weeklyData, monthlyData, yearlyData };
+    } catch(e) {
+      putDev(e);
+  }},
+  {
+    // pending状態の場合、重複して処理を行わない
+    condition(arg, thunkApi) {
+      const status = selectWorkoutRecordsStatus(thunkApi.getState());
+      if (status === 'pending') {
+        putDev('重複リクエストをキャンセルします');
+        return false;
+      }
+    }
   }
-});
+);
 
-export const createWorkoutRecordThunk = createAsyncThunk('workoutRecords/createWorkoutRecordThunk', async(params, {rejectWithValue}) => {
-  try{
-    const res = await postWorkoutRecord(params);
-    putDev('postWorkoutRecordのres');
-    putDev(res);
-    if(!res) return rejectWithValue('Error: データの取得に失敗しました');
+export const createWorkoutRecordThunk = createAsyncThunk(
+  'workoutRecords/createWorkoutRecordThunk',
+  async(params, {rejectWithValue}) => {
+    try{
+      const res = await postWorkoutRecord(params);
+      putDev('postWorkoutRecordのres');
+      putDev(res);
+      if(!res) return rejectWithValue('Error: データの取得に失敗しました');
 
-    const todayData   = res.data.todayData;
-    const weeklyData  = res.data.weeklyData
-    const monthlyData = res.data.monthlyData
-    const yearlyData  = res.data.yearlyData
-    return { todayData, weeklyData, monthlyData, yearlyData };
-  } catch(e) {
-    putDev(e);
+      const todayData   = res.data.todayData;
+      const weeklyData  = res.data.weeklyData
+      const monthlyData = res.data.monthlyData
+      const yearlyData  = res.data.yearlyData
+      return { todayData, weeklyData, monthlyData, yearlyData };
+    } catch(e) {
+      putDev(e);
+    }
+  },
+  {
+    // pending状態の場合、重複して処理を行わない
+    condition(arg, thunkApi) {
+      const status = selectWorkoutRecordsStatus(thunkApi.getState());
+      if (status === 'pending') {
+        putDev('重複リクエストをキャンセルします');
+        return false;
+      }
+    }
   }
-})
+)
 
 const initialState = {
   todayData:   {},
@@ -95,5 +120,6 @@ export const selectTodayData   = state => state.workoutRecords.todayData;
 export const selectWeeklyData  = state => state.workoutRecords.weeklyData;
 export const selectMonthlyData = state => state.workoutRecords.monthlyData;
 export const selectYearlyData  = state => state.workoutRecords.yearlyData;
+export const selectWorkoutRecordsStatus = state => state.workoutRecords.status;
 
 export const workoutRecordsReducer = workoutRecordsSlice.reducer;

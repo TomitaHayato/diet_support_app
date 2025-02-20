@@ -3,11 +3,14 @@ import './builds/build.css'
 import App from './pages/App.jsx';
 import { Provider } from 'react-redux';
 import { store } from './Redux/store.js';
+import { StrictMode } from 'react';
 
 createRoot(document.getElementById('root')).render(
   <>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </StrictMode>
   </>,
 )
