@@ -1,9 +1,9 @@
-import { useContext } from "react";
-import { SideMenuContext } from "../../../Contexts/Contexts";
 import { secondsToMMSS } from "../../../utils/integerStyle";
+import { useSelector } from "react-redux";
+import { selectTodayData } from "../../../Redux/Slice/workoutRecordsSlice";
 
 function TodayData() {
-  const {todayData} = useContext(SideMenuContext);
+  const todayData = useSelector(selectTodayData);
 
   return (
     <>

@@ -1,15 +1,13 @@
-import { useContext, useState } from "react";
-import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
-import { AuthContext } from "../../Contexts/Contexts";
+import { useState } from "react";
 import Big from 'big.js';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
-import { putDev } from "../../utils/devTool";
+import { createWorkoutRecordThunk } from "../../Redux/Slice/workoutRecordsSlice";
 
 function WorkoutForm(props) {
   const {workout} = props;
+  const dispatch = useDispatch();
   const intakedCalorie = useSelector(state => state.intakedCalorie.value);
-  const {setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
   const currentUser = useSelector(selectCurrentUser);
 
   const [workoutTime     , setWorkoutTime     ] = useState(0);
@@ -20,37 +18,29 @@ function WorkoutForm(props) {
   function changeRecords(minutes, intakedCalorie) {
     if(minutes < 0) return;
 
-    // const burnedCaloX100000 = minutes * Math.floor(workout.burnedKcalPerMin * 100000) //誤差をなくすために整数化する
-    const burnedKcal = new Big(workout.burnedKcalPerMin).times(minutes).round().toNumber();
+    const burnedKcal = minutes ? new Big(workout.burnedKcalPerMin).times(minutes).round().toNumber() : 0;
     setWorkoutTime(minutes);
     setBurnedCalories(burnedKcal);
     setUnburnedCalories(intakedCalorie - burnedKcal);
   }
 
-  const createWorkoutRecord = async() => {
-    if(workoutTime === 0) return;
+  const createWorkoutRecord = async(workoutTime, intakedCalorie, burnedCalories, unburnedCalories) => {
+    if(!workoutTime || workoutTime === 0) return;
 
     setSaveDisabled(true);
-    try {
-      const params = {
-        workoutTime:      workoutTime * 60,
-        intakedCalories:  intakedCalorie,
-        burnedCalories:   burnedCalories,
-        unburnedCalories: unburnedCalories,
-      }
-      const res = await postWorkoutRecord(params)
-      setYearlyData(res.data.yearlyData);
-      setMonthlyData(res.data.monthlyData);
-      setWeeklyData(res.data.weeklyData);
-      setTodayData(res.data.todayData);
-      // フォームのリセット
-      setWorkoutTime(0);
-      setBurnedCalories(0);
-      setUnburnedCalories(0);
-    } catch(error) {
-      putDev('createWorkoutRecord')
-      putDev(error);
+    const params = {
+      workoutTime:      workoutTime * 60,
+      intakedCalories:  intakedCalorie,
+      burnedCalories:   burnedCalories,
+      unburnedCalories: unburnedCalories,
     }
+
+    dispatch(createWorkoutRecordThunk(params));
+    // フォームのリセット
+    setWorkoutTime(0);
+    setBurnedCalories(0);
+    setUnburnedCalories(0);
+
     setSaveDisabled(false);
   }
 
@@ -90,7 +80,7 @@ function WorkoutForm(props) {
           <button
             className="btn btn-wide btn-success rounded-xl"
             disabled={currentUser ? saveDisabled : true}
-            onClick={createWorkoutRecord}
+            onClick={() => createWorkoutRecord(workoutTime, intakedCalorie, burnedCalories, unburnedCalories)}
           >保存</button>
           {currentUser ? null : 
             <p className="text-red-500 text-sm">＊ログイン後に保存できます</p>

@@ -2,28 +2,19 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Top from "./Top";
 import Workout from "./Workout";
 import SideMenu from "../components/general/sidemenu/SideMenu"
-import { useEffect, useState } from "react";
-import { AuthContext, SideMenuContext } from "../Contexts/Contexts";
-import { getWorkoutRecords } from "../utils/workoutRecordRequest";
+import { useEffect } from "react";
 import Header from "../components/general/header/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserThunk, selectCurrentUser } from "../Redux/Slice/currentUserSlice";
 import { setWeight } from "../Redux/Slice/WeightSlice";
 import { isAccessTokenInCookie } from "../utils/auth";
-import { putDev } from "../utils/devTool";
+import { getWorkoutRecordsThunk } from "../Redux/Slice/workoutRecordsSlice";
 
 function App() {
   const dispatch = useDispatch();
 
-  const [yearlyData , setYearlyData ] = useState([]);
-  const [monthlyData, setMonthlyData] = useState([]);
-  const [weeklyData , setWeeklyData ] = useState([]);
-  const [todayData  , setTodayData  ] = useState({});
-
   const theme = useSelector(state => state.theme.name);
   const currentUser = useSelector(selectCurrentUser);
-
-  console.log('Hey')
 
   // 認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
@@ -31,56 +22,39 @@ function App() {
     dispatch(fetchUserThunk());
   }, [currentUser, dispatch]);
 
-  // ログイン時の処理
+  // ログイン・ユーザー更新時の処理
   useEffect(() => {
     if(currentUser) {
-      requestWorkoutRecords();                 // 運動データを取得
+      // requestWorkoutRecords();                 // 運動データを取得
+      dispatch(getWorkoutRecordsThunk());
       dispatch(setWeight(currentUser.weight)); // weightにログインユーザの体重をセット
     }
   }, [currentUser, dispatch])
 
-  const requestWorkoutRecords = async() => {
-    putDev('requestWorkoutRecords');
-    try {
-      const res = await getWorkoutRecords();
-      setYearlyData(res.data.yearlyData);
-      setMonthlyData(res.data.monthlyData);
-      setWeeklyData(res.data.weeklyData);
-      setTodayData(res.data.todayData);
-      putDev(res.data)
-    } catch(error) {
-      putDev(error);
-    }
-  }
-
   return (
     <>
       <div data-theme={theme}>
-        <AuthContext.Provider value={{setYearlyData, setMonthlyData, setWeeklyData, setTodayData}}>
-          <BrowserRouter>
-            <div className="flex px-8 h-screen mx-auto">
-              <div className="basis-9/12 w-full overflow-y-scroll overscroll-none">
-                <Header />
+        <BrowserRouter>
+          <div className="flex px-8 h-screen mx-auto">
+            <div className="basis-9/12 w-full overflow-y-scroll overscroll-none">
+              <Header />
 
-                <div className="py-8 pl-1 pr-5">
-                  <Routes>
-                    <Route path="/"            element={<Top />} />
-                    <Route path="/workout/:id" element={<Workout />} />
-                  </Routes>
-                </div>
-              </div>
-
-              <div className="divider divider-horizontal mx-0"></div>
-
-              {/* サイドメニュー */}
-              <div className="py-12 px-1 basis-3/12 w-full overflow-y-scroll overscroll-none">
-                <SideMenuContext.Provider value={{yearlyData, monthlyData, weeklyData, todayData}}>
-                  <SideMenu />
-                </SideMenuContext.Provider>
+              <div className="py-8 pl-1 pr-5">
+                <Routes>
+                  <Route path="/"            element={<Top />} />
+                  <Route path="/workout/:id" element={<Workout />} />
+                </Routes>
               </div>
             </div>
-          </BrowserRouter>
-        </AuthContext.Provider>
+
+            <div className="divider divider-horizontal mx-0"></div>
+
+            {/* サイドメニュー */}
+            <div className="py-12 px-1 basis-3/12 w-full overflow-y-scroll overscroll-none">
+              <SideMenu />
+            </div>
+          </div>
+        </BrowserRouter>
       </div>
     </>
   )
