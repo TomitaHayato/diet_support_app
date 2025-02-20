@@ -4,12 +4,15 @@ import RadioBtnXs from "./RadioBtnXs";
 import { defaultSelectedOptions, numOptions, placeOptions, strengthOptions, typeOptions } from "../../utils/workoutTags";
 import { removeUnspecified, searchAndFilter } from "../../utils/search";
 import AutoComplete from "./AutoComplete";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 
 function SearchForm(props) {
-  const {workoutsObj, autoCompleteList ,setAutoCompleteList, setSearchWords, setFilterQuery} = props;
+  const {workoutsObj, autoCompleteList ,setAutoCompleteList, setSearchWords, setFilterQuery, isOnlyLiked, setIsOnlyLiked} = props;
 
   const [inputWords     , setInputWords     ] = useState(''); // 検索Formの入力値 =>「検索」ボタンClickでsearchWordsにset
   const [selectedOptions, setSelectedOptions] = useState(defaultSelectedOptions);
+  const currentUser = useSelector(selectCurrentUser);
   // 検索FormがActiveかどうか
   const [isFormActive, setIsFormActive] = useState(false);
   const [isFilterBoxOpen, setIsFilterBoxOpen] = useState(false);
@@ -37,7 +40,7 @@ function SearchForm(props) {
 
   return (
     <>
-      <div className="flex justify-end gap-8">
+      <div className="flex justify-end gap-4">
         {/* 検索フォーム */}
         <div className="flex flex-col">
           <div className="join">
@@ -73,6 +76,13 @@ function SearchForm(props) {
           </div>
         </div>
 
+        {/* お気に入りのみ */}
+        <div>
+          <button className={`btn btn-sm ${isOnlyLiked ? "text-white bg-blue-600 hover:bg-blue-600" : "btn-outline"}`} onClick={() => {
+            if(currentUser) setIsOnlyLiked(prev => !prev)
+          }}><i className="i-uiw-heart-on text-pink-400"/>済み</button>
+        </div>
+
         {/* 絞り込み */}
         <div>
           <button className="btn btn-sm btn-outline" onClick={() => {
@@ -83,6 +93,7 @@ function SearchForm(props) {
         </div>
       </div>
 
+      {/* 絞り込み設定  */}
       { isFilterBoxOpen &&
         <div className="mt-4 p-4 rounded-lg shadow-xl border border-gray-500/50">
           <div className="flex items-start justify-end gap-4">
