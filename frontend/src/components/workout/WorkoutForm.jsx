@@ -4,6 +4,7 @@ import { AuthContext } from "../../Contexts/Contexts";
 import Big from 'big.js';
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
+import { putDev } from "../../utils/devTool";
 
 function WorkoutForm(props) {
   const {workout} = props;
@@ -47,7 +48,7 @@ function WorkoutForm(props) {
       setBurnedCalories(0);
       setUnburnedCalories(0);
     } catch(error) {
-      console.log(error);
+      putDev(error);
     }
     setSaveDisabled(false);
   }

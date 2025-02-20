@@ -1,6 +1,8 @@
 // 渡されるデータはobjのオブジェクトを要素にもつ配列
 // objObj: {id:, name:, tagList: [...]}のような形式
 
+import { putDev } from "./devTool";
+
 // nameの部分一致検索
 export function nameSearch(objArray=[], inputWords='') {
   if(inputWords === '') return objArray; // 検索ワードがない場合は全てのobjを返す。
@@ -10,7 +12,7 @@ export function nameSearch(objArray=[], inputWords='') {
   inputWords.split(/\s+/).forEach(word => {
     filteredObjs = filteredObjs.filter(obj => obj?.name.indexOf(word) !== -1);
   })
-  // console.log(filteredObjs);
+  putDev(filteredObjs);
   return filteredObjs;
 }
 

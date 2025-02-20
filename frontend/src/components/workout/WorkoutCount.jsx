@@ -11,6 +11,7 @@ import { btnOff, btnOn } from "../../utils/formCtl";
 import Big from 'big.js';
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
+import { putDev } from "../../utils/devTool";
 
 function WorkoutCount(props) {
   const {workout} = props;
@@ -57,7 +58,7 @@ function WorkoutCount(props) {
       setBurnedCalorie(0);
       setUnburnedCalorie(0);
     } catch(error) {
-      console.log(error);
+      putDev(error);
     }
   };
 

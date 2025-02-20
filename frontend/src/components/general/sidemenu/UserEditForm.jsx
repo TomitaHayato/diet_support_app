@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser, updateUserThunk } from "../../../Redux/Slice/currentUserSlice";
+import { putDev } from "../../../utils/devTool";
 
 function UserEditForm(props) {
   const {setEditMode} = props;
@@ -19,7 +20,7 @@ function UserEditForm(props) {
       setEditMode(false);
       setErrorUser(null);
     } catch(error) {
-      console.log(error);
+      putDev(error);
       setErrorUser('プロフィール編集に失敗しました');
     }
   }

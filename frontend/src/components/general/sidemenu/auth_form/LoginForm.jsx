@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { loginThunk } from "../../../../Redux/Slice/currentUserSlice";
+import { putDev } from "../../../../utils/devTool";
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function LoginForm() {
       dispatch(loginThunk(params));
       setLoginError(null);
     } catch(error) {
-      console.log(error);
+      putDev(error);
       setLoginError('ログインできませんでした。');
     }
   }

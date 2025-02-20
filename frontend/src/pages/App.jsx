@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserThunk, selectCurrentUser, selectCurrentUserStatus } from "../Redux/Slice/currentUserSlice";
 import { setWeight } from "../Redux/Slice/WeightSlice";
 import { isAccessTokenInCookie } from "../utils/auth";
+import { putDev } from "../utils/devTool";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ function App() {
   useEffect(() => {
     if(currentUserStatus !== 'idle' || !isAccessTokenInCookie()) return;
     dispatch(fetchUserThunk());
-  }, []);
+  }, [currentUserStatus, dispatch]);
 
   // ログイン時の処理
   useEffect(() => {
@@ -44,9 +45,9 @@ function App() {
       setMonthlyData(res.data.monthlyData);
       setWeeklyData(res.data.weeklyData);
       setTodayData(res.data.todayData);
-      // console.log(res.data)
+      putDev(res.data)
     } catch(error) {
-      console.log(error);
+      putDev(error);
     }
   }
 

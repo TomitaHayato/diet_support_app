@@ -10,6 +10,7 @@ import WorkoutsIndex from '../components/top/WorkoutsIndex';
 import { workoutRequest } from '../utils/workoutRequest';
 import { useSelector } from 'react-redux';
 import { selectWeight } from '../Redux/Slice/WeightSlice';
+import { putDev } from '../utils/devTool';
 
 function Top() {
 
@@ -22,7 +23,7 @@ function Top() {
   // apiから運動データを取得する処理
   const fetchWorkoutsData = async (weight, kcalIntake) => {
     const res = await workoutRequest({ weight, kcalIntake, });
-    // console.log(res.data)
+    // putDev(res.data)
     setWorkoutsObj(res.data.workouts);
   }
 
