@@ -15,15 +15,15 @@ import { putDev } from '../utils/devTool';
 function Top() {
 
   const weight = useSelector(selectWeight);
-
   const intakedCalorie = useSelector(state => state.intakedCalorie.value);
 
-  const [workoutsObj   , setWorkoutsObj   ] = useState([]);
+  const [workoutsObj, setWorkoutsObj] = useState([]);
 
   // apiから運動データを取得する処理
   const fetchWorkoutsData = async (weight, kcalIntake) => {
     const res = await workoutRequest({ weight, kcalIntake, });
-    // putDev(res.data)
+    putDev('fetchWorkoutsData');
+    putDev(res.data);
     setWorkoutsObj(res.data.workouts);
   }
 

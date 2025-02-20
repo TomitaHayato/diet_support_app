@@ -16,6 +16,7 @@ function LoginForm() {
       dispatch(loginThunk(params));
       setLoginError(null);
     } catch(error) {
+      putDev('login');
       putDev(error);
       setLoginError('ログインできませんでした。');
     }

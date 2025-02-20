@@ -12,6 +12,8 @@ export function nameSearch(objArray=[], inputWords='') {
   inputWords.split(/\s+/).forEach(word => {
     filteredObjs = filteredObjs.filter(obj => obj?.name.indexOf(word) !== -1);
   })
+
+  putDev('nameSearchのfilteredObjs')
   putDev(filteredObjs);
   return filteredObjs;
 }
@@ -27,6 +29,9 @@ export function tagFilter(objArray=[], filterQuery=[]) {
   objArray.forEach(obj => {
     if( filterQuery.every(el => obj.tagList.includes(el)) ) filteredObjs.push(obj);
   })
+
+  putDev('tagFilterのfilteredObjs')
+  putDev(filteredObjs);
 
   return filteredObjs;
 }

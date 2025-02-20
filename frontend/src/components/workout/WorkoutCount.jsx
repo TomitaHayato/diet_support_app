@@ -58,6 +58,7 @@ function WorkoutCount(props) {
       setBurnedCalorie(0);
       setUnburnedCalorie(0);
     } catch(error) {
+      putDev('createWorkoutRecord');
       putDev(error);
     }
   };

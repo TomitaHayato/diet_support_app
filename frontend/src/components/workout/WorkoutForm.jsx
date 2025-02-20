@@ -48,6 +48,7 @@ function WorkoutForm(props) {
       setBurnedCalories(0);
       setUnburnedCalories(0);
     } catch(error) {
+      putDev('createWorkoutRecord')
       putDev(error);
     }
     setSaveDisabled(false);

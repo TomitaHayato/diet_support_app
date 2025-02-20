@@ -10,6 +10,7 @@ export const fetchUserThunk = createAsyncThunk('currentUser/fetchUserThunk', asy
   try {
     // apiからデータを取得する処理
     const res = await getUser();
+    putDev('getUser');
     putDev(res);
 
     if(!res) return rejectWithValue('Error: データの取得に失敗しました。');
@@ -36,7 +37,8 @@ export const loginThunk = createAsyncThunk('currentUser/loginThunk', async(param
     settingAuthTokenToCookie(res);
     // ログインユーザーの情報を取得
     const resUser = await getUser();
-    // putDev(res.data);
+    putDev('getUser');
+    putDev(res.data);
 
     if(!resUser) return;
 
@@ -71,13 +73,17 @@ export const logoutThunk = createAsyncThunk('currentUser/logoutThunk', async(_un
 // 新規登録処理
 export const signupThunk = createAsyncThunk('currentUser/signupThunk', async(params, rejectWithValue) => {
   try {
-    // putDev(params)
+    putDev('signupのparams')
+    putDev(params)
+
     const res = await signUp(params);
+    putDev('signUp');
+    putDev(res);
+
     if(!res) return;
     settingAuthTokenToCookie(res);
     const user = res.data.data;
     const likedWorkoutIds = []
-
     return { user, likedWorkoutIds }
   } catch(e) {
     putDev('signupThunkのerror')
@@ -90,8 +96,15 @@ export const signupThunk = createAsyncThunk('currentUser/signupThunk', async(par
 // ユーザープロフィール更新処理
 export const updateUserThunk = createAsyncThunk('currentUser/updateUserThunk', async(params, {rejectWithValue}) => {
   try{
+    putDev('updateUserのparams')
+    putDev(params)
+
     const res = await updateUser(params);
+    putDev('updateUser');
+    putDev(res);
+
     if(!res) return;
+
     return res.data
   } catch(e) {
     putDev('updateUserThunkのerror')
@@ -105,6 +118,9 @@ export const updateUserThunk = createAsyncThunk('currentUser/updateUserThunk', a
 export const addLikedWorkoutIdsThunk = createAsyncThunk('currentUser/addLikedWorkoutIds', async(workout, {rejectWithValue}) => {
   try{
     const res = await addWorkoutLiked(workout);
+    putDev('addWorkoutLiked')
+    putDev(res);
+
     if(!res) return;
     const newLikedWorkoutIds = res.data
     return newLikedWorkoutIds;
@@ -119,6 +135,10 @@ export const addLikedWorkoutIdsThunk = createAsyncThunk('currentUser/addLikedWor
 export const removeLikedWorkoutIdsThunk = createAsyncThunk('currentUser/removeLikedWorkoutId', async(workout, {rejectWithValue}) => {
   try{
     const res = await removeWorkoutLiked(workout);
+
+    putDev('removeWorkoutLiked')
+    putDev(res);
+
     if(!res) return;
     const newLikedWorkoutIds = res.data
     return newLikedWorkoutIds;

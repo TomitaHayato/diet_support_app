@@ -20,6 +20,7 @@ function UserEditForm(props) {
       setEditMode(false);
       setErrorUser(null);
     } catch(error) {
+      putDev('requestUsersUpdate')
       putDev(error);
       setErrorUser('プロフィール編集に失敗しました');
     }

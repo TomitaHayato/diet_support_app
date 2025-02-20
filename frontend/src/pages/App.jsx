@@ -39,6 +39,7 @@ function App() {
   }, [currentUser])
 
   const requestWorkoutRecords = async() => {
+    putDev('requestWorkoutRecords');
     try {
       const res = await getWorkoutRecords();
       setYearlyData(res.data.yearlyData);
