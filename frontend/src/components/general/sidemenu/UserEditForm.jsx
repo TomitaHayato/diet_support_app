@@ -15,7 +15,7 @@ function UserEditForm(props) {
   // ユーザ情報の更新処理
   const requestUsersUpdate = async(params) => {
     try {
-      dispatch(updateUserThunk(params, currentUser.id))
+      dispatch(updateUserThunk(params))
       setEditMode(false);
       setErrorUser(null);
     } catch(error) {
@@ -36,6 +36,8 @@ function UserEditForm(props) {
 
         <p className="text-red-500 text-lg">{errorUser}</p>
         <form onSubmit={handleSubmit(requestUsersUpdate)}>
+          <input type="hidden" value={currentUser.id} {...register('id')}/>
+
           {errors.name?.message && (<p className="text-red-500">{errors.name.message}</p>)}
           <label className="input input-sm input-bordered flex items-center gap-2 mb-2">
             名前:

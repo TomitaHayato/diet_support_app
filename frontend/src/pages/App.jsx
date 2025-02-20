@@ -9,6 +9,7 @@ import Header from "../components/general/header/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserThunk, selectCurrentUser, selectCurrentUserStatus } from "../Redux/Slice/currentUserSlice";
 import { setWeight } from "../Redux/Slice/WeightSlice";
+import { isAccessTokenInCookie } from "../utils/auth";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function App() {
 
   // 初期レンダリング時に、認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
-    if(currentUserStatus !== 'idle') return;
+    if(currentUserStatus !== 'idle' || !isAccessTokenInCookie()) return;
     dispatch(fetchUserThunk());
   }, []);
 

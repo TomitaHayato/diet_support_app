@@ -3,16 +3,16 @@ import client from "./apiClient";
 import { authTokensInCookie, isAccessTokenInCookie } from "./auth";
 
 //User情報を更新
-// params = {:name, :email, :weight}
-export function updateUser(params, userId) {
+// params = {:id, :name, :email, :weight}
+export function updateUser(params) {
   //tokenがない場合は何もしない
   if(!isAccessTokenInCookie()) {
-    console.log("ログインし直してください");
+    console.log("ログインが必要です");
     return;
   };
 
   return client.patch(
-    `/users/${userId}`,
+    `/users/${params.id}`,
     params,
     { headers: authTokensInCookie()}
   );

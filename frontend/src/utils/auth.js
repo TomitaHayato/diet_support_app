@@ -46,10 +46,11 @@ export function isAccessTokenInCookie() {
 
 // リクエストに付与する認証トークンのハッシュ
 export function authTokensInCookie() {
-  return (
-    {
-      "access-token": Cookies.get("_access_token"),
-      "client":       Cookies.get("_client"),
-      "uid":          Cookies.get("_uid"),
-    })
+  if(!isAccessTokenInCookie()) return;
+
+  return {
+    "access-token": Cookies.get("_access_token"),
+    "client":       Cookies.get("_client"),
+    "uid":          Cookies.get("_uid"),
+  }
 }

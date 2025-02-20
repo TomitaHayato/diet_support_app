@@ -5,25 +5,28 @@ import { updateUser } from "../../utils/userRequest";
 import { addWorkoutLiked, removeWorkoutLiked } from "../../utils/UserWorkoutLikesRequest";
 
 // ログインユーザーを取得する処理
-export const fetchUserThunk = createAsyncThunk('currentUser/fetchUserThunk', async() => {
+export const fetchUserThunk = createAsyncThunk('currentUser/fetchUserThunk', async(_unused, {rejectWithValue}) => {
   try {
     // apiからデータを取得する処理
     const res = await getUser();
     // console.log(res);
 
-    if(!res) return;
+    if(!res) return rejectWithValue('Error: データの取得に失敗しました。');
 
     const user = res.data.currentUser;
     const likedWorkoutIds = res.data.likedWorkoutIds;
 
     return { user, likedWorkoutIds }
   } catch(e) {
-    console.log(e);
+    console.log('getUserThunkのerror')
+    const errorData = e.request?.data || e.message || e // axiosはe.request.dataまたはe.messageにエラー詳細を返す
+    console.log(errorData);
+    return rejectWithValue(errorData);
   }
 })
 
 // ログイン処理
-export const loginThunk = createAsyncThunk('currentUser/loginThunk', async(params) => {
+export const loginThunk = createAsyncThunk('currentUser/loginThunk', async(params, {rejectWithValue}) => {
   try {
     // loginリクエスト
     const res = await signIn(params);
@@ -41,12 +44,15 @@ export const loginThunk = createAsyncThunk('currentUser/loginThunk', async(param
 
     return { user, likedWorkoutIds }
   } catch(e) {
-    console.log(e)
+    console.log('loginThunkのerror')
+    const errorData = e.request?.data || e.message || e // axiosはe.request.dataまたはe.messageにエラー詳細を返す
+    console.log(errorData);
+    return rejectWithValue(errorData);
   }
 })
 
 // ログアウト処理
-export const logoutThunk = createAsyncThunk('currentUser/logoutThunk', async() => {
+export const logoutThunk = createAsyncThunk('currentUser/logoutThunk', async(_unused, {rejectWithValue}) => {
   try {
     // logoutリクエスト
     await logout();
@@ -54,12 +60,15 @@ export const logoutThunk = createAsyncThunk('currentUser/logoutThunk', async() =
     removeAuthToken();
     return;
   } catch(e) {
-    console.log(e);
+    console.log('looutThunkのerror')
+    const errorData = e.request?.data || e.message || e // axiosはe.request.dataまたはe.messageにエラー詳細を返す
+    console.log(errorData);
+    return rejectWithValue(errorData);
   }
 });
 
 // 新規登録処理
-export const signupThunk = createAsyncThunk('currentUser/signupThunk', async(params) => {
+export const signupThunk = createAsyncThunk('currentUser/signupThunk', async(params, rejectWithValue) => {
   try {
     // console.log(params)
     const res = await signUp(params);
@@ -70,38 +79,54 @@ export const signupThunk = createAsyncThunk('currentUser/signupThunk', async(par
 
     return { user, likedWorkoutIds }
   } catch(e) {
-    console.log(e);
+    console.log('signupThunkのerror')
+    const errorData = e.request?.data || e.message || e // axiosはe.request.dataまたはe.messageにエラー詳細を返す
+    console.log(errorData);
+    return rejectWithValue(errorData);
   }
 })
 
 // ユーザープロフィール更新処理
-export const updateUserThunk = createAsyncThunk('currentUser/updateUserThunk', async(params, currentUserId) => {
+export const updateUserThunk = createAsyncThunk('currentUser/updateUserThunk', async(params, {rejectWithValue}) => {
   try{
-    const res = await updateUser(params, currentUserId);
+    const res = await updateUser(params);
     if(!res) return;
     return res.data
   } catch(e) {
-    console.log(e)
+    console.log('updateUserThunkのerror')
+    const errorData = e.request?.data || e.message || e // axiosはe.request.dataまたはe.messageにエラー詳細を返す
+    console.log(errorData);
+    return rejectWithValue(errorData);
   };
 })
 
 // Workoutお気に入り登録処理
-export const addLikedWorkoutIdsThunk = createAsyncThunk('currentUser/addLikedWorkoutIds', async(workout) => {
+export const addLikedWorkoutIdsThunk = createAsyncThunk('currentUser/addLikedWorkoutIds', async(workout, {rejectWithValue}) => {
   try{
     const res = await addWorkoutLiked(workout);
     if(!res) return;
     const newLikedWorkoutIds = res.data
     return newLikedWorkoutIds;
-  } catch(e) {console.log(e)}
+  } catch(e) {
+    console.log('お気に入り登録処理のエラー')
+    const errorData = e.request?.data || e.message || e // axiosはe.request.dataまたはe.messageにエラー詳細を返す
+    console.log(errorData);
+    return rejectWithValue(errorData);
+  }
 })
 
-export const removeLikedWorkoutIdsThunk = createAsyncThunk('currentUser/removeLikedWorkoutId', async(workout) => {
+export const removeLikedWorkoutIdsThunk = createAsyncThunk('currentUser/removeLikedWorkoutId', async(workout, {rejectWithValue}) => {
   try{
     const res = await removeWorkoutLiked(workout);
     if(!res) return;
     const newLikedWorkoutIds = res.data
     return newLikedWorkoutIds;
-  } catch(e) {console.log(e)}
+  } catch(e) {
+    console.log('お気に入り削除処理のエラー')
+    const errorData = e.request?.data || e.message || e // axiosはe.request.dataまたはe.messageにエラー詳細を返す
+    console.log(errorData);
+    return rejectWithValue(errorData);
+  }
 })
 
 const initialState = {
