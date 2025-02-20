@@ -7,7 +7,7 @@ import { AuthContext, SideMenuContext } from "../Contexts/Contexts";
 import { getWorkoutRecords } from "../utils/workoutRecordRequest";
 import Header from "../components/general/header/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserThunk, selectCurrentUser, selectCurrentUserStatus } from "../Redux/Slice/currentUserSlice";
+import { fetchUserThunk, selectCurrentUser } from "../Redux/Slice/currentUserSlice";
 import { setWeight } from "../Redux/Slice/WeightSlice";
 import { isAccessTokenInCookie } from "../utils/auth";
 import { putDev } from "../utils/devTool";
@@ -22,13 +22,14 @@ function App() {
 
   const theme = useSelector(state => state.theme.name);
   const currentUser = useSelector(selectCurrentUser);
-  const currentUserStatus = useSelector(selectCurrentUserStatus);
 
-  // 初期レンダリング時に、認証トークンを保持していればログインユーザデータ取得
+  console.log('Hey')
+
+  // 認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
-    if(currentUserStatus !== 'idle' || !isAccessTokenInCookie()) return;
+    if(currentUser || !isAccessTokenInCookie()) return;
     dispatch(fetchUserThunk());
-  }, [currentUserStatus, dispatch]);
+  }, [currentUser, dispatch]);
 
   // ログイン時の処理
   useEffect(() => {
