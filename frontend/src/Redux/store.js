@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { themeReducer } from "./Slice/ThemeSlice";
+import { themeReducer } from "./Slice/themeSlice";
 import { intakedCalorieReducer } from "./Slice/intakedCalorieSlice";
-import { weightReducer } from "./Slice/WeightSlice";
+import { weightReducer } from "./Slice/weightSlice";
 import { currentUserReducer } from "./Slice/currentUserSlice";
 import { workoutRecordsReducer } from "./Slice/workoutRecordsSlice";
 
