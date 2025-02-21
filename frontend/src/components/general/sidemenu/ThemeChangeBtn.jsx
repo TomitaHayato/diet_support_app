@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeTheme } from "../../../Redux/Slice/themeSlice";
+import { changeTheme } from "../../../Redux/Slice/ThemeSlice";
 
 function ThemeChangeBtn() {
   const theme = useSelector(state => state.theme.name);
