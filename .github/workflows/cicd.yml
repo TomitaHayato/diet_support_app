@@ -1,13 +1,12 @@
 name: CI/CD
 
 on:
-  pull_request:
-    types: [closed]
+  push:
 
 
 jobs:
   front_build_deploy:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     
     steps:
       # 最新のbranchへ移動
