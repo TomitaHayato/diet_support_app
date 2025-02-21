@@ -23,7 +23,7 @@ jobs:
         working-directory: ./frontend
         run: |
           yarn install
-          vite build
+          yarn run build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
