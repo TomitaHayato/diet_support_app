@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SearchForm from "./SearchForm";
-import WorkoutCard from "./WorkoutCard";
+import WorkoutCard from "./WorkOutCard";
 import { searchAndFilter } from "../../utils/search";
 import { useSelector } from "react-redux";
 import { selectCurrentUser, selectLikedWorkoutIds } from "../../Redux/Slice/currentUserSlice";
