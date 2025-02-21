@@ -1,5 +1,5 @@
 import LoggedInContents from "./LoggedInContents";
-import BeforeLoginContents from "./beforeLoginContents";
+import BeforeLoginContents from "./BeforeLoginContents";
 import ThemeChangeBtn from "./ThemeChangeBtn";
 import Section from "./Section";
 import { useSelector } from "react-redux";
