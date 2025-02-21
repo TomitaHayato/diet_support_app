@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCalorie } from "../../Redux/Slice/intakedCalorieSlice";
-import { selectWeight, setWeight } from "../../Redux/Slice/WeightSlice";
+import { selectWeight, setWeight } from "../../Redux/Slice/weightSlice";
 import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 
 function CalorieForm() {

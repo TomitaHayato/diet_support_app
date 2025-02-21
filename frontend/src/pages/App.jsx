@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import Header from "../components/general/header/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserThunk, selectCurrentUser } from "../Redux/Slice/currentUserSlice";
-import { setWeight } from "../Redux/Slice/WeightSlice";
+import { setWeight } from "../Redux/Slice/weightSlice";
 import { isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecordsThunk } from "../Redux/Slice/workoutRecordsSlice";
 
