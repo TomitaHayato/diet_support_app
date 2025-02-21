@@ -21,6 +21,8 @@ jobs:
 
       - name: yarn build & install
         working-directory: ./frontend
+        env:
+          VITE_RAILS_API_DOMEIN: ${{ secrets.VITE_RAILS_API_DOMEIN }}
         run: |
           yarn install
           yarn build
