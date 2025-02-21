@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { updateUser } from "../../../utils/userRequest";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../../Contexts/AuthsContext";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentUser, updateUserThunk } from "../../../Redux/Slice/currentUserSlice";
+import { putDev } from "../../../utils/devTool";
 
 function UserEditForm(props) {
   const {setEditMode} = props;
-  const {currentUser, setCurrentUser} = useAuth();
+  const currentUser = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
 
   const [errorUser, setErrorUser] = useState(null);
 
@@ -14,12 +16,12 @@ function UserEditForm(props) {
   // ユーザ情報の更新処理
   const requestUsersUpdate = async(params) => {
     try {
-      const res = await updateUser(params, currentUser.id)
-      setCurrentUser(res.data);
+      dispatch(updateUserThunk(params))
       setEditMode(false);
       setErrorUser(null);
     } catch(error) {
-      console.log(error);
+      putDev('requestUsersUpdate')
+      putDev(error);
       setErrorUser('プロフィール編集に失敗しました');
     }
   }
@@ -36,6 +38,8 @@ function UserEditForm(props) {
 
         <p className="text-red-500 text-lg">{errorUser}</p>
         <form onSubmit={handleSubmit(requestUsersUpdate)}>
+          <input type="hidden" value={currentUser.id} {...register('id')}/>
+
           {errors.name?.message && (<p className="text-red-500">{errors.name.message}</p>)}
           <label className="input input-sm input-bordered flex items-center gap-2 mb-2">
             名前:

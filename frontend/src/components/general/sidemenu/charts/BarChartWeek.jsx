@@ -1,12 +1,12 @@
-import { useContext } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { SideMenuContext } from "../../../../Contexts/Contexts";
 import { CustomTooltip } from "./CustomTooltip";
+import { useSelector } from "react-redux";
+import { selectWeeklyData } from "../../../../Redux/Slice/workoutRecordsSlice";
 
 
 function BarChartWeek(props) {
   const {dataKey}    = props;
-  const {weeklyData} = useContext(SideMenuContext);
+  const weeklyData = useSelector(selectWeeklyData);
 
   return (
     <div className="w-full h-56 text-xs">

@@ -2,14 +2,14 @@ import { useNavigate } from "react-router-dom"
 import LikeWorkoutBtn from "../general/LikeWorkoutBtn";
 
 function WorkoutCard(props) {
-  const {workout, intakedCalorie} = props;
+  const {workout} = props;
 
   const navi = useNavigate();
 
   // Workoutページに遷移
   function moveWorkoutPage() {
     navi(`/workout/${workout.id}`, {
-      state: { workout, intakedCalorie, }
+      state: { workout, }
     });
   }
 

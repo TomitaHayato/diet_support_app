@@ -1,10 +1,15 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../Contexts/Contexts";
-import { btnOff, btnOn } from "../../utils/formCtl";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCalorie } from "../../Redux/Slice/intakedCalorieSlice";
+import { selectWeight, setWeight } from "../../Redux/Slice/WeightSlice";
+import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 
-function CalorieForm(props) {
-  const {intakedCalorie, setIntakedCalorie} = props;
-  const {weight, setWeight} = useContext(AuthContext);
+function CalorieForm() {
+  const weight = useSelector(selectWeight);
+  const intakedCalorie = useSelector(state => state.intakedCalorie.value)
+  const currentUser = useSelector(selectCurrentUser);
+
+  const dispatch = useDispatch();
 
   // Formの入力値管理
   const [inputCalorie, setInputCalorie] = useState(intakedCalorie);
@@ -12,8 +17,8 @@ function CalorieForm(props) {
 
   // ログインやプロフィール編集時など、weightの値が変更された時にフォームの値も変更
   useEffect(() => {
-    setInputWeight(weight);
-  }, [weight])
+    if (currentUser) setInputWeight(currentUser.weight);
+  }, [currentUser])
 
   return (
     <>
@@ -34,11 +39,9 @@ function CalorieForm(props) {
             </label>
           </div>
 
-          <button className='btn btn-primary' onClick={(e) => {
-            btnOff(e.target);
-            setIntakedCalorie(inputCalorie);
-            setWeight(inputWeight);
-            btnOn(e.target);
+          <button className='btn btn-primary' onClick={() => {
+            dispatch(setCalorie(inputCalorie));
+            dispatch(setWeight(inputWeight));
           }}>調べる</button>
         </div>
       </div>

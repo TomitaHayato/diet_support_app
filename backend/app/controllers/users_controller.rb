@@ -2,16 +2,25 @@ class UsersController < ApplicationController
   before_action :authenticate_user! # 未認証ユーザーにstatus: :401を返す
 
   def update
+    render status: 422 and return if current_user.id != user_params[:id].to_i
+
+    content = nil
+    status  = nil
+
     if current_user.update(user_params)    
-      render json: current_user, status: 200
+      content = current_user
+      status  = 200
     else
-      render json: { errors: current_user.errors }, status: 422
+      content = { errors: current_user.errors }
+      status  = 422
     end
+
+    render json: content, status: status
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :weight)
+    params.require(:user).permit(:id, :name, :email, :weight)
   end
 end

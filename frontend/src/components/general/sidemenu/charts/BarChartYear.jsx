@@ -1,11 +1,11 @@
-import { useContext } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { SideMenuContext } from "../../../../Contexts/Contexts";
 import { CustomTooltip } from "./CustomTooltip";
+import { useSelector } from "react-redux";
+import { selectYearlyData } from "../../../../Redux/Slice/workoutRecordsSlice";
 
 function BarChartYear(props) {
-  const {dataKey}    = props;
-  const {yearlyData} = useContext(SideMenuContext);
+  const {dataKey}  = props;
+  const yearlyData = useSelector(selectYearlyData);
 
   return (
     <div className="w-full h-56 text-xs">

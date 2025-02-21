@@ -3,24 +3,26 @@
 // - 未消費のカロリーを表示(摂取カロリーが必要)
 // - 運動に取り組んだ秒数を「MM分SS秒」形式で表示
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { secondsToMMSS } from "../../utils/integerStyle";
-import { postWorkoutRecord } from "../../utils/workoutRecordRequest";
-import { AuthContext } from "../../Contexts/Contexts";
 import { btnOff, btnOn } from "../../utils/formCtl";
-import { useAuth } from "../../Contexts/AuthsContext";
 import Big from 'big.js';
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
+import { createWorkoutRecordThunk } from "../../Redux/Slice/workoutRecordsSlice";
 
 function WorkoutCount(props) {
-  const {intakedCalorie, workout} = props;
-  const {setYearlyData, setMonthlyData, setWeeklyData, setTodayData} = useContext(AuthContext);
-  const {currentUser} = useAuth();
+  const {workout} = props;
+  const dispatch = useDispatch();
+
+  const intakedCalorie = useSelector(state => state.intakedCalorie.value);
+  const currentUser = useSelector(selectCurrentUser);
 
   const [unburnedCalorie, setUnburnedCalorie] = useState(intakedCalorie);
   const [burnedCalorie  , setBurnedCalorie  ] = useState(0);
   const [workoutSeconds , setWorkoutSeconds ] = useState(0);
   const [saveDisabled   , setSaveDisabled   ] = useState(true);
-  const [isCountDown    , setIsCountDown    ] = useState(false)
+  const [isCountDown    , setIsCountDown    ] = useState(false);
 
   // スタートボタン => isCountDownをtrueに
   useEffect(() => {
@@ -36,27 +38,20 @@ function WorkoutCount(props) {
   }, [isCountDown, workout.burnedKcalPerSec])
 
   //記録を保存処理
-  const createWorkoutRecord = async() => {
-    try {
-      // 記録をサーバに送信
-      const params = {
-        workoutTime:      workoutSeconds,
-        burnedCalories:   Math.floor(burnedCalorie),
-        unburnedCalories: Math.ceil(unburnedCalorie),
-        intakedCalories:  Math.floor(burnedCalorie) + Math.ceil(unburnedCalorie),
-      };
-      const res = await postWorkoutRecord(params);
-      setYearlyData(res.data.yearlyData);
-      setMonthlyData(res.data.monthlyData);
-      setWeeklyData(res.data.weeklyData);
-      setTodayData(res.data.todayData);
-      // 消費/未消費カロリーと運動時間を0にする
-      setWorkoutSeconds(0);
-      setBurnedCalorie(0);
-      setUnburnedCalorie(0);
-    } catch(error) {
-      console.log(error);
-    }
+  const createWorkoutRecord = async(workoutSeconds, burnedCalorie, unburnedCalorie) => {    
+    const params = {
+      workoutTime:      workoutSeconds,
+      burnedCalories:   Math.floor(burnedCalorie),
+      unburnedCalories: Math.ceil(unburnedCalorie),
+      intakedCalories:  Math.floor(burnedCalorie) + Math.ceil(unburnedCalorie),
+    };
+
+    // 記録をサーバに送信
+    dispatch(createWorkoutRecordThunk(params))
+    // 消費/未消費カロリーと運動時間を0にする
+    setWorkoutSeconds(0);
+    setBurnedCalorie(0);
+    setUnburnedCalorie(0);
   };
 
   return (
@@ -94,7 +89,7 @@ function WorkoutCount(props) {
           <button className="btn btn-wide btn-success rounded-full mb-5" disabled={currentUser ? saveDisabled : true}
             onClick={(e) => {
               btnOff(e.target);
-              createWorkoutRecord();
+              createWorkoutRecord(workoutSeconds, burnedCalorie, unburnedCalorie);
               btnOn(e.target);
             }
           }>運動記録を保存</button>

@@ -1,11 +1,12 @@
 import LoggedInContents from "./LoggedInContents";
 import BeforeLoginContents from "./beforeLoginContents";
 import ThemeChangeBtn from "./ThemeChangeBtn";
-import { useAuth } from "../../../Contexts/AuthsContext";
 import Section from "./Section";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../../Redux/Slice/currentUserSlice";
 
 function SideMenu() {
-  const {currentUser} = useAuth();
+  const currentUser = useSelector(selectCurrentUser);
 
   return (
     <>

@@ -1,14 +1,12 @@
-import { logout, removeAuthToken } from "../../../../utils/auth";
-import { useAuth } from "../../../../Contexts/AuthsContext";
+import { logoutThunk } from "../../../../Redux/Slice/currentUserSlice";
+import { useDispatch } from "react-redux";
 
 function LogoutForm() {
-  const {setCurrentUser} = useAuth();
+  const dispatch = useDispatch();
 
   const signOut = async () => {
     try {
-      await logout();
-      removeAuthToken();
-      setCurrentUser(false);
+      dispatch(logoutThunk());
     } catch(e) {
       alert(e);
     }

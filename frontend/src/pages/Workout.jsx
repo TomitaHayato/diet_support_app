@@ -6,24 +6,17 @@
 
 import { useLocation, useNavigate } from "react-router-dom";
 import WorkoutCount from "../components/workout/WorkoutCount";
-import { useContext } from "react";
-import { AuthContext } from "../Contexts/Contexts";
 import WorkoutForm from "../components/workout/WorkoutForm";
 
 function Workout() {
   const location = useLocation();
-  const {workout, intakedCalorie}  = location.state;
-  const {weight} = useContext(AuthContext);
+  const {workout}  = location.state;
 
   const naviToTop = useNavigate();
 
-  //トップページに遷移 state: {体重, 未消費カロリー}
-  function transTop() {
-    naviToTop("/", {state: { intakedCalorie }});
-  }
   //トップページに遷移
-  function transTopReset() {
-    naviToTop("/", {state: { weight }});
+  function transTop() {
+    naviToTop("/");
   }
 
   return (
@@ -32,7 +25,6 @@ function Workout() {
         <div className="">
           <div className="flex justify-center gap-4 mb-5">
             <button onClick={transTop}      className="btn btn-wide btn-outline">運動一覧へ</button>
-            <button onClick={transTopReset} className="btn btn-wide btn-outline">カロリーを入力し直す</button>
           </div>
 
           <div className="text-center">
@@ -42,13 +34,11 @@ function Workout() {
             
             {/* --- 運動時間を表示 --- */}
             <WorkoutCount
-              intakedCalorie={intakedCalorie}
               workout={workout} />
           </div>
 
           <div className="text-center">
             <WorkoutForm
-              intakedCalorie={intakedCalorie}
               workout={workout} />
           </div>
         </div>

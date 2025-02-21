@@ -1,18 +1,19 @@
 // Userに関するリクエストを管理
 import client from "./apiClient";
 import { authTokensInCookie, isAccessTokenInCookie } from "./auth";
+import { putDev } from "./devTool";
 
 //User情報を更新
-// params = {:name, :email, :weight}
-export function updateUser(params, userId) {
+// params = {:id, :name, :email, :weight}
+export function updateUser(params) {
   //tokenがない場合は何もしない
   if(!isAccessTokenInCookie()) {
-    console.log("ログインし直してください");
+    putDev("ログインが必要です");
     return;
   };
 
   return client.patch(
-    `/users/${userId}`,
+    `/users/${params.id}`,
     params,
     { headers: authTokensInCookie()}
   );

@@ -1,15 +1,16 @@
 import { createRoot } from 'react-dom/client'
 import './builds/build.css'
 import App from './pages/App.jsx';
-import { ThemeContextProvider } from './Contexts/ThemeProvider.jsx';
-import AuthsProvider from './Contexts/AuthsPorvider.jsx';
+import { Provider } from 'react-redux';
+import { store } from './Redux/store.js';
+import { StrictMode } from 'react';
 
 createRoot(document.getElementById('root')).render(
   <>
-    <ThemeContextProvider>
-      <AuthsProvider>
+    <StrictMode>
+      <Provider store={store}>
         <App />
-      </AuthsProvider>
-    </ThemeContextProvider>
+      </Provider>
+    </StrictMode>
   </>,
 )
