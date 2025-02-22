@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
 
   validates :weight, presence: true
 
+  def get_profile
+    { id:, name:, weight:, email: }
+  end
+
   def get_today_record
     users_data = workout_records.today_data
     dammy_data = {
