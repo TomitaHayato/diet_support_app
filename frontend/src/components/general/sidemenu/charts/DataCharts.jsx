@@ -9,9 +9,9 @@ function DataCharts() {
         <div className="collapse collapse-arrow">
           <input type="checkbox" />
           <h3 className="collapse-title text-lg font-medium flex items-center justify-center">
-            期間ごとのデータ
-            <i className="i-lucide-bar-chart-4 text-blue-600 ml-2"/>
+            運動記録<i className="i-lucide-bar-chart-4 text-blue-600 text-xl ml-2"/>
           </h3>
+
           <div className="collapse-content px-0">
             <div role="tablist" className="tabs tabs-bordered grid-cols-3">
               {/* 今週のチャート */}
@@ -32,7 +32,6 @@ function DataCharts() {
                   </h3>
                   <BarChartWeek dataKey={"totalTime"}/>
                 </div>
-
               </div>
               {/* 今月のチャート */}
               <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="月間"/>
