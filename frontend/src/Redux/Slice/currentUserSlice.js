@@ -53,11 +53,11 @@ export const loginThunk = createAsyncThunk(
       // ログインユーザーの情報を取得
       const resUser = await getUser();
       putDev('getUser');
-      putDev(res.data);
+      putDev(resUser.data);
 
       if(!resUser) return;
 
-      const user = resUser.data.currentUser;
+      const user            = resUser.data.currentUser;
       const likedWorkoutIds = resUser.data.likedWorkoutIds;
 
       return { user, likedWorkoutIds }
@@ -117,14 +117,22 @@ export const signupThunk = createAsyncThunk(
       putDev('signupのparams')
       putDev(params)
 
+      // ユーザー作成
       const res = await signUp(params);
       putDev('signUp');
       putDev(res);
 
       if(!res) return;
       settingAuthTokenToCookie(res);
-      const user = res.data.data;
-      const likedWorkoutIds = []
+
+      // ログインユーザーの情報を取得
+      const resUser = await getUser();
+      putDev('getUser');
+      putDev(resUser.data);
+      if(!resUser) return;
+
+      const user            = resUser.data.currentUser;
+      const likedWorkoutIds = resUser.data.likedWorkoutIds;
       return { user, likedWorkoutIds }
     } catch(e) {
       putDev('signupThunkのerror')
@@ -153,13 +161,16 @@ export const updateUserThunk = createAsyncThunk(
       putDev('updateUserのparams')
       putDev(params)
 
-      const res = await updateUser(params);
-      putDev('updateUser');
-      putDev(res);
+      // 更新処理
+      await updateUser(params);
 
-      if(!res) return;
+      // ログインユーザーの情報を取得
+      const resUser = await getUser();
+      putDev('getUser');
+      putDev(resUser.data);
+      if(!resUser) return;
 
-      return res.data
+      return resUser.data.currentUser;
     } catch(e) {
       putDev('updateUserThunkのerror')
       const errorData = e.request?.data || e.message || e // axiosはe.request.dataまたはe.messageにエラー詳細を返す
