@@ -1,18 +1,14 @@
 import { useSelector } from "react-redux";
 import { selectWeeklyData } from "../../../../Redux/Slice/workoutRecordsSlice";
-import RecordChart from "./RecordChart";
+import ChartBlocks from "./ChartBlocks";
 
-
-function BarChartWeek(props) {
-  const {dataKey}  = props;
+function BarChartWeek() {
   const weeklyData = useSelector(selectWeeklyData);
 
   return (
-    <RecordChart
-      dataKey={dataKey}
-      recordData={weeklyData}
-      timeUnit={'week'}
-    />
+    <>
+      <ChartBlocks recordData={weeklyData} timeUnit={'week'} />
+    </>
   )
 }
 

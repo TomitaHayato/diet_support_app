@@ -1,17 +1,14 @@
 import { useSelector } from "react-redux";
 import { selectMonthlyData } from "../../../../Redux/Slice/workoutRecordsSlice";
-import RecordChart from "./RecordChart";
+import ChartBlocks from "./ChartBlocks";
 
-function BarChartMonth(props) {
-  const {dataKey}     = props;
+function BarChartMonth() {
   const monthlyData = useSelector(selectMonthlyData);
 
   return (
-    <RecordChart
-      dataKey={dataKey}
-      recordData={monthlyData}
-      timeUnit={'month'}
-    />
+    <>
+      <ChartBlocks recordData={monthlyData} timeUnit={'month'} />
+    </>
   )
 }
 
