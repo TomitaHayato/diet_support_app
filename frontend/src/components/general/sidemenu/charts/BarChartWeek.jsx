@@ -8,6 +8,7 @@ function BarChartWeek() {
   return (
     <>
       {/* TODO: 週を指定してAPIにリクエスト */}
+      {/* react-date-picker? */}
       <ChartBlocks recordData={weeklyData} timeUnit={'week'} />
     </>
   )

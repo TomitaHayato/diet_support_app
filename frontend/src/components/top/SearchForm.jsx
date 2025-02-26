@@ -11,7 +11,7 @@ function SearchForm(props) {
   const {workoutsObj, autoCompleteList ,setAutoCompleteList, setSearchWords, setFilterQuery, isOnlyLiked, setIsOnlyLiked} = props;
 
   const [inputWords     , setInputWords     ] = useState(''); // 検索Formの入力値 =>「検索」ボタンClickでsearchWordsにset
-  const [selectedOptions, setSelectedOptions] = useState(defaultSelectedOptions);
+  const [selectedOptions, setSelectedOptions] = useState(defaultSelectedOptions());
   const currentUser = useSelector(selectCurrentUser);
   // 検索FormがActiveかどうか
   const [isFormActive, setIsFormActive] = useState(false);
@@ -101,7 +101,7 @@ function SearchForm(props) {
               <p className="text-sm mb-2">運動の強度</p>
               <RadioBtnXs
                 name={'strength'}
-                options={strengthOptions}
+                options={strengthOptions()}
                 selectedOptions={selectedOptions}
                 setSelectedOptions={setSelectedOptions} />
             </div>
@@ -110,7 +110,7 @@ function SearchForm(props) {
               <p className="text-sm mb-2">場所</p>
               <RadioBtnXs
                 name={'place'}
-                options={placeOptions}
+                options={placeOptions()}
                 selectedOptions={selectedOptions}
                 setSelectedOptions={setSelectedOptions}/>
             </div>
@@ -119,7 +119,7 @@ function SearchForm(props) {
               <p className="text-sm mb-2">人数</p>
               <RadioBtnXs
                 name={'num'}
-                options={numOptions}
+                options={numOptions()}
                 selectedOptions={selectedOptions}
                 setSelectedOptions={setSelectedOptions}/>
             </div>
@@ -128,7 +128,7 @@ function SearchForm(props) {
               <p className="text-sm mb-2">運動の種類</p>
               <RadioBtnXs
                 name={'type'}
-                options={typeOptions}
+                options={typeOptions()}
                 selectedOptions={selectedOptions}
                 setSelectedOptions={setSelectedOptions}/>
             </div>
@@ -146,7 +146,7 @@ function SearchForm(props) {
 
               <button className="btn btn-xs btn-outline" onClick={e => {
                 btnOff(e.target);
-                setSelectedOptions(defaultSelectedOptions);
+                setSelectedOptions(defaultSelectedOptions());
                 btnOn(e.target);
               }}>リセット</button>
             </div>
