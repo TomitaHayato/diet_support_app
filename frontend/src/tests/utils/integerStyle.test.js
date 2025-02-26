@@ -6,7 +6,7 @@ describe('Unit: integerStyleのテスト', () => {
     const sec1 = 1; // 1秒
     const sec2 = 600; // 10分00秒
     const sec3 = 6010 // 100分10秒
-
+    // 各桁が1桁の場合、0 padding
     expect(secondsToMMSS(sec1)).toBe('01秒');
     expect(secondsToMMSS(sec2)).toBe('10分 00秒');
     expect(secondsToMMSS(sec3)).toBe('100分 10秒')
