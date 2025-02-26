@@ -7,6 +7,7 @@ function BarChartWeek() {
 
   return (
     <>
+      {/* TODO: 週を指定してAPIにリクエスト */}
       <ChartBlocks recordData={weeklyData} timeUnit={'week'} />
     </>
   )

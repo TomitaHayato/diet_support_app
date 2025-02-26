@@ -6,13 +6,17 @@ import { secToMin } from "../../../../utils/recordDataCtl";
 function RecordChart(props) {
   const {dataKey, recordData, timeUnit}  = props;
 
+  const xlabelMap = {
+    'week':  'dow',
+    'month': 'date',
+    'year':  'month',
+  }
+
   const timeUnitMap = {
     'week': '曜日',
     'month': '日',
     'year': '月',
   }
-
-  const labelUnit = timeUnitMap[timeUnit];
 
   return (
     <div className="w-full h-56 text-xs">
@@ -28,9 +32,9 @@ function RecordChart(props) {
         >
           <CartesianGrid strokeDasharray="3 3" />
           {/* 軸ラベル */}
-          <XAxis dataKey={"dow"} />
+          <XAxis dataKey={xlabelMap[timeUnit]} />
           { dataKey === 'totalTime' ? <YAxis tickFormatter={secToMin} /> : <YAxis /> }
-          <Tooltip content={<CustomTooltip dataKey={dataKey} labelUnit={labelUnit}/>}/>
+          <Tooltip content={<CustomTooltip dataKey={dataKey} labelUnit={timeUnitMap[timeUnit]}/>}/>
           {/* 凡例 */}
           <Legend
             verticalAlign={"top"}
