@@ -32,6 +32,7 @@
     "@iconify-json/uiw": "^1.2.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/preact": "^3.2.4",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^18.3.12",
