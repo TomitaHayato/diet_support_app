@@ -25,23 +25,26 @@ function LoginForm() {
   return (
     <>
       <form onSubmit={handleSubmit(login)} >
-        <p className="text-red-500 text-lg">{loginError}</p>
+        <p className="text-red-500 text-lg" role="error-message" aria-label="login-error">{loginError}</p>
 
-        {errors.email?.message && (<p className="text-red-500">{errors.email.message}</p>)}
+        {errors.email?.message && (<p className="text-red-500" role="error" aria-label="login-email-error">{errors.email.message}</p>)}
         <label className="input input-sm input-bordered flex items-center gap-2 mb-3">
           <i className="i-lucide-mail" />
-          <input type="email" className="grow" placeholder="Email"
-            {...register('email', {required: 'メールアドレスを入力してください'})}
-          />
+          <input type="email" className="grow" placeholder="Email" aria-label="login-email"
+            {...register('email', {
+              required: 'メールアドレスを入力してください',
+            })} />
         </label>
 
-        {errors.password?.message && (<p className="text-red-500">{errors.password.message}</p>)}
+        {errors.password?.message && (<p className="text-red-500" role="error" aria-label="login-password-error">{errors.password.message}</p>)}
         <label className="input input-sm input-bordered flex items-center gap-2 mb-3">
           <i className="i-lucide-key-round" />
-          <input type="password" className="grow" placeholder="Password"
-            aria-label="login-password" role="passwordbox"
-            {...register('password', {required: 'パスワードを入力してください'})}
-          />
+          <span role="pass" aria-label="login-password">
+            <input type="password" className="grow" placeholder="Password" aria-label="login-password"
+            {...register('password', {
+              required: 'パスワードを入力してください',
+            })} />
+          </span>
         </label>
 
         <input type="submit" className="btn btn-sm btn-outline btn-primary w-full" value="ログイン" />
