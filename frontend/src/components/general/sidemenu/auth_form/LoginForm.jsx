@@ -25,7 +25,7 @@ function LoginForm() {
   return (
     <>
       <form onSubmit={handleSubmit(login)} >
-        <p className="text-red-500 text-lg" role="error-message" aria-label="login-error">{loginError}</p>
+        {loginError && <p className="text-red-500 text-lg" role="error-message" aria-label="login-error">{loginError}</p>}
 
         {errors.email?.message && (<p className="text-red-500" role="error" aria-label="login-email-error">{errors.email.message}</p>)}
         <label className="input input-sm input-bordered flex items-center gap-2 mb-3">
