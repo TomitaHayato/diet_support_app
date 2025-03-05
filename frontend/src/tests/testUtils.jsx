@@ -17,3 +17,17 @@ export function renderWithProviders (
   }
   return { store, ...render(ui, { wrapper: ProviderWrapper, ...renderOptions }) }
 }
+
+export function dammyCurrentUser() {
+  return {
+    user: {
+      id: 999,
+      name: "test",
+      weight: 60,
+      email: 'test@email.com',
+    },
+    likedWorkoutIds: [],
+    status: 'successed',
+    error: null,
+  }
+}
