@@ -31,3 +31,14 @@ export function dammyCurrentUser() {
     error: null,
   }
 }
+
+export function dammyWorkout(id) {
+  return {
+    id,
+    burnedKcalPerMin: 60,
+    burnedKcalPerSec: 1,
+    name: 'test workout',
+    requiredExerciseTime: 1,
+    tagList: ['tag1', 'tag2'],
+  }
+}
