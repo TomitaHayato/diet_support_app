@@ -32,13 +32,19 @@ export function dammyCurrentUser() {
   }
 }
 
-export function dammyWorkout(id) {
+export function dammyWorkout(id, kcalPerSec=1) {
   return {
     id,
-    burnedKcalPerMin: 60,
-    burnedKcalPerSec: 1,
+    burnedKcalPerMin: 60 * kcalPerSec,
+    burnedKcalPerSec: kcalPerSec,
     name: 'test workout',
     requiredExerciseTime: 1,
     tagList: ['tag1', 'tag2'],
+  }
+}
+
+export function dammyIntakedCalorie(value=100) {
+  return {
+    value,
   }
 }

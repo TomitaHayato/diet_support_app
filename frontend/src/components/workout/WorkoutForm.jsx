@@ -51,27 +51,29 @@ function WorkoutForm(props) {
 
         <div className="mb-5">
           <p>摂取カロリー：
-            <span className="text-lg font-semibold">{` ${intakedCalorie} `}</span>
+            <span className="text-lg font-semibold" role="kcal" aria-label="intaked">{` ${intakedCalorie} `}</span>
             kcal
           </p>
         </div>
 
         <div className="flex justify-center items-center gap-2 mb-3">
-          <input type="number" className="input input-bordered" value={workoutTime} onChange={(e) => changeRecords(e.target.value, intakedCalorie)}/>
+          <input type="number" className="input input-bordered"
+            value={workoutTime} aria-label="workout-minute"
+            onChange={(e) => changeRecords(e.target.value, intakedCalorie)} />
           <span>分</span>
         </div>
 
         <div className="mb-3 flex justify-center items-center gap-3 text-gray-500">
           <span className="">消費カロリー</span>
           {/* 入力された運動時間から、消費カロリーを求めて表示 */}
-          <span className="text-lg text-info">{burnedCalories}</span>
+          <span className="text-lg text-info" role="kcal" aria-label="burned">{burnedCalories}</span>
           <span>kcal</span>
         </div>
 
         <div className="mb-3 flex justify-center items-center gap-3 text-gray-500">
           <span className="">残りカロリー</span>
           {/* 摂取カロリーから消費カロリーを引いた値を動的に表示 */}
-          <span className="text-lg text-error">{unburnedCalories}</span>
+          <span className="text-lg text-error" role="kcal" aria-label="unburned">{unburnedCalories}</span>
           <span>kcal</span>
         </div>
 
@@ -80,6 +82,7 @@ function WorkoutForm(props) {
           <button
             className="btn btn-wide btn-success rounded-xl"
             disabled={currentUser ? saveDisabled : true}
+            aria-label="workout-form-submit"
             onClick={() => createWorkoutRecord(workoutTime, intakedCalorie, burnedCalories, unburnedCalories)}
           >保存</button>
           {currentUser ? null : 
