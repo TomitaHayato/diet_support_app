@@ -4,6 +4,7 @@ import { dammyCurrentUser, renderWithProviders } from "../testUtils";
 import UserZone from "../../components/general/sidemenu/UserZone";
 import userEvent from "@testing-library/user-event";
 
+// UserInfo.jsxのテストも内包
 describe('コンポーネント： UserZone.jsxのテスト', () => {
   beforeEach(() => {});
 

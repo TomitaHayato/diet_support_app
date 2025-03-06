@@ -36,25 +36,25 @@ function UserEditForm(props) {
           </button>
         </div>
 
-        <p className="text-red-500 text-lg">{errorUser}</p>
+        <p className="text-red-500 text-lg" role="error-message" aria-label="user-update-error">{errorUser}</p>
         <form onSubmit={handleSubmit(requestUsersUpdate)}>
           <input type="hidden" value={currentUser.id} {...register('id')}/>
 
-          {errors.name?.message && (<p className="text-red-500">{errors.name.message}</p>)}
+          {errors.name?.message && (<p role="error" aria-label="name" className="text-red-500">{errors.name.message}</p>)}
           <label className="input input-sm input-bordered flex items-center gap-2 mb-2">
             名前
             <input type="text" className="grow" defaultValue={currentUser.name}
               {...register('name', {required: '*名前を入力してください'})}/>
           </label>
 
-          {errors.weight?.message && (<p className="text-red-500">{errors.weight.message}</p>)}
+          {errors.weight?.message && (<p role="error" aria-label="weight" className="text-red-500">{errors.weight.message}</p>)}
           <label className="input input-sm input-bordered flex items-center gap-2 mb-2">
             体重
-            <input type="integer" className="grow" defaultValue={currentUser.weight}
+            <input type="number" className="grow" defaultValue={currentUser.weight}
               {...register('weight', {required: '*体重を入力してください', min: {value: 0, message: '*0以上の整数を入力してください'}})}/>
           </label>
 
-          {errors.email?.message && (<p className="text-red-500">{errors.email.message}</p>)}
+          {errors.email?.message && (<p role="error" aria-label="email" className="text-red-500">{errors.email.message}</p>)}
           <label className="input input-sm input-bordered flex items-center gap-2 mb-2">
             メール
             <input type="email" className="grow" defaultValue={currentUser.email}
