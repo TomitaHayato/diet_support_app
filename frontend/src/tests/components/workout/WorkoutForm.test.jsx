@@ -36,7 +36,7 @@ describe('コンポーネント： WorkoutForm.jsxのテスト', () => {
   })
   
   test('初期表示', () => {
-    const workout = dammyWorkout(1);
+    const workout = dammyWorkout();
     renderWithProviders(<WorkoutForm workout={workout} />, {
       preloadedState: {
         currentUser: dammyCurrentUser(),
