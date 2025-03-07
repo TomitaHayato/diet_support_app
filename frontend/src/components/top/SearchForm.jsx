@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { btnOff, btnOn } from "../../utils/formCtl";
 import RadioBtnXs from "./RadioBtnXs";
-import { defaultSelectedOptions, numOptions, placeOptions, strengthOptions, typeOptions } from "../../utils/workoutTags";
+import { defaultSelectedOptions } from "../../utils/workoutTags";
 import { removeUnspecified, searchAndFilter } from "../../utils/search";
 import AutoComplete from "./AutoComplete";
 import { useSelector } from "react-redux";
@@ -97,41 +97,18 @@ function SearchForm(props) {
       { isFilterBoxOpen &&
         <div className="mt-4 p-4 rounded-lg shadow-xl border border-gray-500/50">
           <div className="flex items-start justify-end gap-4">
-            <div className="px-4 border-r border-gray-500">
-              <p className="text-sm mb-2">運動の強度</p>
-              <RadioBtnXs
-                name={'strength'}
-                options={strengthOptions()}
-                selectedOptions={selectedOptions}
-                setSelectedOptions={setSelectedOptions} />
-            </div>
-
-            <div className="px-4 border-r border-gray-500">
-              <p className="text-sm mb-2">場所</p>
-              <RadioBtnXs
-                name={'place'}
-                options={placeOptions()}
-                selectedOptions={selectedOptions}
-                setSelectedOptions={setSelectedOptions}/>
-            </div>
-
-            <div className="px-4 border-r border-gray-500">
-              <p className="text-sm mb-2">人数</p>
-              <RadioBtnXs
-                name={'num'}
-                options={numOptions()}
-                selectedOptions={selectedOptions}
-                setSelectedOptions={setSelectedOptions}/>
-            </div>
-
-            <div className="px-4 border-r border-gray-500">
-              <p className="text-sm mb-2">運動の種類</p>
-              <RadioBtnXs
-                name={'type'}
-                options={typeOptions()}
-                selectedOptions={selectedOptions}
-                setSelectedOptions={setSelectedOptions}/>
-            </div>
+            {
+              ['strength', 'place', 'num', 'type'].map((tagName) => {
+                return(
+                  <div key={tagName}>
+                    <RadioBtnXs
+                    name={tagName}
+                    selectedOptions={selectedOptions}
+                    setSelectedOptions={setSelectedOptions} />
+                  </div>
+                )
+              })
+            }
 
             <div className="flex flex-col gap-4">
               <button className="btn btn-xs btn-circle btn-ghost ml-auto" onClick={() => setIsFilterBoxOpen(false)}>

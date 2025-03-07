@@ -1,5 +1,14 @@
-import { describe, test } from "vitest";
+import { cleanup } from "@testing-library/react";
+import { afterEach, beforeEach, describe, test } from "vitest";
 
 describe('コンポーネント： RadioBtnXs.jsxのテスト', () => {
-  test('', () => {});
+  beforeEach(() => {});
+
+  afterEach(() => cleanup());
+
+  test('', async() => {});
+  test('', async() => {});
+  test('', async() => {});
+  test('', async() => {});
+  test('', async() => {});
 });

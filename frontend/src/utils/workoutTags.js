@@ -14,3 +14,31 @@ export const placeOptions = () => ['指定なし', '家でできる', 'アウト
 export const typeOptions = () => ['指定なし', '運動', '生活動作']; 
 
 export const numOptions = () => ['指定なし', 'ひとりで', 'だれかと'];
+
+export const tagTitleOptions = (name) => {
+  let obj = {
+    title: '',
+    options: []
+  };
+
+  switch (name) {
+    case 'strength':
+      obj.options = strengthOptions();
+      obj.title = '運動の強度'
+      break;
+    case 'place':
+      obj.options = placeOptions();
+      obj.title = '場所'
+      break;
+    case 'num':
+      obj.options = numOptions();
+      obj.title = '人数'
+      break;
+    case 'type':
+      obj.options = typeOptions();
+      obj.title = '運動の種類'
+      break;
+  }
+
+  return obj;
+}
