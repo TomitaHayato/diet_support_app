@@ -5,6 +5,8 @@ function RadioBtnXs(props) {
 
   const titleOptions = tagTitleOptions(name);
 
+  if(titleOptions.options.length === 0 || titleOptions.title === '') return;
+
   return (
     <>
       <div className="px-4 border-r border-gray-500">

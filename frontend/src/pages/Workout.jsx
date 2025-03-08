@@ -22,12 +22,12 @@ function Workout() {
   return (
     <>
       <div className="flex justify-center gap-4 mb-5">
-        <button aria-label="link-to-top" onClick={transTop} className="btn btn-wide btn-outline">運動一覧へ</button>
+        <button aria-label="link-to-top" onClick={transTop} className="btn btn-wide btn-outline btn-sm lg:btn-md">運動一覧へ</button>
       </div>
 
       <div className="text-center">
         <div className="mb-5">
-          <h1 className="text-4xl font-bold">{workout.name}</h1>
+          <h1 className="text-2xl lg:text-4xl font-bold">{workout.name}</h1>
         </div>
         
         {/* --- 運動時間を表示 --- */}

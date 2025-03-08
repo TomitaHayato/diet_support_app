@@ -53,7 +53,7 @@ function WorkoutsIndex(props) {
       {/* 検索されたWorkoutを一覧表示 */}
       <div>
         {filteredWorkouts.length === 0 ? <p className="mt-8 text-center">一致する運動はありません</p> :
-          <div className='grid grid-cols-3 gap-3'>
+          <div className='grid gap-3 grid-cols-2 lg:grid-cols-3'>
             {filteredWorkouts.map((workout) => {
               return (
                 <div key={`workout-card-${workout.id}`}>

@@ -33,13 +33,13 @@ function App() {
 
   return (
     <>
-      <div data-theme={theme}>
+      <div data-theme={theme} className="h-screen">
         <BrowserRouter>
-          <div className="flex px-8 h-screen mx-auto">
-            <div className="basis-9/12 w-full overflow-y-scroll overscroll-none">
+          <div className="flex px-2 lg:px-8 mx-auto h-full">
+            <div className="lg:basis-9/12 w-full overflow-y-scroll overscroll-none">
               <Header />
 
-              <div className="py-8 pl-1 pr-5">
+              <div className="py-3 px-1 lg:pr-5">
                 <Routes>
                   <Route path="/"            element={<Top />} />
                   <Route path="/workout/:id" element={<Workout />} />
@@ -47,10 +47,8 @@ function App() {
               </div>
             </div>
 
-            <div className="divider divider-horizontal mx-0"></div>
-
             {/* サイドメニュー */}
-            <div className="py-12 px-1 basis-3/12 w-full overflow-y-scroll overscroll-none">
+            <div className="border-l border-gray-500 py-16 px-1 hidden lg:block basis-3/12 w-full overflow-y-scroll overscroll-none">
               <SideMenu />
             </div>
           </div>

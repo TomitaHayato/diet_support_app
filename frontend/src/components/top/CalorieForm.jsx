@@ -22,24 +22,24 @@ function CalorieForm() {
 
   return (
     <>
-      <div className="">
-        <p className="text-center my-3">「消費したいカロリー」と「あなたの体重」を入力してください</p>
-        <div className='flex gap-4 justify-center'>
-          <div className='tooltip' data-tip="摂取カロリー（整数）">
-            <label className="input input-primary input-bordered flex items-center gap-2">
+      <div className="text-xs lg:text-base">
+        <p className="text-center my-3 text-[0.7rem]">「消費したいカロリー」と「あなたの体重」を入力してください</p>
+        <div className='flex flex-row gap-1 md:gap-4 justify-center'>
+          <div className='tooltip' data-tip="消費したいカロリー（整数）">
+            <label className="input input-primary input-bordered flex items-center gap-2 input-sm lg:input-md max-w-28 md:max-w-full min-h-10">
               <span className='text-gray-400'>kcal</span>
               <input type="number" className="grow" min={0} value={inputCalorie} onChange={(e) => setInputCalorie(e.target.value)} />
             </label>
           </div>
 
           <div className='tooltip' data-tip="体重（整数）">
-            <label className="input input-primary input-bordered flex items-center gap-2">
+            <label className="input input-primary input-bordered flex items-center gap-2 input-sm lg:input-md max-w-24 md:max-w-full min-h-10">
               <span className='text-gray-400'>kg</span>
               <input type="number" className="grow" min={0} value={inputWeight} onChange={(e) => setInputWeight(e.target.value)} />
             </label>
           </div>
 
-          <button className='btn btn-primary' onClick={() => {
+          <button className='btn btn-primary btn-sm md:btn-md md:mx-2 min-h-10' onClick={() => {
             dispatch(setCalorie(inputCalorie));
             dispatch(setWeight(inputWeight));
           }}>調べる</button>

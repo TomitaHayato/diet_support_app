@@ -47,7 +47,7 @@ function WorkoutForm(props) {
   return (
     <>
       <div className="border border-primary rounded-xl p-5">
-        <p className="mb-5 text-info text-xl">運動時間を直接入力する</p>
+        <p className="mb-5 text-info font-semibold text-lg">運動時間を直接入力する</p>
 
         <div className="mb-5">
           <p>摂取カロリー：
@@ -57,7 +57,7 @@ function WorkoutForm(props) {
         </div>
 
         <div className="flex justify-center items-center gap-2 mb-3">
-          <input type="number" className="input input-bordered"
+          <input type="number" className="input input-bordered input-sm md:input-md max-w-28 md:max-w-full"
             value={workoutTime} aria-label="workout-minute"
             onChange={(e) => changeRecords(e.target.value, intakedCalorie)} />
           <span>分</span>
@@ -80,7 +80,7 @@ function WorkoutForm(props) {
         <div className="mb-5">
           {/* 運動時間&消費カロリーを保存 => フォームの値を0にする */}
           <button
-            className="btn btn-wide btn-success rounded-xl"
+            className="btn btn-wide btn-success rounded-xl btn-sm md:btn-md max-w-40 md:max-w-full"
             disabled={currentUser ? saveDisabled : true}
             aria-label="workout-form-submit"
             onClick={() => createWorkoutRecord(workoutTime, intakedCalorie, burnedCalories, unburnedCalories)}
@@ -90,7 +90,7 @@ function WorkoutForm(props) {
           }
         </div>
 
-        <div className="text-gray-500 w-3/12 mx-auto">
+        <div className="text-gray-500 w-8/12 md:w-3/12 mx-auto">
             <p className="text-sm">以下のデータを保存します</p>
             <ul className="text-sm text-start">
               <li>・運動時間</li>
