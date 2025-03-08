@@ -29,7 +29,7 @@ function Workout() {
         <div className="mb-5">
           <h1 className="text-2xl lg:text-4xl font-bold">{workout.name}</h1>
         </div>
-        
+
         {/* --- 運動時間を表示 --- */}
         <WorkoutCount
           workout={workout} />
