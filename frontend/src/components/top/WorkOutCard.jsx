@@ -30,7 +30,7 @@ function WorkoutCard(props) {
             })}
           </div>
 
-          <h3 className="font-bold lg:text-sm">{workout.name}</h3>
+          <h3 className="font-bold md:text-base">{workout.name}</h3>
 
           <div className="lg:text-sm flex justify-between mt-1">
             <p className="mb-3">

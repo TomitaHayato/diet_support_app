@@ -48,7 +48,7 @@ function App() {
             </div>
 
             {/* サイドメニュー */}
-            <div className="border-l border-gray-500 py-16 px-1 hidden lg:block basis-3/12 w-full overflow-y-scroll overscroll-none">
+            <div className="hidden lg:block border-l border-gray-500 py-16 px-1 basis-3/12 w-full overflow-y-scroll overscroll-none">
               <SideMenu />
             </div>
           </div>
