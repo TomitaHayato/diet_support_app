@@ -18,9 +18,14 @@ function LogoutForm() {
 
   return (
     <>
-      {logoutError && <p className="text-red-500 text-lg" role="error-message" aria-label="logout-error">{logoutError}</p>}
       <p className="text-lg text-center mb-2">ログアウト</p>
-      <button aria-label="logout-button" className="btn btn-sm btn-outline w-full" onClick={signOut}>ログアウト</button>
+
+      {logoutError && <p className="text-red-500 text-lg" role="error-message" aria-label="logout-error">{logoutError}</p>}
+
+      <button aria-label="logout-button" className="btn btn-sm btn-outline w-full" onClick={signOut}>
+        ログアウト
+        <i className="i-lucide-log-out"/>
+      </button>
     </>
   )
 }
