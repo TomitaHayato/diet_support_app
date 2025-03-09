@@ -4,25 +4,19 @@
 // 未消費カロリー
 // Topページに戻る（stateで{未消費カロリー(min 0)}と{体重}を渡す）
 
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import WorkoutCount from "../components/workout/WorkoutCount";
 import WorkoutForm from "../components/workout/WorkoutForm";
+import TopPageLink from "../components/general/TopPageLink";
 
 function Workout() {
   const location = useLocation();
   const {workout}  = location.state;
 
-  const naviToTop = useNavigate();
-
-  //トップページに遷移
-  function transTop() {
-    naviToTop("/");
-  }
-
   return (
     <>
       <div className="flex justify-center gap-4 mb-5">
-        <button aria-label="link-to-top" onClick={transTop} className="btn btn-wide btn-outline btn-sm lg:btn-md">運動一覧へ</button>
+        <TopPageLink />
       </div>
 
       <div className="text-center">

@@ -1,14 +1,18 @@
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 import UserZone from "../../components/general/sidemenu/UserZone";
+import TopPageLink from "../../components/general/TopPageLink";
 
 function Profile() {
   const currentUser = useSelector(selectCurrentUser);
 
-  if(!currentUser) return;
+  if(!currentUser) return <p className="text-center text-red-500">ログインが必要です</p>;
 
   return(
     <>
+      <div className="mb-5 flex justify-center">
+        <TopPageLink />
+      </div>
       {/* ユーザーのプロフィール情報 */}
       <div className="bg-base-200 p-5">
         <UserZone />
