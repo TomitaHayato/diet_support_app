@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../../Redux/Slice/currentUserSlice";
 import LogoutBtn from "./LogoutBtn";
 import LoginBtn from "./LoginBtn";
+import ThemeChangeBtn from "../sidemenu/ThemeChangeBtn";
 
 function Header() {
   const currentUser = useSelector(selectCurrentUser);
@@ -22,9 +23,12 @@ function Header() {
           </p>
         </div>
 
-        <span className="lg:hidden col-span-4 order-2"></span>
+        <span className="lg:hidden col-span-3 order-2"></span>
 
-        <div className="lg:hidden col-span-2 order-6">
+        <div className="lg:hidden col-span-3 order-5 flex justify-between">
+          <div className="lg:hidden flex items-center justify-end">
+            <ThemeChangeBtn />
+          </div>
           {/* ログイン案内 */}
           {currentUser ? <LogoutBtn /> : <LoginBtn />}
           

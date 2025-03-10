@@ -51,7 +51,9 @@ function App() {
                 </Routes>
               </div>
 
-              <Footer />
+              <div className="block lg:hidden">
+                <Footer />
+              </div>
             </div>
 
             {/* サイドメニュー */}

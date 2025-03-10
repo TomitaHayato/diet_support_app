@@ -4,7 +4,7 @@ import SignupForm from "../sidemenu/auth_form/SignupForm";
 export default function LoginBtn() {
   return (
     <>
-      <button className="btn btn-sm btn-outline text-xs" onClick={() => document.getElementById('login-modal-mobile').showModal()}>
+      <button className="btn btn-sm md:btn-md btn-accent text-xs" onClick={() => document.getElementById('login-modal-mobile').showModal()}>
         <span>login</span>
         <i className="i-lucide-log-in"/>
       </button>
