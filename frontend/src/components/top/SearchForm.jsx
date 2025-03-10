@@ -45,7 +45,7 @@ function SearchForm(props) {
         <div className="flex flex-col">
           <div className="join">
             <label className="input input-sm input-bordered flex items-center gap-2 join-item">
-              <input type="text" id="searchInput" className="grow w-8/12 text-xs" placeholder="運動名で検索"
+              <input type="text" id="searchInput" className="grow w-8/12 text-xs lg:text-sm" placeholder="運動名で検索"
                 value={inputWords}
                 onChange={(e) => setInputWords(e.target.value)}
                 onFocus={() => setIsFormActive(true)}
@@ -78,7 +78,7 @@ function SearchForm(props) {
 
         {/* お気に入りのみ */}
         <div>
-          <button className={`btn btn-sm text-xs ${isOnlyLiked ? "text-white bg-blue-600 hover:bg-blue-600" : "btn-outline"}`} onClick={() => {
+          <button className={`btn btn-sm text-xs lg:text-sm ${isOnlyLiked ? "text-white bg-blue-600 hover:bg-blue-600" : "btn-outline"}`} onClick={() => {
             if(currentUser) setIsOnlyLiked(prev => !prev)
           }}><i className="i-uiw-heart-on text-pink-400"/><span className="hidden lg:block">済み</span></button>
         </div>

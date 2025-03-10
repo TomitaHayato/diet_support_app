@@ -24,18 +24,18 @@ function CalorieForm() {
     <>
       <div className="text-xs md:text-base">
         <p className="text-center my-3 text-[0.7rem] md:text-base">「消費したいカロリー」と「あなたの体重」を入力してください</p>
-        <div className='flex flex-row gap-1 md:gap-4 justify-center'>
+        <div className='flex flex-row gap-2 md:gap-4 justify-center'>
           <div className='tooltip' data-tip="消費したいカロリー（整数）">
-            <label className="input input-primary input-bordered flex items-center gap-2 input-sm lg:input-md max-w-28 md:max-w-full min-h-10">
+            <label className="input input-primary input-bordered flex items-center gap-2 lg:text-base input-sm lg:input-md max-w-28 md:max-w-full min-h-10">
               <span className='text-gray-400'>kcal</span>
-              <input type="number" className="grow" min={0} value={inputCalorie} onChange={(e) => setInputCalorie(e.target.value)} />
+              <input type="number" className="grow max-w-full" min={0} value={inputCalorie} onChange={(e) => setInputCalorie(e.target.value)} />
             </label>
           </div>
 
           <div className='tooltip' data-tip="体重（整数）">
-            <label className="input input-primary input-bordered flex items-center gap-2 input-sm lg:input-md max-w-24 md:max-w-full min-h-10">
+            <label className="input input-primary input-bordered flex items-center gap-2 lg:text-base input-sm lg:input-md max-w-24 md:max-w-full min-h-10">
               <span className='text-gray-400'>kg</span>
-              <input type="number" className="grow" min={0} value={inputWeight} onChange={(e) => setInputWeight(e.target.value)} />
+              <input type="number" className="grow max-w-full" min={0} value={inputWeight} onChange={(e) => setInputWeight(e.target.value)} />
             </label>
           </div>
 
