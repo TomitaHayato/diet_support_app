@@ -37,12 +37,13 @@ function WorkoutCount(props) {
   }, [isCountDown, workout.burnedKcalPerSec])
 
   //記録を保存処理
-  const createWorkoutRecord = async(workoutSeconds, burnedCalorie, unburnedCalorie) => {    
+  const createWorkoutRecord = async(workoutSeconds, burnedCalorie, unburnedCalorie, workout) => {    
     const params = {
       workoutTime:      workoutSeconds,
       burnedCalories:   Math.floor(burnedCalorie),
       unburnedCalories: Math.ceil(unburnedCalorie),
       intakedCalories:  Math.floor(burnedCalorie) + Math.ceil(unburnedCalorie),
+      workout_id:       workout.id
     };
 
     // 記録をサーバに送信
@@ -89,7 +90,7 @@ function WorkoutCount(props) {
           <button className="btn btn-sm md:btn-md md:btn-wide h-10 md:h-auto btn-success rounded-full" disabled={currentUser ? saveDisabled : true}
             aria-label="record-submit"
             onClick={() => {
-              createWorkoutRecord(workoutSeconds, burnedCalorie, unburnedCalorie);
+              createWorkoutRecord(workoutSeconds, burnedCalorie, unburnedCalorie, workout);
             }
           }>運動記録を保存</button>
           {currentUser ? null : 

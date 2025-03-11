@@ -24,7 +24,7 @@ function WorkoutForm(props) {
     setUnburnedCalories(intakedCalorie - burnedKcal);
   }
 
-  const createWorkoutRecord = async(workoutTime, intakedCalorie, burnedCalories, unburnedCalories) => {
+  const createWorkoutRecord = async(workoutTime, intakedCalorie, burnedCalories, unburnedCalories, workout) => {
     if(!workoutTime || workoutTime === 0) return;
 
     setSaveDisabled(true);
@@ -33,6 +33,7 @@ function WorkoutForm(props) {
       intakedCalories:  intakedCalorie,
       burnedCalories:   burnedCalories,
       unburnedCalories: unburnedCalories,
+      workout_id:       workout.id
     }
 
     dispatch(createWorkoutRecordThunk(params));
@@ -83,7 +84,7 @@ function WorkoutForm(props) {
             className="btn btn-wide btn-success rounded-xl btn-sm md:btn-md max-w-40 md:max-w-full"
             disabled={currentUser ? saveDisabled : true}
             aria-label="workout-form-submit"
-            onClick={() => createWorkoutRecord(workoutTime, intakedCalorie, burnedCalories, unburnedCalories)}
+            onClick={() => createWorkoutRecord(workoutTime, intakedCalorie, burnedCalories, unburnedCalories, workout)}
           >保存</button>
           {currentUser ? null : 
             <p className="text-red-500 text-sm">＊ログイン後に保存できます</p>
