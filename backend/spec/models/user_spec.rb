@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'association' do
     describe 'workout_records, workoutsとの関連' do
-      let!(:user) { create(:user, :with_records) }
+      let(:user) { create(:user, :with_records) }
 
       it 'user.workout_records' do
         expect(user.workout_records.length).to eq 3
@@ -15,9 +15,7 @@ RSpec.describe User, type: :model do
     end
 
     describe 'user_workout_likes, workoutsとの関連' do
-      before do
-        user = create(:user, :with_liked_workouts)
-      end
+      let(:user) { create(:user, :with_liked_workouts) }
 
       it 'user.user_workout_likes' do
         expect(user.user_workout_likes.length).to eq 3
@@ -49,7 +47,7 @@ RSpec.describe User, type: :model do
       context '今日のRecordがある場合' do
         it '今日のrecordだけを返す' do
           result = user.get_today_record()
-          expected_result = user.recorded_wokrouts.where(created_at: now.all_day)
+          expected_result = user.recorded_workouts.where(created_at: now.all_day)
           expect(result).to eq(expected_result)
         end
       end
