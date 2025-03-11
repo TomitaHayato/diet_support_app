@@ -57,7 +57,10 @@ RSpec.describe User, type: :model do
                 SUM(intaked_calories) as total_intaked_calories
               ")
               .first
-          expect(result).to eq(expected_result)
+          expect(result.total_time).to              eq(expected_result.total_time)
+          expect(result.total_burned_calories).to   eq(expected_result.total_burned_calories)
+          expect(result.total_unburned_calories).to eq(expected_result.total_unburned_calories)
+          expect(result.total_intaked_calories).to  eq(expected_result.total_intaked_calories)
         end
       end
 
