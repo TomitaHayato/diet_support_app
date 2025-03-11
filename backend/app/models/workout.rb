@@ -7,6 +7,8 @@ class Workout < ApplicationRecord
   has_many :user_workout_likes, dependent: :destroy
   has_many :users             , through: :user_workout_likes
 
+  has_many :workout_records, dependent: :nullify
+
   validates :name, presence: true
   validates :mets, presence: true
 

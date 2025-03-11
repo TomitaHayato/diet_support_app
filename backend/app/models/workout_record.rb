@@ -1,5 +1,6 @@
 class WorkoutRecord < ApplicationRecord
   belongs_to :user
+  belongs_to :workout
 
   # 指定した週（週の初め・終わりの年月日）のデータを取得(日ごとの合計を取得)
   scope :weekly_data, -> (week_start, week_end){
