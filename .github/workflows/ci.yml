@@ -32,7 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RAILS_ENV: test
+      DB_HOST: localhost
       TZ: Asia/Tokyo
+      MYSQL_ROOT_PASS: password
     services:
       mysql:
         image: mysql:8.0
