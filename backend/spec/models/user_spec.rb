@@ -46,8 +46,17 @@ RSpec.describe User, type: :model do
     describe 'get_today_record' do
       context '今日のRecordがある場合' do
         it '今日のrecordだけを返す' do
-          result = user.get_today_record()
-          expected_result = user.workout_records.where(created_at: now.all_day)
+          result = user.get_today_record
+          expected_result = 
+            user.workout_records
+              .where(created_at: now.all_day)
+              .select("
+                SUM(workout_time) as total_time,
+                SUM(burned_calories) as total_burned_calories,
+                SUM(unburned_calories) as total_unburned_calories,
+                SUM(intaked_calories) as total_intaked_calories
+              ")
+              .first
           expect(result).to eq(expected_result)
         end
       end
@@ -55,7 +64,7 @@ RSpec.describe User, type: :model do
       context '今日のRecordがない場合' do
         it 'ダミーHashが返される' do
           user2 = create(:user)
-          result = user2.get_today_record()
+          result = user2.get_today_record
           expected_result = {
             total_time: 0,
             total_burned_calories:   0,

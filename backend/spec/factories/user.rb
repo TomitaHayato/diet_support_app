@@ -40,7 +40,7 @@ FactoryBot.define do
           create(:user_workout_like, user:, workout:)
         end
 
-        workout = user.workouts.first
+        workout = user.workouts[0]
         # 期間ごとのrecordデータ
         create(:workout_record                    , user:, workout:)
         create(:workout_record, :last_week_record , user:, workout:)
