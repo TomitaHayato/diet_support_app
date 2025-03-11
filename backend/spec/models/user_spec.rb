@@ -47,7 +47,7 @@ RSpec.describe User, type: :model do
       context '今日のRecordがある場合' do
         it '今日のrecordだけを返す' do
           result = user.get_today_record()
-          expected_result = user.recorded_workouts.where(created_at: now.all_day)
+          expected_result = user.workout_records.where(created_at: now.all_day)
           expect(result).to eq(expected_result)
         end
       end
