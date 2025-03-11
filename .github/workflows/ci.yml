@@ -37,7 +37,7 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-            MYSQL_ROOT_PASS: password
+            MYSQL_ROOT_PASSWORD: password
         ports:
             - 3306:3306
         options: --health-cmd "mysqladmin ping" --health-interval 20s --health-timeout 10s --health-retries 10
