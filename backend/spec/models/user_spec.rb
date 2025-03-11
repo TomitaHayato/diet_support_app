@@ -3,9 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'association' do
     describe 'workout_records, workoutsとの関連' do
-      before do
-        user = create(:user, :with_records)
-      end
+      let!(:user) { create(:user, :with_records) }
 
       it 'user.workout_records' do
         expect(user.workout_records.length).to eq 3

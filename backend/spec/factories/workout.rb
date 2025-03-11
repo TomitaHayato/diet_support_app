@@ -10,7 +10,7 @@ FactoryBot.define do
       end
 
       after(:create) do |workout, evaluator|
-        create_list(:workout_tag, evaluator.workout_count, workout: , tag: create(:tag))
+        create_list(:workout_tag, evaluator.workout_count, workout:)
       end
     end
   end

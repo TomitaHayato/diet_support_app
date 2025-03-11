@@ -10,7 +10,7 @@ RSpec.describe Tag, type: :model do
       end
 
       it 'tag.workouts' do
-        expect(tag.workouts).to eq 3
+        expect(tag.workouts.length).to eq 3
       end
     end
   end
