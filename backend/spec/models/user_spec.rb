@@ -48,15 +48,7 @@ RSpec.describe User, type: :model do
         it '今日のrecordだけを返す' do
           result = user.get_today_record
           expected_result = 
-            user.workout_records
-              .where(created_at: now.all_day)
-              .select("
-                SUM(workout_time) as total_time,
-                SUM(burned_calories) as total_burned_calories,
-                SUM(unburned_calories) as total_unburned_calories,
-                SUM(intaked_calories) as total_intaked_calories
-              ")
-              .first
+            user.workout_records.today_data.first
           expect(result.total_time).to              eq(expected_result.total_time)
           expect(result.total_burned_calories).to   eq(expected_result.total_burned_calories)
           expect(result.total_unburned_calories).to eq(expected_result.total_unburned_calories)
