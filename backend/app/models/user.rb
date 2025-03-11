@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def get_complete_weekly_records(target_time)
-    users_data = workout_records.weekly_data(target_time.beginning_of_week, target_time.end_of_week)
+    users_data = workout_records.weekly_data(target_time)
     # データがない日にちを特定
     missed_dow = %w(日 月 火 水 木 金 土) - users_data.pluck(:dow)
     # データがない曜日の保管用データを作成し、元データと合わせた配列を返す
@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   end
  
   def get_complete_monthly_records(target_time)
-    users_data = workout_records.monthly_data(target_time.beginning_of_month, target_time.end_of_month)
+    users_data = workout_records.monthly_data(target_time)
     # データがない日にちを特定
     missed_date = (1..target_time.end_of_month.day).to_a - users_data.pluck(:date)
     # 保管用データと元データ合わせたデータを配列で返す
@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
   
   def get_complete_yearly_records(target_time)
-    users_data = workout_records.yearly_data(target_time.beginning_of_year, target_time.end_of_year)
+    users_data = workout_records.yearly_data(target_time)
     # データがない月番号を特定
     missed_month = (1..12).to_a - users_data.pluck(:month)
     # 保管用データと元データ合わせたデータを配列で返す

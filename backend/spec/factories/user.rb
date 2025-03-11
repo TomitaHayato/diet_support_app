@@ -4,6 +4,12 @@ FactoryBot.define do
     sequence(:email) {|n| "#{n}@ex.com"}
     password {'password'}
 
+    trait :no_valid do
+      name     { nil }
+      email    { nil }
+      password { nil }
+    end
+
     trait :with_records do
       transient { count { 3 } }
 

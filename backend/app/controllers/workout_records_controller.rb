@@ -16,7 +16,7 @@ class WorkoutRecordsController < ApplicationController
   def index_yearly_data
     # 取得したいデータは何年前?
     target_year = params[:years_ago].to_i.years.ago
-    yearly_data = current_user.workout_records.yearly_data(target_year.beginning_of_year..target_year.end_of_year)
+    yearly_data = current_user.workout_records.yearly_data(target_year)
 
     render json: yearly_data
   end
@@ -24,15 +24,15 @@ class WorkoutRecordsController < ApplicationController
   def index_monthly_data
     # 取得したいデータは何ヶ月前か
     target_month = params[:month_ago].to_i.month.ago
-    monthly_data = current_user.workout_records.monthly_data(target_month.beginning_of_month..target_month.end_of_month)
+    monthly_data = current_user.workout_records.monthly_data(target_month)
 
     render json: monthly_data
   end
 
   def index_weekly_data
     # 取得したいデータは何週間前か
-    target_week = params[:weeks_ago].to_i.weks_ago
-    weekly_data = current_user.workout_records.weekly_data(target_week.beginning_of_week..target_week.end_of_week)
+    target_week = params[:weeks_ago].to_i.weeks.ago
+    weekly_data = current_user.workout_records.weekly_data(target_week)
 
     render json: weekly_data
   end
