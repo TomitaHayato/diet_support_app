@@ -22,7 +22,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'user.workouts' do
-        expect(user.user_workouts.length).to eq 3
+        expect(user.workouts.length).to eq 3
       end
     end
   end

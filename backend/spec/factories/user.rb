@@ -18,7 +18,7 @@ FactoryBot.define do
       after(:create) do |user, evaluator|
         workouts = create_list(:workout, evaluator.count, name: 'recorded')
         workouts.each do |workout|
-          create(:user_workout_like, user:, workout:)
+          create(:workout_record, user:, workout:)
         end
       end
     end
