@@ -60,7 +60,7 @@ jobs:
           bundle install
 
       - name: start MySQL
-        run: sudo /etc/init.d/mysql start
+        run: sudo systemctl start mysql
 
       - name: Database Create
         working-directory: ./backend
