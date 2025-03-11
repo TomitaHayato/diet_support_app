@@ -2,6 +2,10 @@ class WorkoutRecord < ApplicationRecord
   belongs_to :user
   belongs_to :workout
 
+  validates :dow  , presence: true
+  validates :month, presence: true
+  validates :date , presence: true
+
   # 指定した週（週の初め・終わりの年月日）のデータを取得(日ごとの合計を取得)
   scope :weekly_data, -> (target_time){
     where(created_at: target_time.all_week)
