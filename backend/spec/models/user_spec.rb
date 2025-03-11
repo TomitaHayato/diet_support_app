@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
 
   describe 'インスタンスメソッド' do
     let(:now)  { Time.now }
-    let(:user) { create(:user, :with_all_term_records_and_liked_workouts) }  
+    let(:user) { create(:user, :with_all_term_records_and_liked_workouts) }
 
     describe 'get_profile' do
       it '必要なユーザー情報だけが返される' do

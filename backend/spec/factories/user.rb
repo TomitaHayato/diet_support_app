@@ -14,8 +14,7 @@ FactoryBot.define do
       transient { count { 3 } }
 
       after(:create) do |user, evaluator|
-        workout = create(:workout, name: 'recorded')
-        create_list(:workout_record, evaluator.count, user:user, workout: workout)
+        create_list(:workout_record, evaluator.count, user:, workout: create(:workout, name: 'recorded'))
       end
     end
 
@@ -23,8 +22,7 @@ FactoryBot.define do
       transient { count { 3 } }
 
       after(:create) do |user, evaluator|
-        workout = create(:workout, name: 'liked')
-        create_list(:user_workout_like, evaluator.count, user: user, workout: workout)
+        create_list(:user_workout_like, evaluator.count, user:, workout: create(:workout, name: 'liked'))
       end
     end
 
@@ -33,8 +31,7 @@ FactoryBot.define do
 
       after(:create) do |user, evaluator|
         # お気に入りデータを作成
-        liked_workout = create(:workout, name: 'liked')
-        create_list(:user_workout_like, evaluator.count, user: user, workout: liked_workout)
+        create_list(:user_workout_like, evaluator.count, user:, workout: create(:workout, name: 'liked'))
 
         workout = user.workout.first
         # 期間ごとのrecordデータ
