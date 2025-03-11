@@ -29,6 +29,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
+  config.include FactoryBot::Syntax::Methods
   # ActiveRecord または ActiveRecord のフィクスチャを使用している場合は、以下の行を残します。
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
