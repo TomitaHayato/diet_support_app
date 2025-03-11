@@ -14,6 +14,7 @@ module RailsApp
     config.middleware.use config.session_store, config.session_options
 
     config.generators do |g|
+      g.factory_bot dir: 'spec/factories'
       g.test_framework false
       g.skip_routes false
     end
