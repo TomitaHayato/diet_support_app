@@ -39,14 +39,11 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-            MYSQL_ROOT_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: password
         ports:
             - 3306:3306
         options: --health-cmd "mysqladmin ping" --health-interval 20s --health-timeout 10s --health-retries 10
     steps:
-      - name: timezome setting
-        run: sudo timedatectl set-timezone Asia/Tokyo
-
       - name: Checkout
         uses: actions/checkout@v4
       
@@ -61,6 +58,9 @@ jobs:
         run: |
           gem install bundler -v '2.5.22'
           bundle install
+
+      - name: start MySQL
+        run: sudo /etc/init.d/mysql start
 
       - name: Database Create
         working-directory: ./backend
