@@ -55,15 +55,19 @@ jobs:
           bundler-cache: true
       
       - name: Bundler and Gem Install
+        working-directory: ./backend
         run: |
           gem install bundler -v '2.5.22'
           bundle install
 
       - name: Database Create
+        working-directory: ./backend
         run:  RAILS_ENV=test bundle exec rails db:create
       
       - name: Database Migration
+        working-directory: ./backend
         run:  RAILS_ENV=test bundle exec rails db:migrate
       
       - name: Run Rspec
+        working-directory: ./backend
         run:  RAILS_ENV=test bundle exec rspec
