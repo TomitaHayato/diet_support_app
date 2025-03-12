@@ -3,6 +3,11 @@ FactoryBot.define do
     name { "野球" }
     mets { "8.8" }
 
+    trait :no_valid do
+      name {nil}
+      mets {nil}
+    end
+
     # 生成と同時にworkout.tagsを3つ作成
     trait :with_tags do
       transient do
