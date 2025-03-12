@@ -5,8 +5,8 @@ FactoryBot.define do
 
     # null: falseの値がない
     trait :no_valid do
-      user:    {nil}
-      workout: {nil}
+      user    {nil}
+      workout {nil}
     end
   end
 end
