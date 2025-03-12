@@ -72,7 +72,7 @@ RSpec.describe User, type: :model do
     end
 
     describe 'get_complete_weekly_records(target_time)' do
-      it '曜日ごとの週間record配列が返される。' do
+      it '曜日ごとの週間record配列が返される' do
         result = user.get_complete_weekly_records(now)
         expect(result.length).to eq 7
       end
