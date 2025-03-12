@@ -2,6 +2,17 @@ require 'rails_helper'
 
 RSpec.describe UserWorkoutLike, type: :model do
   describe 'association' do
+    let(:user)    { create(:user) }
+    let(:workout) { create(:workout) }
+    let(:like)    { create(:user_workout_like, user:, workout:) }
+
+    it 'user_workout_like.userが存在' do
+      expect(like.user).to eq user
+    end
+
+    it 'user_workout_like.workoutが存在' do
+      expect(like.workout).to eq workout
+    end
   end
 
   describe 'validation' do
