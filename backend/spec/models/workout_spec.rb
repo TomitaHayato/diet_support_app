@@ -48,5 +48,36 @@ RSpec.describe Workout, type: :model do
   end
 
   describe 'インスタンスメソッド' do
+    describe 'burned_kcal(weight)' do
+      it '' do
+      end
+    end
+
+    describe 'set_tag(tag)' do
+      it '' do
+      end
+    end
+
+    describe 'required_exercise_time(weight:, kcal_intake:)' do
+      it '' do
+      end
+    end
+
+    describe 'burned_kcal_per_min(weight)' do
+      it '' do
+      end
+    end
+
+    describe 'burned_kcal_per_sec(weight)' do
+      it '' do
+      end
+    end
+  end
+
+  describe 'クラスメソッド' do
+    describe 'self.workouts_data(weight:, kcal_intake:)' do
+      it '' do
+      end
+    end
   end
 end

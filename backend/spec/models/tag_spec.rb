@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Tag, type: :model do
   describe 'association' do
-    it { should has_many(:workout_tags) }
+    it { should have_many(:workout_tags) }
 
-    it { should has_many(:workouts) }
+    it { should have_many(:workouts) }
     # describe 'workout, workout_tagsとの関連' do
     #   let!(:tag) { create(:tag, :with_workout) }
 

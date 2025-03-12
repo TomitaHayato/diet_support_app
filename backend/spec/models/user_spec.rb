@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'association' do
-    it { should has_many(:workout_records) }
-    it { should has_many(:recorded_workouts) }
-    it { should has_many(:user_workout_likes) }
-    it { should has_many(:workouts) }
+    it { should have_many(:workout_records) }
+    it { should have_many(:recorded_workouts) }
+    it { should have_many(:user_workout_likes) }
+    it { should have_many(:workouts) }
     # describe 'workout_records, workoutsとの関連' do
     #   let(:user) { create(:user, :with_records) }
 
