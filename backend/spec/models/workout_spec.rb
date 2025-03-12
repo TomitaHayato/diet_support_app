@@ -65,7 +65,7 @@ RSpec.describe Workout, type: :model do
       context '引数に渡したtagが既にworkout.tagsに含まれる' do
         it 'workout.tagsにtagを追加しない' do
           workout.tags << tag
-          expect{ workout.set_tag(tag) }.not.to change { workout.tags.count }
+          expect{ workout.set_tag(tag) }.not_to change { workout.tags.count }
         end
       end
 
@@ -112,7 +112,7 @@ RSpec.describe Workout, type: :model do
           weight = 50
           kcal_intake = 100
 
-          expected_result = (kcal_intake / BigDecimal(burned_kcal_per_min(weight).to_s)).ceil
+          expected_result = (kcal_intake / BigDecimal(workout.burned_kcal_per_min(weight).to_s)).ceil
           expect(workout.required_exercise_time(weight:, kcal_intake:)).to eq expected_result
         end
       end

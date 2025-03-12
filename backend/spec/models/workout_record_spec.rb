@@ -18,5 +18,14 @@ RSpec.describe WorkoutRecord, type: :model do
   end
 
   describe 'scope' do
+    it 'weekly_data' do
+      
+    end
+
+    it 'monthly_data' do
+    end
+
+    it 'yearly_data' do
+    end
   end
 end
