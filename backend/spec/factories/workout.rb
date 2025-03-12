@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :workout do
     name { "野球" }
-    mets { "8.8" }
+    mets { "1.5" }
 
     trait :no_valid do
       name {nil}
