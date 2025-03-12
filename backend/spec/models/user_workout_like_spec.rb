@@ -5,34 +5,13 @@ RSpec.describe UserWorkoutLike, type: :model do
     it { should belong_to(:user) }
 
     it { should belong_to(:workout) }
-    # let(:user)    { create(:user) }
-    # let(:workout) { create(:workout) }
-    # let(:like)    { create(:user_workout_like, user:, workout:) }
-
-    # it 'user_workout_like.userが存在' do
-    #   expect(like.user).to eq user
-    # end
-
-    # it 'user_workout_like.workoutが存在' do
-    #   expect(like.workout).to eq workout
-    # end
   end
 
   describe 'validation' do
     describe 'presence: true' do
-      before do
-        @user_workout_like = build(:user_workout_like, :no_valid)
-        @user_workout_like.valid?
-      end
+      it { should validate_presence_of(:user_id) }
 
-      it 'user_id' do
-        expect(@user_workout_like).to be_invalid
-        expect(@user_workout_like.errors[:user_id]).to include "can't be blank"
-      end
-
-      it 'workout_id' do
-        expect(@user_workout_like.errors[:workout_id]).to include "can't be blank"
-      end
+      it { should validate_presence_of(:workout_id) }
     end
 
     describe 'uniqueness' do

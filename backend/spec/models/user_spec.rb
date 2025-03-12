@@ -6,29 +6,6 @@ RSpec.describe User, type: :model do
     it { should have_many(:recorded_workouts) }
     it { should have_many(:user_workout_likes) }
     it { should have_many(:workouts) }
-    # describe 'workout_records, workoutsとの関連' do
-    #   let(:user) { create(:user, :with_records) }
-
-    #   it 'user.workout_records' do
-    #     expect(user.workout_records.length).to eq 3
-    #   end
-
-    #   it 'user.recorded_workouts' do
-    #     expect(user.recorded_workouts.length).to eq 3
-    #   end
-    # end
-
-    # describe 'user_workout_likes, workoutsとの関連' do
-    #   let(:user) { create(:user, :with_liked_workouts) }
-
-    #   it 'user.user_workout_likes' do
-    #     expect(user.user_workout_likes.length).to eq 3
-    #   end
-
-    #   it 'user.workouts' do
-    #     expect(user.workouts.length).to eq 3
-    #   end
-    # end
   end
 
   describe 'インスタンスメソッド' do

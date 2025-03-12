@@ -16,16 +16,4 @@ RSpec.describe WorkoutRecord, type: :model do
       it { should validate_presence_of(:date) }
     end
   end
-
-  describe 'scope' do
-    it 'weekly_data' do
-      
-    end
-
-    it 'monthly_data' do
-    end
-
-    it 'yearly_data' do
-    end
-  end
 end
