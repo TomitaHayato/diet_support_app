@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Workout, type: :model do
   describe 'association' do
-    describe 'Workout:Tag = M:N'
+    describe 'Workout:Tag = M:N' do
       it { should have_many(:workout_tags) }
 
       it { should have_many(:tags) }
