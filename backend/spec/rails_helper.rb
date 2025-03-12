@@ -61,3 +61,10 @@ RSpec.configure do |config|
   # 任意の gem もバックトレースから除外したい場合は、以下のように記述します:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
