@@ -41,20 +41,9 @@ RSpec.describe Workout, type: :model do
 
   describe 'validation' do
     describe 'presence: true' do
-      let(:workout) { build(:workout, :no_valid) }
-
-      before do
-        workout.valid?
-      end
-
-      it 'name' do
-        expect(workout).to be_invalid
-        expect(workout.errors[:name]).to include "can't be blank"
-      end
-
-      it 'mets' do
-        expect(workout.errors[:mets]).to include "can't be blank"
-      end
+      it { should validate_presence_of(:name) }
+  
+      it { should validate_presence_of(:mets) }
     end
   end
 

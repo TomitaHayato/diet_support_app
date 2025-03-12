@@ -2,29 +2,33 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'association' do
-    describe 'workout_records, workoutsとの関連' do
-      let(:user) { create(:user, :with_records) }
+    it { should has_many(:workout_records) }
+    it { should has_many(:recorded_workouts) }
+    it { should has_many(:user_workout_likes) }
+    it { should has_many(:workouts) }
+    # describe 'workout_records, workoutsとの関連' do
+    #   let(:user) { create(:user, :with_records) }
 
-      it 'user.workout_records' do
-        expect(user.workout_records.length).to eq 3
-      end
+    #   it 'user.workout_records' do
+    #     expect(user.workout_records.length).to eq 3
+    #   end
 
-      it 'user.recorded_workouts' do
-        expect(user.recorded_workouts.length).to eq 3
-      end
-    end
+    #   it 'user.recorded_workouts' do
+    #     expect(user.recorded_workouts.length).to eq 3
+    #   end
+    # end
 
-    describe 'user_workout_likes, workoutsとの関連' do
-      let(:user) { create(:user, :with_liked_workouts) }
+    # describe 'user_workout_likes, workoutsとの関連' do
+    #   let(:user) { create(:user, :with_liked_workouts) }
 
-      it 'user.user_workout_likes' do
-        expect(user.user_workout_likes.length).to eq 3
-      end
+    #   it 'user.user_workout_likes' do
+    #     expect(user.user_workout_likes.length).to eq 3
+    #   end
 
-      it 'user.workouts' do
-        expect(user.workouts.length).to eq 3
-      end
-    end
+    #   it 'user.workouts' do
+    #     expect(user.workouts.length).to eq 3
+    #   end
+    # end
   end
 
   describe 'インスタンスメソッド' do
