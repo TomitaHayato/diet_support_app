@@ -1,4 +1,5 @@
 /.env
+/*.dio
 
 # --- BackEnd ---
 # Ignore bundler config.
