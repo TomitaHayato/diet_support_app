@@ -1,8 +1,9 @@
 name: CI/CD
 
 on:
-  pull_request:
-    types: [closed]
+  # pull_request:
+  #   types: [closed]
+  push
 
 jobs:
   front_build_deploy:
@@ -35,7 +36,7 @@ jobs:
           aws-region: ${{ secrets.AWS_S3_REGION }}
       
       - name: check aws-cli
-        runs: aws --version
+        run: aws --version
 
       - name: Deploy to S3
         run: aws s3 sync ./frontend/dist s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
@@ -54,7 +55,7 @@ jobs:
       
       # AWS CLIがあるか確認
       - name: check aws-cli
-        runs: aws --version
+        run: aws --version
       
       # AWS CLIを利用可能にする
       - name: AWS OIDC by IAM
@@ -64,19 +65,19 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_S3_REGION }}
 
-      - name: deploy
-        runs: |
-          aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_EC2_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+      # - name: deploy
+      #   run: |
+      #     aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_EC2_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-          echo ${{ secrets.PRIVATE_KEY_FOR_SSH }} > private_key
-          chmod 600 private_key
+      #     echo ${{ secrets.PRIVATE_KEY_FOR_SSH }} > private_key
+      #     chmod 600 private_key
 
-          ssh -o StrictHostKeyChecking=no -i private_key ${{ secrets.USER_EC2 }}@${{ secrets.HOST_EC2 }} \
-          "cd ~/var/www/diet_support_app && \
-          git pull origin main && \
-          cd ./backend && \
-          bundle install && \
-          RAILS_ENV=production rails db:migrate && \
-          sudo systemctl restart puma"
+      #     ssh -o StrictHostKeyChecking=no -i private_key ${{ secrets.USER_EC2 }}@${{ secrets.HOST_EC2 }} \
+      #     "cd ~/var/www/diet_support_app && \
+      #     git pull origin main && \
+      #     cd ./backend && \
+      #     bundle install && \
+      #     RAILS_ENV=production rails db:migrate && \
+      #     sudo systemctl restart puma"
 
-          aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_EC2_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+      #     aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_EC2_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
