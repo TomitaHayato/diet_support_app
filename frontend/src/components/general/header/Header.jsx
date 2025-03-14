@@ -3,9 +3,14 @@ import { selectCurrentUser } from "../../../Redux/Slice/currentUserSlice";
 import LogoutBtn from "./LogoutBtn";
 import LoginBtn from "./LoginBtn";
 import ThemeChangeBtn from "../sidemenu/ThemeChangeBtn";
+import HowToUse from "./HowtoUse";
 
 function Header() {
   const currentUser = useSelector(selectCurrentUser);
+
+  function hundleClick(){
+    document.getElementById('how-to-use-content').showModal();
+  }
 
   return (
     <>
@@ -25,7 +30,7 @@ function Header() {
           {/* ログイン案内 */}
           {currentUser ? <LogoutBtn /> : <LoginBtn />}
 
-          <button className="btn btn-sm btn-outline btn-info">使い方</button>
+          <button className="btn btn-sm btn-outline btn-info" onClick={hundleClick}>使い方</button>
         </div>
 
         {/* PCコンテンツ */}
@@ -38,8 +43,24 @@ function Header() {
         </div>
 
         <span className="order-8 hidden lg:block">
-          <button className="btn btn-sm">使い方</button>
+          <button className="btn btn-sm btn-outline btn-info" onClick={hundleClick}>使い方</button>
         </span>
+
+        {/* 使い方モーダル */}
+        <dialog id="how-to-use-content" className="modal">
+          <div className="modal-box text-sm w-3/4 h-3/4">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn btn-sm btn-ghost absolute right-2 top-2">
+                <i className="i-uiw-close text-red-500 font-bold"/>
+              </button>
+            </form>
+            <HowToUse />
+          </div>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
       </div>
     </>
   )
