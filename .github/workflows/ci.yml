@@ -8,14 +8,15 @@ jobs:
     steps:
       # 最新のbranchへ移動
       - name: Checkout latest branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Node.js環境を作成
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: yarn
+          cache-dependency-path: ./frontend/yarn.lock
 
       - name: yarn build & install
         working-directory: ./frontend
