@@ -1,9 +1,8 @@
 name: CI/CD
 
 on:
-  # pull_request:
-  #   types: [closed]
-  push
+  pull_request:
+    types: [closed]
 
 jobs:
   front_build_deploy:
