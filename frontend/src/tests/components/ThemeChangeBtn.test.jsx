@@ -8,7 +8,7 @@ import userEvent from "@testing-library/user-event";
 
 describe('コンポーネント: ThemeChangeBtnのテスト', () => {
   let dispatchMock
-  let theme = "light"
+  let theme = "retro"
 
   beforeEach(() => {
     // useDispatch, useSelectorのMockを作成

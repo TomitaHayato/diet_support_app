@@ -39,7 +39,7 @@ function App() {
       <div data-theme={theme} className="h-screen">
         <BrowserRouter>
           <div className="flex px-2 lg:px-8 mx-auto h-full">
-            <div className="lg:basis-9/12 w-full overflow-y-scroll overscroll-none">
+            <div className="lg:basis-9/12 w-full overflow-y-scroll lg:overscroll-none">
               <Header />
 
               <div className="py-3 px-1 lg:pr-5 mb-20 lg:mb-0">

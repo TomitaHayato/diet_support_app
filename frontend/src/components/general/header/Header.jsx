@@ -14,8 +14,22 @@ function Header() {
           <img src="/icon.png" className="max-w-8 md:max-w-12" />
         </span>
 
-        <div className="col-span-6 order-2 text-center my-auto justify-items-stretch hidden lg:block">
+        {/* mobileコンテンツ */}
+        <span className="lg:hidden col-span-2 order-2"></span>
 
+        <div className="lg:hidden col-span-5 order-4 flex justify-center gap-4">
+          <div className="lg:hidden flex items-center justify-end">
+            <ThemeChangeBtn />
+          </div>
+
+          {/* ログイン案内 */}
+          {currentUser ? <LogoutBtn /> : <LoginBtn />}
+
+          <button className="btn btn-sm btn-outline btn-info">使い方</button>
+        </div>
+
+        {/* PCコンテンツ */}
+        <div className="col-span-6 order-2 text-center my-auto justify-items-stretch hidden lg:block">
           <p className="text-[0.65rem] lg:text-base">
             カロリーを消費するのに必要な運動時間を計算できます！</p>
           <p className="text-[0.5rem] lg:text-xs pt-1">
@@ -23,18 +37,9 @@ function Header() {
           </p>
         </div>
 
-        <span className="lg:hidden col-span-3 order-2"></span>
-
-        <div className="lg:hidden col-span-3 order-5 flex justify-between">
-          <div className="lg:hidden flex items-center justify-end">
-            <ThemeChangeBtn />
-          </div>
-          {/* ログイン案内 */}
-          {currentUser ? <LogoutBtn /> : <LoginBtn />}
-          
-        </div>
-
-        <span className="order-8"></span>
+        <span className="order-8 hidden lg:block">
+          <button className="btn btn-sm">使い方</button>
+        </span>
       </div>
     </>
   )

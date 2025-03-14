@@ -4,19 +4,19 @@ import SignupForm from "../sidemenu/auth_form/SignupForm";
 export default function LoginBtn() {
   return (
     <>
-      <button className="btn btn-sm md:btn-md btn-accent text-xs" onClick={() => document.getElementById('login-modal-mobile').showModal()}>
+      <button className="btn btn-sm md:btn-md btn-success text-xs" onClick={() => document.getElementById('login-modal-mobile').showModal()}>
         <span>login</span>
         <i className="i-lucide-log-in"/>
       </button>
 
        {/* モーダルコンテンツ */}
       <dialog id="login-modal-mobile" className="modal">
-        <div className="modal-box">
+        <div className="modal-box w-3/4 h-2/3">
           {/* 閉じるボタン */}
           <div className="modal-action flex justify-end">
             <form method="dialog">
               <button className="btn">
-                <i className="i-uiw-close text-red-500 bg-base-100"/>
+                <i className="i-uiw-close text-red-500 font-bold"/>
               </button>
             </form>
           </div>
