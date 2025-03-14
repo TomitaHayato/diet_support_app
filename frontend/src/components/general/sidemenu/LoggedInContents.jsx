@@ -9,7 +9,20 @@ function LoggedInContents() {
     <>
       <Section><TodayData /></Section>
 
-      <Section><DataCharts /></Section>
+      <Section>
+        <div className="text-center">
+          <div className="collapse collapse-arrow">
+            <input type="checkbox" />
+            <h3 className="collapse-title text-lg font-medium flex items-center justify-center">
+              運動記録<i className="i-lucide-bar-chart-4 text-blue-600 text-xl ml-2"/>
+            </h3>
+
+            <div className="collapse-content px-0">
+              <DataCharts />
+            </div>
+        </div>
+      </div>
+      </Section>
 
       <Section><UserZone /></Section>
 

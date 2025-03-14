@@ -1,0 +1,74 @@
+name: CI/CD
+
+on: push
+
+jobs:
+  front_test:
+    runs-on: ubuntu-latest
+    steps:
+      # 最新のbranchへ移動
+      - name: Checkout latest branch
+        uses: actions/checkout@v4
+
+      # Node.js環境を作成
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+          cache-dependency-path: ./frontend/yarn.lock
+
+      - name: yarn build & install
+        working-directory: ./frontend
+        env:
+          VITE_RAILS_API_DOMEIN: ${{ secrets.VITE_RAILS_API_DOMEIN }}
+        run: |
+          yarn install
+          yarn build
+
+      - name: Run Front Test
+        working-directory: ./frontend
+        run: yarn test
+
+  back_test:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      DB_HOST: 127.0.0.1
+      TZ: Asia/Tokyo
+      MYSQL_ROOT_PASS: password
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+        ports:
+            - 3306:3306
+        options: --health-cmd "mysqladmin ping -h 127.0.0.1" --health-interval 20s --health-timeout 10s --health-retries 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.6
+          bundler-cache: true
+      
+      - name: Bundler and Gem Install
+        working-directory: ./backend
+        run: |
+          gem install bundler -v '2.5.22'
+          bundle install
+
+      - name: Database Create
+        working-directory: ./backend
+        run:  RAILS_ENV=test bundle exec rails db:create
+      
+      - name: Database Migration
+        working-directory: ./backend
+        run:  RAILS_ENV=test bundle exec rails db:migrate
+      
+      - name: Run Rspec
+        working-directory: ./backend
+        run:  RAILS_ENV=test bundle exec rspec

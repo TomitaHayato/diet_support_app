@@ -1,0 +1,41 @@
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../../Redux/Slice/currentUserSlice";
+import { useNavigate } from "react-router";
+
+function Footer() {
+  const currentUser = useSelector(selectCurrentUser);
+  const navi = useNavigate();
+
+  return(
+    <>
+      <footer>
+        <div className="btm-nav">
+          <button onClick={() => navi('/')}>
+            <i className="i-lucide-home"/>
+            <span className="btm-nav-label">Home</span>
+          </button>
+
+          <div className="tooltip flex" data-tip={currentUser ? null : 'ログインが必要です'}>
+            <button className="active" onClick={() => {
+              currentUser && navi(`/profile`);
+            }}>
+              <i className="i-lucide-user"/><br />
+              <span className="btm-nav-label">User</span>
+            </button>
+          </div>
+
+          <div className="tooltip flex" data-tip={currentUser ? null : 'ログインが必要です'}>
+            <button onClick={() => {
+              currentUser && navi('/records')
+            }}>
+              <i className="i-lucide-chart-column"/><br />
+              <span className="btm-nav-label">Charts</span>
+            </button>
+          </div>
+        </div>
+      </footer>
+    </>
+  )
+}
+
+export default Footer;

@@ -1,33 +1,62 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, test, vi } from "vitest";
-import { SideMenuContext } from "../../Contexts/Contexts";
+import { cleanup, render, screen } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import SideMenu from "../../components/general/sidemenu/SideMenu";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { store } from "../../Redux/store";
+import { changeTheme } from "../../Redux/Slice/ThemeSlice";
+import userEvent from "@testing-library/user-event";
 
 describe('コンポーネント: ThemeChangeBtnのテスト', () => {
+  let dispatchMock
+  let theme = "light"
+
+  beforeEach(() => {
+    // useDispatch, useSelectorのMockを作成
+    vi.mock('react-redux', async() => {
+      const original = await vi.importActual('react-redux');
+      return {
+        ...original,
+        useDispatch: vi.fn(),
+        useSelector: vi.fn(),
+      }
+    })
+    dispatchMock = vi.fn();
+    useDispatch.mockReturnValue(dispatchMock);
+    useSelector.mockReturnValue(theme);
+    // changeThemeのMock
+    vi.mock('../../Redux/Slice/ThemeSlice', async() => {
+      const original = await vi.importActual('../../Redux/Slice/ThemeSlice')
+      return {
+        ...original,
+        changeTheme: vi.fn(),
+      }
+    })
+  });
+
+  afterEach(() => {
+    cleanup();
+  })
+
   test('theme切り替えボタンが表示', () => {
-    // themeステートのMock
-    let   themeMock    = 'dark';
-    const setThemeMock = vi.fn(() => themeMock = themeMock === 'dark' ? 'retro' : 'dark');
-    expect(themeMock).toBe('dark');
-    expect(setThemeMock).toHaveBeenCalledTimes(0);
-
     render(
-      <SideMenuContext.Provider value={{theme: themeMock, setTheme: setThemeMock}}>
+      <Provider store={store}>
         <SideMenu />
-      </SideMenuContext.Provider>
+      </Provider>
     );
+    // 初期表示
+    expect(screen.getByRole('theme-icon', {name: 'theme-icon-off'})).toBeInTheDocument();
+    expect(screen.getByRole('checkbox', {name: 'theme-ctl-btn'})).toBeInTheDocument();
+  });
 
-    //画面表示
-    const themeChangeBtn = screen.getByTestId('theme-change-btn');
-    expect(themeChangeBtn).toBeInTheDocument();
-
-    // ボタンを押下 => テーマ切り替え
-    fireEvent.click(themeChangeBtn);
-    expect(setThemeMock).toHaveBeenCalledTimes(1)
-    expect(themeMock).toBe('retro');
-
-    fireEvent.click(themeChangeBtn);
-    expect(setThemeMock).toHaveBeenCalledTimes(2)
-    expect(themeMock).toBe('dark');
+  test('Themeを切り替えできる', async() => {
+    const user = userEvent.setup();
+    render(
+      <Provider store={store}>
+        <SideMenu />
+      </Provider>
+    );
+    const themeCtlBtn = screen.getByRole('checkbox', {name: 'theme-ctl-btn'});
+    await user.click(themeCtlBtn);
+    expect(dispatchMock).toHaveBeenCalledWith(changeTheme());
   });
 });

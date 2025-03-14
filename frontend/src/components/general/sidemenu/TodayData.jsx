@@ -16,26 +16,26 @@ function TodayData() {
               <i className="i-lucide-bike size-5"/>
             </div>
 
-            <div className="stat-title text-sm">運動時間</div>
-            <div className="stat-value text-xl text-primary">
+            <p className="stat-title text-sm">運動時間</p>
+            <p className="stat-value text-xl text-primary" role="today-data" aria-label="totalTime">
               {secondsToMMSS(todayData.totalTime)}
-            </div>
+            </p>
           </div>
         </div>
 
         <div className="stats border border-primary shadow">
           <div className="stat">
-            <div className="stat-title text-sm">消費カロリー</div>
-            <div className="stat-value text-lg text-primary">
+            <p className="stat-title text-sm">消費カロリー</p>
+            <p className="stat-value text-lg text-primary" role="today-data" aria-label="totalBurnedCalories">
               {todayData.totalBurnedCalories} kcal
-            </div>
+            </p>
           </div>
 
           <div className="stat">
-            <div className="stat-title text-sm">摂取カロリー</div>
-            <div className="stat-value text-lg text-primary">
+            <p className="stat-title text-sm">摂取カロリー</p>
+            <p className="stat-value text-lg text-primary" role="today-data" aria-label="totalIntakedCalories">
               {todayData.totalIntakedCalories} kcal
-            </div>
+            </p>
           </div>
         </div>
       </div>

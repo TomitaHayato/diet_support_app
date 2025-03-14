@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_09_122733) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_11_044530) do
   create_table "tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -40,8 +40,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_09_122733) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "name"
-    t.string "nickname"
-    t.string "image"
     t.string "email"
     t.text "tokens"
     t.datetime "created_at", null: false
@@ -64,7 +62,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_09_122733) do
     t.integer "intaked_calories", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "workout_id"
     t.index ["user_id"], name: "index_workout_records_on_user_id"
+    t.index ["workout_id"], name: "index_workout_records_on_workout_id"
   end
 
   create_table "workout_tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -87,6 +87,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_09_122733) do
   add_foreign_key "user_workout_likes", "users"
   add_foreign_key "user_workout_likes", "workouts"
   add_foreign_key "workout_records", "users"
+  add_foreign_key "workout_records", "workouts"
   add_foreign_key "workout_tags", "tags"
   add_foreign_key "workout_tags", "workouts"
 end

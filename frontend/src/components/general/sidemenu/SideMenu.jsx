@@ -1,5 +1,5 @@
 import LoggedInContents from "./LoggedInContents";
-import BeforeLoginContents from "./beforeLoginContents";
+import BeforeLoginContents from "./BeforeLoginContents";
 import ThemeChangeBtn from "./ThemeChangeBtn";
 import Section from "./Section";
 import { useSelector } from "react-redux";
@@ -10,7 +10,12 @@ function SideMenu() {
 
   return (
     <>
-      <Section><ThemeChangeBtn /></Section>
+      <Section>
+        <div className="flex justify-center gap-4">
+          <p>テーマ変更</p>
+          <ThemeChangeBtn />
+        </div>
+      </Section>
 
       {currentUser ? <LoggedInContents /> : <BeforeLoginContents />}
     </>

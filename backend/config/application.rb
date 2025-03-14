@@ -14,6 +14,7 @@ module RailsApp
     config.middleware.use config.session_store, config.session_options
 
     config.generators do |g|
+      g.factory_bot dir: 'spec/factories'
       g.test_framework false
       g.skip_routes false
     end
@@ -32,6 +33,8 @@ module RailsApp
     # in config/environments, which are processed later.
     #
     # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone='Tokyo'
+    config.active_record.default_timezone = :local
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Only loads a smaller set of middleware suitable for API only apps.

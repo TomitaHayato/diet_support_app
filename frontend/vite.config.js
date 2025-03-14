@@ -9,5 +9,7 @@ export default defineConfig({
     environment: 'happy-dom',
     root: './src/',
     setupFiles: ['./src/tests/testSetup.js'],
+    // 各テスト前にMockをクリア
+    clearMocks: true,
   },
 })

@@ -6,9 +6,12 @@ import { useEffect } from "react";
 import Header from "../components/general/header/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserThunk, selectCurrentUser } from "../Redux/Slice/currentUserSlice";
-import { setWeight } from "../Redux/Slice/WeightSlice";
+import { setWeight } from "../Redux/Slice/weightSlice";
 import { isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecordsThunk } from "../Redux/Slice/workoutRecordsSlice";
+import Footer from "../components/general/footer/Footer";
+import Records from "./mobile/Records";
+import Profile from "./mobile/Profile";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,24 +36,28 @@ function App() {
 
   return (
     <>
-      <div data-theme={theme}>
+      <div data-theme={theme} className="h-screen">
         <BrowserRouter>
-          <div className="flex px-8 h-screen mx-auto">
-            <div className="basis-9/12 w-full overflow-y-scroll overscroll-none">
+          <div className="flex px-2 lg:px-8 mx-auto h-full">
+            <div className="lg:basis-9/12 w-full overflow-y-scroll overscroll-none">
               <Header />
 
-              <div className="py-8 pl-1 pr-5">
+              <div className="py-3 px-1 lg:pr-5 mb-20 lg:mb-0">
                 <Routes>
                   <Route path="/"            element={<Top />} />
                   <Route path="/workout/:id" element={<Workout />} />
+                  <Route path="/records"     element={<Records />} />
+                  <Route path="/profile"     element={<Profile />} />
                 </Routes>
+              </div>
+
+              <div className="block lg:hidden">
+                <Footer />
               </div>
             </div>
 
-            <div className="divider divider-horizontal mx-0"></div>
-
             {/* サイドメニュー */}
-            <div className="py-12 px-1 basis-3/12 w-full overflow-y-scroll overscroll-none">
+            <div className="hidden lg:block border-l border-gray-500 py-16 px-1 basis-3/12 w-full overflow-y-scroll overscroll-none">
               <SideMenu />
             </div>
           </div>

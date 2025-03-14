@@ -7,10 +7,11 @@ class Workout < ApplicationRecord
   has_many :user_workout_likes, dependent: :destroy
   has_many :users             , through: :user_workout_likes
 
+  has_many :workout_records, dependent: :nullify
+  has_many :record_users   , through: :workout_records, source: :user
+
   validates :name, presence: true
   validates :mets, presence: true
-
-  scope :random, -> {order("RAND()")}
 
   # [{id, name, 1時間あたりの消費カロリー, 必要な運動量}, {...} }形式の配列を返す
   def self.workouts_data(weight:, kcal_intake:)

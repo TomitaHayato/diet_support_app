@@ -9,7 +9,7 @@ import CalorieForm from '../components/top/CalorieForm';
 import WorkoutsIndex from '../components/top/WorkoutsIndex';
 import { workoutRequest } from '../utils/workoutRequest';
 import { useSelector } from 'react-redux';
-import { selectWeight } from '../Redux/Slice/WeightSlice';
+import { selectWeight } from '../Redux/Slice/weightSlice';
 import { putDev } from '../utils/devTool';
 
 function Top() {
@@ -36,7 +36,7 @@ function Top() {
     <>
       {/* フォーム/運動情報 */}
       <div className=''>
-        <div className='mb-8'>
+        <div className='mb-4 md:mb-8'>
           <CalorieForm/>
         </div>
 
