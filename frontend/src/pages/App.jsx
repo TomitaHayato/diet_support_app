@@ -9,9 +9,12 @@ import { fetchUserThunk, selectCurrentUser } from "../Redux/Slice/currentUserSli
 import { setWeight } from "../Redux/Slice/weightSlice";
 import { isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecordsThunk } from "../Redux/Slice/workoutRecordsSlice";
-import Footer from "../components/general/footer/Footer";
+import FooterMenu from "../components/general/footer/FooterMenu";
 import Records from "./mobile/Records";
 import Profile from "./mobile/Profile";
+import Footer from "../components/general/footer/Footer";
+import Terms from "../components/general/Terms";
+import Policy from "../components/general/Policy";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,10 +43,12 @@ function App() {
         <BrowserRouter>
           <div className="flex mx-auto h-full">
             <div className="lg:w-3/4">
-              <div className="overflow-y-scroll lg:overscroll-none pl-2 lg:pl-4 h-full">
-                <Header />
+              <div className="overflow-y-scroll lg:overscroll-none h-full">
+                <div className="fixed z-10 lg:static w-full">
+                  <Header />
+                </div>
 
-                <div className="py-3 px-1 lg:pr-5 mb-20 lg:mb-0">
+                <div className="py-3 px-1 lg:px-5 mb-20 lg:mb-0 mt-12 lg:mt-0">
                   <Routes>
                     <Route path="/"            element={<Top />} />
                     <Route path="/workout/:id" element={<Workout />} />
@@ -52,8 +57,12 @@ function App() {
                   </Routes>
                 </div>
 
+                <div className="mb-">
+                  <Footer/>
+                </div>
+
                 <div className="block lg:hidden">
-                  <Footer />
+                  <FooterMenu />
                 </div>
               </div>
             </div>
@@ -65,6 +74,38 @@ function App() {
           </div>
         </BrowserRouter>
       </div>
+
+      {/* 利用規約 */}
+      <dialog id="terms-content" className="modal">
+        <div className="modal-box text-sm w-3/4 h-3/4">
+          <form method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-sm btn-ghost absolute right-2 top-2">
+              <i className="i-uiw-close text-red-500 font-bold"/>
+            </button>
+          </form>
+          <Terms />
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+
+      {/* プライバシーポリシー */}
+      <dialog id="policy-content" className="modal">
+        <div className="modal-box text-sm w-3/4 h-3/4">
+          <form method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-sm btn-ghost absolute right-2 top-2">
+              <i className="i-uiw-close text-red-500 font-bold"/>
+            </button>
+          </form>
+          <Policy />
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </>
   )
 }

@@ -4,7 +4,6 @@ import LogoutBtn from "./LogoutBtn";
 import LoginBtn from "./LoginBtn";
 import ThemeChangeBtn from "../sidemenu/ThemeChangeBtn";
 import HowToUse from "./HowtoUse";
-import Policy from "./Policy";
 
 function Header() {
   const currentUser = useSelector(selectCurrentUser);
@@ -57,7 +56,6 @@ function Header() {
               </button>
             </form>
             <HowToUse />
-            <Policy />
           </div>
           <form method="dialog" className="modal-backdrop">
             <button>close</button>

@@ -1,41 +1,15 @@
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../../Redux/Slice/currentUserSlice";
-import { useNavigate } from "react-router";
+import { modalOpen } from "../../../utils/modalCtl";
 
-function Footer() {
-  const currentUser = useSelector(selectCurrentUser);
-  const navi = useNavigate();
-
-  return(
-    <>
-      <footer>
-        <div className="btm-nav">
-          <button onClick={() => navi('/')}>
-            <i className="i-lucide-home"/>
-            <span className="btm-nav-label">Home</span>
-          </button>
-
-          <div className="tooltip flex" data-tip={currentUser ? null : 'ログインが必要です'}>
-            <button className="active" onClick={() => {
-              currentUser && navi(`/profile`);
-            }}>
-              <i className="i-lucide-user"/><br />
-              <span className="btm-nav-label">User</span>
-            </button>
-          </div>
-
-          <div className="tooltip flex" data-tip={currentUser ? null : 'ログインが必要です'}>
-            <button onClick={() => {
-              currentUser && navi('/records')
-            }}>
-              <i className="i-lucide-chart-column"/><br />
-              <span className="btm-nav-label">Charts</span>
-            </button>
-          </div>
-        </div>
-      </footer>
-    </>
+export default function Footer() {
+  return (
+    <footer className="footer footer-center bg-base-200 text-base-content rounded p-10 mb-14 lg:mb-0 text-sm lg:text-lg">
+      <nav className="grid grid-flow-col gap-4">
+        <button className="link link-info link-hover" onClick={() => modalOpen('terms-content')}>利用規約</button>
+        <button className="link link-info link-hover" onClick={() => modalOpen('policy-content')}>プライバシーポリシー</button>
+      </nav>
+      {/* <aside>
+        <p>Copyright © {new Date().getFullYear()} - Calorie Work</p>
+      </aside> */}
+    </footer>
   )
 }
-
-export default Footer;
