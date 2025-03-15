@@ -35,16 +35,13 @@ function Top() {
   return (
     <>
       {/* フォーム/運動情報 */}
-      <div className=''>
-        <div className='mb-4 md:mb-8'>
-          <CalorieForm/>
-        </div>
-
-        <div>
-          <WorkoutsIndex
-            workoutsObj={workoutsObj}/>
-        </div>
+      <div className='mb-4 md:mb-8'>
+        <CalorieForm/>
       </div>
+
+      <WorkoutsIndex
+        workoutsObj={workoutsObj}/>
+      
     </>
   )
 }

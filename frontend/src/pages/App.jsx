@@ -38,26 +38,28 @@ function App() {
     <>
       <div data-theme={theme} className="h-screen">
         <BrowserRouter>
-          <div className="flex px-2 lg:px-8 mx-auto h-full">
-            <div className="lg:basis-9/12 w-full overflow-y-scroll lg:overscroll-none">
-              <Header />
+          <div className="flex mx-auto h-full">
+            <div className="lg:w-3/4">
+              <div className="overflow-y-scroll lg:overscroll-none pl-2 lg:pl-4 h-full">
+                <Header />
 
-              <div className="py-3 px-1 lg:pr-5 mb-20 lg:mb-0">
-                <Routes>
-                  <Route path="/"            element={<Top />} />
-                  <Route path="/workout/:id" element={<Workout />} />
-                  <Route path="/records"     element={<Records />} />
-                  <Route path="/profile"     element={<Profile />} />
-                </Routes>
-              </div>
+                <div className="py-3 px-1 lg:pr-5 mb-20 lg:mb-0">
+                  <Routes>
+                    <Route path="/"            element={<Top />} />
+                    <Route path="/workout/:id" element={<Workout />} />
+                    <Route path="/records"     element={<Records />} />
+                    <Route path="/profile"     element={<Profile />} />
+                  </Routes>
+                </div>
 
-              <div className="block lg:hidden">
-                <Footer />
+                <div className="block lg:hidden">
+                  <Footer />
+                </div>
               </div>
             </div>
 
             {/* サイドメニュー */}
-            <div className="hidden lg:block border-l border-gray-500 py-16 px-1 basis-3/12 w-full overflow-y-scroll overscroll-none">
+            <div className="hidden lg:block border-l border-gray-500 py-16 w-1/4 overflow-y-scroll overscroll-none px-2">
               <SideMenu />
             </div>
           </div>

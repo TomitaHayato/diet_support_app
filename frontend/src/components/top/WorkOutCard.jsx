@@ -34,15 +34,17 @@ function WorkoutCard(props) {
             <h3 className="font-bold md:text-base">{workout.name}</h3>
           </div>
           
-          <div>
-            <div className="lg:text-sm flex justify-between mt-1">
-            <p className="mb-3">
-              目安：
-              <span className="text-info font-bold lg:text-base">{workout.requiredExerciseTime}</span>
-              分
-            </p>
+          <div className="">
+            <div className="lg:text-sm mt-1 flex">
+              <p className="mb-3">
+                目安：
+                <span className="text-info font-bold lg:text-base">{workout.requiredExerciseTime}</span>
+                分
+              </p>
 
-            <LikeWorkoutBtn workout={workout}/>
+              <div>
+                <LikeWorkoutBtn workout={workout}/>
+              </div>
             </div>
 
             {/* ボタン */}
@@ -50,7 +52,6 @@ function WorkoutCard(props) {
               <button className="btn btn-sm lg:btn-md btn-primary font-bold w-full" onClick={moveWorkoutPage}>Workout!</button>
             </div>
           </div>
-          
         </div>
       </div>
     </>

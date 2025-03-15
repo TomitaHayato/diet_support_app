@@ -4,6 +4,7 @@ import LogoutBtn from "./LogoutBtn";
 import LoginBtn from "./LoginBtn";
 import ThemeChangeBtn from "../sidemenu/ThemeChangeBtn";
 import HowToUse from "./HowtoUse";
+import Policy from "./Policy";
 
 function Header() {
   const currentUser = useSelector(selectCurrentUser);
@@ -14,7 +15,7 @@ function Header() {
 
   return (
     <>
-      <div data-testid="app-intro" className="grid grid-cols-8 px-3 py-2 bg-base-200 border border-base-200 rounded-lg">
+      <div data-testid="app-intro" className="grid grid-cols-8 px-3 py-2 bg-base-200 border border-base-200 rounded-lg w-full">
         <span className="order-1">
           <img src="/icon.png" className="max-w-8 md:max-w-12" />
         </span>
@@ -56,6 +57,7 @@ function Header() {
               </button>
             </form>
             <HowToUse />
+            <Policy />
           </div>
           <form method="dialog" className="modal-backdrop">
             <button>close</button>

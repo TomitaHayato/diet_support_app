@@ -51,7 +51,7 @@ function WorkoutsIndex(props) {
       </div>
 
       {/* 検索されたWorkoutを一覧表示 */}
-      <div>
+      <div className="max-w-full">
         {filteredWorkouts.length === 0 ? <p className="mt-8 text-center">一致する運動はありません</p> :
           <div className='grid gap-3 grid-cols-2 lg:grid-cols-3'>
             {filteredWorkouts.map((workout) => {
