@@ -29,7 +29,7 @@ RSpec.describe User, type: :model do
         it '今日のrecordだけを返す' do
           result = user.get_today_record
           expected_result = 
-            user.workout_records.today_data.first
+            user.workout_records.today_data
           expect(result.total_time).to              eq(expected_result.total_time)
           expect(result.total_burned_calories).to   eq(expected_result.total_burned_calories)
           expect(result.total_unburned_calories).to eq(expected_result.total_unburned_calories)

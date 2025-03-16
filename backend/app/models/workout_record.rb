@@ -24,9 +24,15 @@ class WorkoutRecord < ApplicationRecord
       .group(:month)
       .select("month, SUM(workout_time) as total_time, SUM(burned_calories) as total_burned_calories, SUM(unburned_calories) as total_unburned_calories, SUM(intaked_calories) as total_intaked_calories")
   }
+
   # その日のデータを取得
-  scope :today_data, -> (){
+  def self.today_data
     where(created_at: Time.current.all_day)
-      .select("SUM(workout_time) as total_time, SUM(burned_calories) as total_burned_calories, SUM(unburned_calories) as total_unburned_calories, SUM(intaked_calories) as total_intaked_calories")
-  }
+      .select("
+        SUM(workout_time)      as total_time,
+        SUM(burned_calories)   as total_burned_calories,
+        SUM(unburned_calories) as total_unburned_calories,
+        SUM(intaked_calories)  as total_intaked_calories")
+      .first
+  end
 end
