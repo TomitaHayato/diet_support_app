@@ -8,8 +8,8 @@ class WorkoutRecordsController < ApplicationController
     monthly_data = current_user.get_complete_monthly_records(now)
     weekly_data  = current_user.get_complete_weekly_records(now)
     today_data   = current_user.get_today_record
-    user_history = current_user.get_records_history
-    all_data     = { yearly_data:, monthly_data:, weekly_data:, today_data:, user_history:}
+    history_data = current_user.get_records_history
+    all_data     = { yearly_data:, monthly_data:, weekly_data:, today_data:, history_data:}
     render json: all_data, status: 200
   end
 
