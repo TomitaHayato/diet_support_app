@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :get_sessions, only: %i[index]
   end
 
-  resources :workouts, only: %i[index], shallow: true do
+  resources :workouts, only: %i[index show], shallow: true do
     resources :user_workout_likes, only: %i[create destroy]
   end
 
