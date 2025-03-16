@@ -24,8 +24,6 @@ function Records() {
         <h3 className="text-center text-gray-500 font-semibold mb-3">期間ごとのデータ</h3>
         <DataCharts />
       </div>
-
-      {/* これまでにやった運動名とその回数 */}
     </div>
   )
 }
