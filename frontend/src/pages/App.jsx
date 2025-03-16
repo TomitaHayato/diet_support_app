@@ -42,7 +42,7 @@ function App() {
       <div data-theme={theme} className="h-screen">
         <BrowserRouter>
           <div className="flex mx-auto h-full">
-            <div className="lg:w-3/4">
+            <div className="w-full lg:w-3/4">
               <div className="overflow-y-scroll lg:overscroll-none h-full">
                 <div className="fixed z-10 lg:static w-full">
                   <Header />
@@ -57,7 +57,7 @@ function App() {
                   </Routes>
                 </div>
 
-                <div className="mb-">
+                <div className="">
                   <Footer/>
                 </div>
 

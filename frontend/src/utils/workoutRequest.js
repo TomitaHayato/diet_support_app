@@ -9,3 +9,11 @@ export function workoutRequest(paramsInfo) {
     })
   )
 }
+
+export function workoutsIdNamesRequest() {
+  return (
+    client.get("/workout_names", {
+      headers: authTokensInCookie(),
+    })
+  )
+}

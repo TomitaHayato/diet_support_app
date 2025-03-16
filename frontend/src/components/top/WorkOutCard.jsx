@@ -20,7 +20,7 @@ function WorkoutCard(props) {
           <div>
             {/* タグ */}
             <div className="hidden lg:flex flex-wrap justify-end gap-[2px] mb-4">
-              {workout.tagList.map((tagName) => {
+              {workout.tagList?.map((tagName) => {
                 return (
                   <div key={`${workout.id}-${tagName}`}>
                     <p className="badge badge-sm text-[0.5rem] text-emerald-600 badge-outline">
@@ -33,12 +33,12 @@ function WorkoutCard(props) {
 
             <h3 className="font-bold md:text-base">{workout.name}</h3>
           </div>
-          
+
           <div className="">
             <div className="lg:text-sm mt-1 flex">
               <p className="mb-3">
                 目安：
-                <span className="text-info font-bold lg:text-base">{workout.requiredExerciseTime}</span>
+                <span className="text-info font-bold lg:text-base">{workout.requiredExerciseTime || 0}</span>
                 分
               </p>
 
