@@ -9,9 +9,12 @@ import { fetchUserThunk, selectCurrentUser } from "../Redux/Slice/currentUserSli
 import { setWeight } from "../Redux/Slice/weightSlice";
 import { isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecordsThunk } from "../Redux/Slice/workoutRecordsSlice";
-import Footer from "../components/general/footer/Footer";
+import FooterMenu from "../components/general/footer/FooterMenu";
 import Records from "./mobile/Records";
 import Profile from "./mobile/Profile";
+import Footer from "../components/general/footer/Footer";
+import Terms from "../components/general/Terms";
+import Policy from "../components/general/Policy";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,31 +41,71 @@ function App() {
     <>
       <div data-theme={theme} className="h-screen">
         <BrowserRouter>
-          <div className="flex px-2 lg:px-8 mx-auto h-full">
-            <div className="lg:basis-9/12 w-full overflow-y-scroll overscroll-none">
-              <Header />
+          <div className="flex mx-auto h-full">
+            <div className="lg:w-3/4">
+              <div className="overflow-y-scroll lg:overscroll-none h-full">
+                <div className="fixed z-10 lg:static w-full">
+                  <Header />
+                </div>
 
-              <div className="py-3 px-1 lg:pr-5 mb-20 lg:mb-0">
-                <Routes>
-                  <Route path="/"            element={<Top />} />
-                  <Route path="/workout/:id" element={<Workout />} />
-                  <Route path="/records"     element={<Records />} />
-                  <Route path="/profile"     element={<Profile />} />
-                </Routes>
-              </div>
+                <div className="py-3 px-1 lg:px-5 mb-20 lg:mb-0 mt-12 lg:mt-0">
+                  <Routes>
+                    <Route path="/"            element={<Top />} />
+                    <Route path="/workout/:id" element={<Workout />} />
+                    <Route path="/records"     element={<Records />} />
+                    <Route path="/profile"     element={<Profile />} />
+                  </Routes>
+                </div>
 
-              <div className="block lg:hidden">
-                <Footer />
+                <div className="mb-">
+                  <Footer/>
+                </div>
+
+                <div className="block lg:hidden">
+                  <FooterMenu />
+                </div>
               </div>
             </div>
 
             {/* サイドメニュー */}
-            <div className="hidden lg:block border-l border-gray-500 py-16 px-1 basis-3/12 w-full overflow-y-scroll overscroll-none">
+            <div className="hidden lg:block border-l border-gray-500 py-16 w-1/4 overflow-y-scroll overscroll-none px-2">
               <SideMenu />
             </div>
           </div>
         </BrowserRouter>
       </div>
+
+      {/* 利用規約 */}
+      <dialog id="terms-content" className="modal">
+        <div className="modal-box text-sm w-3/4 h-3/4">
+          <form method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-sm btn-ghost absolute right-2 top-2">
+              <i className="i-uiw-close text-red-500 font-bold"/>
+            </button>
+          </form>
+          <Terms />
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+
+      {/* プライバシーポリシー */}
+      <dialog id="policy-content" className="modal">
+        <div className="modal-box text-sm w-3/4 h-3/4">
+          <form method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-sm btn-ghost absolute right-2 top-2">
+              <i className="i-uiw-close text-red-500 font-bold"/>
+            </button>
+          </form>
+          <Policy />
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </>
   )
 }

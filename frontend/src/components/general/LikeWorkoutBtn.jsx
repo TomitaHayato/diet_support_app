@@ -28,16 +28,14 @@ function LikeWorkoutBtn(props) {
 
   return (
     <>
-      <div className="tooltip" data-tip={currentUser ? null : 'ログイン後に利用できます'}>
-        <button aria-label="liked-button" onClick={() => {
-          currentUser && likeRequest(workout);
-        }}>
-          {isLiked ? 
-            <i role="liked-icon" aria-label="on"  className={`text-pink-400 text-lg hover:scale-110 active:scale-95 i-uiw-heart-on`}/> :
-            <i role="liked-icon" aria-label="off" className={`text-pink-400 text-lg hover:scale-110 active:scale-95 i-uiw-heart-off`}/>
-          }
-        </button>
-      </div>
+      <button className="text-end block" aria-label="liked-button" onClick={() => {
+        currentUser && likeRequest(workout);
+      }}>
+        {isLiked ? 
+          <i role="liked-icon" aria-label="on"  className={`text-pink-400 text-lg hover:scale-110 active:scale-95 i-uiw-heart-on`}/> :
+          <i role="liked-icon" aria-label="off" className={`text-pink-400 text-lg hover:scale-110 active:scale-95 i-uiw-heart-off`}/>
+        }
+      </button>
     </>
   )
 }

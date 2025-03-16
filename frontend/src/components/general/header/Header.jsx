@@ -3,19 +3,38 @@ import { selectCurrentUser } from "../../../Redux/Slice/currentUserSlice";
 import LogoutBtn from "./LogoutBtn";
 import LoginBtn from "./LoginBtn";
 import ThemeChangeBtn from "../sidemenu/ThemeChangeBtn";
+import HowToUse from "./HowtoUse";
 
 function Header() {
   const currentUser = useSelector(selectCurrentUser);
 
+  function hundleClick(){
+    document.getElementById('how-to-use-content').showModal();
+  }
+
   return (
     <>
-      <div data-testid="app-intro" className="grid grid-cols-8 px-3 py-2 bg-base-200 border border-base-200 rounded-lg">
+      <div data-testid="app-intro" className="grid grid-cols-8 px-3 py-2 bg-base-200 border border-base-200 rounded-lg w-full">
         <span className="order-1">
           <img src="/icon.png" className="max-w-8 md:max-w-12" />
         </span>
 
-        <div className="col-span-6 order-2 text-center my-auto justify-items-stretch hidden lg:block">
+        {/* mobileコンテンツ */}
+        <span className="lg:hidden col-span-2 order-2"></span>
 
+        <div className="lg:hidden col-span-5 order-4 flex justify-center gap-4">
+          <div className="lg:hidden flex items-center justify-end">
+            <ThemeChangeBtn />
+          </div>
+
+          {/* ログイン案内 */}
+          {currentUser ? <LogoutBtn /> : <LoginBtn />}
+
+          <button className="btn btn-sm btn-outline btn-info" onClick={hundleClick}>使い方</button>
+        </div>
+
+        {/* PCコンテンツ */}
+        <div className="col-span-6 order-2 text-center my-auto justify-items-stretch hidden lg:block">
           <p className="text-[0.65rem] lg:text-base">
             カロリーを消費するのに必要な運動時間を計算できます！</p>
           <p className="text-[0.5rem] lg:text-xs pt-1">
@@ -23,18 +42,25 @@ function Header() {
           </p>
         </div>
 
-        <span className="lg:hidden col-span-3 order-2"></span>
+        <span className="order-8 hidden lg:block">
+          <button className="btn btn-sm btn-outline btn-info" onClick={hundleClick}>使い方</button>
+        </span>
 
-        <div className="lg:hidden col-span-3 order-5 flex justify-between">
-          <div className="lg:hidden flex items-center justify-end">
-            <ThemeChangeBtn />
+        {/* 使い方モーダル */}
+        <dialog id="how-to-use-content" className="modal">
+          <div className="modal-box text-sm w-3/4 h-3/4">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn btn-sm btn-ghost absolute right-2 top-2">
+                <i className="i-uiw-close text-red-500 font-bold"/>
+              </button>
+            </form>
+            <HowToUse />
           </div>
-          {/* ログイン案内 */}
-          {currentUser ? <LogoutBtn /> : <LoginBtn />}
-          
-        </div>
-
-        <span className="order-8"></span>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
       </div>
     </>
   )
