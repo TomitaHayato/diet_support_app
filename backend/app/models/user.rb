@@ -57,6 +57,20 @@ class User < ActiveRecord::Base
     full_monthly_data.sort_by { |data| data[:month] }
   end
 
+  # これまでに取り組んできたworkout名とそのレコー
+  def get_records_history(target_time = Time.current, range = nil)
+    correct_range = %w(all_week all_month all_year)
+    # 取得したい履歴の期間を指定
+    target_range_records = correct_range.include?(range) ? 
+      workout_records.where(created_at: target_time.send(range)) : workout_records
+
+    target_range_records
+      .joins(:workout)
+      .where.not(workout_id: nil)
+      .group(:workout_id)
+      .select("workouts.name, COUNT(*) AS count, SUM(workout_time) as total_time")
+  end
+
   private
 
   def make_dammy_records_array(time_unit_key, missed_time_units_array)
