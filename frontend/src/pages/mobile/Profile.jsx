@@ -51,11 +51,11 @@ function Profile() {
       <div className="border border-info shadow-lg rounded-lg p-5 mb-8">
         <h3 className="text-center font-semibold mb-5">お気に入りのWokrout ({likedCount})</h3>
 
-        <div className="text-xs md:text-base max-h-80 overflow-y-auto overscroll-y-auto pb-16">
+        <div className="text-xs md:text-base max-h-80 overflow-y-auto overscroll-y-auto pb-8">
           <WorkoutTable>
             {workoutObjs.filter((workout) => likedWorkoutIds.includes(workout.id)).map((workout, index) => {
               return (
-                <tr key={`liked-workout-${workout.id}`} className="hover:bg-base-200">
+                <tr key={`liked-workout-${workout.id}`}>
                   <WorkoutTableRow workout={workout} index={index} likeBtn={true}/>
                 </tr>
               )
@@ -68,11 +68,11 @@ function Profile() {
       {/* これまでにやった運動名とその回数 */}
       <div className="border border-info shadow-lg rounded-lg p-5">
         <h3 className="text-center font-semibold mb-5">これまでに取り組んだWorkout</h3>
-        <div className="text-xs md:text-base max-h-80 overflow-y-auto overscroll-y-auto">
+        <div className="text-xs md:text-base max-h-80 overflow-y-auto overscroll-y-auto pb-8">
           <WorkoutTable row={'回数'}>
             {historyWorkouts.map((workout, index) => {
               return(
-                <tr key={`history-${workout.name}`} className="hover:bg-base-200">
+                <tr key={`history-${workout.name}`}>
                   <WorkoutTableRow workout={workout} index={index} thirdVal={workout.count} likeBtn={true}/>
                 </tr>
               )
