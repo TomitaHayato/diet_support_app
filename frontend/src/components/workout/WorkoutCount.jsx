@@ -9,13 +9,14 @@ import Big from 'big.js';
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 import { createWorkoutRecordThunk } from "../../Redux/Slice/workoutRecordsSlice";
+import { selectIntakedCalorie } from "../../Redux/Slice/intakedCalorieSlice";
 
 function WorkoutCount(props) {
   const {workout} = props;
   const dispatch = useDispatch();
 
-  const intakedCalorie = useSelector(state => state.intakedCalorie.value);
-  const currentUser = useSelector(selectCurrentUser);
+  const intakedCalorie = useSelector(selectIntakedCalorie);
+  const currentUser    = useSelector(selectCurrentUser);
 
   const [unburnedCalorie, setUnburnedCalorie] = useState(intakedCalorie);
   const [burnedCalorie  , setBurnedCalorie  ] = useState(0);
@@ -37,12 +38,12 @@ function WorkoutCount(props) {
   }, [isCountDown, workout.burnedKcalPerSec])
 
   //記録を保存処理
-  const createWorkoutRecord = async(workoutSeconds, burnedCalorie, unburnedCalorie, workout) => {    
+  const createWorkoutRecord = async(workoutSeconds, intakedCalorie, burnedCalorie, unburnedCalorie, workout) => {    
     const params = {
       workoutTime:      workoutSeconds,
       burnedCalories:   Math.floor(burnedCalorie),
       unburnedCalories: Math.ceil(unburnedCalorie),
-      intakedCalories:  Math.floor(burnedCalorie) + Math.ceil(unburnedCalorie),
+      intakedCalories:  intakedCalorie,
       workout_id:       workout.id
     };
 
@@ -90,7 +91,7 @@ function WorkoutCount(props) {
           <button className="btn btn-sm md:btn-md md:btn-wide h-10 md:h-auto btn-success rounded-full" disabled={currentUser ? saveDisabled : true}
             aria-label="record-submit"
             onClick={() => {
-              createWorkoutRecord(workoutSeconds, burnedCalorie, unburnedCalorie, workout);
+              createWorkoutRecord(workoutSeconds, intakedCalorie, burnedCalorie, unburnedCalorie, workout);
             }
           }>運動記録を保存</button>
           {currentUser ? null : 

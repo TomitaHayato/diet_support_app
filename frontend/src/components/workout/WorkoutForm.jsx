@@ -3,12 +3,13 @@ import Big from 'big.js';
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 import { createWorkoutRecordThunk } from "../../Redux/Slice/workoutRecordsSlice";
+import { selectIntakedCalorie } from "../../Redux/Slice/intakedCalorieSlice";
 
 function WorkoutForm(props) {
   const {workout} = props;
   const dispatch = useDispatch();
-  const intakedCalorie = useSelector(state => state.intakedCalorie.value);
-  const currentUser = useSelector(selectCurrentUser);
+  const intakedCalorie = useSelector(selectIntakedCalorie);
+  const currentUser    = useSelector(selectCurrentUser);
 
   const [workoutTime     , setWorkoutTime     ] = useState(0);
   const [burnedCalories  , setBurnedCalories  ] = useState(0);

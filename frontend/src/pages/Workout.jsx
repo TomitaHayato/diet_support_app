@@ -49,7 +49,12 @@ function Workout() {
 
       <div className="text-center">
         <div className="mb-5">
-          <h1 className="text-2xl lg:text-4xl font-bold">{workout.name}</h1>
+          <h1 className="text-2xl lg:text-4xl font-bold mb-3">{workout.name}</h1>
+          <h3 className="text-center lg:text-lg">
+            摂取カロリー:
+            <span className="text-xl md:text-4xl text-success font-semibold px-2">{intakedCalorie}</span>
+            kcal
+          </h3>
         </div>
 
         {/* --- 運動時間を表示 --- */}
