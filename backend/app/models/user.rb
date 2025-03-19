@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
     dammy_data = {
       total_time: 0,
       total_burned_calories: 0,
-      total_unburned_calories: 0,
       total_intaked_calories: 0
     }
 
@@ -80,7 +79,6 @@ class User < ActiveRecord::Base
         time_unit_key.to_sym => time_unit,
         total_time: 0,
         total_burned_calories: 0,
-        total_unburned_calories: 0,
         total_intaked_calories: 0
       }
     end

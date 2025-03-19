@@ -94,7 +94,6 @@ describe('コンポーネント： WorkoutForm.jsxのテスト', () => {
       workoutTime:      minutes * 60,
       intakedCalories:  intakedCalorie,
       burnedCalories:   burnedKcal,
-      unburnedCalories: intakedCalorie - burnedKcal,
       workout_id:       workout.id,
     }
     expect(dispatchMock).toHaveBeenCalledWith(createWorkoutRecordThunk(expectedParams));

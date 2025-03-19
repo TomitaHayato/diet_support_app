@@ -38,11 +38,10 @@ function WorkoutCount(props) {
   }, [isCountDown, workout.burnedKcalPerSec])
 
   //記録を保存処理
-  const createWorkoutRecord = async(workoutSeconds, intakedCalorie, burnedCalorie, unburnedCalorie, workout) => {    
+  const createWorkoutRecord = async(workoutSeconds, intakedCalorie, burnedCalorie, workout) => {    
     const params = {
       workoutTime:      workoutSeconds,
       burnedCalories:   Math.floor(burnedCalorie),
-      unburnedCalories: Math.ceil(unburnedCalorie),
       intakedCalories:  intakedCalorie,
       workout_id:       workout.id
     };
@@ -91,7 +90,7 @@ function WorkoutCount(props) {
           <button className="btn btn-sm md:btn-md md:btn-wide h-10 md:h-auto btn-success rounded-full" disabled={currentUser ? saveDisabled : true}
             aria-label="record-submit"
             onClick={() => {
-              createWorkoutRecord(workoutSeconds, intakedCalorie, burnedCalorie, unburnedCalorie, workout);
+              createWorkoutRecord(workoutSeconds, intakedCalorie, burnedCalorie, workout);
             }
           }>運動記録を保存</button>
           {currentUser ? null : 
@@ -103,9 +102,7 @@ function WorkoutCount(props) {
             <ul className="text-sm text-start">
               <li>・運動時間</li>
               <li>・消費カロリー</li>
-              <li>・未消費カロリー</li>
               <li>・摂取カロリー</li>
-              <li className="text-xs">(消費カロリー＋未消費カロリー)</li>
             </ul>
           </div>
         </div>

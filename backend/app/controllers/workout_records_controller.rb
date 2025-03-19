@@ -49,7 +49,7 @@ class WorkoutRecordsController < ApplicationController
   private
 
   def new_record_params
-    params.require(:workout_record).permit(:workout_time, :burned_calories, :unburned_calories, :intaked_calories, :workout_id)
+    params.require(:workout_record).permit(:workout_time, :burned_calories, :intaked_calories, :workout_id)
   end
 
   def add_today_info_to_params(params_strong)
