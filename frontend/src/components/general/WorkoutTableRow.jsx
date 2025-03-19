@@ -1,11 +1,14 @@
+import LikeWorkoutBtn from "./LikeWorkoutBtn"
+
 export default function WorkoutTableRow(props) {
-  const { workout, index } = props
+  const { workout, thirdVal=true, likeBtn=false } = props
 
   return(
     <>
-      <th>{index + 1}</th>
       <td>{workout.name}</td>
-      <td>{workout.count}</td>
+      <td>{workout.mets || 2}</td>
+      {thirdVal && <td>{thirdVal}</td>}
+      {likeBtn && <td><LikeWorkoutBtn workout={workout}/></td>}
     </>
   )
 }

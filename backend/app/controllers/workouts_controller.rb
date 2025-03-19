@@ -14,7 +14,7 @@ class WorkoutsController < ApplicationController
   end
 
   def index_only_id_and_name
-    render json: { workouts: Workout.select(:id, :name) }
+    render json: { workouts: Workout.select(:id, :name, :mets) }
   end
 
   def show

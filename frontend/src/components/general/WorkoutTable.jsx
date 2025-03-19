@@ -1,5 +1,5 @@
 export default function WorkoutTable(props) {
-  const { children } = props
+  const { children, row } = props
 
   return(
     <>
@@ -7,9 +7,9 @@ export default function WorkoutTable(props) {
         <table className="table">
           <thead>
             <tr>
-              <th></th>
               <th>Name</th>
-              <th>回数</th>
+              <th>mets</th>
+              <th>{row}</th>
             </tr>
           </thead>
           <tbody>

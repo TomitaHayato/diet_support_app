@@ -5,7 +5,6 @@ import TopPageLink from "../../components/general/TopPageLink";
 import { useEffect, useState } from "react";
 import { workoutsIdNamesRequest } from "../../utils/workoutRequest";
 import { putDev } from "../../utils/devTool";
-import WorkoutCard from "../../components/top/WorkOutCard";
 import { selectHistoryData } from "../../Redux/Slice/workoutRecordsSlice";
 import WorkoutTable from "../../components/general/WorkoutTable";
 import WorkoutTableRow from "../../components/general/WorkoutTableRow";
@@ -49,30 +48,32 @@ function Profile() {
 
       {/* ユーザーの取り組み履歴 */}
       {/* お気に入り済みのWorkout一覧 */}
-      <div className="border rounded-lg bg-base-200 p-5 mb-8">
+      <div className="border border-info shadow-lg rounded-lg p-5 mb-8">
         <h3 className="text-center font-semibold mb-5">お気に入りのWokrout ({likedCount})</h3>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 text-xs md:text-base max-h-80 overflow-y-auto overscroll-y-auto pt-4 pb-16">
-          {workoutObjs.filter((workout) => likedWorkoutIds.includes(workout.id)).map((workout) => {
-            return (
-              <div key={`liked-workout-${workout.id}`}>
-                <WorkoutCard workout={workout} />
-              </div>
-            )
-          })}
+        <div className="text-xs md:text-base max-h-80 overflow-y-auto overscroll-y-auto pt-4 pb-16">
+          <WorkoutTable row={' '}>
+            {workoutObjs.filter((workout) => likedWorkoutIds.includes(workout.id)).map((workout, index) => {
+              return (
+                <tr key={`liked-workout-${workout.id}`} className="hover:bg-base-200">
+                  <WorkoutTableRow workout={workout} index={index} likeBtn={true}/>
+                </tr>
+              )
+            })}
+          </WorkoutTable>
         </div>
       </div>
 
       {/* よく利用するWorkout */}
       {/* これまでにやった運動名とその回数 */}
-      <div className="border rounded-lg bg-base-200 p-5">
+      <div className="border border-info shadow-lg rounded-lg p-5">
         <h3 className="text-center font-semibold mb-5">これまでに取り組んだWorkout</h3>
         <div className="text-xs md:text-base max-h-80 overflow-y-auto overscroll-y-auto">
-          <WorkoutTable>
+          <WorkoutTable row={'回数'}>
             {historyWorkouts.map((workout, index) => {
               return(
                 <tr key={`history-${workout.name}`} className="hover:bg-base-200">
-                  <WorkoutTableRow workout={workout} index={index} />
+                  <WorkoutTableRow workout={workout} index={index} thirdVal={workout.count} />
                 </tr>
               )
             })}

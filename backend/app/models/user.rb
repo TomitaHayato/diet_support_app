@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
       .joins(:workout)
       .where.not(workout_id: nil)
       .group(:workout_id)
-      .select("workouts.id, workouts.name, COUNT(*) AS count, SUM(workout_time) as total_time")
+      .select("workouts.id, workouts.name, workouts.mets, COUNT(*) AS count, SUM(workout_time) as total_time")
       .order(total_time: :desc)
   end
 
