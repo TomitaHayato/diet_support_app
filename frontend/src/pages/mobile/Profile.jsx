@@ -42,7 +42,7 @@ function Profile() {
         <TopPageLink />
       </div>
       {/* ユーザーのプロフィール情報 */}
-      <div className="bg-base-200 p-5 mx-8 mb-8">
+      <div className="border border-info shadow-lg rounded-lg p-5 mx-8 mb-8">
         <UserZone />
       </div>
 
@@ -51,8 +51,8 @@ function Profile() {
       <div className="border border-info shadow-lg rounded-lg p-5 mb-8">
         <h3 className="text-center font-semibold mb-5">お気に入りのWokrout ({likedCount})</h3>
 
-        <div className="text-xs md:text-base max-h-80 overflow-y-auto overscroll-y-auto pt-4 pb-16">
-          <WorkoutTable row={' '}>
+        <div className="text-xs md:text-base max-h-80 overflow-y-auto overscroll-y-auto pb-16">
+          <WorkoutTable>
             {workoutObjs.filter((workout) => likedWorkoutIds.includes(workout.id)).map((workout, index) => {
               return (
                 <tr key={`liked-workout-${workout.id}`} className="hover:bg-base-200">
@@ -73,7 +73,7 @@ function Profile() {
             {historyWorkouts.map((workout, index) => {
               return(
                 <tr key={`history-${workout.name}`} className="hover:bg-base-200">
-                  <WorkoutTableRow workout={workout} index={index} thirdVal={workout.count} />
+                  <WorkoutTableRow workout={workout} index={index} thirdVal={workout.count} likeBtn={true}/>
                 </tr>
               )
             })}
