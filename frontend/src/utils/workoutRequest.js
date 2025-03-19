@@ -10,6 +10,15 @@ export function workoutRequest(paramsInfo) {
   )
 }
 
+export function workoutShowRequest(id, params) {
+  return (
+    client.get(`/workouts/${id}`, {
+      params,
+      headers: authTokensInCookie(),
+    })
+  )
+}
+
 export function workoutsIdNamesRequest() {
   return (
     client.get("/workout_names", {

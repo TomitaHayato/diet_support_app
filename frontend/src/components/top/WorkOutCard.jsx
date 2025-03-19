@@ -6,13 +6,6 @@ function WorkoutCard(props) {
 
   const navi = useNavigate();
 
-  // Workoutページに遷移
-  function moveWorkoutPage() {
-    navi(`/workout/${workout.id}`, {
-      state: { workout, }
-    });
-  }
-
   return (
     <>
       <div className="card border border-gray-400 h-full shadow-xl text-xs">
@@ -49,7 +42,9 @@ function WorkoutCard(props) {
 
             {/* ボタン */}
             <div className="card-actions justify-end">
-              <button className="btn btn-sm lg:btn-md btn-primary font-bold w-full" onClick={moveWorkoutPage}>Workout!</button>
+              <button className="btn btn-sm lg:btn-md btn-primary font-bold w-full" onClick={() => {
+                navi(`/workout/${workout.id}`);
+              }}>Workout!</button>
             </div>
           </div>
         </div>
