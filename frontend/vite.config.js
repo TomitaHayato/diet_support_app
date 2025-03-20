@@ -9,6 +9,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      includeAssets: ['icon.png'],
       manifest: {
         name: 'Calorie Work',
         short_name: 'Calorie Work',
