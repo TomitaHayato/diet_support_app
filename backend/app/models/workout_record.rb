@@ -33,7 +33,7 @@ class WorkoutRecord < ApplicationRecord
       total_intaked_calories: 0
     }
 
-    return dammy_data if count == 0
+    return dammy_data if where(created_at: Time.current.all_day).count == 0
 
     where(created_at: Time.current.all_day)
       .select("
