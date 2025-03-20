@@ -23,7 +23,8 @@
     "react-hook-form": "^7.54.2",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.2",
-    "recharts": "^2.15.0"
+    "recharts": "^2.15.0",
+    "vite-plugin-pwa": "^0.21.1"
   },
   "devDependencies": {
     "@egoist/tailwindcss-icons": "^1.8.2",

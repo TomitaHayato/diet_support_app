@@ -42,7 +42,7 @@ function App() {
       <div data-theme={theme} className="h-screen">
         <BrowserRouter>
           <div className="flex mx-auto h-full">
-            <div className="lg:w-3/4">
+            <div className="w-full lg:w-3/4">
               <div className="overflow-y-scroll lg:overscroll-none h-full">
                 <div className="fixed z-10 lg:static w-full">
                   <Header />
@@ -57,7 +57,7 @@ function App() {
                   </Routes>
                 </div>
 
-                <div className="mb-">
+                <div className="">
                   <Footer/>
                 </div>
 
@@ -68,7 +68,7 @@ function App() {
             </div>
 
             {/* サイドメニュー */}
-            <div className="hidden lg:block border-l border-gray-500 py-16 w-1/4 overflow-y-scroll overscroll-none px-2">
+            <div className="hidden lg:block border-l border-gray-500 py-16 w-1/4 overflow-y-scroll overscroll-none px-4">
               <SideMenu />
             </div>
           </div>

@@ -18,7 +18,6 @@ describe('コンポーネント: TodayData.jsxのテスト', () => {
             todayData: {
             totalTime: 0,
             totalBurnedCalories: 0,
-            totalUnburnedCalories: 0,
             totalIntakedCalories: 0,
           },
           weeklyData:  [],

@@ -17,18 +17,20 @@ class Workout < ApplicationRecord
   def self.workouts_data(weight:, kcal_intake:)
     all_workouts = order(mets: :desc).includes(:tags)
 
-    data_list = all_workouts.map do |workout|
-      {
-        id:                     workout.id,
-        name:                   workout.name,
-        burned_kcal_per_min:    workout.burned_kcal_per_min(weight),
-        burned_kcal_per_sec:    workout.burned_kcal_per_sec(weight),
-        required_exercise_time: workout.required_exercise_time(weight:, kcal_intake:),
-        tag_list:               workout.tags.pluck(:name)
-      }
+    all_workouts.map do |workout|
+      workout.make_workout_data(weight, kcal_intake)
     end
+  end
 
-    data_list
+  def make_workout_data(weight, kcal_intake)
+    {
+      id:,
+      name:,
+      burned_kcal_per_min: burned_kcal_per_min(weight),
+      burned_kcal_per_sec: burned_kcal_per_sec(weight),
+      required_exercise_time: required_exercise_time(weight:, kcal_intake:),
+      tag_list: tags.pluck(:name)
+    }
   end
 
   # [消費kcal/hour] = mets x 体重kg x 1.05 (厚生労働省)

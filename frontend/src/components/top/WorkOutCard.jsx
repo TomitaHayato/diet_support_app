@@ -6,13 +6,6 @@ function WorkoutCard(props) {
 
   const navi = useNavigate();
 
-  // Workoutページに遷移
-  function moveWorkoutPage() {
-    navi(`/workout/${workout.id}`, {
-      state: { workout, }
-    });
-  }
-
   return (
     <>
       <div className="card border border-gray-400 h-full shadow-xl text-xs">
@@ -20,7 +13,7 @@ function WorkoutCard(props) {
           <div>
             {/* タグ */}
             <div className="hidden lg:flex flex-wrap justify-end gap-[2px] mb-4">
-              {workout.tagList.map((tagName) => {
+              {workout.tagList?.map((tagName) => {
                 return (
                   <div key={`${workout.id}-${tagName}`}>
                     <p className="badge badge-sm text-[0.5rem] text-emerald-600 badge-outline">
@@ -33,12 +26,12 @@ function WorkoutCard(props) {
 
             <h3 className="font-bold md:text-base">{workout.name}</h3>
           </div>
-          
+
           <div className="">
             <div className="lg:text-sm mt-1 flex">
               <p className="mb-3">
                 目安：
-                <span className="text-info font-bold lg:text-base">{workout.requiredExerciseTime}</span>
+                <span className="text-info font-bold lg:text-base">{workout.requiredExerciseTime || 0}</span>
                 分
               </p>
 
@@ -49,7 +42,9 @@ function WorkoutCard(props) {
 
             {/* ボタン */}
             <div className="card-actions justify-end">
-              <button className="btn btn-sm lg:btn-md btn-primary font-bold w-full" onClick={moveWorkoutPage}>Workout!</button>
+              <button className="btn btn-sm lg:btn-md btn-primary font-bold w-full" onClick={() => {
+                navi(`/workout/${workout.id}`);
+              }}>Workout!</button>
             </div>
           </div>
         </div>

@@ -12,4 +12,23 @@ class WorkoutsController < ApplicationController
 
     render json: {workouts: workouts_data}
   end
+
+  def index_only_id_and_name
+    render json: { workouts: Workout.select(:id, :name, :mets) }
+  end
+
+  def show
+    workout = Workout.find(params[:id])
+    weight      = params[:weight]&.to_i
+    kcal_intake = params[:kcal_intake]&.to_i || 0
+
+    if !weight
+      render status: 422 # 体重データが送信されていない場合、422エラーを返す
+      return
+    end
+
+    workout_data = workout.make_workout_data(weight, kcal_intake)
+
+    render json: {workout: workout_data}
+  end
 end

@@ -3,12 +3,13 @@ import Big from 'big.js';
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 import { createWorkoutRecordThunk } from "../../Redux/Slice/workoutRecordsSlice";
+import { selectIntakedCalorie } from "../../Redux/Slice/intakedCalorieSlice";
 
 function WorkoutForm(props) {
   const {workout} = props;
   const dispatch = useDispatch();
-  const intakedCalorie = useSelector(state => state.intakedCalorie.value);
-  const currentUser = useSelector(selectCurrentUser);
+  const intakedCalorie = useSelector(selectIntakedCalorie);
+  const currentUser    = useSelector(selectCurrentUser);
 
   const [workoutTime     , setWorkoutTime     ] = useState(0);
   const [burnedCalories  , setBurnedCalories  ] = useState(0);
@@ -24,7 +25,7 @@ function WorkoutForm(props) {
     setUnburnedCalories(intakedCalorie - burnedKcal);
   }
 
-  const createWorkoutRecord = async(workoutTime, intakedCalorie, burnedCalories, unburnedCalories, workout) => {
+  const createWorkoutRecord = async(workoutTime, intakedCalorie, burnedCalories, workout) => {
     if(!workoutTime || workoutTime === 0) return;
 
     setSaveDisabled(true);
@@ -32,7 +33,6 @@ function WorkoutForm(props) {
       workoutTime:      workoutTime * 60,
       intakedCalories:  intakedCalorie,
       burnedCalories:   burnedCalories,
-      unburnedCalories: unburnedCalories,
       workout_id:       workout.id
     }
 
@@ -84,7 +84,7 @@ function WorkoutForm(props) {
             className="btn btn-wide btn-success rounded-xl btn-sm md:btn-md max-w-40 md:max-w-full"
             disabled={currentUser ? saveDisabled : true}
             aria-label="workout-form-submit"
-            onClick={() => createWorkoutRecord(workoutTime, intakedCalorie, burnedCalories, unburnedCalories, workout)}
+            onClick={() => createWorkoutRecord(workoutTime, intakedCalorie, burnedCalories, workout)}
           >保存</button>
           {currentUser ? null : 
             <p className="text-red-500 text-sm">＊ログイン後に保存できます</p>
@@ -96,9 +96,7 @@ function WorkoutForm(props) {
             <ul className="text-sm text-start">
               <li>・運動時間</li>
               <li>・消費カロリー</li>
-              <li>・未消費カロリー</li>
               <li>・摂取カロリー</li>
-              <li className="text-xs">(消費カロリー＋未消費カロリー)</li>
             </ul>
           </div>
       </div>

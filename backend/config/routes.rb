@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :get_sessions, only: %i[index]
   end
 
-  resources :workouts, only: %i[index], shallow: true do
+  resources :workouts, only: %i[index show], shallow: true do
     resources :user_workout_likes, only: %i[create destroy]
   end
 
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get  "workout_records_yearly"  => "workout_records#index_yearly_data"
   get  "workout_records_monthly" => "workout_records#index_monthly_data"
   get  "workout_records_weekly"  => "workout_records#index_weekly_data"
-
+  get  "workout_names"          => "workouts#index_only_id_and_name"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

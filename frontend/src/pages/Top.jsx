@@ -13,7 +13,6 @@ import { selectWeight } from '../Redux/Slice/weightSlice';
 import { putDev } from '../utils/devTool';
 
 function Top() {
-
   const weight = useSelector(selectWeight);
   const intakedCalorie = useSelector(state => state.intakedCalorie.value);
 

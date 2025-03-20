@@ -14,11 +14,12 @@ export const getWorkoutRecordsThunk = createAsyncThunk(
       if(!res) return rejectWithValue('Error: データの取得に失敗しました。');
 
       const todayData   = res.data.todayData;
-      const weeklyData  = res.data.weeklyData
-      const monthlyData = res.data.monthlyData
-      const yearlyData  = res.data.yearlyData
+      const weeklyData  = res.data.weeklyData;
+      const monthlyData = res.data.monthlyData;
+      const yearlyData  = res.data.yearlyData;
+      const historyData = res.data.historyData;
 
-      return { todayData, weeklyData, monthlyData, yearlyData };
+      return { todayData, weeklyData, monthlyData, yearlyData, historyData };
     } catch(e) {
       putDev(e);
   }},
@@ -44,10 +45,11 @@ export const createWorkoutRecordThunk = createAsyncThunk(
       if(!res) return rejectWithValue('Error: データの取得に失敗しました');
 
       const todayData   = res.data.todayData;
-      const weeklyData  = res.data.weeklyData
-      const monthlyData = res.data.monthlyData
-      const yearlyData  = res.data.yearlyData
-      return { todayData, weeklyData, monthlyData, yearlyData };
+      const weeklyData  = res.data.weeklyData;
+      const monthlyData = res.data.monthlyData;
+      const yearlyData  = res.data.yearlyData;
+      const historyData = res.data.historyData;
+      return { todayData, weeklyData, monthlyData, yearlyData, historyData };
     } catch(e) {
       putDev(e);
     }
@@ -69,6 +71,7 @@ const initialState = {
   weeklyData:  [],
   monthlyData: [],
   yearlyData:  [],
+  historyData: [],
   status:     'idle',
   error:       null,
 }
@@ -91,6 +94,9 @@ const workoutRecordsSlice = createSlice({
         state.weeklyData  = action.payload.weeklyData;
         state.monthlyData = action.payload.monthlyData;
         state.yearlyData  = action.payload.yearlyData;
+        state.historyData = action.payload.historyData;
+        putDev('fulfilledのhistory')
+        putDev(action.payload.historyData)
       })
       .addCase(getWorkoutRecordsThunk.rejected, (state, action) => {
         state.status = 'failed';
@@ -108,6 +114,7 @@ const workoutRecordsSlice = createSlice({
         state.weeklyData  = action.payload.weeklyData;
         state.monthlyData = action.payload.monthlyData;
         state.yearlyData  = action.payload.yearlyData;
+        state.historyData = action.payload.historyData;
       })
       .addCase(createWorkoutRecordThunk.rejected, (state, action) => {
         state.status = 'failed';
@@ -120,6 +127,7 @@ export const selectTodayData   = state => state.workoutRecords.todayData;
 export const selectWeeklyData  = state => state.workoutRecords.weeklyData;
 export const selectMonthlyData = state => state.workoutRecords.monthlyData;
 export const selectYearlyData  = state => state.workoutRecords.yearlyData;
+export const selectHistoryData = state => state.workoutRecords.historyData;
 export const selectWorkoutRecordsStatus = state => state.workoutRecords.status;
 
 export const workoutRecordsReducer = workoutRecordsSlice.reducer;

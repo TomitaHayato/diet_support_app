@@ -21,6 +21,8 @@ const intakedCalorieSlice = createSlice({
   }
 })
 
+export const selectIntakedCalorie = state => state.intakedCalorie.value;
+
 export const { setCalorie, resetCalorie } = intakedCalorieSlice.actions;
 
 export const intakedCalorieReducer = intakedCalorieSlice.reducer;
