@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
       total_intaked_calories: 0
     }
 
-    users_data ? dammy_data : users_data
+    users_data ? users_data : dammy_data 
   end
 
   def get_complete_weekly_records(target_time)
