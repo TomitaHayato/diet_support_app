@@ -27,6 +27,14 @@ class WorkoutRecord < ApplicationRecord
 
   # その日のデータを取得
   def self.today_data
+    dammy_data = {
+      total_time: 0,
+      total_burned_calories: 0,
+      total_intaked_calories: 0
+    }
+
+    return dammy_data if size == 0
+
     where(created_at: Time.current.all_day)
       .select("
         SUM(workout_time)      as total_time,

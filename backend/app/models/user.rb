@@ -19,14 +19,7 @@ class User < ActiveRecord::Base
   end
 
   def get_today_record
-    users_data = workout_records.today_data
-    dammy_data = {
-      total_time: 0,
-      total_burned_calories: 0,
-      total_intaked_calories: 0
-    }
-
-    users_data ? users_data : dammy_data 
+    workout_records.today_data
   end
 
   def get_complete_weekly_records(target_time)
