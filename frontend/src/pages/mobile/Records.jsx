@@ -21,8 +21,8 @@ function Records() {
 
       {/* これまでのデータのチャート */}
       <div className="w-11/12 mx-auto ">
-        <h3 className="text-center text-gray-500 font-semibold mb-3">期間ごとのデータ</h3>
-        <DataCharts />
+        <h3 className="text-center text-gray-500 font-semibold mb-3 text-lg">期間ごとのデータ</h3>
+        <DataCharts tabName={'records'} />
       </div>
     </div>
   )
