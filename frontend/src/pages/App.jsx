@@ -31,7 +31,6 @@ function App() {
   // ログイン・ユーザー更新時の処理
   useEffect(() => {
     if(currentUser) {
-      // requestWorkoutRecords();                 // 運動データを取得
       dispatch(getWorkoutRecordsThunk());
       dispatch(setWeight(currentUser.weight)); // weightにログインユーザの体重をセット
     }

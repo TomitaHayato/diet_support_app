@@ -1,10 +1,11 @@
-import { useSelector } from "react-redux";
-import { selectYearlyData } from "../../../../Redux/Slice/workoutRecordsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getYearlyDataThunk, selectYearlyData } from "../../../../Redux/Slice/workoutRecordsSlice";
 import ChartBlocks from "./ChartBlocks";
 import { useState } from "react";
 import dayjs from "dayjs";
 
 function BarChartYear() {
+  const dispatch   = useDispatch();
   const yearlyData = useSelector(selectYearlyData);
   const [yearsAgo  , setYearsAgo  ] = useState(0);
   const [targetDate, setTargetDate] = useState(dayjs());
@@ -12,16 +13,19 @@ function BarChartYear() {
   function decrementYear() {
     setYearsAgo(prev => ++prev);
     setTargetDate(prev => prev.subtract(1, 'year'));
+    dispatch(getYearlyDataThunk(yearsAgo + 1));
   }
 
   function incrementYear() {
     setYearsAgo(prev => --prev);
     setTargetDate(prev => prev.add(1, 'year'));
+    dispatch(getYearlyDataThunk(yearsAgo - 1));
   }
 
   function resetYear() {
     setYearsAgo(0);
     setTargetDate(dayjs());
+    dispatch(getYearlyDataThunk(0));
   }
 
   return (

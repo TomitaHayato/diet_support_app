@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
-import { selectMonthlyData } from "../../../../Redux/Slice/workoutRecordsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getMonthlyDataThunk, selectMonthlyData } from "../../../../Redux/Slice/workoutRecordsSlice";
 import ChartBlocks from "./ChartBlocks";
 import { useState } from "react";
 import dayjs from "dayjs";
@@ -9,20 +9,24 @@ function BarChartMonth() {
   // 何ヶ月前のデータを表示するか(1 なら 1ヶ月前)
   const [monthAgo  , setMonthAgo  ] = useState(0);
   const [targetDate, setTargetDate] = useState(dayjs());
+  const dispatch = useDispatch();
 
   function decrementMonth() {
     setMonthAgo(prev => ++prev);
     setTargetDate(prev => prev.subtract(1, 'month'));
+    dispatch(getMonthlyDataThunk(monthAgo + 1));
   }
 
   function incrementMonth() {
     setMonthAgo(prev => --prev);
     setTargetDate(prev => prev.add(1, 'month'));
+    dispatch(getMonthlyDataThunk(monthAgo - 1));
   }
 
   function resetMonth() {
     setMonthAgo(0);
     setTargetDate(dayjs());
+    dispatch(getMonthlyDataThunk(0));
   }
 
   return (
