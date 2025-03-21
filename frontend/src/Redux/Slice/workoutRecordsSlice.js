@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { putDev } from "../../utils/devTool";
-import { getMonthlyData, getWorkoutRecords, getYearlyData, postWorkoutRecord } from "../../utils/workoutRecordRequest";
+import { getMonthlyData, getWeeklyData, getWorkoutRecords, getYearlyData, postWorkoutRecord } from "../../utils/workoutRecordRequest";
 
 // レコードデータをapiから取得
 export const getWorkoutRecordsThunk = createAsyncThunk(
@@ -94,7 +94,7 @@ export const getMonthlyDataThunk = createAsyncThunk('workoutRecords/getMonthlyDa
 export const getWeeklyDataThunk = createAsyncThunk('workoutRecords/getWeeklyDataThunk',
   async(weeksAgo, {rejectWithValue}) => {
     try{
-      const res = await getMonthlyData(weeksAgo);
+      const res = await getWeeklyData(weeksAgo);
       putDev("getWeeklyDataのres")
       putDev(res);
       if(!res.ok) rejectWithValue('Error: データの取得に失敗しました。');
