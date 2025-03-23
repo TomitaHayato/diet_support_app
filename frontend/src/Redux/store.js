@@ -4,8 +4,10 @@ import { intakedCalorieReducer } from "./Slice/intakedCalorieSlice";
 import { weightReducer } from "./Slice/weightSlice";
 import { currentUserReducer } from "./Slice/currentUserSlice";
 import { workoutRecordsReducer } from "./Slice/workoutRecordsSlice";
+import { csrfTokenReducer } from "./Slice/csrfTokenSlice";
 
 const rootReducer = combineReducers({
+  csrfToken:      csrfTokenReducer,
   theme:          themeReducer,
   intakedCalorie: intakedCalorieReducer,
   weight:         weightReducer,
