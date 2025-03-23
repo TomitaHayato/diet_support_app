@@ -13,7 +13,8 @@ Rails.application.routes.draw do
     resources :user_workout_likes, only: %i[create destroy]
   end
 
-  resources :users, only: %i[update]
+  resources :users     , only: %i[update]
+  resources :csrf_token, only: %i[index]
 
   post "workout_records"         => "workout_records#create"
   get  "workout_records"         => "workout_records#index"
