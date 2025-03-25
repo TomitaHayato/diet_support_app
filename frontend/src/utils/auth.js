@@ -7,7 +7,6 @@ export function signUp(params) {
 }
 
 export function signIn(params, token) {
-  console.log(token)
   return client.post("/auth/sign_in", params, {
     headers: {'X-CSRF-Token': token},
     withCredentials: true,
@@ -31,12 +30,14 @@ export function getUser() {
   });
 }
 
-export function logout() {
-  // tokenがない場合は何もしない
+// 422エラーになる
+export function logout(token) {
+  // 認証tokenがない場合は何もしない
   if(!isAccessTokenInCookie()) return;
 
   return client.delete("/auth/sign_out", {
-    headers: authTokensInCookie()
+    headers: {...authTokensInCookie(), 'X-CSRF-Token': token},
+    withCredentials: true,
   })
 }
 

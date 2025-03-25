@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "../../../../Redux/Slice/currentUserSlice";
 import { putDev } from "../../../../utils/devTool";
+import { selectCsrfToken } from "../../../../Redux/Slice/csrfTokenSlice";
 
 function LoginForm() {
   const dispatch = useDispatch();
+  const token = useSelector(selectCsrfToken); // CSRFトークンを取得
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -13,7 +15,7 @@ function LoginForm() {
 
   const login = async(params) => {
     try {
-      dispatch(loginThunk(params));
+      dispatch(loginThunk({params, token}));
       setLoginError(null);
     } catch(error) {
       putDev('login');

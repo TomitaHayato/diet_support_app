@@ -43,10 +43,12 @@ export const fetchUserThunk = createAsyncThunk(
 // ログイン処理
 export const loginThunk = createAsyncThunk(
   'currentUser/loginThunk',
-  async(params, {rejectWithValue}) => {
+  async({params, token}, {rejectWithValue}) => {
     try {
       // loginリクエスト
-      const res = await signIn(params);
+      console.log(token)
+      console.log(params)
+      const res = await signIn(params, token);
       if(!res) return;
       // 認証TokenをCookieに保存
       settingAuthTokenToCookie(res);
@@ -83,17 +85,17 @@ export const loginThunk = createAsyncThunk(
 // ログアウト処理
 export const logoutThunk = createAsyncThunk(
   'currentUser/logoutThunk',
-  async(_unused, {rejectWithValue}) => {
+  async(token, {rejectWithValue}) => {
     try {
       // logoutリクエスト
-      await logout();
+      await logout(token);
       // CookieのToken削除
       removeAuthToken();
       return;
     } catch(e) {
-      putDev('looutThunkのerror')
+      putDev('looutThunkのerror');
+      putDev(e);
       const errorData = e.request?.data || e.message || e // axiosはe.request.dataまたはe.messageにエラー詳細を返す
-      putDev(errorData);
       return rejectWithValue(errorData);
     }
   },

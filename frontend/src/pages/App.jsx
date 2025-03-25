@@ -15,12 +15,17 @@ import Profile from "./mobile/Profile";
 import Footer from "../components/general/footer/Footer";
 import Terms from "../components/general/Terms";
 import Policy from "../components/general/Policy";
+import { getCsrfTokenThunk } from "../Redux/Slice/csrfTokenSlice";
 
 function App() {
   const dispatch = useDispatch();
 
   const theme = useSelector(state => state.theme.name);
   const currentUser = useSelector(selectCurrentUser);
+
+  useEffect(() => {
+    dispatch(getCsrfTokenThunk());
+  }, [])
 
   // 認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
