@@ -2,8 +2,11 @@ import client from "./apiClient";
 import Cookies from "js-cookie";
 
 // 認証関連の機能
-export function signUp(params) {
-  return client.post("/auth", params);
+export function signUp(params, token) {
+  return client.post("/auth", params, {
+    withCredentials: true,
+    headers: {"X-CSRF-Token": token}
+  });
 }
 
 export function signIn(params, token) {

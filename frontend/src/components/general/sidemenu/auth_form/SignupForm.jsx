@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signupThunk } from "../../../../Redux/Slice/currentUserSlice";
 import { putDev } from "../../../../utils/devTool";
+import { selectCsrfToken } from "../../../../Redux/Slice/csrfTokenSlice";
 
 export default function SignupForm() {
   const dispatch = useDispatch();
-  const [signupError, setSignupError] = useState(null);
+  const csrfToken = useSelector(selectCsrfToken);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [signupError, setSignupError] = useState(null);
 
   const registerReq = async (params) => {
     try {
-      dispatch(signupThunk(params));
+      dispatch(signupThunk({params, csrfToken}));
     } catch(error) {
       putDev(error);
       setSignupError('新規登録に失敗しました');

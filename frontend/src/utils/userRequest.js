@@ -5,7 +5,7 @@ import { putDev } from "./devTool";
 
 //User情報を更新
 // params = {:id, :name, :email, :weight}
-export function updateUser(params) {
+export function updateUser(params, csrfToken) {
   //tokenがない場合は何もしない
   if(!isAccessTokenInCookie()) {
     putDev("ログインが必要です");
@@ -15,6 +15,9 @@ export function updateUser(params) {
   return client.patch(
     `/users/${params.id}`,
     params,
-    { headers: authTokensInCookie()}
+    {
+      headers: {...authTokensInCookie(), "X-CSRF-Token": csrfToken},
+      withCredentials: true,
+    }
   );
 }

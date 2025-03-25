@@ -114,13 +114,13 @@ export const logoutThunk = createAsyncThunk(
 // 新規登録処理
 export const signupThunk = createAsyncThunk(
   'currentUser/signupThunk',
-  async(params, rejectWithValue) => {
+  async({params, csrfToken}, rejectWithValue) => {
     try {
       putDev('signupのparams')
       putDev(params)
 
       // ユーザー作成
-      const res = await signUp(params);
+      const res = await signUp(params, csrfToken);
       putDev('signUp');
       putDev(res);
 
@@ -158,13 +158,13 @@ export const signupThunk = createAsyncThunk(
 // ユーザープロフィール更新処理
 export const updateUserThunk = createAsyncThunk(
   'currentUser/updateUserThunk',
-  async(params, {rejectWithValue}) => {
+  async({params, csrfToken}, {rejectWithValue}) => {
     try{
       putDev('updateUserのparams')
       putDev(params)
 
       // 更新処理
-      await updateUser(params);
+      await updateUser(params, csrfToken);
 
       // ログインユーザーの情報を取得
       const resUser = await getUser();

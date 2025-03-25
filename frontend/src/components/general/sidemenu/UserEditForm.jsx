@@ -3,10 +3,13 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser, updateUserThunk } from "../../../Redux/Slice/currentUserSlice";
 import { putDev } from "../../../utils/devTool";
+import { selectCsrfToken } from "../../../Redux/Slice/csrfTokenSlice";
 
 function UserEditForm(props) {
   const {setEditMode} = props;
   const currentUser = useSelector(selectCurrentUser);
+  const csrfToken   = useSelector(selectCsrfToken);
+
   const dispatch = useDispatch();
 
   const [errorUser, setErrorUser] = useState(null);
@@ -16,7 +19,7 @@ function UserEditForm(props) {
   // ユーザ情報の更新処理
   const requestUsersUpdate = async(params) => {
     try {
-      dispatch(updateUserThunk(params))
+      dispatch(updateUserThunk({params, csrfToken}))
       setEditMode(false);
       setErrorUser(null);
     } catch(error) {
