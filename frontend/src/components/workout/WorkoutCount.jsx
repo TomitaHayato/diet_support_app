@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 import { createWorkoutRecordThunk } from "../../Redux/Slice/workoutRecordsSlice";
 import { selectIntakedCalorie } from "../../Redux/Slice/intakedCalorieSlice";
+import { selectCsrfToken } from "../../Redux/Slice/csrfTokenSlice";
 
 function WorkoutCount(props) {
   const {workout} = props;
@@ -17,6 +18,7 @@ function WorkoutCount(props) {
 
   const intakedCalorie = useSelector(selectIntakedCalorie);
   const currentUser    = useSelector(selectCurrentUser);
+  const csrfToken      = useSelector(selectCsrfToken);
 
   const [unburnedCalorie, setUnburnedCalorie] = useState(intakedCalorie);
   const [burnedCalorie  , setBurnedCalorie  ] = useState(0);
@@ -47,7 +49,7 @@ function WorkoutCount(props) {
     };
 
     // 記録をサーバに送信
-    dispatch(createWorkoutRecordThunk(params))
+    dispatch(createWorkoutRecordThunk({params, csrfToken}))
     // 消費/未消費カロリーと運動時間を0にする
     setWorkoutSeconds(0);
     setBurnedCalorie(0);

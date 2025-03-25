@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addLikedWorkoutIdsThunk, removeLikedWorkoutIdsThunk, selectCurrentUser, selectLikedWorkoutIds } from "../../Redux/Slice/currentUserSlice";
+import { selectCsrfToken } from "../../Redux/Slice/csrfTokenSlice";
 
 function LikeWorkoutBtn(props) {
   const {workout} = props;
@@ -8,6 +9,7 @@ function LikeWorkoutBtn(props) {
 
   const likedWorkoutIds = useSelector(selectLikedWorkoutIds);
   const currentUser = useSelector(selectCurrentUser);
+  const csrfToken = useSelector(selectCsrfToken)
 
   const [isLiked, setIsLiked] = useState(false);
 
@@ -19,10 +21,10 @@ function LikeWorkoutBtn(props) {
   const likeRequest = async(workout) => {
     if(isLiked) {
       // DELETEリクエスト送信
-      dispatch(removeLikedWorkoutIdsThunk(workout))
+      dispatch(removeLikedWorkoutIdsThunk({workout, csrfToken}))
     } else {
       // POSTリクエスト送信
-      dispatch(addLikedWorkoutIdsThunk(workout))
+      dispatch(addLikedWorkoutIdsThunk({workout, csrfToken}))
     }
   }
 

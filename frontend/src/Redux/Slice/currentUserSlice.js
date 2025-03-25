@@ -195,9 +195,9 @@ export const updateUserThunk = createAsyncThunk(
 // Workoutお気に入り登録処理
 export const addLikedWorkoutIdsThunk = createAsyncThunk(
   'currentUser/addLikedWorkoutIds',
-  async(workout, {rejectWithValue}) => {
+  async({workout, csrfToken}, {rejectWithValue}) => {
     try{
-      const res = await addWorkoutLiked(workout);
+      const res = await addWorkoutLiked(workout, csrfToken);
       putDev('addWorkoutLiked')
       putDev(res);
 
@@ -225,9 +225,9 @@ export const addLikedWorkoutIdsThunk = createAsyncThunk(
 
 export const removeLikedWorkoutIdsThunk = createAsyncThunk(
   'currentUser/removeLikedWorkoutId',
-  async(workout, {rejectWithValue}) => {
+  async({workout, csrfToken}, {rejectWithValue}) => {
     try{
-      const res = await removeWorkoutLiked(workout);
+      const res = await removeWorkoutLiked(workout, csrfToken);
 
       putDev('removeWorkoutLiked')
       putDev(res);
