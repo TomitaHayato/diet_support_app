@@ -23,9 +23,6 @@ function App() {
   const theme = useSelector(state => state.theme.name);
   const currentUser = useSelector(selectCurrentUser);
 
-  useEffect(() => {
-    dispatch(getCsrfTokenThunk());
-  }, [])
 
   // 認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
@@ -35,6 +32,7 @@ function App() {
 
   // ログイン・ユーザー更新時の処理
   useEffect(() => {
+    dispatch(getCsrfTokenThunk()); // CSRF tokenを更新
     if(currentUser) {
       dispatch(getWorkoutRecordsThunk());
       dispatch(setWeight(currentUser.weight)); // weightにログインユーザの体重をセット
