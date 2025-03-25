@@ -5,9 +5,7 @@ Rails.application.routes.draw do
     sessions: 'auth/sessions'
   }
 
-  namespace :auth do
-    resources :get_sessions, only: %i[index]
-  end
+  resources :get_sessions, only: %i[index]
 
   resources :workouts, only: %i[index show], shallow: true do
     resources :user_workout_likes, only: %i[create destroy]

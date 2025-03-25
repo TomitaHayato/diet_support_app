@@ -6,8 +6,12 @@ export function signUp(params) {
   return client.post("/auth", params);
 }
 
-export function signIn(params) {
-  return client.post("/auth/sign_in", params)
+export function signIn(params, token) {
+  console.log(token)
+  return client.post("/auth/sign_in", params, {
+    headers: {'X-CSRF-Token': token},
+    withCredentials: true,
+  })
 }
 
 export function settingAuthTokenToCookie(res) {
@@ -21,8 +25,9 @@ export function getUser() {
   //tokenがない場合は何もしない
   if(!isAccessTokenInCookie()) return;
 
-  return client.get("/auth/get_sessions", {
+  return client.get("/get_sessions", {
     headers: authTokensInCookie(),
+    withCredentials: true,
   });
 }
 
