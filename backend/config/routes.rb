@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   # devise_token_authによる認証用のルーティング
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
     registrations: 'auth/registrations',
-    sessions: 'auth/sessions'
+    sessions: 'auth/sessions',
+    omniauth_callbacks: 'auth/omniauth_callbacks'
   }
 
   resources :get_sessions, only: %i[index]
