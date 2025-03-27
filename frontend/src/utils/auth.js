@@ -22,6 +22,17 @@ export function settingAuthTokenToCookie(res) {
   Cookies.set("_uid"         , res.headers["uid"]);
 }
 
+// postMessageのevent.dataから認証トークンを取得
+export function settingAuthTokenFromMessage(data) {
+  if(!data.uid || !data.auth_token || !data.client_id) return false;
+  
+  Cookies.set("_access_token", data.auth_token);
+  Cookies.set("_client"      , data.client_id);
+  Cookies.set("_uid"         , data.uid);
+
+  return true;
+}
+
 // ログインユーザの情報取得（取得データの形式: { currentUser: Obj, likedList: Array }）
 export function getUser() {
   //tokenがない場合は何もしない

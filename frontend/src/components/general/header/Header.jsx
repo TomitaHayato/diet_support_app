@@ -1,12 +1,44 @@
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../../Redux/Slice/currentUserSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserThunk, selectCurrentUser } from "../../../Redux/Slice/currentUserSlice";
 import LogoutBtn from "./LogoutBtn";
 import LoginBtn from "./LoginBtn";
 import ThemeChangeBtn from "../sidemenu/ThemeChangeBtn";
 import HowToUse from "./HowtoUse";
+import { putDev } from "../../../utils/devTool";
+import { settingAuthTokenFromMessage } from "../../../utils/auth";
 
 function Header() {
   const currentUser = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
+
+  // Googleログイン処理のリクエストを送信
+  const googleAuth = async() => {
+    if(currentUser) return;
+    // await client.post('/auth/developer', {}, {
+    //   withCredentials: true,
+    //   headers: {'X-CSRF-Token': token},
+    // });
+    const popup = window.open(`${import.meta.env.VITE_RAILS_API_DOMEIN}/auth/developer?omniauth_window_type=newWindow`);
+
+    const sendMessage = setInterval(() => {
+      if(popup && !popup.closed) {
+        popup.postMessage('requestCredentials', '*');
+      } else {
+        clearInterval(sendMessage);
+      }
+    }, 500);
+  }
+
+  // 認証Tokenを受け取る
+  window.addEventListener('message', (e) => {
+    if(currentUser) return;
+    if (e.origin !== 'http://localhost:3000') return;
+
+    putDev(e.data);
+
+    settingAuthTokenFromMessage(e.data) &&
+      dispatch(fetchUserThunk())
+  })
 
   function hundleClick(){
     document.getElementById('how-to-use-content').showModal();
@@ -20,7 +52,9 @@ function Header() {
         </span>
 
         {/* mobileコンテンツ */}
-        <span className="lg:hidden col-span-2 order-2"></span>
+        <span className="lg:hidden col-span-2 order-2">
+          {currentUser ? null : <button className="btn btn-sm max-w-full" onClick={googleAuth}>Google</button>}
+        </span>
 
         <div className="lg:hidden col-span-5 order-4 flex justify-center gap-4">
           <div className="lg:hidden flex items-center justify-end">
