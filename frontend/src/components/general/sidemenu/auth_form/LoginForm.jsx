@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { loginThunk } from "../../../../Redux/Slice/currentUserSlice";
+import { fetchUserThunk, loginThunk, selectCurrentUser } from "../../../../Redux/Slice/currentUserSlice";
 import { putDev } from "../../../../utils/devTool";
 import { selectCsrfToken } from "../../../../Redux/Slice/csrfTokenSlice";
+import { settingAuthTokenFromMessage } from "../../../../utils/auth";
 
 function LoginForm() {
+  const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
   const token = useSelector(selectCsrfToken); // CSRFトークンを取得
 
@@ -23,6 +25,35 @@ function LoginForm() {
       setLoginError('ログインできませんでした。');
     }
   }
+
+    // Googleログイン処理のリクエストを送信
+    const googleAuth = async() => {
+      if(currentUser) return;
+      // await client.post('/auth/developer', {}, {
+      //   withCredentials: true,
+      //   headers: {'X-CSRF-Token': token},
+      // });
+      const popup = window.open(`${import.meta.env.VITE_RAILS_API_DOMEIN}/auth/developer?omniauth_window_type=newWindow`);
+  
+      const sendMessage = setInterval(() => {
+        if(popup && !popup.closed) {
+          popup.postMessage('requestCredentials', '*');
+        } else {
+          clearInterval(sendMessage);
+        }
+      }, 500);
+    }
+  
+    // 認証Tokenを受け取る
+    window.addEventListener('message', (e) => {
+      if(currentUser) return;
+      if (e.origin !== 'http://localhost:3000') return;
+  
+      putDev(e.data);
+  
+      settingAuthTokenFromMessage(e.data) &&
+        dispatch(fetchUserThunk())
+    })
 
   return (
     <>
@@ -51,6 +82,10 @@ function LoginForm() {
 
         <input type="submit" className="btn btn-sm btn-outline btn-primary w-full" value="ログイン" />
       </form>
+      
+      <div className="mt-3">
+        <button className="btn btn-sm btn-outline w-full" onClick={googleAuth}>Google Login</button>
+      </div>
     </>
   )
 }
