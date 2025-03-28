@@ -21,7 +21,7 @@ function LogoutForm() {
 
   return (
     <>
-      <p className="text-lg text-center mb-2">ログアウト</p>
+      <p className="font-semibold text-gray-500 text-center mb-2">ログアウト</p>
 
       {logoutError && <p className="text-red-500 text-lg" role="error-message" aria-label="logout-error">{logoutError}</p>}
 

@@ -9,7 +9,7 @@ function UserInfo(props) {
     <>
       <div className="text-center">
         <div className="flex justify-center gap-3 mb-2">
-          <p className="text-lg">プロフィール</p>
+          <p className="font-semibold text-gray-500">プロフィール</p>
           <button aria-label="edit-mode-btn" onClick={() => setEditMode(true)}>
             <i className="i-uiw-edit hover:scale-110 hover:bg-white active:scale-95" />
           </button>

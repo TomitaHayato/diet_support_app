@@ -33,7 +33,7 @@ function UserEditForm(props) {
     <>
       <div className="text-center">
         <div className="flex justify-center gap-3 mb-2">
-          <p className="text-lg">プロフィール編集</p>
+          <p className="font-semibold text-gray-500">プロフィール編集</p>
           <button aria-label="info-mode-btn" onClick={() => setEditMode(false)}>
             <i className="i-uiw-close hover:scale-110 hover:bg-red-500 active:scale-95" />
           </button>
