@@ -16,6 +16,7 @@ import Footer from "../components/general/footer/Footer";
 import Terms from "../components/general/Terms";
 import Policy from "../components/general/Policy";
 import { getCsrfTokenThunk } from "../Redux/Slice/csrfTokenSlice";
+import PolicyPage from "./PolicyPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ function App() {
                     <Route path="/workout/:id" element={<Workout />} />
                     <Route path="/records"     element={<Records />} />
                     <Route path="/profile"     element={<Profile />} />
+                    <Route path="/policy"      element={<PolicyPage />} />
                   </Routes>
                 </div>
 
