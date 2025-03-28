@@ -11,7 +11,7 @@ import { isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecordsThunk } from "../Redux/Slice/workoutRecordsSlice";
 import FooterMenu from "../components/general/footer/FooterMenu";
 import Records from "./mobile/Records";
-import Profile from "./mobile/Profile";
+import Profile from "./Profile";
 import Footer from "../components/general/footer/Footer";
 import Terms from "../components/general/Terms";
 import Policy from "../components/general/Policy";

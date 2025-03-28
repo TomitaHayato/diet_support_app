@@ -16,7 +16,7 @@ function Header() {
   }
 
   function hundleClickLogo() {
-    if(location.path === '/') return;
+    if(location.pathname === '/') return;
     navi('/');
   }
 
