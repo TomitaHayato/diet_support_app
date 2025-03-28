@@ -14,6 +14,7 @@ import { workoutShowRequest } from "../utils/workoutRequest";
 import { useSelector } from "react-redux";
 import { selectWeight } from "../Redux/Slice/weightSlice";
 import { selectIntakedCalorie } from "../Redux/Slice/intakedCalorieSlice";
+import LikeWorkoutBtn from "../components/general/LikeWorkoutBtn";
 
 function Workout() {
   const urlParams = useParams();
@@ -49,7 +50,11 @@ function Workout() {
 
       <div className="text-center">
         <div className="mb-5">
-          <h1 className="text-2xl lg:text-4xl font-bold mb-3">{workout.name}</h1>
+          <div className="flex gap-4 mb-3 mx-auto justify-center items-center px-4">
+            <h1 className="text-xl lg:text-3xl font-bold">{workout.name}</h1>
+            <LikeWorkoutBtn workout={workout}/>
+          </div>
+
           <h3 className="text-center lg:text-lg">
             摂取カロリー:
             <span className="text-xl md:text-4xl text-success font-semibold px-2">{intakedCalorie}</span>
