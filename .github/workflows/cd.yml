@@ -76,7 +76,7 @@ jobs:
           git pull origin main && \
           cd ./backend && \
           bundle install && \
-          RAILS_ENV=production rails db:migrate && \
+          RAILS_ENV=production RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }} rails db:migrate && \
           sudo systemctl restart puma"
 
           aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_EC2_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
