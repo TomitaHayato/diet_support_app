@@ -44,7 +44,7 @@ function LoginForm() {
     // 認証Tokenを受け取る
     window.addEventListener('message', (e) => {
       if(currentUser) return;
-      if (e.origin !== 'http://localhost:3000') return;
+      if (e.origin !== `${import.meta.env.VITE_RAILS_API_DOMEIN}`) return;
   
       putDev(e.data);
   
