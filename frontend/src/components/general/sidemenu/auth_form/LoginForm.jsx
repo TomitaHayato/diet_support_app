@@ -29,11 +29,8 @@ function LoginForm() {
     // Googleログイン処理のリクエストを送信
     const googleAuth = async() => {
       if(currentUser) return;
-      // await client.post('/auth/developer', {}, {
-      //   withCredentials: true,
-      //   headers: {'X-CSRF-Token': token},
-      // });
-      const popup = window.open(`${import.meta.env.VITE_RAILS_API_DOMEIN}/auth/developer?omniauth_window_type=newWindow`);
+  
+      const popup = window.open(`${import.meta.env.VITE_RAILS_API_DOMEIN}/auth/google_oauth2?omniauth_window_type=newWindow`);
   
       const sendMessage = setInterval(() => {
         if(popup && !popup.closed) {
@@ -84,7 +81,9 @@ function LoginForm() {
       </form>
       
       <div className="mt-3">
-        <button className="btn btn-sm btn-outline w-full" onClick={googleAuth}>Google Login</button>
+        <button className="w-full hover:scale-105 active:scale-95" onClick={googleAuth}>
+          <img src="/google_btn.png" className="block mx-auto max-w-full max-h-full" />
+        </button>
       </div>
     </>
   )
