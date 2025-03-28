@@ -119,9 +119,9 @@ export const getWeeklyDataThunk = createAsyncThunk('workoutRecords/getWeeklyData
 
 export const createWorkoutRecordThunk = createAsyncThunk(
   'workoutRecords/createWorkoutRecordThunk',
-  async(params, {rejectWithValue}) => {
+  async({params, csrfToken}, {rejectWithValue}) => {
     try{
-      const res = await postWorkoutRecord(params);
+      const res = await postWorkoutRecord(params, csrfToken);
       putDev('postWorkoutRecordのres');
       putDev(res);
       if(!res) return rejectWithValue('Error: データの取得に失敗しました');

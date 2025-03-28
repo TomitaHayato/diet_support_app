@@ -1,5 +1,5 @@
 # ログインユーザーの管理
-class Auth::GetSessionsController < ApplicationController
+class GetSessionsController < ApplicationController
   def index
     login_data = current_user ? 
       {current_user: current_user.get_profile, liked_workout_ids: current_user.workouts.ids} :

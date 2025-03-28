@@ -43,10 +43,12 @@ export const fetchUserThunk = createAsyncThunk(
 // ログイン処理
 export const loginThunk = createAsyncThunk(
   'currentUser/loginThunk',
-  async(params, {rejectWithValue}) => {
+  async({params, token}, {rejectWithValue}) => {
     try {
       // loginリクエスト
-      const res = await signIn(params);
+      console.log(token)
+      console.log(params)
+      const res = await signIn(params, token);
       if(!res) return;
       // 認証TokenをCookieに保存
       settingAuthTokenToCookie(res);
@@ -83,17 +85,17 @@ export const loginThunk = createAsyncThunk(
 // ログアウト処理
 export const logoutThunk = createAsyncThunk(
   'currentUser/logoutThunk',
-  async(_unused, {rejectWithValue}) => {
+  async(token, {rejectWithValue}) => {
     try {
       // logoutリクエスト
-      await logout();
+      await logout(token);
       // CookieのToken削除
       removeAuthToken();
       return;
     } catch(e) {
-      putDev('looutThunkのerror')
+      putDev('looutThunkのerror');
+      putDev(e);
       const errorData = e.request?.data || e.message || e // axiosはe.request.dataまたはe.messageにエラー詳細を返す
-      putDev(errorData);
       return rejectWithValue(errorData);
     }
   },
@@ -112,13 +114,13 @@ export const logoutThunk = createAsyncThunk(
 // 新規登録処理
 export const signupThunk = createAsyncThunk(
   'currentUser/signupThunk',
-  async(params, rejectWithValue) => {
+  async({params, csrfToken}, rejectWithValue) => {
     try {
       putDev('signupのparams')
       putDev(params)
 
       // ユーザー作成
-      const res = await signUp(params);
+      const res = await signUp(params, csrfToken);
       putDev('signUp');
       putDev(res);
 
@@ -156,13 +158,13 @@ export const signupThunk = createAsyncThunk(
 // ユーザープロフィール更新処理
 export const updateUserThunk = createAsyncThunk(
   'currentUser/updateUserThunk',
-  async(params, {rejectWithValue}) => {
+  async({params, csrfToken}, {rejectWithValue}) => {
     try{
       putDev('updateUserのparams')
       putDev(params)
 
       // 更新処理
-      await updateUser(params);
+      await updateUser(params, csrfToken);
 
       // ログインユーザーの情報を取得
       const resUser = await getUser();
@@ -193,9 +195,9 @@ export const updateUserThunk = createAsyncThunk(
 // Workoutお気に入り登録処理
 export const addLikedWorkoutIdsThunk = createAsyncThunk(
   'currentUser/addLikedWorkoutIds',
-  async(workout, {rejectWithValue}) => {
+  async({workout, csrfToken}, {rejectWithValue}) => {
     try{
-      const res = await addWorkoutLiked(workout);
+      const res = await addWorkoutLiked(workout, csrfToken);
       putDev('addWorkoutLiked')
       putDev(res);
 
@@ -223,9 +225,9 @@ export const addLikedWorkoutIdsThunk = createAsyncThunk(
 
 export const removeLikedWorkoutIdsThunk = createAsyncThunk(
   'currentUser/removeLikedWorkoutId',
-  async(workout, {rejectWithValue}) => {
+  async({workout, csrfToken}, {rejectWithValue}) => {
     try{
-      const res = await removeWorkoutLiked(workout);
+      const res = await removeWorkoutLiked(workout, csrfToken);
 
       putDev('removeWorkoutLiked')
       putDev(res);

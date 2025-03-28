@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { logoutThunk } from "../../../../Redux/Slice/currentUserSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { putDev } from "../../../../utils/devTool";
+import { selectCsrfToken } from "../../../../Redux/Slice/csrfTokenSlice";
 
 function LogoutForm() {
   const dispatch = useDispatch();
+  const token = useSelector(selectCsrfToken);
+
   const [logoutError, setLogoutError] = useState(null);
 
   const signOut = async () => {
     try {
-      dispatch(logoutThunk());
+      dispatch(logoutThunk(token));
     } catch(e) {
       putDev(e);
       setLogoutError('ログアウトに失敗しました')

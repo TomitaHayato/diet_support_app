@@ -1,13 +1,15 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutThunk } from "../../../Redux/Slice/currentUserSlice";
 import { putDev } from "../../../utils/devTool";
+import { selectCsrfToken } from "../../../Redux/Slice/csrfTokenSlice";
 
 export default function LogoutBtn() {
   const dispatch = useDispatch();
+  const token = useSelector(selectCsrfToken);
 
   const signOut = async () => {
     try {
-      dispatch(logoutThunk());
+      dispatch(logoutThunk(token));
     } catch(e) {
       putDev(e);
     }

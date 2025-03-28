@@ -15,12 +15,15 @@ import Profile from "./mobile/Profile";
 import Footer from "../components/general/footer/Footer";
 import Terms from "../components/general/Terms";
 import Policy from "../components/general/Policy";
+import { getCsrfTokenThunk } from "../Redux/Slice/csrfTokenSlice";
+import PolicyPage from "./PolicyPage";
 
 function App() {
   const dispatch = useDispatch();
 
   const theme = useSelector(state => state.theme.name);
   const currentUser = useSelector(selectCurrentUser);
+
 
   // 認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
@@ -30,6 +33,7 @@ function App() {
 
   // ログイン・ユーザー更新時の処理
   useEffect(() => {
+    dispatch(getCsrfTokenThunk()); // CSRF tokenを更新
     if(currentUser) {
       dispatch(getWorkoutRecordsThunk());
       dispatch(setWeight(currentUser.weight)); // weightにログインユーザの体重をセット
@@ -53,6 +57,7 @@ function App() {
                     <Route path="/workout/:id" element={<Workout />} />
                     <Route path="/records"     element={<Records />} />
                     <Route path="/profile"     element={<Profile />} />
+                    <Route path="/policy"      element={<PolicyPage />} />
                   </Routes>
                 </div>
 

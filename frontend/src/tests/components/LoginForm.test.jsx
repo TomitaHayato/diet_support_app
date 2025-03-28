@@ -90,7 +90,9 @@ describe('コンポーネント： LoginForm.jsxのテスト', () => {
     expect(screen.queryByRole('error')).not.toBeInTheDocument();
     // loginThunk(params)アクションがdispatchされる
     expect(useDispatch).toHaveBeenCalled();
-    expect(loginThunk).toHaveBeenCalledWith({email: 'email@ex.com', password: 'password'})
+    expect(loginThunk).toHaveBeenCalledWith({
+      params: {email: 'email@ex.com', password: 'password'},
+      token: null})
     expect(dispatchMock).toHaveBeenCalledWith(loginThunk({email: 'email@ex.com', password: 'password'}));
   });
 

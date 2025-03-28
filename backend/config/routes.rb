@@ -2,18 +2,18 @@ Rails.application.routes.draw do
   # devise_token_authによる認証用のルーティング
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
     registrations: 'auth/registrations',
-    sessions: 'auth/sessions'
+    sessions: 'auth/sessions',
+    omniauth_callbacks: 'auth/omniauth_callbacks'
   }
 
-  namespace :auth do
-    resources :get_sessions, only: %i[index]
-  end
+  resources :get_sessions, only: %i[index]
 
   resources :workouts, only: %i[index show], shallow: true do
     resources :user_workout_likes, only: %i[create destroy]
   end
 
-  resources :users, only: %i[update]
+  resources :users     , only: %i[update]
+  resources :csrf_token, only: %i[index]
 
   post "workout_records"         => "workout_records#create"
   get  "workout_records"         => "workout_records#index"

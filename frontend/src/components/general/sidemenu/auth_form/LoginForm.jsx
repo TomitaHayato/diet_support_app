@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { loginThunk } from "../../../../Redux/Slice/currentUserSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserThunk, loginThunk, selectCurrentUser } from "../../../../Redux/Slice/currentUserSlice";
 import { putDev } from "../../../../utils/devTool";
+import { selectCsrfToken } from "../../../../Redux/Slice/csrfTokenSlice";
+import { settingAuthTokenFromMessage } from "../../../../utils/auth";
 
 function LoginForm() {
+  const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
+  const token = useSelector(selectCsrfToken); // CSRFトークンを取得
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -13,7 +17,7 @@ function LoginForm() {
 
   const login = async(params) => {
     try {
-      dispatch(loginThunk(params));
+      dispatch(loginThunk({params, token}));
       setLoginError(null);
     } catch(error) {
       putDev('login');
@@ -21,6 +25,32 @@ function LoginForm() {
       setLoginError('ログインできませんでした。');
     }
   }
+
+    // Googleログイン処理のリクエストを送信
+    const googleAuth = async() => {
+      if(currentUser) return;
+  
+      const popup = window.open(`${import.meta.env.VITE_RAILS_API_DOMEIN}/auth/google_oauth2?omniauth_window_type=newWindow`);
+  
+      const sendMessage = setInterval(() => {
+        if(popup && !popup.closed) {
+          popup.postMessage('requestCredentials', '*');
+        } else {
+          clearInterval(sendMessage);
+        }
+      }, 500);
+    }
+  
+    // 認証Tokenを受け取る
+    window.addEventListener('message', (e) => {
+      if(currentUser) return;
+      if (e.origin !== `${import.meta.env.VITE_RAILS_API_DOMEIN}`) return;
+  
+      putDev(e.data);
+  
+      settingAuthTokenFromMessage(e.data) &&
+        dispatch(fetchUserThunk())
+    })
 
   return (
     <>
@@ -49,6 +79,12 @@ function LoginForm() {
 
         <input type="submit" className="btn btn-sm btn-outline btn-primary w-full" value="ログイン" />
       </form>
+      
+      <div className="mt-3">
+        <button className="w-full hover:scale-105 active:scale-95" onClick={googleAuth}>
+          <img src="/google_btn.png" className="block mx-auto max-w-full max-h-full" />
+        </button>
+      </div>
     </>
   )
 }

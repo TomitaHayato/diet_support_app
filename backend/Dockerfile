@@ -1,7 +1,7 @@
 FROM ruby:3.3.6
 
 RUN apt-get update -qq \
-&& apt-get install -y build-essential  default-mysql-client
+&& apt-get install -y build-essential  default-mysql-client vim
 
 WORKDIR /rails_app
 

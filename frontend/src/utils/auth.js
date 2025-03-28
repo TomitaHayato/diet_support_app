@@ -2,12 +2,18 @@ import client from "./apiClient";
 import Cookies from "js-cookie";
 
 // 認証関連の機能
-export function signUp(params) {
-  return client.post("/auth", params);
+export function signUp(params, token) {
+  return client.post("/auth", params, {
+    withCredentials: true,
+    headers: {"X-CSRF-Token": token}
+  });
 }
 
-export function signIn(params) {
-  return client.post("/auth/sign_in", params)
+export function signIn(params, token) {
+  return client.post("/auth/sign_in", params, {
+    headers: {'X-CSRF-Token': token},
+    withCredentials: true,
+  })
 }
 
 export function settingAuthTokenToCookie(res) {
@@ -16,22 +22,36 @@ export function settingAuthTokenToCookie(res) {
   Cookies.set("_uid"         , res.headers["uid"]);
 }
 
+// postMessageのevent.dataから認証トークンを取得
+export function settingAuthTokenFromMessage(data) {
+  if(!data.uid || !data.auth_token || !data.client_id) return false;
+  
+  Cookies.set("_access_token", data.auth_token);
+  Cookies.set("_client"      , data.client_id);
+  Cookies.set("_uid"         , data.uid);
+
+  return true;
+}
+
 // ログインユーザの情報取得（取得データの形式: { currentUser: Obj, likedList: Array }）
 export function getUser() {
   //tokenがない場合は何もしない
   if(!isAccessTokenInCookie()) return;
 
-  return client.get("/auth/get_sessions", {
+  return client.get("/get_sessions", {
     headers: authTokensInCookie(),
+    withCredentials: true,
   });
 }
 
-export function logout() {
-  // tokenがない場合は何もしない
+// 422エラーになる
+export function logout(token) {
+  // 認証tokenがない場合は何もしない
   if(!isAccessTokenInCookie()) return;
 
   return client.delete("/auth/sign_out", {
-    headers: authTokensInCookie()
+    headers: {...authTokensInCookie(), 'X-CSRF-Token': token},
+    withCredentials: true,
   })
 }
 

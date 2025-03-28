@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 import { createWorkoutRecordThunk } from "../../Redux/Slice/workoutRecordsSlice";
 import { selectIntakedCalorie } from "../../Redux/Slice/intakedCalorieSlice";
+import { selectCsrfToken } from "../../Redux/Slice/csrfTokenSlice";
 
 function WorkoutForm(props) {
   const {workout} = props;
   const dispatch = useDispatch();
   const intakedCalorie = useSelector(selectIntakedCalorie);
   const currentUser    = useSelector(selectCurrentUser);
+  const csrfToken      = useSelector(selectCsrfToken);
 
   const [workoutTime     , setWorkoutTime     ] = useState(0);
   const [burnedCalories  , setBurnedCalories  ] = useState(0);
@@ -36,7 +38,7 @@ function WorkoutForm(props) {
       workout_id:       workout.id
     }
 
-    dispatch(createWorkoutRecordThunk(params));
+    dispatch(createWorkoutRecordThunk({params, csrfToken}));
     // フォームのリセット
     setWorkoutTime(0);
     setBurnedCalories(0);

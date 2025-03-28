@@ -34,6 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RAILS_ENV: test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       DB_HOST: 127.0.0.1
       TZ: Asia/Tokyo
       MYSQL_ROOT_PASS: password
