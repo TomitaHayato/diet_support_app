@@ -45,7 +45,7 @@ export default function PaginatedWorkouts(props) {
         previousLinkClassName ={"join-item btn btn-sm sm:btn-md"}
         nextLinkClassName     ={"join-item btn btn-sm sm:btn-md"}
         breakLinkClassName={"join-item btn btn-ghost btn-sm lg:btn-md"}
-        activeLinkClassName={"bg-indigo-600"}
+        activeLinkClassName={"bg-indigo-600 text-gray-300"}
         disabledLinkClassName={"btn-disabled"}
       />
     </>
