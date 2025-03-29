@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import { dammyCurrentUser, renderWithProviders } from "../testUtils";
 import UserZone from "../../components/general/sidemenu/UserZone";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 
 // UserInfo.jsxのテストも内包
 describe('コンポーネント： UserZone.jsxのテスト', () => {
@@ -12,10 +13,13 @@ describe('コンポーネント： UserZone.jsxのテスト', () => {
 
   test('初期表示: Userinfoがレンダリングされ、ログインユーザーの情報が表示される', async() => {
     const user = userEvent.setup();
-    renderWithProviders(<UserZone />, {
-      preloadedState: {
-        currentUser: dammyCurrentUser(),
-      }
+    renderWithProviders(
+      <BrowserRouter>
+        <UserZone />
+      </BrowserRouter>, {
+        preloadedState: {
+          currentUser: dammyCurrentUser(),
+        }
     });
     const currentUser = dammyCurrentUser().user;
     expect(screen.getByRole('button'   , {name: 'edit-mode-btn'})).toBeInTheDocument();
