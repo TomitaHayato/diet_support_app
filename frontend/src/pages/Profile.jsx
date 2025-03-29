@@ -8,11 +8,14 @@ import { putDev } from "../utils/devTool";
 import { selectHistoryData } from "../Redux/Slice/workoutRecordsSlice";
 import WorkoutTable from "../components/general/WorkoutTable";
 import WorkoutTableRow from "../components/general/WorkoutTableRow";
+import { selectTheme } from "../Redux/Slice/ThemeSlice";
+import { grayText } from "../utils/style";
 
 function Profile() {
   const currentUser = useSelector(selectCurrentUser);
   const likedWorkoutIds = useSelector(selectLikedWorkoutIds);
   const historyWorkouts = useSelector(selectHistoryData);
+  const theme = useSelector(selectTheme);  
 
   const [workoutObjs, setWorkoutsObj] = useState([]);
   const [likedCount, setLikedCount] = useState(0); // お気に入り登録した個数
@@ -69,7 +72,7 @@ function Profile() {
             })}
           </WorkoutTable>
         </div>
-        <p className="text-xs text-gray-500 mt-4">※ metsは運動強度の単位です。metsが高いほど消費カロリーは多くなります。</p>
+        <p className={`text-xs mt-4 ${grayText(theme)}`}>※ metsは運動強度の単位です。metsが高いほど消費カロリーは多くなります。</p>
       </div>
 
       {/* よく利用するWorkout */}
@@ -87,7 +90,7 @@ function Profile() {
             })}
           </WorkoutTable>
         </div>
-        <p className="text-xs text-gray-500 mt-4">※ metsは運動強度の単位です。metsが高いほど消費カロリーは多くなります。</p>
+        <p className={`text-xs mt-4 ${grayText(theme)}`}>※ metsは運動強度の単位です。metsが高いほど消費カロリーは多くなります。</p>
       </div>
     </div>
   )

@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectIntakedCalorie, setCalorie } from "../../Redux/Slice/intakedCalorieSlice";
 import { selectWeight, setWeight } from "../../Redux/Slice/weightSlice";
 import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
+import { grayText } from "../../utils/style";
+import { selectTheme } from "../../Redux/Slice/ThemeSlice";
 
 function CalorieForm() {
+  const theme          = useSelector(selectTheme);
   const weight         = useSelector(selectWeight);
   const intakedCalorie = useSelector(selectIntakedCalorie);
   const currentUser    = useSelector(selectCurrentUser);
@@ -68,7 +71,7 @@ function CalorieForm() {
           <button className='btn btn-primary btn-sm md:btn-md md:mx-2 min-h-10' onClick={hundleClickSearch}>調べる</button>
         </div>
 
-        <p className="text-center my-3 text-[0.6rem] md:text-sm text-gray-500 w-10/12 mx-auto">
+        <p className={`text-center my-3 text-[0.6rem] md:text-sm w-10/12 mx-auto ${grayText(theme)}`}>
           消費カロリーの計算は以下を参考に計算しております。
           <br />
           厚生労働省

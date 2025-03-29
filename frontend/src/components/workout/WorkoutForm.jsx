@@ -5,6 +5,8 @@ import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 import { createWorkoutRecordThunk } from "../../Redux/Slice/workoutRecordsSlice";
 import { selectIntakedCalorie } from "../../Redux/Slice/intakedCalorieSlice";
 import { selectCsrfToken } from "../../Redux/Slice/csrfTokenSlice";
+import { grayText } from "../../utils/style";
+import { selectTheme } from "../../Redux/Slice/ThemeSlice";
 
 function WorkoutForm(props) {
   const {workout} = props;
@@ -12,6 +14,7 @@ function WorkoutForm(props) {
   const intakedCalorie = useSelector(selectIntakedCalorie);
   const currentUser    = useSelector(selectCurrentUser);
   const csrfToken      = useSelector(selectCsrfToken);
+  const theme          = useSelector(selectTheme);  
 
   const [workoutTime     , setWorkoutTime     ] = useState(0);
   const [burnedCalories  , setBurnedCalories  ] = useState(0);
@@ -66,14 +69,14 @@ function WorkoutForm(props) {
           <span>分</span>
         </div>
 
-        <div className="mb-3 flex justify-center items-center gap-3 text-gray-500">
+        <div className={`mb-3 flex justify-center items-center gap-3 ${grayText(theme)}`}>
           <span className="">消費カロリー</span>
           {/* 入力された運動時間から、消費カロリーを求めて表示 */}
           <span className="text-lg text-info" role="kcal" aria-label="burned">{burnedCalories}</span>
           <span>kcal</span>
         </div>
 
-        <div className="mb-3 flex justify-center items-center gap-3 text-gray-500">
+        <div className={`mb-3 flex justify-center items-center gap-3 ${grayText(theme)}`}>
           <span className="">残りカロリー</span>
           {/* 摂取カロリーから消費カロリーを引いた値を動的に表示 */}
           <span className="text-lg text-error" role="kcal" aria-label="unburned">{unburnedCalories}</span>
@@ -93,7 +96,7 @@ function WorkoutForm(props) {
           }
         </div>
 
-        <div className="text-gray-500 w-8/12 md:w-3/12 mx-auto">
+        <div className={`w-8/12 md:w-3/12 mx-auto ${grayText(theme)}`}>
             <p className="text-sm">以下のデータを保存します</p>
             <ul className="text-sm text-start">
               <li>・運動時間</li>

@@ -3,10 +3,13 @@ import { logoutThunk } from "../../../../Redux/Slice/currentUserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { putDev } from "../../../../utils/devTool";
 import { selectCsrfToken } from "../../../../Redux/Slice/csrfTokenSlice";
+import { selectTheme } from "../../../../Redux/Slice/ThemeSlice";
+import { grayText } from "../../../../utils/style";
 
 function LogoutForm() {
   const dispatch = useDispatch();
   const token = useSelector(selectCsrfToken);
+  const theme = useSelector(selectTheme);  
 
   const [logoutError, setLogoutError] = useState(null);
 
@@ -21,7 +24,7 @@ function LogoutForm() {
 
   return (
     <>
-      <p className="font-semibold text-gray-500 text-center mb-2">ログアウト</p>
+      <p className={`font-semibold text-center mb-2 ${grayText(theme)}`}>ログアウト</p>
 
       {logoutError && <p className="text-red-500 text-lg" role="error-message" aria-label="logout-error">{logoutError}</p>}
 

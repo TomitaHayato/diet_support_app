@@ -1,8 +1,13 @@
+import { useSelector } from "react-redux";
 import LoginForm from "./auth_form/LoginForm";
 import SignupModal from "./auth_form/SignupModal";
 import Section from "./Section";
+import { selectTheme } from "../../../Redux/Slice/ThemeSlice";
+import { grayText } from "../../../utils/style";
 
 function BeforeLoginContents() {
+  const theme = useSelector(selectTheme);
+
   return(
     <>
       <Section>
@@ -13,7 +18,7 @@ function BeforeLoginContents() {
         </div>
 
         <LoginForm />
-        <div className="divider text-xs text-gray-500 font-medium my-3">OR</div>
+        <div className={`divider text-xs font-medium my-3 ${grayText(theme)}`}>OR</div>
         <SignupModal />
       </Section>
     </>
