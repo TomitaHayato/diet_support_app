@@ -49,13 +49,13 @@ function Profile() {
         <TopPageLink />
       </div>
       {/* ユーザーのプロフィール情報 */}
-      <div className="border border-info shadow-lg rounded-lg p-5 mx-8 mb-8 lg:mx-auto lg:w-6/12">
+      <div className="border border-primary shadow-lg rounded-lg p-5 mx-8 mb-8 lg:mx-auto lg:w-6/12">
         <UserZone />
       </div>
 
       {/* ユーザーの取り組み履歴 */}
       {/* お気に入り済みのWorkout一覧 */}
-      <div className="border border-info shadow-lg rounded-lg p-5 mb-8 lg:mx-auto lg:w-8/12">
+      <div className="border border-primary shadow-lg rounded-lg p-5 mb-8 lg:mx-auto lg:w-8/12">
         <h3 className="text-center font-semibold mb-5">お気に入りのWokrout ({likedCount})</h3>
 
         <div className="text-xs md:text-base max-h-80 overflow-y-auto overscroll-y-auto pb-8">
@@ -69,12 +69,12 @@ function Profile() {
             })}
           </WorkoutTable>
         </div>
-        <p className="text-xs text-gray-500">※ metsは運動強度の単位です。metsが高いほど消費カロリーは多くなります。</p>
+        <p className="text-xs text-gray-500 mt-4">※ metsは運動強度の単位です。metsが高いほど消費カロリーは多くなります。</p>
       </div>
 
       {/* よく利用するWorkout */}
       {/* これまでにやった運動名とその回数 */}
-      <div className="border border-info shadow-lg rounded-lg p-5 lg:mx-auto lg:w-8/12">
+      <div className="border border-primary shadow-lg rounded-lg p-5 lg:mx-auto lg:w-8/12">
         <h3 className="text-center font-semibold mb-5">これまでに取り組んだWorkout</h3>
         <div className="text-xs md:text-base max-h-80 overflow-y-auto overscroll-y-auto pb-8">
           <WorkoutTable row={'回数'}>
@@ -87,7 +87,7 @@ function Profile() {
             })}
           </WorkoutTable>
         </div>
-        <p className="text-xs text-gray-500">※ metsは運動強度の単位です。metsが高いほど消費カロリーは多くなります。</p>
+        <p className="text-xs text-gray-500 mt-4">※ metsは運動強度の単位です。metsが高いほど消費カロリーは多くなります。</p>
       </div>
     </div>
   )

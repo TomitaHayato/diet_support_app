@@ -71,6 +71,7 @@ function CalorieForm() {
         <p className="text-center my-3 text-[0.6rem] md:text-sm text-gray-500 w-10/12 mx-auto">
           消費カロリーの計算は以下を参考に計算しております。
           <br />
+          厚生労働省
           <button className="link link-info" onClick={hundleClickReference}>「健康づくりのための身体活動・運動ガイド2023」</button>
         </p>
       </div>

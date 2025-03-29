@@ -1,13 +1,13 @@
 export default function Policy() {
   return(
-    <div className="text-sm sm:text-base">
-      <h2 className="text-xl mb-5">プライバシーポリシー</h2>
+    <div className="text-sm sm:text-base px-1 pt-3">
+      <h2 className="text-xl font-bold mb-5">プライバシーポリシー</h2>
 
-      <h3 className="text-base md:text-lg font-semibold">お客様から取得する情報</h3>
+      <h3 className="lg:text-lg font-semibold">お客様から取得する情報</h3>
       <p className="mb-5">
         当社はお客様から以下の情報を取得します。
       </p>
-      <ul className="mb-5">
+      <ul className="mb-5 pl-4">
         <li className="list-disc">氏名（ニックネームやペンネームを含む）</li>
         <li className="list-disc">年齢または生年月日</li>
         <li className="list-disc">メールアドレス</li>
@@ -15,9 +15,9 @@ export default function Policy() {
         <li className="list-disc">Cookieを用いて生成された識別情報</li>
       </ul>
 
-      <h3 className="text-base md:text-lg font-semibold">お客様の情報を利用する目的</h3>
+      <h3 className="lg:text-lg font-semibold">お客様の情報を利用する目的</h3>
       <p className="mb-5">当社は、お客様から取得した情報を、以下の目的のために利用します。</p>
-      <ul className="mb-5">
+      <ul className="mb-5 pl-4">
         <li className="list-disc">当社サービスに関する登録の受付、お客様の本人確認、認証のため</li>
         <li className="list-disc">お客様の当社サービスの利用履歴を管理するため</li>
         <li className="list-disc">当社サービスにおけるお客様の行動履歴を分析し、当社サービスの維持改善に役立てるため</li>
@@ -32,25 +32,25 @@ export default function Policy() {
         
       
 
-      <h3 className="text-base md:text-lg font-semibold">安全管理のために講じた措置</h3>
+      <h3 className="lg:text-lg font-semibold">安全管理のために講じた措置</h3>
       <p className="mb-5">
         当社が、お客様から取得した情報に関して安全管理のために講じた措置につきましては、
         末尾記載のお問い合わせ先にご連絡をいただきましたら、法令の定めに従い個別にご回答させていただきます。
       </p>
 
-      <h3 className="text-base md:text-lg font-semibold">第三者提供</h3>
+      <h3 className="lg:text-lg font-semibold">第三者提供</h3>
       <p className="mb-5">
         当社は、お客様から取得する情報のうち、個人データ（個人情報保護法第16条第3項）に該当するものついては、あらかじめお客様の同意を得ずに、第三者（日本国外にある者を含みます。）に提供しません。
         但し、次の場合は除きます。
       </p>
-      <ul className="mb-5">
+      <ul className="mb-5 pl-4">
         <li className="list-disc">個人データの取扱いを外部に委託する場合</li>
         <li className="list-disc">当社や当社サービスが買収された場合</li>
         <li className="list-disc">事業パートナーと共同利用する場合（具体的な共同利用がある場合は、その内容を別途公表します。）</li>
         <li className="list-disc">その他、法律によって合法的に第三者提供が許されている場合</li>
       </ul>
 
-      <h3 className="text-base md:text-lg font-semibold">アクセス解析ツール</h3>
+      <h3 className="lg:text-lg font-semibold">アクセス解析ツール</h3>
       <p className="mb-5">
         当社は、お客様のアクセス解析のために、「Googleアナリティクス」を利用しています。
         Googleアナリティクスは、トラフィックデータの収集のためにCookieを使用しています。
@@ -61,13 +61,13 @@ export default function Policy() {
       </p>
       <a href="https://marketingplatform.google.com/about/analytics/terms/jp/" className="inline-block mb-5 link link-info link-hover">Google アナリティクス利用規約</a>
 
-      <h3 className="text-base md:text-lg font-semibold">プライバシーポリシーの変更</h3>
+      <h3 className="lg:text-lg font-semibold">プライバシーポリシーの変更</h3>
       <p className="mb-5">
         当社は、必要に応じて、このプライバシーポリシーの内容を変更します。
         この場合、変更後のプライバシーポリシーの施行時期と内容を適切な方法により周知または通知します。
       </p>
 
-      <h3 className="text-base md:text-lg font-semibold">お問い合わせ</h3>
+      <h3 className="lg:text-lg font-semibold">お問い合わせ</h3>
       <p className="mb-5"></p>
 
       <p className="mb-5">2025年3月14日制定</p>
