@@ -5,6 +5,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "../../Redux/store";
 import { changeTheme } from "../../Redux/Slice/ThemeSlice";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 
 describe('コンポーネント: ThemeChangeBtnのテスト', () => {
   let dispatchMock
@@ -39,9 +40,12 @@ describe('コンポーネント: ThemeChangeBtnのテスト', () => {
 
   test('theme切り替えボタンが表示', () => {
     render(
-      <Provider store={store}>
-        <SideMenu />
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <SideMenu />
+        </Provider>
+      </BrowserRouter>
+      
     );
     // 初期表示
     expect(screen.getByRole('theme-icon', {name: 'theme-icon-off'})).toBeInTheDocument();
@@ -51,9 +55,11 @@ describe('コンポーネント: ThemeChangeBtnのテスト', () => {
   test('Themeを切り替えできる', async() => {
     const user = userEvent.setup();
     render(
-      <Provider store={store}>
-        <SideMenu />
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <SideMenu />
+        </Provider>
+      </BrowserRouter>
     );
     const themeCtlBtn = screen.getByRole('checkbox', {name: 'theme-ctl-btn'});
     await user.click(themeCtlBtn);
