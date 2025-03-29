@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import SearchForm from "./SearchForm";
-import WorkoutCard from "./WorkOutCard";
 import { searchAndFilter } from "../../utils/search";
 import { useSelector } from "react-redux";
 import { selectCurrentUser, selectLikedWorkoutIds } from "../../Redux/Slice/currentUserSlice";
+import PaginatedWorkouts from "./PaginatedWorkouts";
 
 function WorkoutsIndex(props) {
   const {workoutsObj} = props;
@@ -52,19 +52,7 @@ function WorkoutsIndex(props) {
 
       {/* 検索されたWorkoutを一覧表示 */}
       <div className="max-w-full">
-        {filteredWorkouts.length === 0 ? <p className="mt-8 text-center">一致する運動はありません</p> :
-          <div className='grid gap-3 grid-cols-2 lg:grid-cols-3'>
-            {filteredWorkouts.map((workout) => {
-              return (
-                <div key={`workout-card-${workout.id}`}>
-                  <WorkoutCard
-                    workout={workout}
-                  />
-                </div>
-              )
-            })}
-          </div>
-        }
+        <PaginatedWorkouts workouts={filteredWorkouts} itemsPerPage={12} />
       </div>
     </>
   )
