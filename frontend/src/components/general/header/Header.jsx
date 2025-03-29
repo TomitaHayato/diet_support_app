@@ -4,19 +4,34 @@ import LogoutBtn from "./LogoutBtn";
 import LoginBtn from "./LoginBtn";
 import ThemeChangeBtn from "../sidemenu/ThemeChangeBtn";
 import HowToUse from "./HowtoUse";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Header() {
   const currentUser = useSelector(selectCurrentUser);
+  const location = useLocation();
+  const navi     = useNavigate();
 
   function hundleClick(){
     document.getElementById('how-to-use-content').showModal();
+  }
+
+  function hundleClickLogo() {
+    if(location.pathname === '/') return;
+    navi('/');
   }
 
   return (
     <>
       <div data-testid="app-intro" className="grid grid-cols-8 px-3 py-2 bg-base-200 border border-base-200 rounded-lg w-full">
         <span className="order-1">
-          <img src="/icon.png" className="max-w-8 md:max-w-12" />
+          <button className="active:scale-95" onClick={hundleClickLogo}>
+            <div className="avatar">
+              <div className="max-w-8 md:max-w-12 rounded-xl">
+                <img src="/icon.png" />
+              </div>
+            </div>
+          </button>
+
         </span>
 
         {/* mobileコンテンツ */}
@@ -43,7 +58,7 @@ function Header() {
         </div>
 
         <span className="order-8 hidden lg:block">
-          <button className="btn btn-sm btn-outline btn-info" onClick={hundleClick}>使い方</button>
+          <button className="btn btn-outline btn-info" onClick={hundleClick}>使い方</button>
         </span>
 
         {/* 使い方モーダル */}

@@ -11,12 +11,13 @@ import { isAccessTokenInCookie } from "../utils/auth";
 import { getWorkoutRecordsThunk } from "../Redux/Slice/workoutRecordsSlice";
 import FooterMenu from "../components/general/footer/FooterMenu";
 import Records from "./mobile/Records";
-import Profile from "./mobile/Profile";
+import Profile from "./Profile";
 import Footer from "../components/general/footer/Footer";
 import Terms from "../components/general/Terms";
 import Policy from "../components/general/Policy";
 import { getCsrfTokenThunk } from "../Redux/Slice/csrfTokenSlice";
 import PolicyPage from "./PolicyPage";
+import { bgColor } from "../utils/style";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function App() {
 
   return (
     <>
-      <div data-theme={theme} className="h-screen">
+      <div data-theme={theme} className={`h-screen ${bgColor(theme)}`}>
         <BrowserRouter>
           <div className="flex mx-auto h-full">
             <div className="w-full lg:w-3/4">

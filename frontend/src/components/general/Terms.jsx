@@ -1,38 +1,38 @@
 export default function Terms() {
   return(
     <>
-      <div className="text-sm sm:text-base">
-        <h2 className="text-xl mb-5">利用規約</h2>
+      <div className="text-sm sm:text-base pt-4 px-1">
+        <h2 className="text-xl font-bold mb-5">利用規約</h2>
 
         <p className="mb-5">
           この利用規約（以下、「本規約」といいます）は、本サービス（本サイトを含むものとし、以下、特に両者を区別しません。）
           の利用条件を定めるものです。本規約は、本サービスを利用するすべてのユーザーに適用されます。
         </p>
 
-        <h3 className="text-lg font-semibold">本規約への同意</h3>
+        <h3 className="lg:text-lg font-semibold">本規約への同意</h3>
         <p className="mb-5">
           ユーザーは、本サービスを利用することによって、本規約に有効かつ取り消し不能な同意をしたものとみなされます。
           本規約に同意しないユーザーは、本サービスをご利用いただけません。
         </p>
 
-        <h3 className="text-lg font-semibold">利用登録</h3>
+        <h3 className="lg:text-lg font-semibold">利用登録</h3>
         <p className="mb-5">
           本サービスの利用を希望する方は、本規約に同意の上、当社の定める方法によって利用登録を申請し、
           当社がこれを承認することによって、本サービスの利用登録をすることができます。
         </p>
 
-        <h3 className="text-lg font-semibold">登録拒否</h3>
+        <h3 className="lg:text-lg font-semibold">登録拒否</h3>
         <p className="mb-5">
           当社は、以下のいずれかの事由があると判断した場合、利用登録の申請を承認しないことがあります。
           当社は登録拒否の理由について一切の開示義務を負いません。
         </p>
-        <ul className="mb-5">
+        <ul className="mb-5 pl-4">
           <li className="list-disc">虚偽の事項を届け出た場合</li>
           <li className="list-disc">本規約に違反したことがある者からの申請である場合</li>
           <li className="list-disc">その他、当社が利用登録を相当でないと判断した場合</li>
         </ul>
 
-        <h3 className="text-lg font-semibold">未成年による利用</h3>
+        <h3 className="lg:text-lg font-semibold">未成年による利用</h3>
         <p className="mb-5">
           ユーザーが未成年である場合には、法定代理人の同意を得た上で、本サービスを利用してください。
           本サービスのご利用にあたり必要となるスマートフォンその他デバイスについても、必ず法定代理人の同意を得た上でご使用下さい。
@@ -40,14 +40,14 @@ export default function Terms() {
           未成年であった間の利用行為を追認したものとみなします。
         </p>
 
-        <h3 className="text-lg font-semibold">ログイン情報の管理</h3>
+        <h3 className="lg:text-lg font-semibold">ログイン情報の管理</h3>
         <p className="mb-5">
           ユーザーは、自己責任において、本サービスのログイン情報を適切に管理するものとします。
           ユーザーは、いかなる場合にも、ログイン情報を第三者に譲渡または貸与し、もしくは第三者と共有することはできません。
           当社は、ログイン情報が第三者によって使用されたことによって生じた損害につき、当社に故意または重大な過失がある場合を除き、一切の責任を負いません。
         </p>
 
-        <h3 className="text-lg font-semibold">コンテンツのご利用</h3>
+        <h3 className="lg:text-lg font-semibold">コンテンツのご利用</h3>
         <p className="mb-5">
           当社は、ユーザーに対し、本サービスが提供する文章、画像、動画、音声、音楽、ソフトウェア、プログラム、コードその他のコンテンツについて、
           本サービスの利用範囲内における私的な利用を許諾します。
@@ -57,9 +57,9 @@ export default function Terms() {
           ユーザーはあらかじめ承諾するものとします。
         </p>
 
-        <h3 className="text-lg font-semibold">禁止事項</h3>
+        <h3 className="lg:text-lg font-semibold">禁止事項</h3>
         <p className="mb-5">ユーザーは、本サービスの利用にあたり、以下の行為をしてはいけません。</p>
-        <ul className="mb-5">
+        <ul className="mb-5 pl-4">
           <li className="list-disc">法令、裁判所の判決、決定若しくは命令、または法令上拘束力のある行政措置に違反する行為またはこれらを助長する行為</li>
           <li className="list-disc">犯罪行為に関連する行為</li>
           <li className="list-disc">当社や第三者の知的財産権を侵害する行為</li>
@@ -85,17 +85,17 @@ export default function Terms() {
           <li className="list-disc">その他当社が不適切だと判断する行為</li>
         </ul>
 
-        <h3 className="text-lg font-semibold">換金行為の禁止</h3>
+        <h3 className="lg:text-lg font-semibold">換金行為の禁止</h3>
         <p className="mb-5">本サービス内で取得した一歳おコンテンツまたは本仮想通貨については、手段の如何を問わず、以下の取引を一切禁止します。</p>
-        <ul className="mb-5">
+        <ul className="mb-5 pl-4">
           <li className="list-disc">売買</li>
           <li className="list-disc">金銭その他の対価を授受する形でのあらゆる譲渡、譲受、貸与、借用など</li>
           <li className="list-disc">その他換金行為に該当すると当社が判断する一切の行為</li>
         </ul>
 
-        <h3 className="text-lg font-semibold">反社会的勢力の排除</h3>
+        <h3 className="lg:text-lg font-semibold">反社会的勢力の排除</h3>
         <p className="mb-5">ユーザーは、次の各号のいずれか一つにも該当しないことを表明し、かつ将来にわたっても該当しないことを表明し、保証するものとします。</p>
-        <ul className="mb-5">
+        <ul className="mb-5 pl-4">
           <li className="list-disc">
             自ら（法人その他の団体にあっては、自らの役員を含みます）が暴力団、暴力団員、暴力団員ではなくなった時から5年経過しない者、
             暴力団準構成員、暴力団関係企業、総会屋、社会運動など標榜ゴロまたは特殊知能暴力集団などその他これらに準じる者（以下総称して「暴力団員」といいます。）であること
@@ -114,13 +114,13 @@ export default function Terms() {
           <li className="list-disc">その他前各号に準ずる行為</li>
         </ul>
 
-        <h3 className="text-lg font-semibold">利用制限</h3>
+        <h3 className="lg:text-lg font-semibold">利用制限</h3>
         <p className="mb-5">
           当社は、ユーザーが以下のいずれかに該当する場合には、事前の通知なく、ユーザーに対して、
           本サービスの全部若しくは一部の利用を制限し、またはユーザーとしての登録を抹消することができるものとします。
           当社は、本条に基づき当社が行なった行為によりユーザーに生じた損害について、一切の責任を負いません。
         </p>
-        <ul className="mb-5">
+        <ul className="mb-5 pl-4">
           <li className="list-disc">本規約のいずれかの条項に違反した場合</li>
           <li className="list-disc">投稿事項に虚偽の事実があることが判明した場合</li>
           <li className="list-disc">金銭責務の不履行があった場合</li>
@@ -130,28 +130,28 @@ export default function Terms() {
           <li className="list-disc">その他、当社が本サービスの利用を適当でないと判断した場合</li>
         </ul>
 
-        <h3 className="text-lg font-semibold">本サービスの提供の停止</h3>
+        <h3 className="lg:text-lg font-semibold">本サービスの提供の停止</h3>
         <p className="mb-5">
           当社は、以下のいずれかの事由があると判断した場合、ユーザーに事前に通知することなく本サービスの全部または一部の提供を停止または中断することができるものとします。
           当社は、この場合にユーザーまたは第三者が被ったいかなる不利益または損害についても、一切の責任を負わないものとします。
         </p>
-        <ul className="mb-5">
+        <ul className="mb-5 pl-4">
           <li className="list-disc">本サービスにかかるコンピュータシステムの保守点検または更新を行う場合</li>
           <li className="list-disc">地震、落雷、火災、停電、天災またはウィルスの蔓延などの不可抗力によって、本サービスの提供が困難となった場合</li>
           <li className="list-disc">コンピュータまたは通信回線などが事故により停止した場合</li>
           <li className="list-disc">その他、当社が本サービスの提供が困難と判断した場合</li>
         </ul>
 
-        <h3 className="text-lg font-semibold">退会</h3>
+        <h3 className="lg:text-lg font-semibold">退会</h3>
         <p className="mb-5">ユーザーは、当社の定める手続きにより、利用登録を抹消し、本サービスから退会できるものとします。</p>
 
-        <h3 className="text-lg font-semibold">保証の否認</h3>
+        <h3 className="lg:text-lg font-semibold">保証の否認</h3>
         <p className="mb-5">
           当社は、本サービスや本サービスが提供するコンテンツに、システムバグや第三者の権利侵害が含まれないことを保証するものではありません。
           また、安全性、信頼性、正確性、完全性、有効性、特定の目的への適合性を保証するものでもありません。
         </p>
 
-        <h3 className="text-lg font-semibold">免責</h3>
+        <h3 className="lg:text-lg font-semibold">免責</h3>
         <p className="mb-5">
           当社は、本サービスに関してユーザーに生じたあらゆる損害について一切の責任を負いません。
           ただし。本サービスに関する当社とユーザーとの間の契約（本規約を含みます。）が消費者契約法に定める消費者契約となる場合、この免責規定は適用されません。
@@ -159,45 +159,45 @@ export default function Terms() {
           ユーザーに直接かつ現実に発生した障害についてのみ賠償責任を負うものとし、また、その賠償額は、本サービスの利用料金の直近1ヶ月分または金1万円のいずれか低い方を上限とします。
         </p>
 
-        <h3 className="text-lg font-semibold">サービス内容の変更</h3>
+        <h3 className="lg:text-lg font-semibold">サービス内容の変更</h3>
         <p className="mb-5">
           当社は、ユーザーに通知することなく、本サービスの内容を変更したり、本サービスの提供を中止、終了するこのができるものとします。
           ユーザーは、本サービスが終了した場合、有料コンテンツを利用する一切の権利を失い、以後、当該有料コンテンツを利用できなくなることについて、あらかじめ、異議なく同意するものとします。
           当社は、これらによってユーザーに生じた損害について一切の責任を負いません。
         </p>
 
-        <h3 className="text-lg font-semibold">利用規約の変更</h3>
+        <h3 className="lg:text-lg font-semibold">利用規約の変更</h3>
         <p className="mb-5">
           当社は、ユーザーに通知することなく、いつでも本規約を変更することができるものとします。
           変更後の本規約は、当社ウェブサイトに掲示された時点から効力を生じるものとします。
           本規約の変更後、本サービスの利用を継続したユーザーは、変更後の本規約に同意したものとみなします。
         </p>
 
-        <h3 className="text-lg font-semibold">個人情報の取り扱い</h3>
+        <h3 className="lg:text-lg font-semibold">個人情報の取り扱い</h3>
         <p className="mb-5">
         本サービスの利用によって取得するユーザーの個人情報については、当社のプライバシーポリシーに従い適切に取り扱うものとします。
         </p>
 
-        <h3 className="text-lg font-semibold">通知または連絡</h3>
+        <h3 className="lg:text-lg font-semibold">通知または連絡</h3>
         <p className="mb-5">
           ユーザーと当社との間の通知または連絡は、当社の定める方法によって行うものとします。
           当社は、ユーザーから、当社が別途定める方式に従った変更届け出がない限り、現在登録されている連絡先が有効なものとみなして当該連絡先へ通知または連絡を行い、
           これらは、発進時にユーザーへ到達したものとみなします。
         </p>
 
-        <h3 className="text-lg font-semibold">権利義務の譲渡</h3>
+        <h3 className="lg:text-lg font-semibold">権利義務の譲渡</h3>
         <p className="mb-5">
           ユーザーは、当社の書面による事前の承諾なく、利用契約上の地位または本規約に基づく権利若しくは義務を第三者に譲渡し、または担保に供することはできません
         </p>
 
-        <h3 className="text-lg font-semibold">事業譲渡</h3>
+        <h3 className="lg:text-lg font-semibold">事業譲渡</h3>
         <p className="mb-5">
           当社は本サービスにかかる事業を他社に事業譲渡（事業譲渡、会社分割その他事業が移転するあらゆる場合を含みます。）した場合には、
           当該事業譲渡に伴い利用契約上の地位、本規約に基づく権利及び義務並びにユーザー情報を当該事業譲渡の譲渡人に譲渡することができるものとします。
           ユーザーは、かかる譲渡につき、あらかじめ同意したものとします。
         </p>
 
-        <h3 className="text-lg font-semibold">適用関係</h3>
+        <h3 className="lg:text-lg font-semibold">適用関係</h3>
         <p className="mb-5">
           本規約は、ユーザーと当社との間の本サービスの利用に関わる一切の関係に適用されるものとします。
           当社は本サービスに関し、本規約のほか、ご利用にあたってのルールを定めることがあります。
@@ -205,13 +205,13 @@ export default function Terms() {
           本規約がこれらのルールと矛盾する場合には、これらのルールが優先して適用されるものとします。
         </p>
 
-        <h3 className="text-lg font-semibold">分離可能性</h3>
+        <h3 className="lg:text-lg font-semibold">分離可能性</h3>
         <p className="mb-5">
           本規約のいずれかの条項またはその一部が無効または執行不能と判断された場合であっても、
           当該判断は他の部分に影響を及ぼさず、本規約の残りの部分は、引き続き有効かつ執行力を有するものとします。
         </p>
 
-        <h3 className="text-lg font-semibold">準拠法・裁判管轄</h3>
+        <h3 className="lg:text-lg font-semibold">準拠法・裁判管轄</h3>
         <p className="mb-5">
           本規約の解釈にあたっては、日本法を準拠法とします。
           本サービスに関して紛争が生じた場合には、当社の本店所在地を管轄とする地方裁判所を専門的合意管轄とします。

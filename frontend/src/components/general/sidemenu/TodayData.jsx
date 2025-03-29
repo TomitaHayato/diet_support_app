@@ -1,14 +1,17 @@
 import { secondsToMMSS } from "../../../utils/integerStyle";
 import { useSelector } from "react-redux";
 import { selectTodayData } from "../../../Redux/Slice/workoutRecordsSlice";
+import { selectTheme } from "../../../Redux/Slice/ThemeSlice";
+import { grayText } from "../../../utils/style";
 
 function TodayData() {
   const todayData = useSelector(selectTodayData);
+  const theme     = useSelector(selectTheme);  
 
   return (
     <>
       <div className="text-center">
-        <h3 className="text-gray-500 font-semibold mb-3">今日のデータ</h3>
+        <h3 className={`${grayText(theme)} font-semibold mb-3`}>今日のデータ</h3>
 
         <div className="stats border border-primary shadow mb-2">
           <div className="stat">

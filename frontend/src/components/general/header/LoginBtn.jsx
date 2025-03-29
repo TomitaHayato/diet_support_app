@@ -1,7 +1,12 @@
+import { useSelector } from "react-redux";
 import LoginForm from "../sidemenu/auth_form/LoginForm";
 import SignupForm from "../sidemenu/auth_form/SignupForm";
+import { selectTheme } from "../../../Redux/Slice/ThemeSlice";
+import { grayText } from "../../../utils/style";
 
 export default function LoginBtn() {
+  const theme = useSelector(selectTheme);
+
   return (
     <>
       <button className="btn btn-sm md:btn-md btn-success text-xs" onClick={() => document.getElementById('login-modal-mobile').showModal()}>
@@ -26,7 +31,7 @@ export default function LoginBtn() {
             <LoginForm />
           </div>
 
-          <div className="divider text-xs text-gray-500 font-medium my-3">OR</div>
+          <div className={`divider text-xs font-medium my-3 ${grayText(theme)}`}>OR</div>
 
           <div className="mb-5">
             <SignupForm />

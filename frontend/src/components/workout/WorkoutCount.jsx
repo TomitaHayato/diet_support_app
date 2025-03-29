@@ -11,6 +11,8 @@ import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 import { createWorkoutRecordThunk } from "../../Redux/Slice/workoutRecordsSlice";
 import { selectIntakedCalorie } from "../../Redux/Slice/intakedCalorieSlice";
 import { selectCsrfToken } from "../../Redux/Slice/csrfTokenSlice";
+import { selectTheme } from "../../Redux/Slice/ThemeSlice";
+import { grayText } from "../../utils/style";
 
 function WorkoutCount(props) {
   const {workout} = props;
@@ -19,6 +21,7 @@ function WorkoutCount(props) {
   const intakedCalorie = useSelector(selectIntakedCalorie);
   const currentUser    = useSelector(selectCurrentUser);
   const csrfToken      = useSelector(selectCsrfToken);
+  const theme          = useSelector(selectTheme);  
 
   const [unburnedCalorie, setUnburnedCalorie] = useState(intakedCalorie);
   const [burnedCalorie  , setBurnedCalorie  ] = useState(0);
@@ -74,7 +77,7 @@ function WorkoutCount(props) {
         </div>
 
         <div className="mb-8">
-          <p className="mb-2 text-gray-500 text-lg" role="time" aria-label="target">目標: {workout.requiredExerciseTime}分</p>
+          <p className={`mb-2 text-lg ${grayText(theme)}`} role="time" aria-label="target">目標: {workout.requiredExerciseTime}分</p>
           <h3 className="text-5xl mb-2" role="time" aria-label="count">{secondsToMMSS(workoutSeconds)}</h3>
         </div>
 
@@ -99,7 +102,7 @@ function WorkoutCount(props) {
             <p className="text-red-500 text-sm">＊ログイン後に保存できます</p>
           }
           
-          <div className="text-gray-500 w-8/12 md:w-3/12 mx-auto mt-5">
+          <div className={`w-8/12 md:w-3/12 mx-auto mt-5 ${grayText(theme)}`}>
             <p className="text-sm">以下のデータを保存します</p>
             <ul className="text-sm text-start">
               <li>・運動時間</li>

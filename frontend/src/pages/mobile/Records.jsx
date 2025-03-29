@@ -3,9 +3,12 @@ import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 import TodayData from "../../components/general/sidemenu/TodayData";
 import DataCharts from "../../components/general/sidemenu/charts/DataCharts";
 import TopPageLink from "../../components/general/TopPageLink";
+import { selectTheme } from "../../Redux/Slice/ThemeSlice";
+import { grayText } from "../../utils/style";
 
 function Records() {
   const currentUser = useSelector(selectCurrentUser);
+  const theme = useSelector(selectTheme);  
 
   if(!currentUser) return <p className="text-center text-red-500">ログインが必要です</p>;
 
@@ -21,7 +24,7 @@ function Records() {
 
       {/* これまでのデータのチャート */}
       <div className="w-11/12 mx-auto ">
-        <h3 className="text-center text-gray-500 font-semibold mb-3 text-lg">期間ごとのデータ</h3>
+        <h3 className={`text-center font-semibold mb-3 text-lg ${grayText(theme)}`}>期間ごとのデータ</h3>
         <DataCharts tabName={'records'} />
       </div>
     </div>
