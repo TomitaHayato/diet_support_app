@@ -28,9 +28,11 @@ function WorkoutCount(props) {
   const [workoutSeconds , setWorkoutSeconds ] = useState(0);
   const [saveDisabled   , setSaveDisabled   ] = useState(true);
   const [isCountDown    , setIsCountDown    ] = useState(false);
+  const [savedMessage   , setSavedMessage   ] = useState(null);
 
   // スタートボタン => isCountDownをtrueに
   useEffect(() => {
+    setSavedMessage(null);
     let intervalId
     if(isCountDown) {
       intervalId = setInterval(() => {
@@ -52,11 +54,12 @@ function WorkoutCount(props) {
     };
 
     // 記録をサーバに送信
-    dispatch(createWorkoutRecordThunk({params, csrfToken}))
+    dispatch(createWorkoutRecordThunk({params, csrfToken}));
     // 消費/未消費カロリーと運動時間を0にする
     setWorkoutSeconds(0);
     setBurnedCalorie(0);
     setUnburnedCalorie(0);
+    setSavedMessage('運動記録を保存しました');
   };
 
   return (
@@ -92,6 +95,8 @@ function WorkoutCount(props) {
         </div>
 
         <div className=" text-center mb-5">
+          {currentUser && <p className="text-emerald-500">{savedMessage}</p>}
+
           <button className="btn btn-sm md:btn-md md:btn-wide h-10 md:h-auto btn-success rounded-full" disabled={currentUser ? saveDisabled : true}
             aria-label="record-submit"
             onClick={() => {

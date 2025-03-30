@@ -20,6 +20,7 @@ function WorkoutForm(props) {
   const [burnedCalories  , setBurnedCalories  ] = useState(0);
   const [unburnedCalories, setUnburnedCalories] = useState(0);
   const [saveDisabled    , setSaveDisabled    ] = useState(false);
+  const [savedMessage    , setSavedMessage    ] = useState(null);
 
   function changeRecords(minutes, intakedCalorie) {
     if(minutes < 0) return;
@@ -28,6 +29,7 @@ function WorkoutForm(props) {
     setWorkoutTime(minutes);
     setBurnedCalories(burnedKcal);
     setUnburnedCalories(intakedCalorie - burnedKcal);
+    setSavedMessage(null);
   }
 
   const createWorkoutRecord = async(workoutTime, intakedCalorie, burnedCalories, workout) => {
@@ -46,6 +48,7 @@ function WorkoutForm(props) {
     setWorkoutTime(0);
     setBurnedCalories(0);
     setUnburnedCalories(0);
+    setSavedMessage('運動記録を保存しました');
 
     setSaveDisabled(false);
   }
@@ -84,6 +87,7 @@ function WorkoutForm(props) {
         </div>
 
         <div className="mb-5">
+          {currentUser && <p className="text-emerald-500">{savedMessage}</p>}
           {/* 運動時間&消費カロリーを保存 => フォームの値を0にする */}
           <button
             className="btn btn-wide btn-success rounded-xl btn-sm md:btn-md max-w-40 md:max-w-full"
