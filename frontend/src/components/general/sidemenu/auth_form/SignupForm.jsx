@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { signupThunk } from "../../../../Redux/Slice/currentUserSlice";
 import { putDev } from "../../../../utils/devTool";
 import { selectCsrfToken } from "../../../../Redux/Slice/csrfTokenSlice";
+import { modalOpen } from "../../../../utils/modalCtl";
 
 export default function SignupForm() {
   const dispatch = useDispatch();
   const csrfToken = useSelector(selectCsrfToken);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [signupError, setSignupError] = useState(null);
+  const [signupError  , setSignupError  ] = useState(null);
+  const [isAgreePolicy, setIsAgreePolicy] = useState(false);
 
   const registerReq = async (params) => {
     try {
@@ -19,6 +21,14 @@ export default function SignupForm() {
       putDev(error);
       setSignupError('新規登録に失敗しました');
     }
+  }
+
+  function hundleLinkToPolicy() {
+    modalOpen('policy-content')
+  }
+
+  function hundleClickAgree() {
+    setIsAgreePolicy(prev => !prev);
   }
 
   return(
@@ -61,7 +71,7 @@ export default function SignupForm() {
         </label>
 
         {errors.passwordConfirmation?.message && (<p className="text-red-500" role="error" aria-label="signup-password-confirmation-error">{errors.passwordConfirmation.message}</p>)}
-        <label className="input input-bordered flex items-center gap-2 mb-3 md:mb-8 input-sm md:input-md">
+        <label className="input input-bordered flex items-center gap-2 mb-3 input-sm md:input-md">
           <i className="i-lucide-key-round"/>
           <input type="password" className="grow" placeholder="Password Confirmation"
             aria-label="signup-password-confirmation" role="passwordbox"
@@ -74,7 +84,20 @@ export default function SignupForm() {
           />
         </label>
 
-        <input type="submit" aria-label="signup-submit" className="btn btn-primary btn-outline w-full btn-sm md:btn-md"/>
+        <div className="mb-3 w-full">
+          <div className="form-control">
+            <label className="label cursor-pointer justify-start gap-3">
+              <input type="checkbox" className="checkbox checkbox-info checkbox-sm" checked={isAgreePolicy} onClick={hundleClickAgree} />
+
+              <p className="label-text text-xs sm:text-sm">
+                <button type="button" className="link link-info text-center inline-block" onClick={hundleLinkToPolicy}>プライバシーポリシー</button>
+                を確認しました
+              </p>
+            </label>
+          </div>
+        </div>
+
+        <input type="submit" aria-label="signup-submit" disabled={!isAgreePolicy} className="btn btn-primary btn-outline w-full btn-sm md:btn-md"/>
       </form>
     </>
   );
