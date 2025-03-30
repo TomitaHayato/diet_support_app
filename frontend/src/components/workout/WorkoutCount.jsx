@@ -13,6 +13,7 @@ import { selectIntakedCalorie } from "../../Redux/Slice/intakedCalorieSlice";
 import { selectCsrfToken } from "../../Redux/Slice/csrfTokenSlice";
 import { selectTheme } from "../../Redux/Slice/ThemeSlice";
 import { grayText } from "../../utils/style";
+import { useStopwatch } from 'react-timer-hook';
 
 function WorkoutCount(props) {
   const {workout} = props;
@@ -25,29 +26,29 @@ function WorkoutCount(props) {
 
   const [unburnedCalorie, setUnburnedCalorie] = useState(intakedCalorie);
   const [burnedCalorie  , setBurnedCalorie  ] = useState(0);
-  const [workoutSeconds , setWorkoutSeconds ] = useState(0);
   const [saveDisabled   , setSaveDisabled   ] = useState(true);
-  const [isCountDown    , setIsCountDown    ] = useState(false);
   const [savedMessage   , setSavedMessage   ] = useState(null);
 
-  // スタートボタン => isCountDownをtrueに
+  const {
+    totalSeconds,
+    isRunning,
+    start,
+    pause,
+    reset,
+  } = useStopwatch({autoStart: false});
+
   useEffect(() => {
+    if(totalSeconds === 0) return;
+    setBurnedCalorie(prevCalorie => new Big(workout.burnedKcalPerSec).plus(prevCalorie).toNumber())
+    setUnburnedCalorie(prevCalorie => prevCalorie - new Big(workout.burnedKcalPerSec))
     setSavedMessage(null);
-    let intervalId
-    if(isCountDown) {
-      intervalId = setInterval(() => {
-        setWorkoutSeconds(prevSeconds  => prevSeconds + 1);
-        setBurnedCalorie(prevCalorie => new Big(workout.burnedKcalPerSec).plus(prevCalorie).toNumber())
-        setUnburnedCalorie(prevCalorie => prevCalorie - new Big(workout.burnedKcalPerSec))
-      }, 1000);
-    }
-    return () => clearInterval(intervalId);
-  }, [isCountDown, workout.burnedKcalPerSec])
+    console.log(totalSeconds)
+  }, [totalSeconds, workout.burnedKcalPerSec])
 
   //記録を保存処理
-  const createWorkoutRecord = async(workoutSeconds, intakedCalorie, burnedCalorie, workout) => {    
+  const createWorkoutRecord = async() => {
     const params = {
-      workoutTime:      workoutSeconds,
+      workoutTime:      totalSeconds,
       burnedCalories:   Math.floor(burnedCalorie),
       intakedCalories:  intakedCalorie,
       workout_id:       workout.id
@@ -55,12 +56,22 @@ function WorkoutCount(props) {
 
     // 記録をサーバに送信
     dispatch(createWorkoutRecordThunk({params, csrfToken}));
-    // 消費/未消費カロリーと運動時間を0にする
-    setWorkoutSeconds(0);
+    // 消費/未消費カロリーと運動時間を0にする, タイマーリセット, 保存ボタンをdisabledにする
+    reset(null, false);
+    setSaveDisabled(true);
     setBurnedCalorie(0);
     setUnburnedCalorie(0);
     setSavedMessage('運動記録を保存しました');
   };
+
+  function hundleClickTimerStart() {
+    if(isRunning) {
+      pause();
+    } else {
+      start();
+    }
+    setSaveDisabled(!isRunning); //カウントダウン中はdisabledをtrue
+  }
 
   return (
     <>
@@ -81,17 +92,17 @@ function WorkoutCount(props) {
 
         <div className="mb-8">
           <p className={`mb-2 text-lg ${grayText(theme)}`} role="time" aria-label="target">目標: {workout.requiredExerciseTime}分</p>
-          <h3 className="text-5xl mb-2" role="time" aria-label="count">{secondsToMMSS(workoutSeconds)}</h3>
+          <h3 className="text-4xl sm:text-5xl mb-2" role="time" aria-label="count">
+            {secondsToMMSS(totalSeconds)}
+          </h3>
         </div>
 
         <div className="mb-5">
           <button
             className="btn btn-wide btn-md md:btn-lg rounded-full shadow-xl btn-primary"
             aria-label="start-stop"
-            onClick={() => {
-              setIsCountDown(prev => !prev);
-              setSaveDisabled(!isCountDown); //カウントダウン中はdisabledをtrue
-          }}>{isCountDown ? 'ストップ' : 'スタート'}</button>
+            onClick={hundleClickTimerStart}
+          >{isRunning ? 'ストップ' : 'スタート'}</button>
         </div>
 
         <div className=" text-center mb-5">
@@ -99,10 +110,8 @@ function WorkoutCount(props) {
 
           <button className="btn btn-sm md:btn-md md:btn-wide h-10 md:h-auto btn-success rounded-full" disabled={currentUser ? saveDisabled : true}
             aria-label="record-submit"
-            onClick={() => {
-              createWorkoutRecord(workoutSeconds, intakedCalorie, burnedCalorie, workout);
-            }
-          }>運動記録を保存</button>
+            onClick={createWorkoutRecord}
+          >運動記録を保存</button>
           {currentUser ? null : 
             <p className="text-red-500 text-sm">＊ログイン後に保存できます</p>
           }
