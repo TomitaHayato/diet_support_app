@@ -17,7 +17,7 @@ import Terms from "../components/general/Terms";
 import Policy from "../components/general/Policy";
 import { getCsrfTokenThunk } from "../Redux/Slice/csrfTokenSlice";
 import PolicyPage from "./PolicyPage";
-import { bgColor } from "../utils/style";
+import { bgColor, grayText } from "../utils/style";
 
 function App() {
   const dispatch = useDispatch();
@@ -82,7 +82,7 @@ function App() {
 
       {/* 利用規約 */}
       <dialog id="terms-content" className="modal">
-        <div className="modal-box text-sm w-3/4 h-3/4">
+        <div className={`modal-box text-sm w-3/4 h-3/4 ${bgColor(theme)} ${grayText(theme)}`}>
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-sm btn-ghost absolute right-2 top-2">
@@ -98,7 +98,7 @@ function App() {
 
       {/* プライバシーポリシー */}
       <dialog id="policy-content" className="modal">
-        <div className="modal-box text-sm w-3/4 h-3/4">
+        <div className={`modal-box text-sm w-3/4 h-3/4 ${bgColor(theme)} ${grayText(theme)}`}>
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-sm btn-ghost absolute right-2 top-2">

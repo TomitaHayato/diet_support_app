@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import LoginForm from "../sidemenu/auth_form/LoginForm";
 import SignupForm from "../sidemenu/auth_form/SignupForm";
 import { selectTheme } from "../../../Redux/Slice/ThemeSlice";
-import { grayText } from "../../../utils/style";
+import { bgColor, grayText } from "../../../utils/style";
 
 export default function LoginBtn() {
   const theme = useSelector(selectTheme);
@@ -16,7 +16,7 @@ export default function LoginBtn() {
 
        {/* モーダルコンテンツ */}
       <dialog id="login-modal-mobile" className="modal">
-        <div className="modal-box w-3/4 h-2/3">
+        <div className={`modal-box w-3/4 h-2/3 ${bgColor(theme)}`}>
           {/* 閉じるボタン */}
           <div className="modal-action flex justify-end">
             <form method="dialog">
