@@ -39,11 +39,11 @@ function WorkoutCount(props) {
 
   useEffect(() => {
     if(totalSeconds === 0) return;
-    setBurnedCalorie(prevCalorie => new Big(workout.burnedKcalPerSec).plus(prevCalorie).toNumber())
-    setUnburnedCalorie(prevCalorie => prevCalorie - new Big(workout.burnedKcalPerSec))
+    const burnedCalorieVal = new Big(workout.burnedKcalPerSec).times(totalSeconds);
+    setBurnedCalorie(burnedCalorieVal.toNumber());
+    setUnburnedCalorie(new Big(intakedCalorie).minus(burnedCalorieVal).toNumber());
     setSavedMessage(null);
-    console.log(totalSeconds)
-  }, [totalSeconds, workout.burnedKcalPerSec])
+  }, [totalSeconds, workout.burnedKcalPerSec, intakedCalorie])
 
   //記録を保存処理
   const createWorkoutRecord = async() => {
