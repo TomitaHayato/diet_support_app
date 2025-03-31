@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getWeeklyDataThunk, selectWeeklyData } from "../../../../Redux/Slice/workoutRecordsSlice";
+import { getWeeklyDataThunk, selectWeeklyData, selectWeeklyTotal } from "../../../../Redux/Slice/workoutRecordsSlice";
 import ChartBlocks from "./ChartBlocks";
 import { useState } from "react";
 import dayjs from "dayjs";
 
 function BarChartWeek() {
-  const weeklyData = useSelector(selectWeeklyData);
+  const weeklyData  = useSelector(selectWeeklyData);
+  const weeklyTotal = useSelector(selectWeeklyTotal);
   const [weeksAgo  , setWeeksAgo  ] = useState(0);
   const [targetDate, setTargetDate] = useState(dayjs());
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ function BarChartWeek() {
         </div>
       </div>
 
-      <ChartBlocks recordData={weeklyData} timeUnit={'week'} />
+      <ChartBlocks recordData={weeklyData} totalData={weeklyTotal} timeUnit={'week'} />
     </>
   )
 }

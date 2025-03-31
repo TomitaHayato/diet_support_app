@@ -25,21 +25,6 @@ class WorkoutRecord < ApplicationRecord
       .select("month, SUM(workout_time) as total_time, SUM(burned_calories) as total_burned_calories, SUM(intaked_calories) as total_intaked_calories")
   }
 
-  # # 指定した週の合計データ
-  # scope :weekly_total, -> (target_time){
-  #   where(created_at: target_time.all_week).select_records_sum
-  # }
-
-  # # 指定した月の合計データ
-  # scope :monthly_total, -> (target_time){
-  #   where(created_at: target_time.all_month).select_records_sum
-  # }
-
-  # # 指定した年の合計データ
-  # scope :yearly_total, -> (target_time){
-  #   where(created_at: target_time.all_year).select_records_sum
-  # }
-
   scope :select_records_sum, -> {
     select("
       COALESCE(SUM(workout_time), 0)    AS total_time,
