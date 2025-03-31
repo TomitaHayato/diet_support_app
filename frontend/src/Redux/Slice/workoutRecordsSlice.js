@@ -13,13 +13,7 @@ export const getWorkoutRecordsThunk = createAsyncThunk(
       putDev(res);
       if(!res) return rejectWithValue('Error: データの取得に失敗しました。');
 
-      const todayData   = res.data.todayData;
-      const weeklyData  = res.data.weeklyData;
-      const monthlyData = res.data.monthlyData;
-      const yearlyData  = res.data.yearlyData;
-      const historyData = res.data.historyData;
-
-      return { todayData, weeklyData, monthlyData, yearlyData, historyData };
+      return res.data;
     } catch(e) {
       putDev(e);
       return rejectWithValue('Error: データの取得に失敗しました。');
@@ -44,6 +38,7 @@ export const getYearlyDataThunk = createAsyncThunk('workoutRecords/getYearlyData
       putDev("getYearlyDataのres")
       putDev(res);
       if(!res.ok) rejectWithValue('Error: データの取得に失敗しました。');
+
       return res.data;
     } catch(e) {
       putDev('getYearlyDataThunkのエラー');
@@ -125,13 +120,7 @@ export const createWorkoutRecordThunk = createAsyncThunk(
       putDev('postWorkoutRecordのres');
       putDev(res);
       if(!res) return rejectWithValue('Error: データの取得に失敗しました');
-
-      const todayData   = res.data.todayData;
-      const weeklyData  = res.data.weeklyData;
-      const monthlyData = res.data.monthlyData;
-      const yearlyData  = res.data.yearlyData;
-      const historyData = res.data.historyData;
-      return { todayData, weeklyData, monthlyData, yearlyData, historyData };
+      return res.data
     } catch(e) {
       putDev(e);
       return rejectWithValue('Error: データの取得に失敗しました');
@@ -154,6 +143,9 @@ const initialState = {
   weeklyData:  [],
   monthlyData: [],
   yearlyData:  [],
+  weeklyTotal: {},
+  monthlyTotal:{},
+  yearlyTotal: {},
   historyData: [],
   status:     'idle',
   error:       null,
@@ -177,6 +169,9 @@ const workoutRecordsSlice = createSlice({
         state.weeklyData  = action.payload.weeklyData;
         state.monthlyData = action.payload.monthlyData;
         state.yearlyData  = action.payload.yearlyData;
+        state.yearlyTotal = action.payload.yearlyTotal;
+        state.monthlyTotal= action.payload.monthlyTotal;
+        state.weeklyTotal = action.payload.weeklyTotal;
         state.historyData = action.payload.historyData;
       })
       .addCase(getWorkoutRecordsThunk.rejected, (state, action) => {
@@ -190,7 +185,8 @@ const workoutRecordsSlice = createSlice({
       .addCase(getYearlyDataThunk.fulfilled, (state, action) => {
         state.status = 'successed';
         if(!action.payload) return;
-        state.yearlyData = action.payload;
+        state.yearlyData = action.payload.yearlyData;
+        state.yearlyTotal= action.payload.yearlyTotal;
       })
       .addCase(getYearlyDataThunk.rejected, (state, action) => {
         state.status = 'failed';
@@ -203,7 +199,8 @@ const workoutRecordsSlice = createSlice({
       .addCase(getMonthlyDataThunk.fulfilled, (state, action) => {
         state.status = 'successed';
         if(!action.payload) return;
-        state.monthlyData = action.payload;
+        state.monthlyData = action.payload.monthlyData;
+        state.monthlyTotal= action.payload.monthlyTotal;
       })
       .addCase(getMonthlyDataThunk.rejected, (state, action) => {
         state.status = 'failed';
@@ -216,7 +213,8 @@ const workoutRecordsSlice = createSlice({
       .addCase(getWeeklyDataThunk.fulfilled, (state, action) => {
         state.status = 'successed';
         if(!action.payload) return;
-        state.weeklyData = action.payload;
+        state.weeklyData = action.payload.weeklyData;
+        state.weeklyTotal= action.payload.weeklyTotal;
       })
       .addCase(getWeeklyDataThunk.rejected, (state, action) => {
         state.status = 'failed';
@@ -234,6 +232,9 @@ const workoutRecordsSlice = createSlice({
         state.weeklyData  = action.payload.weeklyData;
         state.monthlyData = action.payload.monthlyData;
         state.yearlyData  = action.payload.yearlyData;
+        state.yearlyTotal = action.payload.yearlyTotal;
+        state.monthlyTotal= action.payload.monthlyTotal;
+        state.weeklyTotal = action.payload.weeklyTotal;
         state.historyData = action.payload.historyData;
       })
       .addCase(createWorkoutRecordThunk.rejected, (state, action) => {
@@ -247,6 +248,9 @@ export const selectTodayData   = state => state.workoutRecords.todayData;
 export const selectWeeklyData  = state => state.workoutRecords.weeklyData;
 export const selectMonthlyData = state => state.workoutRecords.monthlyData;
 export const selectYearlyData  = state => state.workoutRecords.yearlyData;
+export const selectYearlyTotal = state => state.workoutRecords.yearlyTotal;
+export const selectMonthlyTotal= state => state.workoutRecords.monthlyTotal;
+export const selectWeeklyTotal = state => state.workoutRecords.weeklyTotal;
 export const selectHistoryData = state => state.workoutRecords.historyData;
 export const selectWorkoutRecordsStatus = state => state.workoutRecords.status;
 
