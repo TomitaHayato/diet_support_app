@@ -81,6 +81,7 @@ describe('コンポーネント： SignupModal.jsxのテスト', () => {
     await user.type(emailForm, formParams.email);
     await user.type(passwordForm, formParams.password);
     await user.type(passwordConfirmForm, formParams.passwordConfirmation);
+    await user.click(screen.getByRole('checkbox', {name: 'policy-agree'}));
     await user.click(screen.getByRole('button', {name: 'signup-submit'}));
     // Mockが呼び出される
     expect(dispatchMock).toHaveBeenCalledWith(signupThunk(formParams));
@@ -104,6 +105,7 @@ describe('コンポーネント： SignupModal.jsxのテスト', () => {
     }
     await user.type(passwordForm, formParams.password);
     await user.type(passwordConfirmForm, formParams.passwordConfirmation);
+    await user.click(screen.getByRole('checkbox', {name: 'policy-agree'}));
     await user.click(screen.getByRole('button', {name: 'signup-submit'}));
     // バイデーションエラー
     expect(dispatchMock).not.toHaveBeenCalled();
@@ -141,6 +143,7 @@ describe('コンポーネント： SignupModal.jsxのテスト', () => {
     await user.type(emailForm, formParams.email);
     await user.type(passwordForm, formParams.password);
     await user.type(passwordConfirmForm, formParams.passwordConfirmation);
+    await user.click(screen.getByRole('checkbox', {name: 'policy-agree'}));
     await user.click(screen.getByRole('button', {name: 'signup-submit'}));
     // エラーが表示
     expect(dispatchMock).not.toHaveBeenCalled();
