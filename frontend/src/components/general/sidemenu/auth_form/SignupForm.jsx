@@ -87,7 +87,7 @@ export default function SignupForm() {
         <div className="mb-3 w-full">
           <div className="form-control">
             <label className="label cursor-pointer justify-start gap-3">
-              <input type="checkbox" aria-label="polisy-agree" className="checkbox checkbox-info checkbox-sm" checked={isAgreePolicy} onClick={hundleClickAgree} />
+              <input type="checkbox" aria-label="policy-agree" className="checkbox checkbox-info checkbox-sm" checked={isAgreePolicy} onClick={hundleClickAgree} />
 
               <p className="label-text text-xs sm:text-sm">
                 <button type="button" className="link link-info text-center inline-block" onClick={hundleLinkToPolicy}>プライバシーポリシー</button>
