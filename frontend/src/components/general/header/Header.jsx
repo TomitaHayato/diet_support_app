@@ -5,9 +5,12 @@ import LoginBtn from "./LoginBtn";
 import ThemeChangeBtn from "../sidemenu/ThemeChangeBtn";
 import HowToUse from "./HowtoUse";
 import { useLocation, useNavigate } from "react-router-dom";
+import { selectTheme } from "../../../Redux/Slice/ThemeSlice";
+import { bgColor } from "../../../utils/style";
 
 function Header() {
   const currentUser = useSelector(selectCurrentUser);
+  const theme = useSelector(selectTheme);
   const location = useLocation();
   const navi     = useNavigate();
 
@@ -22,7 +25,7 @@ function Header() {
 
   return (
     <>
-      <div data-testid="app-intro" className="grid grid-cols-8 px-3 py-2 bg-base-200 border border-base-200 rounded-lg w-full">
+      <div data-testid="app-intro" className="grid grid-cols-8 px-3 py-2 bg-base-100 border border-base-200 rounded-lg w-full">
         <span className="order-1">
           <button className="active:scale-95" onClick={hundleClickLogo}>
             <div className="avatar">
@@ -63,7 +66,7 @@ function Header() {
 
         {/* 使い方モーダル */}
         <dialog id="how-to-use-content" className="modal">
-          <div className="modal-box text-sm w-3/4 h-3/4">
+          <div className={`modal-box text-sm w-3/4 h-3/4 ${bgColor(theme)}`}>
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
               <button className="btn btn-sm btn-ghost absolute right-2 top-2">

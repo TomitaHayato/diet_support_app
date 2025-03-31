@@ -8,8 +8,20 @@ class WorkoutRecordsController < ApplicationController
     monthly_data = current_user.get_complete_monthly_records(now)
     weekly_data  = current_user.get_complete_weekly_records(now)
     today_data   = current_user.get_today_record
+    yearly_total = current_user.get_yearly_total(now)
+    monthly_total= current_user.get_monthly_total(now)
+    weekly_total = current_user.get_weekly_total(now)
     history_data = current_user.get_records_history
-    all_data     = { yearly_data:, monthly_data:, weekly_data:, today_data:, history_data:}
+    all_data     = {
+      yearly_data:,
+      monthly_data:,
+      weekly_data:,
+      today_data:,
+      yearly_total:,
+      monthly_total:,
+      weekly_total:,
+      history_data:
+    }
     render json: all_data, status: 200
   end
 
@@ -17,24 +29,27 @@ class WorkoutRecordsController < ApplicationController
     # 取得したいデータは何年前?
     target_year = params[:years_ago].to_i.years.ago
     yearly_data = current_user.get_complete_yearly_records(target_year)
+    yearly_total= current_user.get_yearly_total(target_year)
 
-    render json: yearly_data
+    render json: {yearly_data:, yearly_total:}
   end
 
   def index_monthly_data
     # 取得したいデータは何ヶ月前か
     target_month = params[:month_ago].to_i.month.ago
     monthly_data = current_user.get_complete_monthly_records(target_month)
+    monthly_total= current_user.get_monthly_total(target_month)
 
-    render json: monthly_data
+    render json: {monthly_data:, monthly_total:}
   end
 
   def index_weekly_data
     # 取得したいデータは何週間前か
     target_week = params[:weeks_ago].to_i.weeks.ago
     weekly_data = current_user.get_complete_weekly_records(target_week)
+    weekly_total= current_user.get_weekly_total(target_week)
 
-    render json: weekly_data
+    render json: {weekly_data:, weekly_total:}
   end
 
   def create

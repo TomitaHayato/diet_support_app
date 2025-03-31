@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getYearlyDataThunk, selectYearlyData } from "../../../../Redux/Slice/workoutRecordsSlice";
+import { getYearlyDataThunk, selectYearlyData, selectYearlyTotal } from "../../../../Redux/Slice/workoutRecordsSlice";
 import ChartBlocks from "./ChartBlocks";
 import { useState } from "react";
 import dayjs from "dayjs";
@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 function BarChartYear() {
   const dispatch   = useDispatch();
   const yearlyData = useSelector(selectYearlyData);
+  const yearlyTotal = useSelector(selectYearlyTotal);
   const [yearsAgo  , setYearsAgo  ] = useState(0);
   const [targetDate, setTargetDate] = useState(dayjs());
 
@@ -42,7 +43,7 @@ function BarChartYear() {
         </div>
       </div>
       
-      <ChartBlocks recordData={yearlyData} timeUnit={'year'} />
+      <ChartBlocks recordData={yearlyData} totalData={yearlyTotal} timeUnit={'year'} />
     </>
   )
 }

@@ -19,6 +19,18 @@ class User < ActiveRecord::Base
     { id:, name:, weight:, email: }
   end
 
+  def get_yearly_total(time)
+    workout_records.yearly_total(time)
+  end
+
+  def get_monthly_total(time)
+    workout_records.monthly_total(time)
+  end
+
+  def get_weekly_total(time)
+    workout_records.weekly_total(time)
+  end
+
   def get_today_record
     workout_records.today_data
   end
@@ -64,6 +76,8 @@ class User < ActiveRecord::Base
       .select("workouts.id, workouts.name, workouts.mets, COUNT(*) AS count, SUM(workout_time) as total_time")
       .order(total_time: :desc)
   end
+
+  # 今年の運動時間の
 
   private
 

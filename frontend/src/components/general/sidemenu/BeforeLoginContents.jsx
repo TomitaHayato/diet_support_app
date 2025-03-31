@@ -13,10 +13,6 @@ function BeforeLoginContents() {
       <Section>
         <p className="text-lg text-center font-semibold mb-2">ログイン / 新規登録</p>
 
-        <div className="mb-3 w-full">
-          <a href="/policy" className="link link-info text-sm text-center block">プライバシーポリシー</a>
-        </div>
-
         <LoginForm />
         <div className={`divider text-xs font-medium my-3 ${grayText(theme)}`}>OR</div>
         <SignupModal />
