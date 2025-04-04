@@ -52,7 +52,12 @@ function WorkoutsIndex(props) {
 
       {/* 検索されたWorkoutを一覧表示 */}
       <div className="max-w-full">
-        <PaginatedWorkouts workouts={filteredWorkouts} itemsPerPage={12} />
+        <PaginatedWorkouts
+          workouts={filteredWorkouts}
+          isOnlyLiked={isOnlyLiked}
+          searchWords={searchWords}
+          filterQuery={filterQuery}
+          itemsPerPage={12} />
       </div>
     </>
   )
