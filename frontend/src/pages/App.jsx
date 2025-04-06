@@ -13,11 +13,12 @@ import FooterMenu from "../components/general/footer/FooterMenu";
 import Records from "./mobile/Records";
 import Profile from "./Profile";
 import Footer from "../components/general/footer/Footer";
-import Terms from "../components/general/Terms";
-import Policy from "../components/general/Policy";
 import { getCsrfTokenThunk } from "../Redux/Slice/csrfTokenSlice";
 import PolicyPage from "./PolicyPage";
-import { bgColor, grayText } from "../utils/style";
+import { bgColor } from "../utils/style";
+import TermsModal from "../components/general/modals/TermsModal";
+import PolicyModal from "../components/general/modals/policyModal";
+import ContactModal from "../components/general/modals/ContactModal";
 
 function App() {
   const dispatch = useDispatch();
@@ -80,37 +81,9 @@ function App() {
         </BrowserRouter>
       </div>
 
-      {/* 利用規約 */}
-      <dialog id="terms-content" className="modal">
-        <div className={`modal-box text-sm w-3/4 h-3/4 ${bgColor(theme)} ${grayText(theme)}`}>
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-ghost absolute right-2 top-2">
-              <i className="i-uiw-close text-red-500 font-bold"/>
-            </button>
-          </form>
-          <Terms />
-        </div>
-        <form method="dialog" className="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog>
-
-      {/* プライバシーポリシー */}
-      <dialog id="policy-content" className="modal">
-        <div className={`modal-box text-sm w-3/4 h-3/4 ${bgColor(theme)} ${grayText(theme)}`}>
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-ghost absolute right-2 top-2">
-              <i className="i-uiw-close text-red-500 font-bold"/>
-            </button>
-          </form>
-          <Policy />
-        </div>
-        <form method="dialog" className="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog>
+      <TermsModal   theme={theme} />
+      <PolicyModal  theme={theme} />
+      <ContactModal theme={theme} />
     </>
   )
 }
