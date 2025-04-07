@@ -26,10 +26,10 @@ export default function ContactForm() {
         <h3 className="text-xl font-bold mb-8 text-center">お問い合わせ</h3>
 
         <div className="mb-8 text-center">
-          {errors.subject && <p className="text-error">{errors.subject.message}</p>}
+          {errors.contact?.subject && <p className="text-error">{errors.contact?.subject.message}</p>}
           <select
             className="select select-sm select-info w-full max-w-xs"
-            {...register("subject", {
+            {...register("contact.subject", {
               validate: val => val !== "ご用件をお選びください" || "ご用件を選択してください"
             })} >
             <option disabled selected>ご用件をお選びください</option>
@@ -40,22 +40,22 @@ export default function ContactForm() {
         </div>
 
         <div className="mb-8">
-          {errors.name && <p className="text-error">{errors.name.message}</p>}
+          {errors.contact?.name && <p className="text-error">{errors.contact.name.message}</p>}
           <label className="input input-sm input-info input-bordered flex items-center gap-2">
             <input
               type="text"
               className="grow"
               placeholder="お名前"
-              {...register("name", { required: "名前を入力してください" })} />
+              {...register("contact.name", { required: "名前を入力してください" })} />
           </label>
         </div>
 
         <div className="mb-8">
-          {errors.body && <p className="text-error">{errors.body.message}</p>}
+          {errors.contact?.body && <p className="text-error">{errors.contact.body.message}</p>}
           <textarea
             className="textarea textarea-info w-full min-h-36"
             placeholder="本文"
-            {...register("body", { required: "内容を入力してください" })}></textarea>
+            {...register("contact.body", { required: "内容を入力してください" })}></textarea>
         </div>
 
         <div className="mb-8">
@@ -81,13 +81,13 @@ export default function ContactForm() {
         {isNeedResponse &&
           <div className="mb-8">
             <p className="text-center mb-2">ご返信先のメールアドレス</p>
-            {errors.email && <p className="text-error">{errors.email.message}</p>}
+            {errors.contact?.email && <p className="text-error">{errors.contact.email.message}</p>}
             <label className="input input-sm lg:input-md input-bordered flex gap-2 items-center">
               <input
                 type="email"
                 className="grow"
                 placeholder="email@example.com"
-                {...register("email", {
+                {...register("contact.email", {
                   validate: val => (isNeedResponse && !val) ? "メールアドレスを入力してください" : true
                 })} />
             </label>
@@ -95,7 +95,7 @@ export default function ContactForm() {
         }
 
         <div className="flex justify-center mb-40">
-          <input type="submit" className="btn btn-info w-8/12"/>
+          <input type="submit" className="btn btn-info w-8/12" onClick={() => console.log(errors)}/>
         </div>
       </form>
     </div>
