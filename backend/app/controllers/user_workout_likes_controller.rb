@@ -8,7 +8,7 @@ class UserWorkoutLikesController < ApplicationController
       current_user.workouts << workout
       render json: current_user.workouts.ids ,status: 201
     else
-      render status: 422
+      head 422
     end
   end
 
@@ -19,7 +19,7 @@ class UserWorkoutLikesController < ApplicationController
       current_user.workouts.destroy(workout)
       render json: current_user.workouts.ids
     else
-      render status: 422
+      head 422
     end
   end
 end

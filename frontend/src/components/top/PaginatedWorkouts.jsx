@@ -4,10 +4,17 @@ import Workouts from "./Workouts";
 import ReactPaginate from 'react-paginate';
 
 export default function PaginatedWorkouts(props) {
-  const {itemsPerPage, workouts} = props;
+  const {
+    itemsPerPage,
+    workouts,
+    isOnlyLiked,
+    searchWords,
+    filterQuery,
+  } = props;
 
   // ページ先頭要素のIndex
   const [itemOffset, setItemOffset] = useState(0);
+  const [page, setPage] = useState(0);
   // ページの末尾要素のIndex
   const endOffset = itemOffset + itemsPerPage;
   putDev(`Loading items from ${itemOffset} to ${endOffset}`);
@@ -21,11 +28,13 @@ export default function PaginatedWorkouts(props) {
     const newOffset = (e.selected * itemsPerPage) % workouts.length;
     putDev(`User requested page number ${e.selected}, which is offset ${newOffset}`);
     setItemOffset(newOffset);
+    setPage(e.selected);
   };
 
   useEffect(() => {
     setItemOffset(0);
-  }, [workouts])
+    setPage(0);
+  }, [isOnlyLiked, searchWords, filterQuery])
 
   return(
     <>
@@ -35,6 +44,7 @@ export default function PaginatedWorkouts(props) {
         breakLabel="..."
         nextLabel=">>"
         onPageChange={handlePageClick}
+        forcePage={page}
         pageRangeDisplayed={2}
         marginPagesDisplayed={1}
         pageCount={allPageCount}

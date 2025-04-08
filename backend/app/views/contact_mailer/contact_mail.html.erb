@@ -1,0 +1,17 @@
+<h3>お名前：</h3>
+<p><%= @contact[:name] %>様</p>
+
+<hr>
+
+<h3>返信：</h3>
+<p><%= @contact[:email] ? "必要： #{@contact[:email]}" : "不要" %></p>
+
+<hr>
+
+<h3>ご要件：</h3>
+<p>「<%= @contact[:subject] %>」</p>
+
+<hr>
+
+<h3>内容：</h3>
+<p><%= @contact[:body] %></p>

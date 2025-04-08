@@ -4,7 +4,7 @@ class WorkoutsController < ApplicationController
     kcal_intake = params[:kcal_intake]&.to_i || 0
 
     if !weight
-      render status: 422 # 体重データが送信されていない場合、422エラーを返す
+      head 422 # 体重データが送信されていない場合、422エラーを返す
       return
     end
 
@@ -22,10 +22,8 @@ class WorkoutsController < ApplicationController
     weight      = params[:weight]&.to_i
     kcal_intake = params[:kcal_intake]&.to_i || 0
 
-    if !weight
-      render status: 422 # 体重データが送信されていない場合、422エラーを返す
-      return
-    end
+    # 体重データが送信されていない場合、422エラーを返す
+    head 422 if !weight
 
     workout_data = workout.make_workout_data(weight, kcal_intake)
 

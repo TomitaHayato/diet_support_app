@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  # letter_opener_web
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   # devise_token_authによる認証用のルーティング
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
     registrations: 'auth/registrations',
@@ -14,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :users     , only: %i[update]
   resources :csrf_token, only: %i[index]
+  resources :contacts  , only: %i[create]
 
   post "workout_records"         => "workout_records#create"
   get  "workout_records"         => "workout_records#index"

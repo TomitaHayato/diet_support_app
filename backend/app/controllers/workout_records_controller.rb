@@ -56,8 +56,7 @@ class WorkoutRecordsController < ApplicationController
     if current_user.workout_records.create(add_today_info_to_params(new_record_params))
       redirect_to action: :index
     else
-      render status: 422
-      return
+      head 422
     end
   end
 
