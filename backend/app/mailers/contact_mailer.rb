@@ -4,11 +4,8 @@ class ContactMailer < ApplicationMailer
     @email   = @contact[:email]
 
     mail(
-      to: Rails.application.credentials.email_for_contact,
-      subject: "お問い合わせ"
+      to: Rails.application.credentials.dig(:gmail, :user),
+      subject: "お問い合わせ [Calorie Work]"
     )
   end
 end
-
-# TODO
-  # Gmailと連携

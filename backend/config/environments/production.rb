@@ -70,6 +70,21 @@ Rails.application.configure do
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
   config.action_mailer.perform_caching = false
+  
+  # Gmailの設定
+  # https://railsguides.jp/v7.2/configuring.html#config-action-mailer-smtp-settings
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:         'smtp.gmail.com',
+    port:            587,
+    domain:          'example.com',
+    user_name:       Rails.application.credentials.dig(:gmail, :user),
+    password:        Rails.application.credentials.dig(:gmail, :pass),
+    authentication:  'plain',
+    enable_starttls: true,
+    open_timeout:    5,
+    read_timeout:    5
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
