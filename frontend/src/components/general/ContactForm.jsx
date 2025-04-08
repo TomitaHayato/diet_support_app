@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form";
+import { contactRequest } from "../../utils/contact_request";
 
 export default function ContactForm() {
   // const currentUser = useSelector(selectCurrentUser);
@@ -16,8 +17,10 @@ export default function ContactForm() {
     setIsNeedResponse(isNeed);
   }
 
-  function onSubmit(data) {
+  const onSubmit = async(data) => {
     console.log(data);
+    const res = await contactRequest(data);
+    console.log(res);
   }
 
   return(
