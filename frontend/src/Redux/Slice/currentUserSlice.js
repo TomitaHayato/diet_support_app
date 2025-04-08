@@ -45,9 +45,6 @@ export const loginThunk = createAsyncThunk(
   'currentUser/loginThunk',
   async({params, token}, {rejectWithValue}) => {
     try {
-      // loginリクエスト
-      console.log(token)
-      console.log(params)
       const res = await signIn(params, token);
       if(!res) return;
       // 認証TokenをCookieに保存
