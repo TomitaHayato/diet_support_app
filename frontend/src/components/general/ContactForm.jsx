@@ -28,7 +28,7 @@ export default function ContactForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <h3 className="text-xl font-bold mb-8 text-center">お問い合わせ</h3>
 
-        <div className="mb-8 text-center">
+        <div className="mb-8">
           {errors.contact?.subject && <p className="text-error">{errors.contact?.subject.message}</p>}
           <select
             className="select select-sm select-info w-full max-w-xs"
