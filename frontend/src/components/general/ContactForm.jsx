@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form";
 import { contactRequest } from "../../utils/contact_request";
+import { putDev } from "../../utils/devTool";
 
-export default function ContactForm() {
-  // const currentUser = useSelector(selectCurrentUser);
+export default function ContactForm(props) {
+  const {setIsSubmitted} = props;
 
   const {
     register,
@@ -12,21 +13,29 @@ export default function ContactForm() {
   } = useForm();
 
   const [isNeedResponse, setIsNeedResponse] = useState(false);
+  const [reqError      , setReqError      ] = useState(null);
 
   function hundleRadioClick(isNeed) {
     setIsNeedResponse(isNeed);
   }
 
   const onSubmit = async(data) => {
-    console.log(data);
     const res = await contactRequest(data);
-    console.log(res);
+    putDev(res);
+    if(res.status === 200) {
+      setIsSubmitted(true);
+      setReqError(null);
+    } else {
+      setReqError("申し訳ございません。お問い合わせ内容を送信できませんでした")
+    }
   }
 
   return(
     <div className="text-sm sm:text-base px-1 pt-3 lg:w-9/12 lg:mx-auto">
       <form onSubmit={handleSubmit(onSubmit)}>
         <h3 className="text-xl font-bold mb-8 text-center">お問い合わせ</h3>
+
+        {reqError && <p className="mb-8 text-error">{reqError}</p>}
 
         <div className="mb-8">
           {errors.contact?.subject && <p className="text-error">{errors.contact?.subject.message}</p>}

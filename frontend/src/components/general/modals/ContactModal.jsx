@@ -1,8 +1,16 @@
+import { useEffect, useState } from "react";
 import { bgColor, grayText } from "../../../utils/style";
 import ContactForm from "../ContactForm";
+import FormSuccessed from "../FormSuccessed";
 
 export default function ContactModal(props) {
   const {theme} = props;
+  // お問い合わせが送信完了したかどうか
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setIsSubmitted(false), 3000);
+  }, [isSubmitted])
 
   return(
     <>
@@ -13,7 +21,10 @@ export default function ContactModal(props) {
               <i className="i-uiw-close text-red-500 font-bold"/>
             </button>
           </form>
-          <ContactForm />
+          {isSubmitted ?
+            <FormSuccessed /> :
+            <ContactForm setIsSubmitted={setIsSubmitted} />
+          }
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
