@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user! # 未認証ユーザーにstatus: :401を返す
 
   def update
-    render status: 422 and return if current_user.id != user_params[:id].to_i
+    head 422 if current_user.id != user_params[:id].to_i
 
     content = nil
     status  = nil
