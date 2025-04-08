@@ -17,8 +17,9 @@ import { getCsrfTokenThunk } from "../Redux/Slice/csrfTokenSlice";
 import PolicyPage from "./PolicyPage";
 import { bgColor } from "../utils/style";
 import TermsModal from "../components/general/modals/TermsModal";
-import PolicyModal from "../components/general/modals/policyModal";
 import ContactModal from "../components/general/modals/ContactModal";
+import PolicyModal from "../components/general/modals/PolicyModal";
+
 
 function App() {
   const dispatch = useDispatch();
