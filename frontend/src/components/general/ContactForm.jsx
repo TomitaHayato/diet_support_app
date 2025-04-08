@@ -14,20 +14,25 @@ export default function ContactForm(props) {
 
   const [isNeedResponse, setIsNeedResponse] = useState(false);
   const [reqError      , setReqError      ] = useState(null);
+  const [isLoading     , setIsLoading     ] = useState(false);
 
   function hundleRadioClick(isNeed) {
     setIsNeedResponse(isNeed);
   }
 
   const onSubmit = async(data) => {
-    const res = await contactRequest(data);
-    putDev(res);
-    if(res.status === 200) {
+    setIsLoading(true);
+
+    try {
+      const res = await contactRequest(data);
+      putDev(res);
       setIsSubmitted(true);
       setReqError(null);
-    } else {
+    } catch(e) {
+      putDev(e);
       setReqError("申し訳ございません。お問い合わせ内容を送信できませんでした")
     }
+    setIsLoading(false);
   }
 
   return(
@@ -107,7 +112,16 @@ export default function ContactForm(props) {
         }
 
         <div className="flex justify-center mb-40">
-          <input type="submit" className="btn btn-info w-8/12" onClick={() => console.log(errors)}/>
+          <button type="submit" className="btn btn-outline btn-info w-8/12" disabled={isLoading}>
+          {isLoading ?
+            <div className="flex justify-center items-center">
+              <span className="loading loading-ring loading-xs text-blue-400"></span>
+              <span className="loading loading-ring loading-sm text-blue-400"></span>
+              <span className="loading loading-ring loading-md text-blue-400"></span>
+              <span className="loading loading-ring loading-lg text-blue-400"></span>
+            </div> : "送信"
+          }
+          </button>
         </div>
       </form>
     </div>
