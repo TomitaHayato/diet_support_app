@@ -1,12 +1,12 @@
 class ContactsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def create
-    if validation(@contact_params)
-      ContactMailer.with(contact: @contact).contact_mail.deliver_now
-      render status: 200
-      return
+    if validation(contact_params)
+      ContactMailer.with(contact: contact_params).contact_mail.deliver_now
+      head 200
     else
-      render status: 422
-      return
+      head 422
     end
   end
 

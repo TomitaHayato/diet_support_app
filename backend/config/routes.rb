@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  # letter_opener_web
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   # devise_token_authによる認証用のルーティング
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
     registrations: 'auth/registrations',

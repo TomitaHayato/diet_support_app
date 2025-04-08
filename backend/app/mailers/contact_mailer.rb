@@ -1,7 +1,7 @@
 class ContactMailer < ApplicationMailer
   def contact_mail
     @contact = params[:contact]
-    @email   = @contact.email || false
+    @email   = @contact[:email]
 
     mail(
       to: Rails.application.credentials.email_for_contact,
@@ -9,3 +9,6 @@ class ContactMailer < ApplicationMailer
     )
   end
 end
+
+# TODO
+  # Gmailと連携
