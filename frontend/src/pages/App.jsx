@@ -19,6 +19,7 @@ import { bgColor } from "../utils/style";
 import TermsModal from "../components/general/modals/TermsModal";
 import ContactModal from "../components/general/modals/ContactModal";
 import PolicyModal from "../components/general/modals/PolicyModal";
+import FirstPage from "./FirstPage";
 
 
 function App() {
@@ -56,7 +57,8 @@ function App() {
 
                 <div className="py-3 px-1 lg:px-5 mb-20 lg:mb-0 mt-12 lg:mt-0">
                   <Routes>
-                    <Route path="/"            element={<Top />} />
+                    <Route path="/"            element={<FirstPage />} />
+                    <Route path="/top"         element={<Top />} />
                     <Route path="/workout/:id" element={<Workout />} />
                     <Route path="/records"     element={<Records />} />
                     <Route path="/profile"     element={<Profile />} />

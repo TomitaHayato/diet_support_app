@@ -1,9 +1,9 @@
-import client from "./apiClient";
-import { authTokensInCookie } from "./auth";
+import client from './apiClient';
+import { authTokensInCookie } from './auth';
 
 export function workoutRequest(paramsInfo) {
   return (
-    client.get("/workouts", {
+    client.get('/workouts', {
       params:  paramsInfo,
       headers: authTokensInCookie(),
     })
@@ -21,7 +21,7 @@ export function workoutShowRequest(id, params) {
 
 export function workoutsIdNamesRequest() {
   return (
-    client.get("/workout_names", {
+    client.get('/workout_names', {
       headers: authTokensInCookie(),
     })
   )

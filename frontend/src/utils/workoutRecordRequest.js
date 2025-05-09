@@ -1,12 +1,12 @@
-import client from "./apiClient";
-import { authTokensInCookie, isAccessTokenInCookie } from "./auth";
+import client from './apiClient';
+import { authTokensInCookie, isAccessTokenInCookie } from './auth';
 
 export function postWorkoutRecord(params, csrfToken) {
   //tokenがない場合は何もしない
   if(!isAccessTokenInCookie()) return;
 
-  return client.post("/workout_records", params, {
-    headers: { ...authTokensInCookie(), "X-CSRF-Token": csrfToken },
+  return client.post('/workout_records', params, {
+    headers: { ...authTokensInCookie(), 'X-CSRF-Token': csrfToken },
     withCredentials: true,
   })
 }
@@ -16,7 +16,7 @@ export function getWorkoutRecords() {
   //tokenがない場合は何もしない
   if(!isAccessTokenInCookie()) return;
 
-  return client.get("/workout_records", {
+  return client.get('/workout_records', {
     headers: authTokensInCookie()
   })
 }
