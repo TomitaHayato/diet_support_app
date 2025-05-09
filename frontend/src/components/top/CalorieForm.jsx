@@ -5,12 +5,16 @@ import { selectWeight, setWeight } from "../../Redux/Slice/weightSlice";
 import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
 import { grayText } from "../../utils/style";
 import { selectTheme } from "../../Redux/Slice/ThemeSlice";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function CalorieForm() {
   const theme          = useSelector(selectTheme);
   const weight         = useSelector(selectWeight);
   const intakedCalorie = useSelector(selectIntakedCalorie);
   const currentUser    = useSelector(selectCurrentUser);
+
+  const loca = useLocation();
+  const navi = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -36,21 +40,24 @@ function CalorieForm() {
 
     dispatch(setCalorie(inputCalorie));
     dispatch(setWeight(inputWeight));
+
+    // Topページにいない場合は、遷移
+    if(loca.pathname === '/top') return;
+    navi('/top');
   }
 
   return (
     <>
       <div className="text-xs md:text-base">
-        <p className="text-center my-3 text-[0.7rem] md:text-sm">
+        <p className="text-center my-3 px-2 text-[0.85rem] md:text-sm lg:text-base"> 
           「消費したいカロリー」と「あなたの体重」を入力して下さい。
-          <br />
-          必要な運動時間を計算し、表示します。
+          必要な運動時間を計算します。
         </p>
 
         {/* エラーメッセージ */}
         <p className="text-center text-[0.7rem] md:text-sm text-error">{inputError}</p>
 
-        <div className='flex flex-row gap-2 md:gap-4 justify-center'>
+        <div className='flex flex-row gap-2 md:gap-4 justify-center mb-3 md:mb-8'>
           <div className='tooltip' data-tip="消費したいカロリー（整数）">
             <label className="input input-primary input-bordered flex items-center gap-2 lg:text-base input-sm lg:input-md max-w-28 md:max-w-full min-h-10">
               <span className='text-gray-400'>kcal</span>
@@ -71,7 +78,7 @@ function CalorieForm() {
           <button className='btn btn-primary btn-sm md:btn-md md:mx-2 min-h-10' onClick={hundleClickSearch}>調べる</button>
         </div>
 
-        <p className={`text-center my-3 text-[0.6rem] md:text-sm w-10/12 mx-auto ${grayText(theme)}`}>
+        <p className={`text-center mb-3 text-[0.6rem] md:text-sm w-10/12 mx-auto ${grayText(theme)}`}>
           消費カロリーの計算は以下を参考に計算しております。
           <br />
           厚生労働省

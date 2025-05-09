@@ -19,7 +19,7 @@ import { bgColor } from "../utils/style";
 import TermsModal from "../components/general/modals/TermsModal";
 import ContactModal from "../components/general/modals/ContactModal";
 import PolicyModal from "../components/general/modals/PolicyModal";
-import FirstPage from "./FirstPage";
+import RootPage from "./RootPage";
 
 
 function App() {
@@ -55,9 +55,9 @@ function App() {
                   <Header />
                 </div>
 
-                <div className="py-3 px-1 lg:px-5 mb-20 lg:mb-0 mt-12 lg:mt-0">
+                <div className="py-3 px-1 lg:px-5 mb-20 lg:mb-0 mt-12 lg:mt-0 min-h-full">
                   <Routes>
-                    <Route path="/"            element={<FirstPage />} />
+                    <Route path="/"            element={<RootPage />} />
                     <Route path="/top"         element={<Top />} />
                     <Route path="/workout/:id" element={<Workout />} />
                     <Route path="/records"     element={<Records />} />
