@@ -45,11 +45,12 @@ export default function ContactForm(props) {
         <div className="mb-8">
           {errors.contact?.subject && <p className="text-error">{errors.contact?.subject.message}</p>}
           <select
-            className="select select-sm select-info w-full max-w-xs"
+            className="select select-sm w-full max-w-xs"
+            defaultValue="ご用件をお選びください"
             {...register("contact.subject", {
               validate: val => val !== "ご用件をお選びください" || "ご用件を選択してください"
-            })} >
-            <option disabled selected>ご用件をお選びください</option>
+            })}>
+            <option disabled>ご用件をお選びください</option>
             <option>バグ・不具合</option>
             <option>ご要望・改善点</option>
             <option>その他</option>
@@ -58,7 +59,7 @@ export default function ContactForm(props) {
 
         <div className="mb-8">
           {errors.contact?.name && <p className="text-error">{errors.contact.name.message}</p>}
-          <label className="input input-sm input-info input-bordered flex items-center gap-2">
+          <label className="input input-sm flex items-center gap-2">
             <input
               type="text"
               className="grow"
@@ -70,7 +71,7 @@ export default function ContactForm(props) {
         <div className="mb-8">
           {errors.contact?.body && <p className="text-error">{errors.contact.body.message}</p>}
           <textarea
-            className="textarea textarea-info w-full min-h-36"
+            className="textarea w-full min-h-36"
             placeholder="本文"
             {...register("contact.body", { required: "内容を入力してください" })}></textarea>
         </div>
@@ -80,17 +81,17 @@ export default function ContactForm(props) {
 
           <div className="w-9/12 lg:w-5/12 flex gap-2 mx-auto">
             <div className="form-control">
-              <labal className="label cursor-pointer">
-                <span className="label-text mx-1">必要</span>
-                <input type="radio" name="radio-res" className="radio radio-sm checked:bg-blue-500" onChange={() => hundleRadioClick(true)} />
-              </labal>
+              <label className="label cursor-pointer">
+                <span className="label-text mx-1 text-gray-400">必要</span>
+                <input type="radio" name="radio-res" className="radio radio-sm radio-info" onChange={() => hundleRadioClick(true)} />
+              </label>
             </div>
 
             <div className="form-control">
-              <labal className="label cursor-pointer">
-                <span className="label-text mx-1">不要</span>
-                <input type="radio" name="radio-res" className="radio radio-sm checked:bg-blue-500" defaultChecked onChange={() => hundleRadioClick(false)} />
-              </labal>
+              <label className="label cursor-pointer">
+                <span className="label-text mx-1 text-gray-400">不要</span>
+                <input type="radio" name="radio-res" className="radio radio-sm radio-info" defaultChecked onChange={() => hundleRadioClick(false)} />
+              </label>
             </div>
           </div>
         </div>

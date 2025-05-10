@@ -19,14 +19,17 @@ import { bgColor } from "../utils/style";
 import TermsModal from "../components/general/modals/TermsModal";
 import ContactModal from "../components/general/modals/ContactModal";
 import PolicyModal from "../components/general/modals/PolicyModal";
-
+import RootPage from "./RootPage";
+import Toast from "../components/general/Toast";
+import { selectToastObj } from "../Redux/Slice/toastSlice";
+import { selectTheme } from "../Redux/Slice/ThemeSlice";
 
 function App() {
   const dispatch = useDispatch();
 
-  const theme = useSelector(state => state.theme.name);
-  const currentUser = useSelector(selectCurrentUser);
-
+  const theme                  = useSelector(selectTheme);
+  const currentUser            = useSelector(selectCurrentUser);
+  const { message, isVisible } = useSelector(selectToastObj);
 
   // 認証トークンを保持していればログインユーザデータ取得
   useEffect(() => {
@@ -41,7 +44,7 @@ function App() {
       dispatch(getWorkoutRecordsThunk());
       dispatch(setWeight(currentUser.weight)); // weightにログインユーザの体重をセット
     }
-  }, [currentUser, dispatch])
+  }, [currentUser, dispatch]);
 
   return (
     <>
@@ -50,13 +53,17 @@ function App() {
           <div className="flex mx-auto h-full">
             <div className="w-full lg:w-3/4">
               <div className="overflow-y-scroll lg:overscroll-none h-full">
+
+                { isVisible && <Toast message={message}/> }
+
                 <div className="fixed z-10 lg:static w-full">
                   <Header />
                 </div>
 
-                <div className="py-3 px-1 lg:px-5 mb-20 lg:mb-0 mt-12 lg:mt-0">
+                <div className="py-3 px-1 lg:px-5 mb-20 lg:mb-0 mt-12 lg:mt-0 min-h-full">
                   <Routes>
-                    <Route path="/"            element={<Top />} />
+                    <Route path="/"            element={<RootPage />} />
+                    <Route path="/top"         element={<Top />} />
                     <Route path="/workout/:id" element={<Workout />} />
                     <Route path="/records"     element={<Records />} />
                     <Route path="/profile"     element={<Profile />} />

@@ -8,8 +8,8 @@ function FooterMenu() {
 
   return(
     <>
-      <div className="btm-nav h-[4.5rem] z-50">
-        <button onClick={() => navi('/')}>
+      <div className="btm-nav h-[4.5rem] z-40">
+        <button onClick={() => navi('/top')}>
           <i className="i-lucide-home"/>
           <span className="btm-nav-label">Home</span>
         </button>

@@ -19,8 +19,8 @@ function Header() {
   }
 
   function hundleClickLogo() {
-    if(location.pathname === '/') return;
-    navi('/');
+    if(location.pathname === '/top' || location.pathname === '/') return;
+    navi('/top');
   }
 
   return (

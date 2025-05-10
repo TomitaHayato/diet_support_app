@@ -5,11 +5,14 @@ export default function TopPageLink() {
 
   //トップページに遷移
   function transTop() {
-    navi("/");
+    navi('/top');
   }
+
   return(
     <>
-      <button aria-label="link-to-top" onClick={transTop} className="btn btn-wide btn-info btn-outline btn-sm lg:btn-md">運動一覧へ</button>
+      <button aria-label="link-to-top" onClick={transTop} className="btn btn-wide btn-info btn-outline btn-sm lg:btn-md">
+        運動一覧へ
+      </button>
     </>
   )
 }

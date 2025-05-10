@@ -16,7 +16,7 @@ function WorkoutCard(props) {
               {workout.tagList?.map((tagName) => {
                 return (
                   <div key={`${workout.id}-${tagName}`}>
-                    <p className="badge badge-sm text-[0.5rem] text-emerald-600 badge-outline">
+                    <p className="badge badge-sm text-[0.6rem] text-info badge-outline">
                       {tagName}
                     </p>
                   </div>
