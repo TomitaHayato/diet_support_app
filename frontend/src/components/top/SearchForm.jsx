@@ -6,6 +6,7 @@ import { removeUnspecified, searchAndFilter } from "../../utils/search";
 import AutoComplete from "./AutoComplete";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Slice/currentUserSlice";
+import { useToast } from "../../customHooks/useToast";
 
 function SearchForm(props) {
   const {workoutsObj, autoCompleteList ,setAutoCompleteList, setSearchWords, setFilterQuery, isOnlyLiked, setIsOnlyLiked} = props;
@@ -13,9 +14,11 @@ function SearchForm(props) {
   const [inputWords     , setInputWords     ] = useState(''); // 検索Formの入力値 =>「検索」ボタンClickでsearchWordsにset
   const [selectedOptions, setSelectedOptions] = useState(defaultSelectedOptions());
   const currentUser = useSelector(selectCurrentUser);
+
   // 検索FormがActiveかどうか
   const [isFormActive, setIsFormActive] = useState(false);
   const [isFilterBoxOpen, setIsFilterBoxOpen] = useState(false);
+  const { triggerToast } = useToast();
 
   // 検索・絞り込みクエリを反映
   function settingSearchQuery() {
@@ -23,6 +26,15 @@ function SearchForm(props) {
     setFilterQuery(
       removeUnspecified(selectedOptions)
     );
+  }
+
+  // お気に入り済みのみに絞り込み
+  function filteringFavorite() {
+    if (!currentUser) {
+      triggerToast('needLogin');
+      return;
+    }
+    setIsOnlyLiked(prev => !prev)
   }
 
   useEffect(() => settingSearchQuery(), [workoutsObj]); // apiからWorkoutデータを取得した際、検索クエリを反映
@@ -78,9 +90,12 @@ function SearchForm(props) {
 
         {/* お気に入りのみ */}
         <div>
-          <button className={`btn btn-sm text-xs lg:text-sm ${isOnlyLiked ? "text-white bg-blue-600 hover:bg-blue-600" : "btn-outline"}`} onClick={() => {
-            if(currentUser) setIsOnlyLiked(prev => !prev)
-          }}><i className="i-uiw-heart-on text-pink-400"/><span className="hidden lg:block">済み</span></button>
+          <button
+            className={`btn btn-sm text-xs lg:text-sm ${isOnlyLiked ? "text-white bg-blue-600 hover:bg-blue-600" : "btn-outline"}`}
+            onClick={filteringFavorite}>
+            <i className="i-uiw-heart-on text-pink-400"/>
+            <span className="hidden lg:block">済み</span>
+          </button>
         </div>
 
         {/* 絞り込み */}
